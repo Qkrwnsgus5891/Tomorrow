@@ -1,0 +1,19 @@
+** 톰캣 서버 중지 후 코드 추가하기 **
+
+1. 이클립스 Servers 파일 -> server.xml에서 <GlobalNamingResources></GlobalNamingResources>에 다음의 코드 추가
+	<Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxActive="50" maxWait="3000" name="jdbc/tomorrowLocal" password="asdf" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe" username="tomorrow"/>
+	<Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxActive="50" maxWait="3000" name="jdbc/tomorrowPclass" password="asdf" type="javax.sql.DataSource" url="jdbc:oracle:thin:@112.220.63.3:1521:xe" username="tomorrow"/>
+
+
+2. 이클립스 Servers 파일 ->context.xml에서 <Context></Context>에 다음의코드 추가
+	<Resource auth="Container" name="jdbc/tomorrowLocal" type="javax.sql.DataSource" 
+    		maxActive="50" maxWait="3000" 
+	    	driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@localhost:1521:xe" username="tomorrow" password="asdf" /> 
+	<Resource auth="Container" name="jdbc/tomorrowPclass" type="javax.sql.DataSource" 
+    		maxActive="50" maxWait="3000" 
+	    	driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@112.220.63.3:1521:xe" username="tomorrow" password="asdf" />   
+
+3. 프로젝트 내의 web.xml설정은 작성해두었습니다.
+	- 톰캣 서버 실행 이후 주소 창 http://localhost:8090/house/main.do에서 로그인 창 확인 및 
+	member테이블에 있는 회원의 id, pw를 보고 로그인 해보기
+	*sql문 insert이후 commit실행하였는지 확인 후 로그인
