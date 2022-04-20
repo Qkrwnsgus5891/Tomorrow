@@ -1,31 +1,17 @@
 package kh.semi.tomorrow.product.model.vo;
 
 public class ProductVo {
-	private String pNo;
+	private int pNo;
 	private String pName; 
 	private String pBrand;
 	private String pContent;
 	private int pPrice;
 	private int cateId;
 	private String cateName;
-	private String optNo;
+	private int optNo;
 	private String optVal;
-	private String optPrice;	
+	private int optPrice;
 	
-	public ProductVo(String pNo, String pName, String pBrand, String pContent, int pPrice, int cateId, String cateName,
-			String optNo, String optVal, String optPrice) {
-		this.pNo = pNo;
-		this.pName = pName;
-		this.pBrand = pBrand;
-		this.pContent = pContent;
-		this.pPrice = pPrice;
-		this.cateId = cateId;
-		this.cateName = cateName;
-		this.optNo = optNo;
-		this.optVal = optVal;
-		this.optPrice = optPrice;
-	}
-
 	@Override
 	public String toString() {
 		return "ProductVo [pNo=" + pNo + ", pName=" + pName + ", pBrand=" + pBrand + ", pContent=" + pContent
@@ -33,11 +19,11 @@ public class ProductVo {
 				+ ", optVal=" + optVal + ", optPrice=" + optPrice + "]";
 	}
 
-	public String getpNo() {
+	public int getpNo() {
 		return pNo;
 	}
 
-	public void setpNo(String pNo) {
+	public void setpNo(int pNo) {
 		this.pNo = pNo;
 	}
 
@@ -89,11 +75,11 @@ public class ProductVo {
 		this.cateName = cateName;
 	}
 
-	public String getOptNo() {
+	public int getOptNo() {
 		return optNo;
 	}
 
-	public void setOptNo(String optNo) {
+	public void setOptNo(int optNo) {
 		this.optNo = optNo;
 	}
 
@@ -105,12 +91,16 @@ public class ProductVo {
 		this.optVal = optVal;
 	}
 
-	public String getOptPrice() {
+	public int getOptPrice() {
 		return optPrice;
 	}
 
-	public void setOptPrice(String optPrice) {
+	public void setOptPrice(int optPrice) {
 		this.optPrice = optPrice;
-	}
+	}	
+	
+	
+	
+	
 	
 }

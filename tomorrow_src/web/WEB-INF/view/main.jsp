@@ -34,7 +34,7 @@
     <div id="container">
       <div class="btn_group">
         <button type="button" id="cmty_btn" onclick="location.href='index.html';">커뮤니티 페이지 바로가기</button>
-        <button type="button" id="store_btn" onclick="location.href='index/index2.html';">스토어 페이지 바로가기</button>      
+        <button type="button" id="store_btn" onclick="location.href='store';">스토어 페이지 바로가기</button>      
       </div>
     </div> 
     </section>  

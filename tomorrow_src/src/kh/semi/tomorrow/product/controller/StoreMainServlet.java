@@ -16,14 +16,14 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 /**
  * Servlet implementation class ProductListServlet
  */
-@WebServlet("/funiture")
-public class ProductListServlet extends HttpServlet {
+@WebServlet("/store")
+public class StoreMainServlet extends HttpServlet {
 	private ProductService service = new ProductService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductListServlet() {
+	public StoreMainServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,7 +34,7 @@ public class ProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/product/productList.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);
 
 //		int currentPage = 1;
 //
