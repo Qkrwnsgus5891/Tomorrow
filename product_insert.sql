@@ -19,80 +19,82 @@ insert into option_parent values (2, '사이즈');
 insert into option_parent values (3, '추가상품');
 
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 1, 'white', 92900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 1, 'gray', 92900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 1, 'black', 92900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 1, 'white', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 1, 'gray', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 1, 'black', 0);
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 2, 'single', 92900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 2, 'super single', 102900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 2, 'queen', 122900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 2, 'single', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 2, 'super single', 20000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 1, 2, 'queen', 30000);
 
 --002
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 1, 'white', 39800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 1, 'gray', 39800);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 1, 'white', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 1, 'gray', 0);
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 600~2400', 39800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 낮은선반', 89800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 중간선반', 92800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 높은선반', 95800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 더블선반', 109800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 1200~1800', 89800);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 600~2400', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 낮은선반', 50000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 중간선반', 60000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 높은선반', 70000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 + 더블선반', 80000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 2, 2, '테이블 1200~1800', 60000);
 
 --003
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 1, '코튼 화이트', 1739000);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 1, '소프트 블루', 1739000);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 1, '라이트 그레이', 1739000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 1, '코튼 화이트', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 1, '소프트 블루', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 1, '라이트 그레이', 0);
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 2, '4인', 1739000);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 2, '6인', 1939000);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 2, '8인', 2189000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 2, '4인', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 2, '6인', 200000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 3, 2, '8인', 400000);
 
 --004
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 1, '레이스 커튼', 19900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 1, '쉬폰 커튼', 19900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 1, '레이스 커튼', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 1, '쉬폰 커튼', 0);
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 2, '나비주름', 19900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 2, '핀형', 19900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 2, '봉집', 19900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 2, '나비주름', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 2, '핀형', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 4, 2, '봉집', 0);
 
 --005
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '화이트', 37900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '크림아이보리', 37900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '핑크', 37900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '모카브라운', 37900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '그레이', 37900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '버터엘로우', 37900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '화이트', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '크림아이보리', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '핑크', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '모카브라운', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '그레이', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 1, '버터엘로우', 0);
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 2, '싱글', 37900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 2, '슈퍼 싱글', 57900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 2, '퀸/킹 겸용', 87900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 2, '싱글', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 2, '슈퍼 싱글', 20000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 5, 2, '퀸/킹 겸용', 50000);
 
 --006
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '화이트', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '연회색', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '진회색', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '크림', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '모카', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '블루그레이', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '코랄핑크', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '피스타치오', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '파스텔핑크', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '파스텔엘로우', 28500);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '파스텔블루', 28500);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '화이트', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '연회색', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '진회색', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '크림', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '모카', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '블루그레이', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '코랄핑크', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '피스타치오', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '파스텔핑크', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '파스텔엘로우', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 6, 1, '파스텔블루', 0);
 
 --007
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 7, 3, '조명 IoT 구글홈 절전 + 11,900원', 25900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 7, 3, '조명 IoT 구글홈 절전 + 11,900원', 11900);
 
 --008
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '화이트', 29900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '엘로우', 29900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '블랙', 29900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '레드', 29900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '화이트', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '엘로우', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '블랙', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 1, '레드', 0);
 
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 2, '클램프 스탠드', 29900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 2, '레트로 스탠드', 33900);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 2, '레트로 클립 스탠드', 35900);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 2, '클램프 스탠드', 0);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 2, '레트로 스탠드', 10000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 8, 2, '레트로 클립 스탠드', 25000);
 
 --009
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 9, 3, '어뎁터 5V 2A + 3,000원', 25800);
-insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 9, 3, 'AAA건전지(2알) + 1000원', 23800);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 9, 3, '어뎁터 5V 2A + 3,000원', 3000);
+insert into product_detail values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 9, 3, 'AAA건전지(2알) + 1000원', 1000);
+
+COMMIT;
