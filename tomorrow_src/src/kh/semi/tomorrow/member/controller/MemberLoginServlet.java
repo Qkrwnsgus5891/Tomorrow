@@ -26,7 +26,7 @@ public class MemberLoginServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet - login");
-		request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/member/test_login.jsp").forward(request, response);
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class MemberLoginServlet extends HttpServlet {
 		} else {
 			System.out.println("로그인 성공");
 			request.getSession().setAttribute("ssMV", vo);
-			response.sendRedirect(request.getContextPath()+ "/main");
+			response.sendRedirect(request.getContextPath()+ "/test.do");
 		}
 	}
 

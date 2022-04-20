@@ -1,55 +1,44 @@
-<%@page import="kh.semi.tomorrow.member.model.vo.MemberVo"%>
+<link href="<%= request.getContextPath() %>/resources/css/reset.css" rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Tomorrow : test</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>  
-	<link href="<%= request.getContextPath() %>/css/reset.css" rel="stylesheet" type="text/css">
+<title>main page</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>  	  	
+  	<style>       
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+    #container {           
+      position: relative;
+      background: url('resources/images/main_bg.jpg')  no-repeat;
+      background-size: cover;
+      height: 1000px;
+    }
+    .btn_group {
+      position: absolute;
+      /* border: 1px solid red; */
+      width: 800px;
+      bottom: 35%;
+      left: 35%;
+    }    
+    #cmty_btn, #store_btn {      
+      margin: 0 50px;         
+      width: 220px;
+      height: 150px;
+      border: 1px solid white;
+      border-radius: 220px;     
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 1.5em;       
+    }
+  </style>
 </head>
 <body>
-	<header>	
-		<%
-	MemberVo ssMV = (MemberVo)session.getAttribute("ssMV");
-	if(ssMV == null) {
-%>
-            	<button id="login">로그인</button>
-<% } else { %>
-            	<button id="logout">로그아웃</button>
-<% } %>
-	<hr>
-    </header>
-	<section>
-          <article>
-            <h3>제목1</h3>
-            <div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-            </div>  
-          </article>
-    <div id="container">
+	<div id="container">
       <div class="btn_group">
-        <button type="button" id="cmty_btn" onclick="location.href='index.html';">커뮤니티 페이지 바로가기</button>
-        <button type="button" id="store_btn" onclick="location.href='store';">스토어 페이지 바로가기</button>      
+        <button type="button" id="cmty_btn" onclick="location.href='test.do';">커뮤니티 페이지 바로가기</button>
+        <button type="button" id="store_btn" onclick="location.href='test.do';">스토어 페이지 바로가기</button>      
       </div>
     </div> 
-    </section>  
-    
-    <script>
-    { /* 로그인 & 로그아웃 jQery */
-    	$("#login").click(function() {
-    		location.href="login";
-    	});
-		$("#logout").click(function() {
-			location.href="logout";
-    	});    	
-    }
-    	
-    
-    </script>   
 </body>
 </html>

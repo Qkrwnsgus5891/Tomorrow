@@ -28,7 +28,7 @@ public class MemberLogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet - logout");
 		request.getSession().removeAttribute("ssMV");
-		response.sendRedirect(request.getContextPath()+ "/main.do");
+		response.sendRedirect(request.getContextPath()+ "/test.do");
 	}
 
 	/**
