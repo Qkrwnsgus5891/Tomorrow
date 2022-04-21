@@ -37,7 +37,7 @@
             </svg>  
           </a>  
 <% } %>
-          <button type="button" id="write_btn" onclick="location.href='#'; ">글쓰기</button>
+          <button type="button" id="write_btn" onclick="location.href='enroll'; ">글쓰기</button>
         </div>      
       </div> 
     </div>    
