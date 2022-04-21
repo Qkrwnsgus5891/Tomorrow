@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="template_header.jsp"/>		
 	
-	<hr>
+
     <article>
      <h3>제목1</h3>
         <div>
