@@ -1,3 +1,5 @@
+<link href="<%= request.getContextPath() %>/resources/css/reset.css" rel="stylesheet" type="text/css">
+<link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,9 +49,10 @@ table tr td {
 </style>
 </head>
 <body>
+	
 	<div class="main_wrap">
 		<div class="wrap_header">
-			<header> </header>
+			<jsp:include page="../template_header.jsp"/>
 		</div>
 		<div class="wrap_content">
 			<div class="content">
@@ -72,48 +75,48 @@ table tr td {
 					<div class="one">
 						<table>
 							<tr>
-								<td>이미지 경로</td>
+								<td>${vo.pContent }</td>
 							</tr>
 							<tr>
-								<td>상품이름</td>
+								<td>${vo.pName }</td>
 							</tr>
 							<tr>
-								<td>브랜드이름</td>
+								<td>${vo.pBrand }</td>
 							</tr>
 							<tr>
-								<td>상품가격</td>
+								<td>${vo.pPrice }</td>
 							</tr>
 						</table>
 					</div>
 					<div class="two">
 						<table>
 							<tr>
-								<td>이미지 경로</td>
+								<td>${vo.pContent }</td>
 							</tr>
 							<tr>
-								<td>상품이름</td>
+								<td>${vo.pName }</td>
 							</tr>
 							<tr>
-								<td>브랜드이름</td>
+								<td>${vo.pBrand }</td>
 							</tr>
 							<tr>
-								<td>상품가격</td>
+								<td>${vo.pPrice }</td>
 							</tr>
 						</table>
 					</div>
 					<div class="three">
 						<table>
 							<tr>
-								<td>이미지 경로</td>
+								<td>${vo.pContent }</td>
 							</tr>
 							<tr>
-								<td>상품이름</td>
+								<td>${vo.pName }</td>
 							</tr>
 							<tr>
-								<td>브랜드이름</td>
+								<td>${vo.pBrand }</td>
 							</tr>
 							<tr>
-								<td>상품가격</td>
+								<td>${vo.pPrice }</td>
 							</tr>
 						</table>
 					</div>
@@ -130,7 +133,7 @@ table tr td {
 			</section>
 		</div>
 		<div class="wrap_footer">
-			<footer> </footer>
+			<jsp:include page="../template_footer.jsp"/>
 		</div>
 	</div>
 

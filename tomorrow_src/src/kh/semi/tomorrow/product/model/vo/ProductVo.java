@@ -12,12 +12,25 @@ public class ProductVo {
 	private String optVal;
 	private int optPrice;
 	
+	public ProductVo() {}
+
+	public ProductVo(int pNo, String pContent, String pName, String pBrand,int pPrice) {
+		super();
+		this.pNo = pNo;
+		this.pContent = pContent;
+		this.pName = pName;
+		this.pBrand = pBrand;
+		this.pPrice = pPrice;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "ProductVo [pNo=" + pNo + ", pName=" + pName + ", pBrand=" + pBrand + ", pContent=" + pContent
 				+ ", pPrice=" + pPrice + ", cateId=" + cateId + ", cateName=" + cateName + ", optNo=" + optNo
 				+ ", optVal=" + optVal + ", optPrice=" + optPrice + "]";
 	}
+	
 
 	public int getpNo() {
 		return pNo;

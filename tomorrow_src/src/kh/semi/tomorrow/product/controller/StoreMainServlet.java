@@ -36,57 +36,6 @@ public class StoreMainServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);
 
-//		int currentPage = 1;
-//
-//		String currentPageStr = request.getParameter("page");
-//		try {
-//			if (currentPageStr != null && !currentPageStr.equals(""))
-//				currentPage = Integer.parseInt(currentPageStr);
-//		} catch (NumberFormatException e) {
-//			e.printStackTrace();
-//		}
-
-//		final int pageSize = 9; // 한페이지에 보여줄 행
-//		final int pageBlock = 3; // 페이징에 나타날 페이지수
-//		int startPage = 0;
-//		int endPage = 0;
-//		int startRnum = 0;
-//		int entRnum = 0;
-//
-//		int totalCnt = 0; // 총 글 수
-//		totalCnt = countBoard();
-//
-//		System.out.println("총" + totalCnt);
-//		
-//		
-//		int totalPageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
-//		if (currentPage % pageBlock == 0) {
-//			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
-//		} else {
-//			startPage = (currentPage / pageBlock) * pageBlock + 1;
-//		}
-//		endPage = startPage + pageBlock - 1;
-//		if (endPage > totalPageCnt) {
-//			endPage = totalPageCnt;
-//		}
-//		System.out.println("page:" + startPage + "~" + endPage);
-//
-//
-//		startRnum = (currentPage - 1) * pageSize + 1;
-//		entRnum = startRnum + pageSize - 1;
-//		if (entRnum > totalCnt) {
-//			entRnum = totalCnt;
-//		}
-//		System.out.println("rnum:" + startRnum + "~" + entRnum);
-//
-//		ArrayList<ProductVo> result = service.productList(startRnum, entRnum);
-//		System.out.println(result);
-
-//		request.setAttribute("productList", result);
-//		request.setAttribute("startPage", startPage);
-//		request.setAttribute("endPage", endPage);
-//		request.setAttribute("currentPage", currentPage);
-//		request.setAttribute("totalPageCnt", totalPageCnt);
 
 	}
 

@@ -34,60 +34,62 @@ public class ProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int currentPage = 1;
+
+		String currentPageStr = request.getParameter("page");
+		try {
+			if (currentPageStr != null && !currentPageStr.equals(""))
+				currentPage = Integer.parseInt(currentPageStr);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		final int pageSize = 6; // í•œíŽ˜ì´ì§€ì— ë³´ì—¬ì¤„ í–‰
+		final int pageBlock = 3; // íŽ˜ì´ì§•ì— ë‚˜íƒ€ë‚  íŽ˜ì´ì§€ìˆ˜
+		int startPage = 0;
+		int endPage = 0;
+		int startRnum = 0;
+		int entRnum = 0;
+
+		int totalCnt = 0; // ì´ ê¸€ ìˆ˜
+		totalCnt = countProduct();
+
+		System.out.println("ì´" + totalCnt);
+
+		int totalPageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > totalPageCnt) {
+			endPage = totalPageCnt;
+		}
+		System.out.println("page:" + startPage + "~" + endPage);
+
+		startRnum = (currentPage - 1) * pageSize + 1;
+		entRnum = startRnum + pageSize - 1;
+		if (entRnum > totalCnt) {
+			entRnum = totalCnt;
+		}
+		System.out.println("rnum:" + startRnum + "~" + entRnum);
+
+		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, entRnum);
+		System.out.println(result);
+
+		request.setAttribute("selectAllProduct", result);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("totalPageCnt", totalPageCnt);
+
 		request.getRequestDispatcher("WEB-INF/view/product/productList.jsp").forward(request, response);
+	}
 
-//		int currentPage = 1;
-//
-//		String currentPageStr = request.getParameter("page");
-//		try {
-//			if (currentPageStr != null && !currentPageStr.equals(""))
-//				currentPage = Integer.parseInt(currentPageStr);
-//		} catch (NumberFormatException e) {
-//			e.printStackTrace();
-//		}
-
-//		final int pageSize = 9; // ÇÑÆäÀÌÁö¿¡ º¸¿©ÁÙ Çà
-//		final int pageBlock = 3; // ÆäÀÌÂ¡¿¡ ³ªÅ¸³¯ ÆäÀÌÁö¼ö
-//		int startPage = 0;
-//		int endPage = 0;
-//		int startRnum = 0;
-//		int entRnum = 0;
-//
-//		int totalCnt = 0; // ÃÑ ±Û ¼ö
-//		totalCnt = countBoard();
-//
-//		System.out.println("ÃÑ" + totalCnt);
-//		
-//		
-//		int totalPageCnt = (totalCnt / pageSize) + (totalCnt % pageSize == 0 ? 0 : 1);
-//		if (currentPage % pageBlock == 0) {
-//			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
-//		} else {
-//			startPage = (currentPage / pageBlock) * pageBlock + 1;
-//		}
-//		endPage = startPage + pageBlock - 1;
-//		if (endPage > totalPageCnt) {
-//			endPage = totalPageCnt;
-//		}
-//		System.out.println("page:" + startPage + "~" + endPage);
-//
-//
-//		startRnum = (currentPage - 1) * pageSize + 1;
-//		entRnum = startRnum + pageSize - 1;
-//		if (entRnum > totalCnt) {
-//			entRnum = totalCnt;
-//		}
-//		System.out.println("rnum:" + startRnum + "~" + entRnum);
-//
-//		ArrayList<ProductVo> result = service.productList(startRnum, entRnum);
-//		System.out.println(result);
-
-//		request.setAttribute("productList", result);
-//		request.setAttribute("startPage", startPage);
-//		request.setAttribute("endPage", endPage);
-//		request.setAttribute("currentPage", currentPage);
-//		request.setAttribute("totalPageCnt", totalPageCnt);
-
+	private int countProduct() {
+		int result = service.countProduct();
+		return result;
 	}
 
 	/**

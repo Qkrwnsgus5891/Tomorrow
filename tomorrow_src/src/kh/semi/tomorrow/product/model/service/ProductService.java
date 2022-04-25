@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import kh.semi.tomorrow.product.model.dao.ProductDao;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
 
-
 import static kh.semi.tomorrow.common.JdbcTemp.*;
 
 public class ProductService {
@@ -16,19 +15,37 @@ public class ProductService {
 		dao=new ProductDao();
 	}
 	
-	public ArrayList<ProductVo> productList(){
-		Connection conn = null;
+	public ArrayList<ProductVo> selectAllProduct(){
+		Connection conn=null;
 		conn = getConnection();
-		ArrayList<ProductVo> result = dao.productList(conn);
+		ArrayList<ProductVo> result = dao.selectAllProduct(conn);
 		close(conn);
 		return result;
 	}
-//	public ArrayList<ProductVo> productList(int startRnum, int endRnum){
+	
+	public ArrayList<ProductVo> selectAllProduct(int startRnum, int endRnum){
+		Connection conn=null;
+		conn = getConnection();
+		ArrayList<ProductVo> result = dao.selectAllProduct(conn, startRnum, endRnum);
+		close(conn);
+		return result;
+	}
+	
+	public int countProduct() {
+		Connection conn=null;
+		conn = getConnection();
+		int result = dao.countProduct(conn);
+		close(conn);
+		return result;
+	}
+	
+//	public ProductVo selectProduct(int pNo) {
 //		Connection conn=null;
 //		conn = getConnection();
-//		ArrayList<ProductVo> result = dao.productList(conn, startRnum, endRnum);
+//		ProductVo result = dao.selectProduct(conn);
 //		close(conn);
 //		return result;
 //	}
+	
 
 }

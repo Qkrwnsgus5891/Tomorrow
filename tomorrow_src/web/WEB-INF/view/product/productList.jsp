@@ -1,5 +1,10 @@
+<link href="<%=request.getContextPath()%>/resources/css/reset.css"
+	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/resources/css/header.css"
+	rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,60 +36,19 @@ nav {
 	grid-gap: 10px;
 }
 
-.one {
-	grid-column: 1;
-	grid-row: 1;
-}
-
-.two {
-	grid-column: 2;
-	grid-row: 1;
-}
-
-.three {
-	grid-column: 3;
-	grid-row: 1;
-}
-
-.four {
-	grid-column: 1;
-	grid-row: 2;
-}
-
-.five {
-	grid-column: 2;
-	grid-row: 2;
-}
-
-.six {
-	grid-column: 3;
-	grid-row: 2;
-}
-
-.seven {
-	grid-column: 1;
-	grid-row: 3;
-}
-
-.eight {
-	grid-column: 2;
-	grid-row: 3;
-}
-
-.nine {
-	grid-column: 3;
-	grid-row: 3;
-}
-
 table tr td {
 	border: 1px solid black;
+}
+
+footer {
+	clear: both;
 }
 </style>
 </head>
 <body>
 	<div class="main_wrap">
 		<div class="wrap_header">
-			<header> </header>
+			<jsp:include page="../template_header.jsp" />
 		</div>
 		<div class="wrap_content">
 			<div class="content">
@@ -98,157 +62,46 @@ table tr td {
 					<article>
 						<h3>전체상품</h3>
 						<div class="furniture_wrapper">
-							<div class="one">
+							<c:forEach items="${selectAllProduct }" var="vo">
+
 								<table>
 									<tr>
-										<td>이미지 경로</td>
+										<td>${vo.pContent }</td>
 									</tr>
 									<tr>
-										<td>상품이름</td>
+										<td>${vo.pName }</td>
 									</tr>
 									<tr>
-										<td>브랜드이름</td>
+										<td>${vo.pBrand }</td>
 									</tr>
 									<tr>
-										<td>상품가격</td>
+										<td>${vo.pPrice }</td>
 									</tr>
 								</table>
-							</div>
-							<div class="two">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="three">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="four">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="five">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="six">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="seven">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="eight">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
-							<div class="nine">
-								<table>
-									<tr>
-										<td>이미지 경로</td>
-									</tr>
-									<tr>
-										<td>상품이름</td>
-									</tr>
-									<tr>
-										<td>브랜드이름</td>
-									</tr>
-									<tr>
-										<td>상품가격</td>
-									</tr>
-								</table>
-							</div>
+
+							</c:forEach>
+
+
 						</div>
+						<p>
+							<c:if test="${startPage > 1 }">
+								<a href="funiture?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:if>
+							<c:forEach begin="${startPage }" end="${endPage }" var="p">
+								<a href="funiture?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+							<c:if test="${endPage < totalPageCnt }">
+								<a href="funiture?page=${endPage+1 }">다음</a>
+							</c:if>
+						</p>
 					</article>
+
 				</section>
+
 
 			</div>
 			<div class="wrap_footer">
-				<footer> </footer>
+				<jsp:include page="../template_footer.jsp" />
 			</div>
 		</div>
 
