@@ -45,7 +45,7 @@ a {
   font-size: 18px;       
 }
 
-#navigation_primary_right {    
+#navigation_primary_right {      
   position: absolute;
   width: 430px;
   height: 60px;  
@@ -58,8 +58,7 @@ a {
   padding: 10px;      
 }
 
-#navigation_bar_right {      
-  /* border: 1px solid black;  */
+#navigation_bar_right {          
   position: absolute;  
   width: 400px;
   height: 50px;    
@@ -67,9 +66,10 @@ a {
   font-weight: bold;  
 } 
 
-#cart {  
+#cart {    
   position: absolute;
-  height: 20px;  
+  height: 28px;  
+  border-radius: 25px;
 }
 
 #login_btn, #logout_btn {
@@ -93,6 +93,37 @@ a {
   bottom: 5px;
 }
 
+#modal_content {  
+  position: absolute;
+  top: 75px;
+  left: 73%;  
+}
+.admin_modal {  
+  position: absolute;
+  border: 1px solid white;
+  border-radius: 10px;  
+  background-color: #ccc;
+  width: 200px;
+  height: 40px; 
+
+  display: none; 
+  z-index: 5;
+}
+
+#admin_img {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#admin_modal_btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  margin-left: 30px;
+  font-size: 15px;
+  color: black;
+}
 #my_info svg {
   position: absolute;      
   left: 210px;
@@ -124,8 +155,12 @@ a {
   color: black;
 }
 
-#cmty_btn:active, #store_btn:active  {
+#cmty_btn:hover, #store_btn:hover, #login_btn:hover, 
+#logout_btn:hover, #join_btn:hover, #admin_modal_btn:hover  {
   color: rgb(52, 152, 219);
+}
+#cart:hover {  
+  background-color: rgb(52, 152, 219);  
 }
 
 @media screen and (max-width: 1500px) {

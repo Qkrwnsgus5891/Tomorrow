@@ -7,12 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Tomorrow : test</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>  
+	<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
 </head>
 <body>
 	<jsp:include page="template_header.jsp"/>		
 	
-
+	
     <article>
      <h3>제목1</h3>
         <div>
@@ -21,9 +21,7 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit,Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
     	</div>  
-    </article>    
-    
-    
+    </article>       
     
     
     <jsp:include page="template_footer.jsp"/>    

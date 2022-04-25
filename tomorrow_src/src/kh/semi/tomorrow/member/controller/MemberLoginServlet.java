@@ -36,16 +36,22 @@ public class MemberLoginServlet extends HttpServlet {
 		String mId = request.getParameter("id");
 		String pw = request.getParameter("pwd");
 		
-		System.out.println("doPost - login");
+		System.out.println("MemberLoginServlet-> login");
 		System.out.println("id: " + mId);
-		System.out.println("pw: "+ pw);
+		System.out.println("pw: "+ pw + "\n");		
 		
 		MemberVo vo = new MemberService().login(mId, pw);
 		if(vo == null) {
 			System.out.println("로그인 실패");
+			
 			response.sendRedirect("login");
-		} else {
+		} else if(vo !=null  && vo.getmId().equals("admin001")) {
 			System.out.println("로그인 성공");
+			System.out.println("*** 관리자님이 로그인하였습니다. ***\n");
+			request.getSession().setAttribute("ssMV", vo);
+			response.sendRedirect(request.getContextPath()+ "/test.do");
+		} else {
+			System.out.println("로그인 성공 \n");
 			request.getSession().setAttribute("ssMV", vo);
 			response.sendRedirect(request.getContextPath()+ "/test.do");
 		}

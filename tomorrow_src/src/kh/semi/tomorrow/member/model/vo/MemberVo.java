@@ -14,6 +14,7 @@ public class MemberVo {
 	private String mBrith;
 	private String mIntro;	
 	
+	public MemberVo() {}
 	public MemberVo(String mId, String mPw, String mName, String mNickname, String mPhone, int mGrade, String mNy,
 			Timestamp mDate, String mBrith, String mIntro) {
 		this.mId = mId;
@@ -114,4 +115,7 @@ public class MemberVo {
 				+ mPhone + ", mGrade=" + mGrade + ", mNy=" + mNy + ", mDate=" + mDate + ", mBrith=" + mBrith
 				+ ", mIntro=" + mIntro + "]";
 	}
+	
+	
+	
 }

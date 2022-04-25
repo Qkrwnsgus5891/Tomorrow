@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdCategoryProductServlet
+ * Servlet implementation class AdProductDeleteServlet
  */
-@WebServlet("/admain")
-public class AdCategoryProductServlet extends HttpServlet {
+@WebServlet("/adProductManage")
+public class AdProductManageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdCategoryProductServlet() {
+    public AdProductManageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class AdCategoryProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/admin/main.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/admin/productManage.jsp").forward(request, response);
 	}
 	
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
