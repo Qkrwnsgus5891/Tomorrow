@@ -81,14 +81,14 @@
     #product_content {
       margin-top: 10px;
       width: 1000px;
-      height: 100%;
+      height: 1300px;
       border: 1px solid #ccc;
       border-radius: 20px;
     }
     
     .prod_box{
-      width: 800px;
-      height: 600px;
+      width: 650px;
+      height: 400px;
       border-radius: 10px;
       background-color: #ccc;
       margin: 10px auto;

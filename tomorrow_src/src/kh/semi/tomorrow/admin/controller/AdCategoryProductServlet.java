@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.tomorrow.member.model.vo.MemberVo;
+
+
+
 /**
  * Servlet implementation class AdCategoryProductServlet
  */
@@ -26,7 +30,14 @@ public class AdCategoryProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/admin/main.jsp").forward(request, response);
+		// 로그인 상태 확인
+		MemberVo member = (MemberVo)request.getSession().getAttribute("ssMV");
+		if(member == null) {
+			response.sendRedirect("login");
+		} else {
+			System.out.println("AdCategoryProductServlet-> admain...\n");
+			request.getRequestDispatcher("WEB-INF/view/admin/main.jsp").forward(request, response);			
+		}
 	}
 	
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
