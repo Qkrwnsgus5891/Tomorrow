@@ -12,6 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 section {
 	width: 80%;
@@ -31,7 +32,7 @@ nav {
 	box-sizing: border-box;
 }
 
-.furniture_wrapper {
+.product_wrapper {
 	display: grid;
 	grid-gap: 10px;
 }
@@ -44,6 +45,92 @@ footer {
 	clear: both;
 }
 </style>
+<script>
+$(function(){
+	console.log("페이지 로딩");
+	$("body").show();
+	$("nav>button").click(furnitureSelect);
+});
+
+function furnitureSelect(){
+	console.log(this);
+	var btnIdx = $(this).index();
+	console.log(btnIdx);
+	$.ajax({
+		url:"CategoryServlet.ax",
+		type:"post",
+		data:{cateId:btnIdx},
+		dataType: "json", 
+		success: function(result){
+			console.log(result);
+			displayProductList(result, btnIdx);
+		},
+		error : function(request,status,error) {
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+
+					"\n"+"error:"+error);
+			 	}
+	});
+	function displayProductList(result, btnIdx){
+		console.log(this); 
+		var html = "";
+		$("#productList").html(""); //
+		
+		var cateName = result.selectAllProduct[0].cateId;
+		
+		if(btnIdx==1){
+			cateName = "가구";
+		}else if(btnIdx==2){
+			cateName = "페브릭";
+		}else if(btnIdx==3){
+			cateName = "조명";
+		}else{
+			cateName = "전체 상품";
+		}
+		
+		html += '<h3 id="categoryName">'+cateName+'</h3>';
+		
+		
+		html += '<hr>';
+		html += '<div class="product_wrapper">';
+		for(var i=0; i<result.selectAllProduct.length; i++){
+			var vo = result.selectAllProduct[i];
+		html += '		<a href="#?p_no"><table>';
+		html += '			<tr>';
+		html += '				<td>'+vo.pContent+'</td>';
+		html += '			</tr>';
+		html += '			<tr>';
+		html += '				<td>'+vo.pName+'</td>';
+		html += '			</tr>';
+		html += '			<tr>';
+		html += '				<td>'+vo.pBrand+'</td>';
+		html += '			</tr>';
+		html += '			<tr>';
+		html += '				<td>'+vo.pPrice+'</td>';
+		html += '			</tr>';
+		html += '		</table> </a>';
+		}
+
+		html += '</div>';
+		html += '<p>';
+		if(result.startPage>1){
+		html += '		<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+		}
+		
+		for(var p=result.startPage; p<result.endPage;p++){
+		html += '		<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+		}
+		
+		if(result.endPage < result.totalPageCnt){
+		html += '		<a href="storeproduct?page=${endPage+1 }">다음</a>';
+		}
+		html += '</p>';
+		
+		$("#productList").html(html); //
+
+	}
+}
+
+</script>
 </head>
 <body>
 	<div class="main_wrap">
@@ -54,14 +141,16 @@ footer {
 			<div class="content">
 				<nav>
 					<h3>카테고리</h3>
-					<p>가구</p>
-					<p>페브릭</p>
-					<p>조명</p>
+					<button type="button" id="furniture">가구</button>
+					<button type="button" id="pabric">페브릭</button>
+					<button type="button" id="light">조명</button>
+					
 				</nav>
 				<section>
-					<article>
-						<h3>전체상품</h3>
-						<div class="furniture_wrapper">
+					<article id="productList">
+						<h3 id="categoryName">전체상품</h3>
+						<hr>
+						<div class="product_wrapper">
 							<c:forEach items="${selectAllProduct }" var="vo">
 
 								<table>
@@ -85,13 +174,13 @@ footer {
 						</div>
 						<p>
 							<c:if test="${startPage > 1 }">
-								<a href="funiture?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:if>
 							<c:forEach begin="${startPage }" end="${endPage }" var="p">
-								<a href="funiture?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:forEach>
 							<c:if test="${endPage < totalPageCnt }">
-								<a href="funiture?page=${endPage+1 }">다음</a>
+								<a href="storeproduct?page=${endPage+1 }">다음</a>
 							</c:if>
 						</p>
 					</article>

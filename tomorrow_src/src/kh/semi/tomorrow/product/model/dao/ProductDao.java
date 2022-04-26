@@ -50,17 +50,28 @@ public class ProductDao {
 		return volist;
 	}
 	
-	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum){
+	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum, int cateId){
 		ArrayList<ProductVo> volist = null;
 		
-		String sql ="select p_content, p_name, p_brand, p_price from "
-				+ "(select rownum r, t1.* from (select p1.* from product p1 order by p_no desc) t1) "
-				+ "where r between ? and ?";
+		String sql ="select category_id, p_content, p_name, p_brand, p_price from "
+				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
+		if(cateId > 0) {
+			sql += " where category_id=?";
+		}
+		sql += " order by p_no desc) t1) "
+				+ " where r between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startRnum);
-			pstmt.setInt(2, endRnum);
+			if(cateId > 0) {
+				pstmt.setInt(2, startRnum);
+				pstmt.setInt(3, endRnum);
+				pstmt.setInt(1, cateId);
+			}else {
+				pstmt.setInt(1, startRnum);
+				pstmt.setInt(2, endRnum);
+			}
+		
 			rs = pstmt.executeQuery();
 			
 			if(rs!=null) {
@@ -71,7 +82,7 @@ public class ProductDao {
 					vo.setpName(rs.getString("p_name"));
 					vo.setpBrand(rs.getString("p_brand"));
 					vo.setpPrice(rs.getInt("p_price"));
-					
+					vo.setCateId(rs.getInt("category_id"));
 					volist.add(vo);
 				}
 			}
@@ -107,11 +118,65 @@ public class ProductDao {
 		
 		return result;
 	}
-	
-//	public ProductVo selectProduct(Connection conn, int pNo) {
-//		ProductVo vo = null;
-//		
-//		return vo;
-//	}
+
+	public ProductVo selectProduct(Connection conn, int pNo) {
+		ProductVo vo = null;
+		String sql = "select * from product where p_no=?";
+		String sql1 = "select opt_val from product_detail where p_no=? and opt_no=1";
+		String sql2 = "select opt_val from product_detail where p_no=? and opt_no=2";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			rs = pstmt.executeQuery();
+			vo = new ProductVo();
+			
+			if(rs.next()) {
+				vo.setpContent(rs.getString("p_content"));
+				vo.setpName(rs.getString("p_name"));
+				vo.setpBrand(rs.getString("p_brand"));
+				vo.setpPrice(rs.getInt("p_price"));
+				
+				close(rs);
+				close(pstmt);
+				
+				pstmt = conn.prepareStatement(sql1);
+				pstmt.setInt(1, pNo);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					ArrayList<ProductVo> optionone = new ArrayList<ProductVo>();
+					do {
+						ProductVo opvo = new ProductVo();
+						opvo.setOptVal(rs.getString("opt_val"));
+						optionone.add(opvo);
+					}while(rs.next());	
+				}
+				
+				close(rs);
+				close(pstmt);
+				
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, pNo);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					ArrayList<ProductVo> optiontwo = new ArrayList<ProductVo>();
+					do {
+						ProductVo opvo = new ProductVo();
+						opvo.setOptVal(rs.getString("opt_val"));
+						optiontwo.add(opvo);
+					}while(rs.next());
+					
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return vo;
+	}
 
 }

@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import kh.semi.tomorrow.product.model.service.ProductService;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
 
-
 /**
  * Servlet implementation class ProductListServlet
  */
-@WebServlet("/funiture")
+@WebServlet("/storeproduct")
 public class ProductListServlet extends HttpServlet {
 	private ProductService service = new ProductService();
 
@@ -74,8 +73,8 @@ public class ProductListServlet extends HttpServlet {
 			entRnum = totalCnt;
 		}
 		System.out.println("rnum:" + startRnum + "~" + entRnum);
-
-		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, entRnum);
+		int cateId = 0;  // 전체 상품은 0
+		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, entRnum, cateId);
 		System.out.println(result);
 
 		request.setAttribute("selectAllProduct", result);

@@ -1,5 +1,7 @@
 package kh.semi.tomorrow.product.model.vo;
 
+import java.util.ArrayList;
+
 public class ProductVo {
 	private int pNo;
 	private String pName; 
@@ -11,26 +13,50 @@ public class ProductVo {
 	private int optNo;
 	private String optVal;
 	private int optPrice;
+	private int pSeq;
 	
 	public ProductVo() {}
 
-	public ProductVo(int pNo, String pContent, String pName, String pBrand,int pPrice) {
+	public ProductVo(int pNo, String pContent, String pName, String pBrand,int pPrice, int cateId) {
 		super();
 		this.pNo = pNo;
 		this.pContent = pContent;
 		this.pName = pName;
 		this.pBrand = pBrand;
 		this.pPrice = pPrice;
+		this.cateId = cateId;
 	}
 	
+	public ProductVo(int pNo, String pContent, String pBrand, String pName, int pPrice, int cateId, String cateName, int optNo, String optVal, int optPrice) {
+		super();
+		this.pNo = pNo;
+		this.pContent = pContent;
+		this.pBrand = pBrand;
+		this.pName = pName;
+		this.pPrice = pPrice;
+		this.cateId = cateId;
+		this.cateName = cateName;
+		this.optNo = optNo;
+		this.optVal = optVal;
+		this.optPrice = optPrice;
+	}
+	
+	public ProductVo(int p_seq, int pNo, int optNo, String optVal, int optPrice) {
+		super();
+		this.pSeq = pSeq;
+		this.pNo = pNo;
+		this.optNo = optNo;
+		this.optVal = optVal;
+		this.optPrice = optPrice;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "ProductVo [pNo=" + pNo + ", pName=" + pName + ", pBrand=" + pBrand + ", pContent=" + pContent
 				+ ", pPrice=" + pPrice + ", cateId=" + cateId + ", cateName=" + cateName + ", optNo=" + optNo
-				+ ", optVal=" + optVal + ", optPrice=" + optPrice + "]";
+				+ ", optVal=" + optVal + ", optPrice=" + optPrice + ", pSeq=" + pSeq + "]";
 	}
-	
 
 	public int getpNo() {
 		return pNo;

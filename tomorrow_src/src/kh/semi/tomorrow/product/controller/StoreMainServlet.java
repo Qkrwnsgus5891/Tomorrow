@@ -36,7 +36,6 @@ public class StoreMainServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);
 
-
 	}
 
 	/**

@@ -23,10 +23,11 @@ public class ProductService {
 		return result;
 	}
 	
-	public ArrayList<ProductVo> selectAllProduct(int startRnum, int endRnum){
+
+	public ArrayList<ProductVo> selectAllProduct(int startRnum, int endRnum, int cateId){
 		Connection conn=null;
 		conn = getConnection();
-		ArrayList<ProductVo> result = dao.selectAllProduct(conn, startRnum, endRnum);
+		ArrayList<ProductVo> result = dao.selectAllProduct(conn, startRnum, endRnum, cateId);
 		close(conn);
 		return result;
 	}
@@ -39,13 +40,13 @@ public class ProductService {
 		return result;
 	}
 	
-//	public ProductVo selectProduct(int pNo) {
-//		Connection conn=null;
-//		conn = getConnection();
-//		ProductVo result = dao.selectProduct(conn);
-//		close(conn);
-//		return result;
-//	}
+	public ProductVo selectProduct(int pNo) {
+		Connection conn=null;
+		conn = getConnection();
+		ProductVo result = dao.selectProduct(conn, pNo);
+		close(conn);
+		return result;
+	}
 	
 
 }
