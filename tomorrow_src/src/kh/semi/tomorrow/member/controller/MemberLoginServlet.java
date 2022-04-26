@@ -52,6 +52,7 @@ public class MemberLoginServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+ "/test.do");
 		} else {
 			System.out.println("로그인 성공 \n");
+			request.getSession().setAttribute("id", mId);
 			request.getSession().setAttribute("ssMV", vo);
 			response.sendRedirect(request.getContextPath()+ "/test.do");
 		}

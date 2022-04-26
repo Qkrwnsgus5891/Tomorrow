@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.member.model.vo.MemberVo;
+import kh.semi.tomorrow.storyboard.medel.service.StoryboardService;
+import kh.semi.tomorrow.storyboard.model.dao.StoryboardDao;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 /**
@@ -39,7 +41,27 @@ public class WriteDoStoryBoardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doPost - enroll.do");
 		
+		String bTitle = request.getParameter("bTitle");
+		String bContent = request.getParameter("bContent");
+		String mId = request.getParameter("mId");
+		int pNo = Integer.parseInt(request.getParameter("pNo"));
+		
+		StoryBoardVo vo = new StoryBoardVo();
+		vo.setbTitle(bTitle);
+		vo.setbContent(bContent);
+		vo.setmId(mId);
+		vo.setpNo(pNo);
+		
+		System.out.println("WriteDoStoryBoardServlet vo : " + vo);
+		
+		int result = new StoryboardService().writeStoryBoard(vo);
 
+		System.out.println("WriteDoStoryBoardServlet result : " + result);
+		
+		if(result == 1) {
+			System.out.println("글 등록 성공");
+		} else {
+			System.out.println("글 등록 실패");
+		}
 	}
-
 }

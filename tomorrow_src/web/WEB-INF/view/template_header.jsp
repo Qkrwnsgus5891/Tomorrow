@@ -1,4 +1,4 @@
-<%@page import="kh.semi.tomorrow.member.model.vo.MemberVo"%>
+<%@ page import="kh.semi.tomorrow.member.model.vo.MemberVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -50,7 +50,7 @@
             </svg>  
           </a>  
 </c:if>
-          <button type="button" id="write_btn" onclick="location.href='#'; ">글쓰기</button>
+          <button type="button" id="write_btn" onclick="location.href='enroll'; ">글쓰기</button>
         </div>      
       </div> 
     </div>    

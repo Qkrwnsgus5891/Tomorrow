@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 
 public class JdbcTemp {
-	private static Connection conn= null;
+	private static Connection conn = null;
 	
 	public static Connection getConnection()  {	
 		try {

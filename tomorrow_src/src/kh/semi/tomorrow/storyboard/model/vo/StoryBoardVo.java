@@ -3,46 +3,45 @@ package kh.semi.tomorrow.storyboard.model.vo;
 import java.sql.Timestamp;
 
 public class StoryBoardVo {
-	private String bNo;
+	private int bNo;
 	private String bTitle;
 	private String bContent;
+	private String bWriter;
 	private int bCnt;
 	private Timestamp bDate;
 	private String bNy;
 	private String mId;
-	private String mNickname;
 	private int pNo;
 	
 	public StoryBoardVo() {
 		
 	}
 
-	public StoryBoardVo(String bNo, String bTitle, String bContent, int bCnt, Timestamp bDate, String bNy, String mId,
-			String mNickname, int pNo) {
+	public StoryBoardVo(int bNo, String bTitle, String bContent, String bWriter, int bCnt, Timestamp bDate, String bNy,
+			String mId, int pNo) {
 		super();
 		this.bNo = bNo;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
+		this.bWriter = bWriter;
 		this.bCnt = bCnt;
 		this.bDate = bDate;
 		this.bNy = bNy;
 		this.mId = mId;
-		this.mNickname = mNickname;
 		this.pNo = pNo;
 	}
 
 	@Override
 	public String toString() {
-		return "StoryBoardVo [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bCnt=" + bCnt
-				+ ", bDate=" + bDate + ", bNy=" + bNy + ", mId=" + mId + ", mNickname=" + mNickname + ", pNo=" + pNo
-				+ "]";
+		return "StoryBoardVo [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bWriter=" + bWriter
+				+ ", bCnt=" + bCnt + ", bDate=" + bDate + ", bNy=" + bNy + ", mId=" + mId + ", pNo=" + pNo + "]";
 	}
 
-	public String getbNo() {
+	public int getbNo() {
 		return bNo;
 	}
 
-	public void setbNo(String bNo) {
+	public void setbNo(int bNo) {
 		this.bNo = bNo;
 	}
 
@@ -60,6 +59,14 @@ public class StoryBoardVo {
 
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
+	}
+
+	public String getbWriter() {
+		return bWriter;
+	}
+
+	public void setbWriter(String bWriter) {
+		this.bWriter = bWriter;
 	}
 
 	public int getbCnt() {
@@ -94,14 +101,6 @@ public class StoryBoardVo {
 		this.mId = mId;
 	}
 
-	public String getmNickname() {
-		return mNickname;
-	}
-
-	public void setmNickname(String mNickname) {
-		this.mNickname = mNickname;
-	}
-
 	public int getpNo() {
 		return pNo;
 	}
@@ -109,5 +108,5 @@ public class StoryBoardVo {
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
 	}
-	
+
 }
