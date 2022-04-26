@@ -40,17 +40,17 @@ public class OrderDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, vo.get());
-			pstmt.setString(2, vo.get());
-			pstmt.setString(3, vo.get());
-			pstmt.setString(4, vo.get());
-			pstmt.setString(5, vo.get());
-			pstmt.setString(6, vo.get());
-			pstmt.setString(7, vo.get());
-			pstmt.setString(8, vo.get());
-			pstmt.setString(9, vo.get());
-			pstmt.setString(10, vo.get());
-			pstmt.setString(11, vo.get());
+//			pstmt.setString(1, vo.get());
+//			pstmt.setString(2, vo.get());
+//			pstmt.setString(3, vo.get());
+//			pstmt.setString(4, vo.get());
+//			pstmt.setString(5, vo.get());
+//			pstmt.setString(6, vo.get());
+//			pstmt.setString(7, vo.get());
+//			pstmt.setString(8, vo.get());
+//			pstmt.setString(9, vo.get());
+//			pstmt.setString(10, vo.get());
+//			pstmt.setString(11, vo.get());
 
 			result = pstmt.executeUpdate();
 			

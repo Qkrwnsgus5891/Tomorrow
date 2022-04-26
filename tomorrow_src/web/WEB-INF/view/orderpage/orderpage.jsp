@@ -1,17 +1,20 @@
+<link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">    
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주문 / 결제 페이지</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
     <style>
         *{text-decoration: none;}
     </style>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include>	
    <div id="cartWrap" style="display: flex;">
-        <div id="orderWrap" style="width: 60%; padding: 200px 0 200px 200px; min-width: 550px;
+        <div id="orderWrap" style="width: 60%; padding: 100px 0 200px 200px; min-width: 550px;
         height: 1000px;">
 
             <p><h2>주문/결제</h2></p>
@@ -44,7 +47,7 @@
                                 <option value="v3">119</option>
                                 <option value="v3">070</option>
                         </select>
-                        <input type="text" placeholder="나머지를 입력해주세요" 
+                        <input type="text" placeholder="나머지 입력" 
                         style="height: 25px; width: 140px; "> </td>
 
                 </tr>
@@ -83,7 +86,7 @@
                                 <option value="v3">119</option>
                                 <option value="v3">070</option>
                         </select>
-                        <input type="text" placeholder="나머지를 입력해주세요" 
+                        <input type="text" placeholder="나머지 입력" 
                         style="height: 25px; width: 140px; "> </td>
 
                 </tr>
@@ -121,7 +124,7 @@
 
 
 
-        <div id="finalPriceWrap" style="width: 40%;padding: 200px 200px 0 50px;
+        <div id="finalPriceWrap" style="width: 40%;padding: 100px 200px 0 50px;
         height: 800px;">
             <div style="width: 400px; height: 400px; padding: 20px;
             border: 2px solid rgb(117, 117, 117);">
