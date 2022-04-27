@@ -24,10 +24,10 @@ public class ProductService {
 	}
 	
 
-	public ArrayList<ProductVo> selectAllProduct(int startRnum, int endRnum, int cateId){
+	public ArrayList<ProductVo> selectAllProduct(int startRnum, int endRnum, int cateId, int pNo){
 		Connection conn=null;
 		conn = getConnection();
-		ArrayList<ProductVo> result = dao.selectAllProduct(conn, startRnum, endRnum, cateId);
+		ArrayList<ProductVo> result = dao.selectAllProduct(conn, startRnum, endRnum, cateId, pNo);
 		close(conn);
 		return result;
 	}

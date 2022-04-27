@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import kh.semi.tomorrow.product.model.vo.ProductVo;
@@ -13,7 +12,6 @@ import static kh.semi.tomorrow.common.JdbcTemp.*;
 
 
 public class ProductDao {
-	private Statement stmt = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
@@ -50,10 +48,10 @@ public class ProductDao {
 		return volist;
 	}
 	
-	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum, int cateId){
+	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum, int cateId, int pNo){
 		ArrayList<ProductVo> volist = null;
 		
-		String sql ="select category_id, p_content, p_name, p_brand, p_price from "
+		String sql ="select p_no, category_id, p_content, p_name, p_brand, p_price from "
 				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
 		if(cateId > 0) {
 			sql += " where category_id=?";
@@ -83,6 +81,7 @@ public class ProductDao {
 					vo.setpBrand(rs.getString("p_brand"));
 					vo.setpPrice(rs.getInt("p_price"));
 					vo.setCateId(rs.getInt("category_id"));
+					vo.setpNo(rs.getInt("p_no"));
 					volist.add(vo);
 				}
 			}

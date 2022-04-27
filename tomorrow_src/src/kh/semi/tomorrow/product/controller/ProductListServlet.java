@@ -48,7 +48,7 @@ public class ProductListServlet extends HttpServlet {
 		int startPage = 0;
 		int endPage = 0;
 		int startRnum = 0;
-		int entRnum = 0;
+		int endRnum = 0;
 
 		int totalCnt = 0; // 총 글 수
 		totalCnt = countProduct();
@@ -68,13 +68,14 @@ public class ProductListServlet extends HttpServlet {
 		System.out.println("page:" + startPage + "~" + endPage);
 
 		startRnum = (currentPage - 1) * pageSize + 1;
-		entRnum = startRnum + pageSize - 1;
-		if (entRnum > totalCnt) {
-			entRnum = totalCnt;
+		endRnum = startRnum + pageSize - 1;
+		if (endRnum > totalCnt) {
+			endRnum = totalCnt;
 		}
-		System.out.println("rnum:" + startRnum + "~" + entRnum);
-		int cateId = 0;  // 전체 상품은 0
-		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, entRnum, cateId);
+		System.out.println("rnum:" + startRnum + "~" + endRnum);
+		int cateId = 0;  
+		int pNo = 0;// 전체 상품은 0
+		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, endRnum, cateId, pNo);
 		System.out.println(result);
 
 		request.setAttribute("selectAllProduct", result);

@@ -13,7 +13,7 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 /**
  * Servlet implementation class ProductSelectServlet
  */
-@WebServlet("/detail")
+@WebServlet("/productDetail")
 public class ProductSelectServlet extends HttpServlet {
        
     /**
@@ -45,7 +45,7 @@ public class ProductSelectServlet extends HttpServlet {
 		
 		System.out.println(result);
 		request.setAttribute("optvo", result);
-		request.getRequestDispatcher("WEB-INF/view/board/read.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/product/productDetail.jsp").forward(request, response);
 	}
 
 	/**

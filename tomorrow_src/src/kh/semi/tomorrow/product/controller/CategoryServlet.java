@@ -49,6 +49,10 @@ public class CategoryServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String cateIdStr = request.getParameter("cateId");
 		int cateId = 0;
+		
+		String pNoStr = request.getParameter("pNo");
+		int pNo=0;
+		
 		try {
 			cateId = Integer.parseInt(cateIdStr);
 		} catch (Exception e) {
@@ -71,7 +75,7 @@ public class CategoryServlet extends HttpServlet {
 		int startPage = 0;
 		int endPage = 0;
 		int startRnum = 0;
-		int entRnum = 0;
+		int endRnum = 0;
 
 		int totalCnt = 0; // 총 글 수
 		totalCnt = countProduct();
@@ -91,13 +95,13 @@ public class CategoryServlet extends HttpServlet {
 		System.out.println("page:" + startPage + "~" + endPage);
 
 		startRnum = (currentPage - 1) * pageSize + 1;
-		entRnum = startRnum + pageSize - 1;
-		if (entRnum > totalCnt) {
-			entRnum = totalCnt;
+		endRnum = startRnum + pageSize - 1;
+		if (endRnum > totalCnt) {
+			endRnum = totalCnt;
 		}
-		System.out.println("rnum:" + startRnum + "~" + entRnum);
+		System.out.println("rnum:" + startRnum + "~" + endRnum);
 
-		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(startRnum, entRnum, cateId);
+		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(startRnum, endRnum, cateId, pNo);
 		System.out.println(result);
 //
 //		request.setAttribute("selectAllProduct", selectAllProduct);

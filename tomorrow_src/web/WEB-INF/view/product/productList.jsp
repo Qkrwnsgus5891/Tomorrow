@@ -52,6 +52,16 @@ $(function(){
 	$("nav>button").click(furnitureSelect);
 });
 
+function clickproDetail(thisEle){
+	console.log(thisEle);
+	console.log($(thisEle).parent());
+	var frmEle = $(thisEle).parent().get(0);
+	console.log(frmEle);
+	frmEle.action = "./productDetail";
+	frmEle.method="get";
+	frmEle.submit();
+};
+
 function furnitureSelect(){
 	console.log(this);
 	var btnIdx = $(this).index();
@@ -70,6 +80,8 @@ function furnitureSelect(){
 					"\n"+"error:"+error);
 			 	}
 	});
+	
+	
 	function displayProductList(result, btnIdx){
 		console.log(this); 
 		var html = "";
@@ -94,20 +106,20 @@ function furnitureSelect(){
 		html += '<div class="product_wrapper">';
 		for(var i=0; i<result.selectAllProduct.length; i++){
 			var vo = result.selectAllProduct[i];
-		html += '		<a href="#?p_no"><table>';
-		html += '			<tr>';
-		html += '				<td>'+vo.pContent+'</td>';
-		html += '			</tr>';
-		html += '			<tr>';
-		html += '				<td>'+vo.pName+'</td>';
-		html += '			</tr>';
-		html += '			<tr>';
-		html += '				<td>'+vo.pBrand+'</td>';
-		html += '			</tr>';
-		html += '			<tr>';
-		html += '				<td>'+vo.pPrice+'</td>';
-		html += '			</tr>';
-		html += '		</table> </a>';
+		html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
+		html += '			<div class="proDetail" onclick="clickproDetail(this);">';
+		html += '				<div>'+vo.pContent+'</div>';
+		html += '			';
+		html += '			';
+		html += '				<div>'+vo.pName+'</div>';
+		html += '			';
+		html += '			';
+		html += '				<div>'+vo.pBrand+'</div>';
+		html += '			';
+		html += '			';
+		html += '				<div>'+vo.pPrice+'</div>';
+		html += '			</div>';
+		html += '		 </form>';
 		}
 
 		html += '</div>';
@@ -152,22 +164,14 @@ function furnitureSelect(){
 						<hr>
 						<div class="product_wrapper">
 							<c:forEach items="${selectAllProduct }" var="vo">
-
-								<table>
-									<tr>
-										<td>${vo.pContent }</td>
-									</tr>
-									<tr>
-										<td>${vo.pName }</td>
-									</tr>
-									<tr>
-										<td>${vo.pBrand }</td>
-									</tr>
-									<tr>
-										<td>${vo.pPrice }</td>
-									</tr>
-								</table>
-
+								
+									<div>
+											<div>${vo.pContent }</div>
+											<div>${vo.pName }</div>
+											<div>${vo.pBrand }</div>
+											<div>${vo.pPrice }</div>
+									</div>
+								
 							</c:forEach>
 
 
