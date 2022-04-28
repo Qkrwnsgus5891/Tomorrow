@@ -157,5 +157,6 @@
         </div>
 
     </div>
+       <div style="display: block"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 </html>
