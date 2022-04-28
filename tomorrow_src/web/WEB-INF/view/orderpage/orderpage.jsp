@@ -15,11 +15,11 @@
 	<jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include>	
    <div id="cartWrap" style="display: flex;">
         <div id="orderWrap" style="width: 60%; padding: 100px 0 200px 200px; min-width: 550px;
-        height: 1000px;">
+        ">
 
             <p><h2>주문/결제</h2></p>
             <p><h4>주문자</h4></p>
-            <hr style="color: black;">
+            <hr>
             <br><br>
             <table border="0" style="text-align: left;">
                 <tr>
@@ -62,7 +62,7 @@
                 위와 동일하게 채우기
                 </span>
             </div><br>
-            <hr style="color: black;">
+            <hr>
             <br><br>
             <table border="0" style="text-align: left;">
                 <tr>
@@ -112,11 +112,25 @@
             </table>
             <br><br><br>
             <p><h4>주문상품</h4></p>
-            <hr style="color: black;">
-            <br><br>
+            <hr>
+            
 
-            <div id="orderProducts" style="height: 800px; background-color: antiquewhite;">
+            <div id="orderProducts" >
+					<div class="orderitems"
+				style="border: 1px solid black; width: 100%; margin-top: 20px; padding: 10px 0;">
+				<div
+					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
 
+				</div>
+				<div
+					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
+
+				</div>
+				<div
+					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
+
+				</div>
+			</div>
             </div>
         </div>
 
@@ -157,6 +171,6 @@
         </div>
 
     </div>
-       <div style="display: block"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
+       <div><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 </html>
