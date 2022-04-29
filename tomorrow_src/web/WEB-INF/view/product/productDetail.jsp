@@ -54,13 +54,14 @@
 
 #productInform {
 	width: 90%;
-	
 }
-#information{
-	margin: 10px 30%;	
+
+#information {
+	margin: 10px 30%;
 }
-#ship, #shipInfo{
-	margin: 10px 30%;	
+
+#ship, #shipInfo {
+	margin: 10px 30%;
 }
 </style>
 </head>
@@ -75,29 +76,35 @@
 					<img src="./upload/images/sample.jpg">
 				</section>
 				<section id="detailcontent">
-				<c:set var="vo" value = "${selectProduct }"></c:set>
-				
+					<c:set var="vo" value="${selectProduct }"></c:set>
+
 					<div>${vo.pBrand }</div>
 					<div>${vo.pName }</div>
 					<p>${vo.pPrice }</p>
 
-
-					<c:if test="${ }">
+					<c:if test="${not empty vo.pdvo }">
 						<div>
-							<p>${ }</p>
-							<select name="option_one">
-								<c:forEach items="${ }" var="">
-									<option value="">${ }</option>
-								</c:forEach>
+							<c:forEach items="${vo.pdvo }" var="pdOpt" varStatus="status">
+								<c:if test="${status.index eq 0}">
+									<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+									<div class="optName">${pdOpt.optName }</div>
+									<select name="option_${setOpt }">
+								</c:if>
+								<c:if test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
+									<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+									</select>
+									<div class="optName">${pdOpt.optName }</div>
+									<select name="option_${setOpt }">
+								</c:if>
+								<option value="${pdOpt.optVal }">${pdOpt.optVal }</option>
+								<div style="display: none;" class="optPrice">${pdOpt.optVal }</div>
+								<div style="display: none;" class="pSeq">${pdOpt.pSeq }</div>
+
+							</c:forEach>
+
 							</select>
 						</div>
 					</c:if>
-
-
-
-
-
-
 
 					<p>주문금액 금액+옵션가격(원)</p>
 					<button type="submit">장바구니</button>
@@ -116,15 +123,18 @@
 			<div id="storylist">
 				<table>
 					<tr>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-						laboris nisi ut aliquip ex ea commodo consequat.</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-						laboris nisi ut aliquip ex ea commodo consequat.</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
-						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-						laboris nisi ut aliquip ex ea commodo consequat.</td>
+						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna
+							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna
+							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+							sed do eiusmod tempor incididunt ut labore et dolore magna
+							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+							ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
 					</tr>
 				</table>
 			</div>
