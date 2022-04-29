@@ -21,18 +21,19 @@ public class CKEditorImageUploadAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("ckeditorImageUpload.do");
 		
 		PrintWriter printWriter = null;
-
+		
         try{
-        	String web_path = "/upload/";
+        	String web_path = "/upload/storyContentImg/";
             String abs_path = request.getServletContext().getRealPath(web_path);
             int    max_size = 1024*1024*10;
             
-            MultipartRequest mr = new MultipartRequest(request, abs_path,max_size,"utf-8",
-            		                       new DefaultFileRenamePolicy() 
-            		);
+            MultipartRequest mr = new MultipartRequest(request, abs_path, 
+            		max_size, 
+            		"utf-8",
+            		new DefaultFileRenamePolicy());
             
             File f = mr.getFile("upload");
             String fileName="";

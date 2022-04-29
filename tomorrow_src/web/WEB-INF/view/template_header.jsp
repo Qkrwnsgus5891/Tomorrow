@@ -23,7 +23,7 @@
         <div id="navigation_bar_logo">        
             <a href="#" id="logo" onclick="location.href='main';">내일의 집</a>
             <div id="navigation_bar_menu">
-              <a href="#"id="cmty_btn" onclick="location.href='#';">커뮤니티</a>
+              <a href="#"id="cmty_btn" onclick="location.href='liststory';">커뮤니티</a>
               <a href="#"id="store_btn" onclick="location.href='store';">스토어</a>
             </div>      
         </div>
@@ -50,7 +50,7 @@
             </svg>  
           </a>  
 </c:if>
-          <button type="button" id="write_btn" onclick="location.href='enroll'; ">글쓰기</button>
+          <button type="button" id="write_btn" onclick="location.href='enrollF'; ">글쓰기</button>
         </div>      
       </div> 
     </div>    

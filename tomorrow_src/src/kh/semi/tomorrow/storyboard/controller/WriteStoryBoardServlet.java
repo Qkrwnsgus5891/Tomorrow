@@ -28,7 +28,7 @@ public class WriteStoryBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet - boardwrite");
+		System.out.println("doGet - enroll");
 		
 		
 		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");

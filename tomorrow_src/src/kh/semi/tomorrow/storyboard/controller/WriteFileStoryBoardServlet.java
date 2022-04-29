@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.semi.tomorrow.storyboard.medel.service.StoryboardService;
-import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
+import kh.semi.tomorrow.member.model.vo.MemberVo;
 
 /**
- * Servlet implementation class ReadStoryBoardServlet
+ * Servlet implementation class WriteFileStoryBoardServlet
  */
-@WebServlet("/storyread")
-public class ReadStoryBoardServlet extends HttpServlet {
+@WebServlet("/enrollF")
+public class WriteFileStoryBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadStoryBoardServlet() {
+    public WriteFileStoryBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,22 +28,17 @@ public class ReadStoryBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bNoStr = request.getParameter("bno");
-		System.out.println("request.getParameter(\"bno\") : " + request.getParameter("bno"));
-		int bNo = 0;
-		try {
-			bNo = Integer.parseInt(bNoStr); 
-		} catch(NumberFormatException e) {
-			e.printStackTrace();
+		System.out.println("doGet - enrollF");
+		
+		
+		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");
+		if(ssvo == null) {	// 로그아웃 상태라면 login page 진입
+			response.sendRedirect("login");
+		} else {	// 로그인한 상태라면 write page 진입
+			request.getRequestDispatcher("WEB-INF/view/board/storyboardWriteFile.jsp").forward(request, response);	
 		}
-		if (bNo < 1) {
-			// 오류 페이지로 이동, 또는 boardlist로 이동
-			return;
-		}
-		StoryBoardVo result = new StoryboardService().readStoryBoard(bNo);
-		request.setAttribute("bvo", result);
-		request.getRequestDispatcher("WEB-INF/view/board/storyboardRead.jsp").forward(request, response);
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -15,26 +15,23 @@
     <url-pattern>*.svg</url-pattern>
   </servlet-mapping>
   <filter>
-  	<filter-name>EncodingFilter</filter-name>
-  	<filter-class>kh.semi.tomorrow.common.filter.EncodingFilter</filter-class>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>kh.semi.tomorrow.common.filter.EncodingFilter</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>EncodingFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
-   <resource-ref>
-  	<description>oracle Tomorrow Local DBCP</description>
-  	<res-ref-name>jdbc/tomorrowLocal</res-ref-name>
-  	<res-type>javax.sql.DataSource</res-type>
-  	<res-auth>Container</res-auth>
+  <resource-ref>
+    <description>oracle Tomorrow Local DBCP</description>
+    <res-ref-name>jdbc/tomorrowLocal</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
   </resource-ref>
   <resource-ref>
-  	<description>oracle Tomorrow Local DBCP</description>
-  	<res-ref-name>jdbc/tomorrowPclass</res-ref-name>
-  	<res-type>javax.sql.DataSource</res-type>
-  	<res-auth>Container</res-auth>
-  </resource-ref>  
-  
-  
+    <description>oracle Tomorrow Local DBCP</description>
+    <res-ref-name>jdbc/tomorrowPclass</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
 </web-app>

@@ -1,4 +1,3 @@
-<%@page import="kh.semi.tomorrow.member.model.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -22,10 +21,13 @@
 	private int pNo;
 -->
 <body>
-	<form name="frm_sbWrite" action="enroll.do" method="post">
+	<form name="frm_sbWrite" action="enrollF.do" method="post" enctype="multipart/form-data">
 	<div>
 		id : <%= session.getAttribute("id") %><br>
 	    <input type="text" name="bTitle" placeholder="제목을 입력해주세요">
+	</div>
+	<div>
+		이미지 : <input type="file" name="bImgPath"><br>
 	</div>
 	<div>
 		<textarea id="ckeditor" name="bContent"></textarea>

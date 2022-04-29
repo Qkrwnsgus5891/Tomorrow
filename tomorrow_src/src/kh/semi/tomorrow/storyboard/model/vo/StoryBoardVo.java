@@ -1,17 +1,24 @@
 package kh.semi.tomorrow.storyboard.model.vo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+
 
 public class StoryBoardVo {
 	private int bNo;
 	private String bTitle;
 	private String bContent;
 	private String bWriter;
+	private String mId;
 	private int bCnt;
 	private Timestamp bDate;
-	private String bNy;
-	private String mId;
 	private int pNo;
+	private String bNy;
+	private String bImgPath;
+	
+	private int rCnt;
+	
+	private ArrayList<StoryRecommentVo> bRecommentList;
 	
 	public StoryBoardVo() {
 		
@@ -31,10 +38,42 @@ public class StoryBoardVo {
 		this.pNo = pNo;
 	}
 
+	public StoryBoardVo(int bNo, String bTitle, String bContent, String bWriter, int bCnt, Timestamp bDate, String bNy,
+			String mId, int pNo, int rCnt) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bWriter = bWriter;
+		this.bCnt = bCnt;
+		this.bDate = bDate;
+		this.bNy = bNy;
+		this.mId = mId;
+		this.pNo = pNo;
+		this.rCnt = rCnt;
+	}
+
+	public StoryBoardVo(int bNo, String bTitle, String bContent, String bWriter, int bCnt, Timestamp bDate, String bNy,
+			String mId, int pNo, String bImgPath, int rCnt) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bWriter = bWriter;
+		this.bCnt = bCnt;
+		this.bDate = bDate;
+		this.bNy = bNy;
+		this.mId = mId;
+		this.pNo = pNo;
+		this.bImgPath = bImgPath;
+		this.rCnt = rCnt;
+	}
+
 	@Override
 	public String toString() {
 		return "StoryBoardVo [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bWriter=" + bWriter
-				+ ", bCnt=" + bCnt + ", bDate=" + bDate + ", bNy=" + bNy + ", mId=" + mId + ", pNo=" + pNo + "]";
+				+ ", bCnt=" + bCnt + ", bDate=" + bDate + ", bNy=" + bNy + ", mId=" + mId + ", pNo=" + pNo
+				+ ", bImgPath=" + bImgPath + ", rCnt=" + rCnt + "]";
 	}
 
 	public int getbNo() {
@@ -107,6 +146,30 @@ public class StoryBoardVo {
 
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
+	}
+
+	public String getbImgPath() {
+		return bImgPath;
+	}
+	
+	public void setbImgPath(String bImgPath) {
+		this.bImgPath = bImgPath;
+	}
+	
+	public int getrCnt() {
+		return rCnt;
+	}
+
+	public void setrCnt(int rCnt) {
+		this.rCnt = rCnt;
+	}
+
+	public ArrayList<StoryRecommentVo> getbRecommentList() {
+		return bRecommentList;
+	}
+
+	public void setbRecommentList(ArrayList<StoryRecommentVo> bRecommentList) {
+		this.bRecommentList = bRecommentList;
 	}
 
 }
