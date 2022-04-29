@@ -15,6 +15,9 @@ public class ProductVo {
 	private int optPrice;
 	private int pSeq;
 	
+	
+	private ArrayList<ProductDetailVo> pdvo;
+	
 	public ProductVo() {}
 
 	public ProductVo(int pNo, String pContent, String pName, String pBrand,int pPrice, int cateId) {
@@ -51,12 +54,17 @@ public class ProductVo {
 	}
 
 	
+	
+
 	@Override
 	public String toString() {
 		return "ProductVo [pNo=" + pNo + ", pName=" + pName + ", pBrand=" + pBrand + ", pContent=" + pContent
 				+ ", pPrice=" + pPrice + ", cateId=" + cateId + ", cateName=" + cateName + ", optNo=" + optNo
-				+ ", optVal=" + optVal + ", optPrice=" + optPrice + ", pSeq=" + pSeq + "]";
+				+ ", optVal=" + optVal + ", optPrice=" + optPrice + ", pSeq=" + pSeq + ", pdvo=" + pdvo + "]";
 	}
+
+	
+	
 
 	public int getpNo() {
 		return pNo;
@@ -138,7 +146,21 @@ public class ProductVo {
 		this.optPrice = optPrice;
 	}	
 	
-	
+	public int getpSeq() {
+		return pSeq;
+	}
+
+	public void setpSeq(int pSeq) {
+		this.pSeq = pSeq;
+	}
+
+	public ArrayList<ProductDetailVo> getPdvo() {
+		return pdvo;
+	}
+
+	public void setPdvo(ArrayList<ProductDetailVo> pdvo) {
+		this.pdvo = pdvo;
+	}
 	
 	
 	

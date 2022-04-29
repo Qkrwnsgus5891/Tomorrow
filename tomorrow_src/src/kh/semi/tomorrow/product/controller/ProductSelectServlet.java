@@ -38,14 +38,19 @@ public class ProductSelectServlet extends HttpServlet {
 		if(pNo < 1 ) {
 			//오류 페이지로 이동. 또는 boardlist로 이동
 			return;
-		}
+		} else {
+			
 		ProductVo result = new ProductService().selectProduct(pNo);
 		System.out.println(result);
-		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));
 		
+		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));
 		System.out.println(result);
-		request.setAttribute("optvo", result);
+		
+		request.setAttribute("selectProduct", result);
+		
+		
 		request.getRequestDispatcher("WEB-INF/view/product/productDetail.jsp").forward(request, response);
+		}
 	}
 
 	/**

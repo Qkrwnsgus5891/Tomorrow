@@ -2,8 +2,10 @@
 	rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/resources/css/header.css"
 	rel="stylesheet" type="text/css">
+<link href="./css/reset.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +13,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link href="./css/reset.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 #productdetail {
 	margin: 0 10%;
@@ -73,27 +75,30 @@
 					<img src="./upload/images/sample.jpg">
 				</section>
 				<section id="detailcontent">
-					<h5>브랜드명</h5>
-					<h3>상품이름 어쩌구 저쩌구 이러쿵 저러쿵 엄청 길게 나올거니까 일단 넣어놓기</h3>
-					<p>금액(원)</p>
-					<p>옵션1</p>
-					<div>
-						<select name="option_one">
-							<option value="color1">빨강</option>
-							<option value="color2">노랑</option>
-							<option value="color3">파랑</option>
-							<option value="color4">초록</option>
-						</select>
-					</div>
-					<p>옵션2</p>
-					<div>
-						<select name="option_two">
-							<option value="size1">싱글</option>
-							<option value="size2">슈퍼싱글</option>
-							<option value="size3">퀸</option>
-							<option value="size4">킹</option>
-						</select>
-					</div>
+				<c:set var="vo" value = "${selectProduct }"></c:set>
+				
+					<div>${vo.pBrand }</div>
+					<div>${vo.pName }</div>
+					<p>${vo.pPrice }</p>
+
+
+					<c:if test="${ }">
+						<div>
+							<p>${ }</p>
+							<select name="option_one">
+								<c:forEach items="${ }" var="">
+									<option value="">${ }</option>
+								</c:forEach>
+							</select>
+						</div>
+					</c:if>
+
+
+
+
+
+
+
 					<p>주문금액 금액+옵션가격(원)</p>
 					<button type="submit">장바구니</button>
 					<button type="submit">바로구매</button>
@@ -111,9 +116,15 @@
 			<div id="storylist">
 				<table>
 					<tr>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
+						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+						laboris nisi ut aliquip ex ea commodo consequat.</td>
+						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+						laboris nisi ut aliquip ex ea commodo consequat.</td>
+						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt 
+						ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+						laboris nisi ut aliquip ex ea commodo consequat.</td>
 					</tr>
 				</table>
 			</div>
