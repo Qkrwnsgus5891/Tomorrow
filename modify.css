@@ -1,0 +1,101 @@
+
+* {
+    box-sizing: border-box;
+}
+
+a {}
+
+.con {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fs {
+    width: 800px;
+}
+
+.div {
+    margin-top: 30px;
+}
+
+.div2 {
+    margin: 25px;
+}
+
+.out {
+    text-decoration: none;
+    color: rgb(150, 150, 150);
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 72%;
+}
+
+.label0 {
+    font-weight: 900;
+    font-size: 22px;
+    color: rgb(0, 0, 0);
+}
+
+.label {
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(80, 80, 80);
+}
+
+.label2 {
+    margin-left: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(80, 80, 80);
+}
+
+.input {
+    font-size: 15px;
+    width: 360px;
+    height: 30px;
+    border: 1px solid rgb(220, 220, 220);
+    padding: 15px;
+    margin-left: 50px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.input2 {
+    font-size: 15px;
+    width: 360px;
+    height: 30px;
+    border: 1px solid rgb(220, 220, 220);
+    padding: 15px;
+    margin-left: 36px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.input3 {
+    font-size: 15px;
+    width: 360px;
+    height: 30px;
+    border: 1px solid rgb(220, 220, 220);
+    padding: 15px;
+    margin-left: 33px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.btn {
+    font-size: 15px;
+    width: 270px;
+    height: 45px;
+    border: 1px solid rgb(220, 220, 220);
+    color: rgb(255, 255, 255);
+    font-weight: 900;
+    font-size: 17px;
+    background-color: rgb(100, 200, 250);
+    border-radius: 5px;
+    margin-left: 13%;
+}
