@@ -1,13 +1,18 @@
 package kh.semi.tomorrow.product.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import kh.semi.tomorrow.product.model.service.ProductService;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
@@ -34,9 +39,30 @@ public class StoreMainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);
+		String cateIdStr = request.getParameter("cateId");
+		int cateId = 0;
+		
+		String pNoStr = request.getParameter("pNo");
+		int pNo=0;
+		
+		try {
+			cateId = Integer.parseInt(cateIdStr);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		System.out.println(pNo + ": CategoryServlet 카테고리 아이디");
 
+
+
+		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(pNo);
+		System.out.println(result);
+		
+		request.setAttribute("selectAllProduct", result);
+		
+		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);
+		
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

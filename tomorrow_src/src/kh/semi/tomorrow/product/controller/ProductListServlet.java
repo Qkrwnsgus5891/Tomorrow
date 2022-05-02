@@ -34,6 +34,19 @@ public class ProductListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int currentPage = 1;
+		
+		String pNoStr = request.getParameter("pNo");
+		int pNo=0;// 전체 상품은 0
+		
+		String cateIdStr = request.getParameter("cateId");
+		int cateId =0;
+		
+		try {
+			cateId = Integer.parseInt(cateIdStr);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		System.out.println(cateId + ": CategoryServlet 카테고리 아이디");
 
 		String currentPageStr = request.getParameter("page");
 		try {
@@ -73,8 +86,8 @@ public class ProductListServlet extends HttpServlet {
 			endRnum = totalCnt;
 		}
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		int cateId = 0;  
-		int pNo = 0;// 전체 상품은 0
+		  
+		
 		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, endRnum, cateId, pNo);
 		System.out.println(result);
 

@@ -32,6 +32,14 @@ public class ProductService {
 		return result;
 	}
 	
+	public ArrayList<ProductVo> selectAllProduct(int pNo){
+		Connection conn=null;
+		conn = getConnection();
+		ArrayList<ProductVo> result = dao.selectAllProduct(conn, pNo);
+		close(conn);
+		return result;
+	}
+	
 	public int countProduct() {
 		Connection conn=null;
 		conn = getConnection();

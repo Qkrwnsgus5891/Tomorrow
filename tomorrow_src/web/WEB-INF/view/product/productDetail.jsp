@@ -85,32 +85,65 @@
 					<c:if test="${not empty vo.pdvo }">
 						<div>
 							<c:forEach items="${vo.pdvo }" var="pdOpt" varStatus="status">
-								<c:if test="${status.index eq 0}">
+								<c:choose>
+								<c:when test="${status.index eq 0}">
 									<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-									<div class="optName">${pdOpt.optName }</div>
-									<select name="option_${setOpt }">
-								</c:if>
-								<c:if test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
+		<div class="optName">${pdOpt.optName }</div>
+		<select name="option_${setOpt }">
+			<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+								</c:when>
+								<c:when test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
 									<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-									</select>
-									<div class="optName">${pdOpt.optName }</div>
-									<select name="option_${setOpt }">
-								</c:if>
-								<option value="${pdOpt.optVal }">${pdOpt.optVal }</option>
-								<div style="display: none;" class="optPrice">${pdOpt.optVal }</div>
-								<div style="display: none;" class="pSeq">${pdOpt.pSeq }</div>
-
+		</select>
+		<div class="optName">${pdOpt.optName }</div>
+		<select name="option_${setOpt }">
+			<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+								</c:when>
+								<c:otherwise>
+			<option  value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+								</c:otherwise>
+								</c:choose>
+			<option disabled hidden class="optPrice" value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
+			<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
 							</c:forEach>
 
 							</select>
 						</div>
 					</c:if>
-
-					<p>주문금액 금액+옵션가격(원)</p>
-					<button type="submit">장바구니</button>
-					<button type="submit">바로구매</button>
+					<p><span id="price"></span><span>(원)</span></p>
+					<button type="button">장바구니</button>
+					<button type="button">바로구매</button>
 				</section>
 			</section>
+<script>
+	calPrice();
+	function calPrice(){
+		var basicPrice = Number('${vo.pPrice }');
+		if(isNaN(basicPrice)) {
+			basicPrice = 0;
+		}
+		var optPrice = 0;
+		$("select").each(function(index, element){
+			var checkedEle = $(element).children(":checked");
+			console.log(checkedEle);
+			var optOnePrice = Number(checkedEle.next().text());
+			console.log(optOnePrice);
+			if(isNaN(optOnePrice)) {
+				optOnePrice = 0;
+			}
+			optPrice += optOnePrice;
+		});
+		var totalPrice = basicPrice + optPrice;
+		console.log(totalPrice);
+		$("#price").html(totalPrice);
+	}
+</script>
+<script>
+	$("select").change(function(){
+		console.log(this);
+		calPrice();
+	});
+</script>
 		</section>
 
 		<section id="productInfoBtns">

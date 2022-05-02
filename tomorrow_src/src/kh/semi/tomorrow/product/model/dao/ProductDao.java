@@ -95,6 +95,49 @@ public class ProductDao {
 
 		return volist;
 	}
+	
+	public ArrayList<ProductVo> selectAllProduct(Connection conn, int pNo) {
+		ArrayList<ProductVo> volist = null;
+
+		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price from "
+				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
+		
+		sql += " order by p_no desc) t1) " + " where r between ? and ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if (pNo > 0) {
+				pstmt.setInt(1, pNo);
+			} else {
+			}
+
+			rs = pstmt.executeQuery();
+
+			if (rs != null) {
+				volist = new ArrayList<ProductVo>();
+				while (rs.next()) {
+					ProductVo vo = new ProductVo();
+					vo.setpContent(rs.getString("p_content"));
+					vo.setpName(rs.getString("p_name"));
+					vo.setpBrand(rs.getString("p_brand"));
+					vo.setpPrice(rs.getInt("p_price"));
+					vo.setCateId(rs.getInt("category_id"));
+					vo.setpNo(rs.getInt("p_no"));
+					volist.add(vo);
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return volist;
+	}
 
 	public int countProduct(Connection conn) {
 		int result = 0;
@@ -120,7 +163,7 @@ public class ProductDao {
 		ProductVo vo = null;
 		ArrayList<ProductDetailVo> pdvolist = null;
 		String sql1 = "select p_no, p_content, p_name, p_brand, p_price from product where p_no=?";
-		String sql2 = "select opt_no, opt_name, opt_val,opt_price from product_detail join option_parent using(opt_no) where p_no=?";
+		String sql2 = "select p_seq, opt_no, opt_name, opt_val,opt_price from product_detail join option_parent using(opt_no) where p_no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql1);
@@ -144,6 +187,7 @@ public class ProductDao {
 					
 					do {
 						ProductDetailVo pdvo = new ProductDetailVo();
+						pdvo.setpSeq(rs.getInt("p_seq"));
 						pdvo.setOptNo(rs.getInt("opt_no"));
 						pdvo.setOptName(rs.getString("opt_name"));
 						pdvo.setOptPrice(rs.getInt("opt_price"));

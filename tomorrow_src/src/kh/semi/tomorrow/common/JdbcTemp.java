@@ -62,7 +62,7 @@ public class JdbcTemp {
 	
 	public static void close(ResultSet rs) {
 		try {
-			if(rs!=null || !rs.isClosed()) rs.close();
+			if(rs!=null && !rs.isClosed()) rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

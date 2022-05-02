@@ -160,18 +160,30 @@ function furnitureSelect(){
 				</nav>
 				<section>
 					<article id="productList">
-						<h3 id="categoryName">전체상품</h3>
+					<h3 id="categoryName">
+			<c:set var="cateIdx" value="${selectAllProduct[0].cateId }"></c:set>
+					<c:choose>
+						<c:when test="${cateIdx==1 }">가구</c:when>
+						<c:when test="${cateIdx==2 }">페브릭</c:when>
+						<c:when test="${cateIdx==3 }">조명</c:when>
+						<c:otherwise>전체 상품</c:otherwise>
+					</c:choose>
+					
+					</h3>
+					
 						<hr>
 						<div class="product_wrapper">
 							<c:forEach items="${selectAllProduct }" var="vo">
-								
-									<div>
+								<form class="prdt" action="./productDetail" method="get">
+									<input type="hidden" name="p_no" value="${vo.pNo }">
+									
+									<div class="proDetail" onclick="clickproDetail(this);">
 											<div>${vo.pContent }</div>
 											<div>${vo.pName }</div>
 											<div>${vo.pBrand }</div>
 											<div>${vo.pPrice }</div>
 									</div>
-								
+								</form>
 							</c:forEach>
 
 

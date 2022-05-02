@@ -52,8 +52,8 @@ table tr td {
 }
 
 .banner {
-	height: 40%; 
-	transition : all 1s;
+	height: 40%;
+	transition: all 1s;
 	overflow: hidden;
 	text-align: center;
 	position: relative;
@@ -61,8 +61,8 @@ table tr td {
 }
 
 .banner img {
-	width : 100%;
-	height : 100%;
+	width: 100%;
+	height: 100%;
 	text-align: center;
 	display: inline-block;
 }
@@ -102,67 +102,33 @@ table tr td {
 				<section>
 					<h3>인기상품</h3>
 					<div class="furniture_wrapper">
-						<div class="one">
+							<c:forEach items="${selectAllProduct }" var="vo">
+								<form class="prdt" action="./productDetail" method="get">
+									<input type="hidden" name="p_no" value="${vo.pNo }">
 
-							<table>
-								<tr>
-									<td>${selectAllProduct.pContent }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pName }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pBrand }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pPrice }</td>
-								</tr>
-							</table>
-						</div>
-						<div class="two">
-							<table>
-								<tr>
-									<td>${selectAllProduct.pContent }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pName }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pBrand }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pPrice }</td>
-								</tr>
-							</table>
-						</div>
-						<div class="three">
-							<table>
-								<tr>
-									<td>${selectAllProduct.pContent }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pName }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pBrand }</td>
-								</tr>
-								<tr>
-									<td>${selectAllProduct.pPrice }</td>
-								</tr>
-							</table>
-						</div>
+						<c:if test="${pNo eq 1 || pNo eq 4 || pNo eq 7}">
+									<div class="proDetail" onclick="clickproDetail(this);">
+										<div>${vo.pContent }</div>
+										<div>${vo.pName }</div>
+										<div>${vo.pBrand }</div>
+										<div>${vo.pPrice }</div>
+									</div>
+						</c:if>
+								</form>
+							</c:forEach>
 					</div>
+				
 				</section>
 				<section>
 					<h3>카테고리</h3>
 					<button type="button" id="store_btn"
 						onclick="location.href='storeproduct';">전체</button>
 					<button type="button" id="furni_btn"
-						onclick="location.href='storeproduct';">가구</button>
+						onclick="location.href='storeproduct?cateId=1';">가구</button>
 					<button type="button" id="pabric_btn"
-						onclick="location.href='storeproduct';">페브릭</button>
+						onclick="location.href='storeproduct?cateId=2';">페브릭</button>
 					<button type="button" id="light_btn"
-						onclick="location.href='storeproduct';">조명</button>
+						onclick="location.href='storeproduct?cateId=3';">조명</button>
 				</section>
 			</div>
 			<div class="wrap_footer">
