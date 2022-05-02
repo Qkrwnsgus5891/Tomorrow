@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.tomorrow.member.model.vo.MemberVo;
+
 /**
  * Servlet implementation class MemberInfoReadServlet
  */
@@ -27,9 +29,14 @@ public class MemberInfoReadServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("WEB-INF/view/memberinfo/mypage.jsp").forward(request, response);
+	
+		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");
+		if(ssvo == null) {	
+			response.sendRedirect("login");
+		} else {
+			request.getRequestDispatcher("WEB-INF/view/memberinfo/mypage.jsp").forward(request, response);	
+		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

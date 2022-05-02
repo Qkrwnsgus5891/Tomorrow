@@ -7,170 +7,112 @@
 <meta charset="UTF-8">
 <title>주문 / 결제 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
+
+    <script>
+       $(document).ready(function(){
+        $("#share1").click(function(){
+            $("#share2").toggle();
+        });
+        });
+    </script>
     <style>
         *{text-decoration: none;}
     </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include>	
-   <div id="cartWrap" style="display: flex;">
-        <div id="orderWrap" style="width: 60%; padding: 100px 0 200px 200px; min-width: 550px;
-        ">
+     <!-- 썸네일, 회원정보수정 -->
+    <div id="myPageWrap01" style="width: 100%; display: flex; margin: 50px;">
 
-            <p><h2>주문/결제</h2></p>
-            <p><h4>주문자</h4></p>
-            <hr>
-            <br><br>
-            <table border="0" style="text-align: left;">
-                <tr>
-                    <td id="orderName">이름</td>
-                    <td colspan="2"><input type="text" placeholder="이름" 
-                        style="height: 25px; width: 200px; margin-left: 20px;"> </td>
-                </tr>
-            
-                <tr>
-                    <td id="orderEmail">이메일</td>
-                    <td colspan="2"><input type="text" placeholder="email" 
-                        style="height: 25px; width: 200px; margin-left: 20px;"> </td>
-                    <td>@</td>    
-                    <td colspan="2"><input type="text" 
-                        style="height: 25px; width: 150px;"> </td>            
-                </tr>
-                <tr>
-                    <td id="orderPhone">연락처</td>
-                    <td colspan="2"> 
-                        <select size="1" id="phoneSelect" style="height: 25px;width: 55px; margin-left: 20px;">
-                                <option value="v1" selected>010</option>
-                                <option value="v2">011</option>
-                                <option value="v3">012</option>
-                                <option value="v3">112</option>
-                                <option value="v3">119</option>
-                                <option value="v3">070</option>
-                        </select>
-                        <input type="text" placeholder="나머지 입력" 
-                        style="height: 25px; width: 140px; "> </td>
+        <div id="infoWrap" style="width: 20%; padding: 100px; min-width: 300px;
+         left: 50px; position: relative;">
+            <div style="width: 100%; height: 400px;border: 1px solid rgb(142, 141, 141);">
+               
+                <div id="myface" style="display: flex;">
+                    <img src="./image/basicprofile.png" style="width: 240px; height: 240px;
+                    margin: 35px 35px 0 35px; border-radius: 50%;">
+                    <img src="./image/share.png" id="share1" style="width: 50px; height: 50px;
+                    margin: 35px 0; border-radius: 50%; position: absolute; right: 120px;cursor: pointer;" >
+                    
+                </div>
+                <div id="share2" style="width:160px;height: 55px; border-radius: 20px; display: none;
+                background-color: rgba(190, 240, 240, 0.301); position: absolute; top: 180px; right: 60px;">
+                    <div style="display: flex;">
+                        <img src="./image/twitter.png" style="width: 50px; height: 50px;cursor: pointer;">
+                        <img src="./image/insta.png" style="width: 50px; height: 50px;cursor: pointer;">
+                        <img src="./image/facebook.png" style="width: 50px; height: 50px;cursor: pointer;">
+                    </div>
+                </div>
+                <div style="margin: 0 auto;text-align: center;">
+                <span style="font-size: 12px;">사진을 drop해서 프로필</span><br>
+                <span style="font-size: 12px;">사진을 바꿀 수 있습니다.</span>
+                </div>
 
-                </tr>
-            </table>
 
-            <br><br><br>
-            <div style="display: flex;">
-                <span style="width: 70%;"> 
-                    <b>배송지</b>
-                </span>
-                <span id="fillSame" style="width: 30%;color: rgb(77, 77, 255); cursor: pointer;"> 
-                위와 동일하게 채우기
-                </span>
-            </div><br>
-            <hr>
-            <br><br>
-            <table border="0" style="text-align: left;">
-                <tr>
-                    <td>배송지명</td>
-                    <td colspan="2"><input type="text" 
-                        style="height: 25px; width: 200px; margin-left: 20px;"> </td>
-                </tr>
-                <tr>
-                    <td>받는사람</td>
-                    <td colspan="2"><input type="text" 
-                        style="height: 25px; width: 200px; margin-left: 20px;"> </td>
-                </tr>
-                <tr>
-                    <td id="orderPhone">연락처</td>
-                    <td colspan="2"> 
-                        <select size="1" id="phoneSelect" style="height: 25px; ;width: 55px; margin-left: 20px;">
-                                <option value="v1" selected>010</option>
-                                <option value="v2">011</option>
-                                <option value="v3">012</option>
-                                <option value="v3">112</option>
-                                <option value="v3">119</option>
-                                <option value="v3">070</option>
-                        </select>
-                        <input type="text" placeholder="나머지 입력" 
-                        style="height: 25px; width: 140px; "> </td>
-
-                </tr>
-                <tr>
-                    <td>주소</td>
-                    <td colspan="3"><input type="text" 
-                        style="height: 25px; width: 400px; margin-left: 20px;"> </td>
-                </tr>
-
-                <tr>
-                    <td id="orderRequest" colspan="4"> 
-                        <select size="1" id="phoneSelect" style="height: 40px;width: 500px;">
-                                <option value="" selected>배송시 요청사항을 선택해주세요</option>
-                                <option value="v2">경비실에 맡겨주세요.</option>
-                                <option value="v3">도착하기 전에 연락주세요.</option>
-                                <option value="v3">현관문 앞에 놓아주세요.</option>
-                                <option value="v3">안전하게 운전해주세요.</option>
-                                <option value="v3">벨을 누르지 말아주세요.</option>
-                        </select>
-                    </td>
-
-                </tr>
-            </table>
-            <br><br><br>
-            <p><h4>주문상품</h4></p>
-            <hr>
-            
-
-            <div id="orderProducts" >
-					<div class="orderitems"
-				style="border: 1px solid black; width: 100%; margin-top: 20px; padding: 10px 0;">
-				<div
-					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
-
-				</div>
-				<div
-					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
-
-				</div>
-				<div
-					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
-
-				</div>
-			</div>
+                <div style="margin: 10px auto 0; width: 120px; height: 25px;
+                background-color: rgba(200, 231, 244, 0.692); padding: 1px;  border-radius: 20px;">
+                   <p style="text-align: center; bottom: 13px; position: relative;">
+                    <a href="update">회원정보 수정<a></p>
+                </div>
             </div>
+
         </div>
 
-
-
-
-
-        <div id="finalPriceWrap" style="width: 40%;padding: 100px 200px 0 50px;
-        height: 800px;">
-            <div style="width: 400px; height: 400px; padding: 20px;
-            border: 2px solid rgb(117, 117, 117);">
-                <h3>결제금액</h3>
-                <div style="display: flex;">
-                    <span style="width:70%;"> 총 할인 금액</span>
-                    <span style="width:20%;"></span>
-                    <span style="width:10%;"> 원 </span>
-                </div><br>
-                <div style="display: flex;">
-                    <span style="width:70%;"> 총 상품 금액</span>
-                    <span style="width:20%;"></span>
-                    <span style="width:10%;"> 원 </span>
-                </div><br>
-            <hr style=" border: 1px solid rgb(117, 117, 117);">
+        <!-- 회원구매목록 -->
+        <div id="infoWrap02" style="width: 90%; overflow:visible; 
+        min-width: 600px; padding:75px 100px 0 50px;">
+            <h3>회원 구매 목록</h3>
             
-            <div style="position: absolute;">
-            <input type="checkbox" style="height: 15px;width: 15px; "> 아래 내용에 모두 동의합니다. (필수)
+            <div id="recentOrderWrap" style="width: 90%; padding: 20px;
+            border: 1px solid rgb(142, 141, 141); overflow: auto; ">
+                <div style="border: 1px solid rgb(142, 141, 141);">
+                    <div style="display: flex; padding: 10px; width: 95%; ">
+                        <div id="sumNailProduct" style="background-color: rgb(116, 116, 116);
+                        width: 100px;height: 100px;"></div>
+                        <div>&nbsp;&nbsp;&nbsp;[브랜드명] [상품명]</div>
+                    </div>
 
-            <br><br>
-            <p>개인정보 수집 허용 및 제 3자 제공 동의</p>
-            <p>결제대행 서비스 이용약관 동의</p>
-            <p>본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.</p>
+                    <div style="background-color: rgba(171, 171, 171, 0.216); width: 95%;margin-top: 10px;margin-left: 10px; height: 40px;border-radius:40px;"></div>
+                    <div style="width: 95%;"><h4 style="text-align: end;">금액  원</h4></div>                
+                </div>
+             
+                <div style="border: 1px solid rgb(142, 141, 141); margin-top: 10px;">
+                    <div style="display: flex; padding: 10px; width: 95%; ">
+                        <div id="sumNailProduct" style="background-color: rgb(116, 116, 116);
+                        width: 100px;height: 100px;">
+                        </div>
+                    <div>&nbsp;&nbsp;&nbsp;[브랜드명] [상품명]</div>
+                    </div>
 
-            <button>결제하기</button>
-           </div>   
+                    <div style="background-color: rgba(171, 171, 171, 0.216); width: 95%;margin-top: 5px;margin-left: 10px; height: 45px;border-radius:40px;"></div>
+                    <div style="width: 95%;"><h4 style="text-align: end;">금액  원</h4></div>                
+                </div>
+            </div>
+            
+            
+             <!-- 나의 스토리 목록 -->
+            <h3>나의 스토리</h3>   
+            <div id="recentOrderWrap" style="width: 95%; height: 280px;;overflow: auto;">
+                
+                <table border="1px" style="width: 100%; height: 130px; text-align: center;" >
+                    <tr>
+                        <th>제목 </th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                    </tr>
+                    <tr>
+                        <td>안녕하세요 </td>
+                        <td>2022-04-26</td>
+                        <td>2345</td>
+                    </tr>
+
+                </table>
 
 
             </div>
         </div>
-
     </div>
+
        <div><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 </html>
