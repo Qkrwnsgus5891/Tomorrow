@@ -72,8 +72,8 @@ public class WriteFileDoStoryBoardServlet extends HttpServlet {
 		
 		String bTitle = multi.getParameter("bTitle");
 		String bContent = multi.getParameter("bContent");
-		String orgFileName = multi.getOriginalFileName("bImgPath");	// 전송되어오기 전 client에서 파일이름
-		String uploadName = multi.getFilesystemName("bImgPath");	// 서버에 저장된 파일이름
+		String orgFileName = multi.getOriginalFileName("upload");	// 전송되어오기 전 client에서 파일이름
+		String uploadName = multi.getFilesystemName("upload");	// 서버에 저장된 파일이름
 		String mId = multi.getParameter("mId");
 		int pNo = Integer.parseInt(multi.getParameter("pNo"));
 		System.out.println("uploadName : " + uploadName);

@@ -58,10 +58,14 @@ public class StoryboardDao {
 		System.out.println("StoryboardDao vo : " + vo);
 		int result = 0;
 		
-		String sql = "";
+		String sql = "UPDATE story SET b_title = ?, b_content = ?, b_date = sysdate, b_img_path = ? WHERE b_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getbTitle());
+			pstmt.setString(2, vo.getbContent());
+			pstmt.setString(3, vo.getbImgPath());
+			pstmt.setInt(4, vo.getbNo());			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -76,7 +80,7 @@ public class StoryboardDao {
 
 	public ArrayList<StoryBoardVo> listStoryBoard(Connection conn) {
 		ArrayList<StoryBoardVo> volist = null;
-		String sql = "SELECT * FROM story ORDER BY b_date DESC, b_no DESC";
+		String sql = "SELECT * FROM story ORDER BY b_no DESC, b_date DESC";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -115,7 +119,7 @@ public class StoryboardDao {
 		ArrayList<StoryBoardVo> volist = null;
 		
 		String sql ="SELECT * FROM (SELECT rownum AS r, t1.* FROM (SELECT s1.*, (SELECT count(*) FROM story_recomment r1 WHERE r1.b_no = s1.b_no) r_cnt "
-				+ "FROM story s1 ORDER BY b_date DESC, s1.b_no DESC) t1) WHERE r BETWEEN ? AND ?";
+				+ "FROM story s1 ORDER BY s1.b_no DESC, b_date DESC) t1) WHERE r BETWEEN ? AND ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -182,12 +186,12 @@ public class StoryboardDao {
 		String sql1 = "SELECT * FROM story WHERE b_no = ?";
 		String sql2 = "SELECT * FROM story_recomment WHERE b_no = ?";
 
-		try { // 4
-			pstmt = conn.prepareStatement(sql1); // 3
-			pstmt.setInt(1, bNo); // 7 : 위 2번 ? 에 적용
+		try {
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setInt(1, bNo);
 
-			rs = pstmt.executeQuery(); // 8
-			vo = new StoryBoardVo(); // 9 : 위 1 자료형에 따라서 생성(기본자료형인 경우 안해도 됨)
+			rs = pstmt.executeQuery();
+			vo = new StoryBoardVo();
 
 //			B_NO      	NOT NULL NUMBER         
 //			B_TITLE   	NOT NULL VARCHAR2(50)   
@@ -200,8 +204,7 @@ public class StoryboardDao {
 //			B_NY      	NOT NULL VARCHAR2(1)
 //			B_IMG_PATH	NOT NULL VARCHAR2(300)
 			
-			if (rs.next()) { // 10 : 위 2번의 조건식 pk- 결과는 1행. while 반복x
-				// 11 : 리턴 변수 값 채우기
+			if (rs.next()) {
 				vo.setbNo(rs.getInt("B_NO"));
 				vo.setbTitle(rs.getString("B_TITLE"));
 				vo.setbContent(rs.getString("B_CONTENT"));
@@ -215,7 +218,7 @@ public class StoryboardDao {
 				
 				close(rs);
 				close(pstmt);
-				pstmt = conn.prepareStatement(sql2); // 3
+				pstmt = conn.prepareStatement(sql2);
 				pstmt.setInt(1, bNo);
 
 				rs = pstmt.executeQuery();
@@ -240,10 +243,10 @@ public class StoryboardDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs); // 5 : 위 2 SELECT
-			close(pstmt); // 6
+			close(rs);
+			close(pstmt);
 		}
 
-		return vo; // 1 : 리턴값 반환
+		return vo;
 	}
 }

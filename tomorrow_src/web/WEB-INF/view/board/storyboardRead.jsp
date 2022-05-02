@@ -13,10 +13,11 @@
 <body>
 	<jsp:include page="../template_header.jsp"/>
 	<article>
-		<p>${bvo.bNo }</p>
-		<p>${bvo.bTitle }</p>
-		<p>${bvo.bContent }</p>
-		<img src="${pageContext.request.contextPath }/${bvo.bImgPath }" width="300">
+		<p>글번호 : ${bvo.bNo }</p>
+		<p>제목 : ${bvo.bTitle }</p>
+		<p>내용 : ${bvo.bContent }</p>
+		썸네일 : <img src="${pageContext.request.contextPath }/${bvo.bImgPath }" width="300">
+		<button onclick="location.href='storyupdate?bno=${bvo.bNo}'">수정</button>
 	</article>
 	<jsp:include page="../template_footer.jsp"/>
 </body>

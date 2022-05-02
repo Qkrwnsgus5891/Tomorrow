@@ -24,13 +24,13 @@
 	<form name="frm_sbWrite" action="enrollF.do" method="post" enctype="multipart/form-data">
 	<div>
 		id : <%= session.getAttribute("id") %><br>
-	    <input type="text" name="bTitle" placeholder="제목을 입력해주세요">
+	    <input type="text" name="bTitle" placeholder="제목을 입력해주세요" required>
 	</div>
 	<div>
-		이미지 : <input type="file" name="bImgPath"><br>
+		이미지 : <input type="file" name="upload" required><br>
 	</div>
 	<div>
-		<textarea id="ckeditor" name="bContent"></textarea>
+		<textarea id="ckeditor" name="bContent" required></textarea>
 	    <script>
 	    	CKEDITOR.replace('ckeditor', {
 	    		filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
@@ -53,7 +53,7 @@
 	</div>
 	<div>
 		<input type="hidden" name="mId" value="<%= session.getAttribute("id") %>">
-        <input type="text" name="pNo" placeholder="상품번호">
+        <input type="text" name="pNo" placeholder="상품번호" required>
 	</div>
         <button type="submit">게시물 등록</button>
     </form>
