@@ -1,3 +1,5 @@
+<%@page import="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo"%>
+<%@page import="java.util.ArrayList"%>
 <link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">    
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -97,17 +99,24 @@
                 
                 <table border="1px" style="width: 100%; height: 130px; text-align: center;" >
                     <tr>
+                        <th>글번호 </th>
                         <th>제목 </th>
                         <th>작성일</th>
-                        <th>조회</th>
+                        <th>조회수</th>
                     </tr>
-                    <tr>
-                        <td>안녕하세요 </td>
-                        <td>2022-04-26</td>
-                        <td>2345</td>
-                    </tr>
-
-                </table>
+  
+<%
+	ArrayList<StoryBoardVo> boardlist = (ArrayList<StoryBoardVo>)request.getAttribute("boardlist");
+%>        
+<c:forEach items="${boardlist }" var="vo">        
+        		<tr>
+          			<td><a href="storyread?bno=${vo.bNo }">${vo.bNo }</a></td>
+          			<td><a href="storyread?bno=${vo.bNo }">${vo.bTitle }</a></td>
+          			<td>${vo.bDate }</td>
+          			<td>${vo.bCnt }</td>
+        		</tr>
+</c:forEach>        
+      		</table>
 
 
             </div>
