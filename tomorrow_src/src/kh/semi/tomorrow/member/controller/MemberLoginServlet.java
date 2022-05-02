@@ -26,7 +26,7 @@ public class MemberLoginServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet - login");
-		request.getRequestDispatcher("WEB-INF/view/member/test_login.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
 	}
 
 	/**
