@@ -12,7 +12,7 @@ import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 public class AdminService {
 	private AdminDao dao = new AdminDao();
 	
-	// Ä«Å×°í¸®º° »óÇ° Á¶È¸
+	// ì¹´í…Œê³ ë¦¬ë³„ ìƒí’ˆ ì¡°íšŒ
 	public ArrayList<ProductVo> ctgryProduct(String ctgry){
 		Connection conn = JdbcTemp.getConnection();
 		ArrayList<ProductVo> volist = dao.ctgryProduct(conn, ctgry);
@@ -20,7 +20,7 @@ public class AdminService {
 		return volist;
 	}
 	
-	// ¸ğµç È¸¿ø ¸ñ·Ï
+	// ëª¨ë“  íšŒì› ëª©ë¡
 	public ArrayList<MemberVo> selectAllMember() {
 		Connection conn = JdbcTemp.getConnection();
 		ArrayList<MemberVo> volist = dao.selectAllMember(conn);
@@ -35,7 +35,7 @@ public class AdminService {
 		return volist;
 	}
 	
-	// µrÅğÇÑ È¸¿øµéÀÇ ¸ñ·Ï
+	// íƒí‡´í•œ íšŒì›ë“¤ì˜ ëª©ë¡
 	public ArrayList<MemberVo> leaveMember() {
 		Connection conn = JdbcTemp.getConnection();
 		ArrayList<MemberVo> volist = dao.leaveMember(conn);
@@ -43,7 +43,7 @@ public class AdminService {
 		return volist;
 	}
 	
-	// È¸¿ø Å»Åğ ¿©ºÎ º¯°æ
+	// íšŒì› íƒˆí‡´ ì—¬ë¶€ ë³€ê²½
 	public int updateWithDraw(String[] mIds) {
 		int result = 0;
 		Connection conn= JdbcTemp.getConnection();
@@ -69,7 +69,7 @@ public class AdminService {
 		return result;
 	}
 	
-	// È¸¿ø Å»Åğ ½ÇÇà
+	// íšŒì› íƒˆí‡´ ì‹¤í–‰
 	public int deleteMember(String mId) {
 		int result = 0;
 		Connection conn= JdbcTemp.getConnection();

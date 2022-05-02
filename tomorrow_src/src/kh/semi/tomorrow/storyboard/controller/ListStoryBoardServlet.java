@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.product.model.vo.ProductVo;
-import kh.semi.tomorrow.storyboard.medel.service.StoryboardService;
+import kh.semi.tomorrow.storyboard.model.service.StoryboardService;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 /**

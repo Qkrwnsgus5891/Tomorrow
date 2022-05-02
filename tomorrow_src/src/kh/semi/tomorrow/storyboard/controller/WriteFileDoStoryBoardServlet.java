@@ -12,7 +12,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kh.semi.tomorrow.member.model.vo.MemberVo;
-import kh.semi.tomorrow.storyboard.medel.service.StoryboardService;
+import kh.semi.tomorrow.storyboard.model.service.StoryboardService;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 

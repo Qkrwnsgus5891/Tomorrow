@@ -6,7 +6,6 @@
 	MemberVo ssMV = (MemberVo)session.getAttribute("ssMV");
 %>
 <!DOCTYPE html>
-<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
 <header>
     <div id="navigation_content">   
 <c:if test="${ssMV.mNickname == '관리자'}">
@@ -62,7 +61,7 @@
     	});
 		$("#logout_btn").click(function() {
 			location.href="logout";
-    	});  */
+    	}); */
 		
 		// header jquery
         $("#my_info").hover( function() { 

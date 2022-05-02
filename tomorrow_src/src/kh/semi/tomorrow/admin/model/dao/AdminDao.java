@@ -19,7 +19,7 @@ public class AdminDao {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
-	// »óÇ° °ü¸®
+	// ìƒí’ˆ ê´€ë¦¬
 	public ArrayList<ProductVo> ctgryProduct(Connection conn, String ctgry) {
 		ArrayList<ProductVo> productList = null;
 		String sql = "select C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
@@ -54,13 +54,13 @@ public class AdminDao {
 		} 
 		
 		if(productList == null) {
-			System.out.println("AdminDao-ctgryProduct()ÀÇ »óÇ° ¸ñ·Ï Á¶È¸¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n");
+			System.out.println("AdminDao-ctgryProduct()ì˜ ìƒí’ˆ ëª©ë¡ ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdminDao-ctgryProduct()¿¡ ÀÇÇØ »óÇ° ¸ñ·ÏÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.\n[productlist]\n" + productList + "\n");		
+			System.out.println("AdminDao-ctgryProduct()ì— ì˜í•´ ìƒí’ˆ ëª©ë¡ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.\n[productlist]\n" + productList + "\n");		
 		}
 		return productList;
 	}
-	// »óÇ° µî·Ï
+	// ìƒí’ˆ ë“±ë¡
 	public int insertProduct(Connection conn) {
 		int result = 0;
 		String sql = "insert into product(P_NO, P_BRAND, P_NAME, P_CONTENT_, P_PRICE, CATEGORY_ID) "
@@ -74,8 +74,8 @@ public class AdminDao {
 		
 		return result;
 	}
-	// »óÇ° ¼öÁ¤/»èÁ¦
-	// ÁÖ¹® ³»¿ª Á¶È¸	
+	// ìƒí’ˆ ìˆ˜ì •/ì‚­ì œ
+	// ì£¼ë¬¸ ë‚´ì—­ ì¡°íšŒ	
 	public ArrayList<OrderVo> selectOrderList() {
 		ArrayList<OrderVo> orderlist = null;
 		String sql = "";
@@ -83,12 +83,12 @@ public class AdminDao {
 		
 		return orderlist;
 	}
-	// È¸¿ø °ü¸®
+	// íšŒì› ê´€ë¦¬
 	public ArrayList<MemberVo> selectAllMember(Connection conn) {
 		ArrayList<MemberVo> memberlist = null;
 		String sql = "select M_ID, M_NAME, M_NICKNAME, "
 				+ " M_BIRTH, M_PHONE, M_DATE, M_NY from member "
-				+ " where m_name != '°ü¸®ÀÚ' ";		
+				+ " where m_name != 'ê´€ë¦¬ì' ";		
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -115,9 +115,9 @@ public class AdminDao {
 			JdbcTemp.close(pstmt);
 		}
 		if(memberlist == null) {
-			System.out.println("AdminDao-selectAllMember()ÀÇ È¸¿ø ¸ñ·Ï Á¶È¸¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n");
+			System.out.println("AdminDao-selectAllMember()ì˜ íšŒì› ëª©ë¡ ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdaminDao-boardList()¿¡ ÀÇÇØ ¸ñ·ÏÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.\n[boardlist]\n" + memberlist + "\n");		
+			System.out.println("AdaminDao-boardList()ì— ì˜í•´ ëª©ë¡ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.\n[boardlist]\n" + memberlist + "\n");		
 		}
 		return memberlist;
 	}
@@ -127,7 +127,7 @@ public class AdminDao {
 		String sql = "select *"
 				+ "    from (select rownum r, t1.*"
 				+ "            from (select s1.m_id, s1.m_name, s1.m_nickname, s1.m_birth, s1.m_phone, s1.m_date, s1.m_ny"
-				+ "                    from member s1 where s1.m_name != '°ü¸®ÀÚ' ) t1"
+				+ "                    from member s1 where s1.m_name != 'ê´€ë¦¬ì' ) t1"
 				+ "    		)"
 				+ "	where r between ? and ?";
 		
@@ -159,9 +159,9 @@ public class AdminDao {
 			JdbcTemp.close(pstmt);
 		}
 		if(memberlist == null) {
-			System.out.println("AdminDao-selectAllMember()ÀÇ È¸¿ø ¸ñ·Ï Á¶È¸¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n");
+			System.out.println("AdminDao-selectAllMember()ì˜ íšŒì› ëª©ë¡ ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdaminDao-boardList()¿¡ ÀÇÇØ ¸ñ·ÏÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.\n[memberlist]\n" + memberlist + "\n");		
+			System.out.println("AdaminDao-boardList()ì— ì˜í•´ ëª©ë¡ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.\n[memberlist]\n" + memberlist + "\n");		
 		}
 		return memberlist;
 	}	
@@ -196,7 +196,7 @@ public class AdminDao {
 			JdbcTemp.close(rs);
 			JdbcTemp.close(pstmt);
 		}
-		System.out.println("AdminDao-leaveMember()¿¡ ÀÇÇØ ¸ñ·ÏÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.\n[leaveMember]\n"+ memberlist + "\n");
+		System.out.println("AdminDao-leaveMember()ì— ì˜í•´ ëª©ë¡ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.\n[leaveMember]\n"+ memberlist + "\n");
 		return memberlist;
 	}
 	
@@ -215,9 +215,9 @@ public class AdminDao {
 			JdbcTemp.close(pstmt);
 		}
 		if(result < 1) {
-			System.out.println("AdaminDao-updateWithDraw()ÀÇ ½ÇÇà¿¡ ½ÇÆĞÇß½À´Ï´Ù.\n");
+			System.out.println("AdaminDao-updateWithDraw()ì˜ ì‹¤í–‰ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdaminDao-updateWithDraw()¿¡ ÀÇÇØ 1ÇàÀÌ ¾÷µ¥ÀÌÆ® µÇ¾ú½À´Ï´Ù.\n");			
+			System.out.println("AdaminDao-updateWithDraw()ì— ì˜í•´ 1í–‰ì´ ì—…ë°ì´íŠ¸ ë˜ì—ˆìŠµë‹ˆë‹¤.\n");			
 		}
 		System.out.println("aaa");
 		return result;
@@ -238,9 +238,9 @@ public class AdminDao {
 			JdbcTemp.close(pstmt);
 		}
 		if(result < 1) {
-			System.out.println("AdaminDao-deleteMember()ÀÇ ½ÇÇà¿¡ ½ÇÆĞÇß½À´Ï´Ù.\n");
+			System.out.println("AdaminDao-deleteMember()ì˜ ì‹¤í–‰ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdminDao-deleteMember()¿¡ ÀÇÇØ 1ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n");			
+			System.out.println("AdminDao-deleteMember()ì— ì˜í•´ 1í–‰ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");			
 		} 
 		return result;
 	}
@@ -264,14 +264,14 @@ public class AdminDao {
 		}
 		
 		if(result < 1) {
-			System.out.println("AdaminDao-countMember()ÀÇ ½ÇÇà¿¡ ½ÇÆĞÇß½À´Ï´Ù.\n");
+			System.out.println("AdaminDao-countMember()ì˜ ì‹¤í–‰ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdaminDao-countMember()·Î ÀÎÇØ 1ÇàÀÌ ¼öÇàµÇ¾ú½À´Ï´Ù.\n");			
+			System.out.println("AdaminDao-countMember()ë¡œ ì¸í•´ 1í–‰ì´ ìˆ˜í–‰ë˜ì—ˆìŠµë‹ˆë‹¤.\n");			
 		} 
 		return result;
 	}
 	
-	// °Ô½Ã¹° °ü¸®
+	// ê²Œì‹œë¬¼ ê´€ë¦¬
 	public ArrayList<StoryBoardVo> boardList(Connection conn) {
 		ArrayList<StoryBoardVo> boardlist = null;
 		String sql = "select b_no, b_title, b_writer, b_date, b_cnt from story";
@@ -299,9 +299,9 @@ public class AdminDao {
 		}
 		
 		if(boardlist == null) {
-			System.out.println("AdaminDao-boardList()ÀÇ °Ô½Ã±Û ¸ñ·Ï Á¶È¸¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n[boardlist]\n" + boardlist + "\n");
+			System.out.println("AdaminDao-boardList()ì˜ ê²Œì‹œê¸€ ëª©ë¡ ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n[boardlist]\n" + boardlist + "\n");
 		} else {
-			System.out.println("AdaminDao-boardList()·Î ÀÎÇØ ¸ñ·ÏÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.\n[boardlist]\n" + boardlist + "\n");		
+			System.out.println("AdaminDao-boardList()ë¡œ ì¸í•´ ëª©ë¡ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.\n[boardlist]\n" + boardlist + "\n");		
 		}		
 		return boardlist;
 	}
@@ -341,9 +341,9 @@ public class AdminDao {
 		}
 		
 		if(boardlist == null) {
-			System.out.println("AdaminDao-boardList()ÀÇ °Ô½Ã±Û ¸ñ·Ï Á¶È¸¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n[boardlist]\n" + boardlist + "\n");
+			System.out.println("AdaminDao-boardList()ì˜ ê²Œì‹œê¸€ ëª©ë¡ ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n[boardlist]\n" + boardlist + "\n");
 		} else {
-			System.out.println("AdaminDao-boardList()·Î ÀÎÇØ ¸ñ·ÏÀÌ Á¶È¸µÇ¾ú½À´Ï´Ù.\n[boardlist]\n" + boardlist + "\n");		
+			System.out.println("AdaminDao-boardList()ë¡œ ì¸í•´ ëª©ë¡ì´ ì¡°íšŒë˜ì—ˆìŠµë‹ˆë‹¤.\n[boardlist]\n" + boardlist + "\n");		
 		}		
 		return boardlist;
 	}
@@ -367,9 +367,9 @@ public class AdminDao {
 		}
 		
 		if(result == 0) {
-			System.out.println("AdminDao-countBoard()ÀÇ °Ô½Ã±Û °³¼ö Á¶È¸¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n[result]\n" + result + "\n");
+			System.out.println("AdminDao-countBoard()ì˜ ê²Œì‹œê¸€ ê°œìˆ˜ ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n[result]\n" + result + "\n");
 		} else {
-			System.out.println("AdminDao-countBoard()ÀÇ °Ô½Ã±Û °³¼ö Á¶È¸¸¦ ¼öÇàÇÕ´Ï´Ù. \n[bresult]\n" + result + "\n");
+			System.out.println("AdminDao-countBoard()ì˜ ê²Œì‹œê¸€ ê°œìˆ˜ ì¡°íšŒë¥¼ ìˆ˜í–‰í•©ë‹ˆë‹¤. \n[bresult]\n" + result + "\n");
 		}
 		return result;
 	}
@@ -390,9 +390,9 @@ public class AdminDao {
 		}
 		
 		if(result < 1) {
-			System.out.println("AdaminDao-deleteBoard()ÀÇ ½ÇÇà¿¡ ½ÇÆĞÇß½À´Ï´Ù.\n");
+			System.out.println("AdaminDao-deleteBoard()ì˜ ì‹¤í–‰ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.\n");
 		} else {
-			System.out.println("AdaminDao-deleteBoard()¿¡ ÀÇÇØ 1ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.\n");			
+			System.out.println("AdaminDao-deleteBoard()ì— ì˜í•´ 1í–‰ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n");			
 		} 
 		return result;
 	}

@@ -155,7 +155,7 @@
       <p id="product_info">상품 정보</p>
       <div id="product_content">
         <div class="prod_box">
-
+		
         </div>
         <div class="prod_box">
 
