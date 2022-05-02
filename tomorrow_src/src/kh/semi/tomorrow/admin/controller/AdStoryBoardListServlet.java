@@ -10,21 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.admin.model.service.AdminService;
-import kh.semi.tomorrow.member.model.vo.MemberVo;
-
-
+import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 /**
- * Servlet implementation class AdMemberListServlet
+ * Servlet implementation class AdStoryBoardDeleteServlet
  */
-@WebServlet("/adMemberList")
-public class AdMemberListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;	
+@WebServlet("/adArticleManage")
+public class AdStoryBoardListServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdMemberListServlet() {
+    public AdStoryBoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +31,7 @@ public class AdMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("AdMemberListServlet - doGet");		
+		System.out.println("AdStoryBoardListServlet - doGet");
 		int currentPage = 1;		
 		String currentPageStr = request.getParameter("page");
 		
@@ -51,10 +49,9 @@ public class AdMemberListServlet extends HttpServlet {
 		int startNum=0;
 		int endNum=0;
 		
-		int totalCnt = 0; // 총 회원 수
-		totalCnt = new AdminService().countMember();
-		
-		System.out.println("총"+totalCnt);
+		int totalCnt = 0; // 총 글 수
+		totalCnt = new AdminService().countBoard();
+		System.out.println("게시글 총 개수 "+totalCnt);
 		
 		/* Paging 처리 */
 		int totalPageCnt = (totalCnt/pageSize) + (totalCnt%pageSize==0 ? 0 : 1);
@@ -75,23 +72,19 @@ public class AdMemberListServlet extends HttpServlet {
 		if(endNum>totalCnt) {
 			endNum = totalCnt;
 		}
-		System.out.println("rnum:"+ startNum +"~"+endNum+"\n");
+		System.out.println("rnum:"+ startNum +"~"+endNum);	
 		
-		ArrayList<MemberVo> memberlist = new AdminService().selectAllMember(startNum, endNum);
+		ArrayList<StoryBoardVo> boardlist = new AdminService().boardList(startNum, endNum);
+		System.out.println("AdStoryBoardListServlet - doGet()\n[boardlist]\n" + boardlist + "\n");		
 		
-		System.out.println("AdMemberListServlet - doGet()\n[memberlist]\n" + memberlist+"\n");
-		System.out.println("AdMemberListServlet - doGet()\n총 회원 수 : " + totalCnt + "명\n");
-		
-		
-		request.setAttribute("memberlist", memberlist);
+		request.setAttribute("boardlist", boardlist);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("totalPageCnt", totalPageCnt);
-		request.setAttribute("memberCnt", totalCnt);
-		request.getRequestDispatcher("WEB-INF/view/admin/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/view/admin/articleManage.jsp").forward(request, response);
+		
 	}
-
 	
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		// TODO Auto-generated method stub

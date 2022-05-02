@@ -42,19 +42,18 @@ public class MemberLoginServlet extends HttpServlet {
 		
 		MemberVo vo = new MemberService().login(mId, pw);
 		if(vo == null) {
-			System.out.println("로그인 실패");
-			
+			System.out.println("로그인에 실패했습니다.\n");			
 			response.sendRedirect("login");
 		} else if(vo !=null  && vo.getmId().equals("admin001")) {
-			System.out.println("로그인 성공");
+			System.out.println("로그인에 성공하였습니다.");
 			System.out.println("*** 관리자님이 로그인하였습니다. ***\n");
 			request.getSession().setAttribute("ssMV", vo);
-			response.sendRedirect(request.getContextPath()+ "/test.do");
+			response.sendRedirect(request.getContextPath()+ "/liststory");
 		} else {
-			System.out.println("로그인 성공 \n");
+			System.out.println("로그인에 성공하였습니다.\n");
 			request.getSession().setAttribute("id", mId);
 			request.getSession().setAttribute("ssMV", vo);
-			response.sendRedirect(request.getContextPath()+ "/test.do");
+			response.sendRedirect(request.getContextPath()+ "/liststory");
 		}
 	}
 

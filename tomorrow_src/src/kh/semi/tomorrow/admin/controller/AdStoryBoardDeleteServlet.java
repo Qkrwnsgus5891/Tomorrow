@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.tomorrow.admin.model.service.AdminService;
+
 /**
  * Servlet implementation class AdStoryBoardDeleteServlet
  */
-@WebServlet("/adArticleManage")
+@WebServlet("/adAritcleDelete")
 public class AdStoryBoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,13 +27,37 @@ public class AdStoryBoardDeleteServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/admin/articleManage.jsp").forward(request, response);
-	}
-	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		// TODO Auto-generated method stub
-//		doGet(request, response);
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 //	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("AdStoryBoardDeleteServlet - doGet");
+		int result = 0;				
+		String[] numbers = request.getParameterValues("checkBoard");
+		int[] bNos = new int[numbers.length];
+		
+		for(int i=0; i<numbers.length; i++) {
+			System.out.println("선택한 글번호: " + numbers[i]);
+		}
+		
+		for(int i=0; i<numbers.length; i++) {
+			bNos[i] = Integer.parseInt(numbers[i]);
+			System.out.println("bNos[i]: " + bNos[i]);
+		}
+		result = new AdminService().deleteBoard(bNos);
+		
+		if(result < 1) {
+			System.out.println("게시글을 삭제하는데 실패했습니다.");
+			request.setAttribute("msg", "게시글을 삭제하는데 실패했습니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
+		} else {
+			System.out.println("관리자가 게시글을 삭제했습니다.");
+			request.setAttribute("msg", "관리자가 게시글을 삭제했습니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
+		}
+	
+	}
 
 }

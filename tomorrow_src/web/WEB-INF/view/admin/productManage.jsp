@@ -19,15 +19,39 @@
        // console.log("window 클릭");
        $(".admin_modal").hide();
      });
-
-     // $("#furniture").on("click", function() {
-    //   console.log("가구를 클릭");
-    // });
-    // $(".store_btn").on("click", function() {
-    //   console.log("카테고리 버튼 클릭");
-    // });
+     
+    });    
+</script>
+<script>
+$(colorChangeHandler);
+$(productHandler);
+function colorChangeHandler() {
+    $("#furniture").on("click", function() {              
+      $("#furniture").css({"color":"black"});
+      $("#fabric").css({"color":"white"});
+      $("#light").css({"color":"white"});
     });
-    
+    $("#fabric").on("click", function() {        
+      $("#fabric").css({"color":"black"});
+      $("#furniture").css({"color":"white"});
+      $("#light").css({"color":"white"});
+    });
+    $("#light").on("click", function() {        
+      $("#light").css({"color":"black"});
+      $("#furniture").css({"color":"white"});
+      $("#fabric").css({"color":"white"});
+    });
+ }
+ 
+function productHandler() {
+	$("#prod_alt").click(function() {
+	    console.log("상품 수정");
+	});
+
+	$("#prod_del").click(function() {
+	    console.log("상품 삭제");
+	});
+}
 </script>
 </head>
 <style>
@@ -129,9 +153,9 @@
     </nav>
     <section id="product_content">
       <div id="category_group">
-        <button type="button" id="furniture" class="store_btn">가구</button>
-        <button type="button" id="fabric" class="store_btn">페브릭</button>
-        <button type="button" id="light" class="store_btn">조명</button>
+        <button type="button" id="furniture" class="store_btn" value="furniture">가구</button>
+        <button type="button" id="fabric" class="store_btn" value="fabric">페브릭</button>
+        <button type="button" id="light" class="store_btn" value="light">조명</button>
       </div>
       <div id="total">전체 상품</div> 
       <div id="prod_mange">
@@ -142,5 +166,16 @@
       <div id="prod_container"></div>
     </section>
   </div>
+  
+  
+<script>
+	$(".store_btn").click(btnHandler);
+
+	function btnHandler() {
+		var result = $(this).val();
+		console.log(result);
+		
+	}
+</script>
 </body>
 </html>

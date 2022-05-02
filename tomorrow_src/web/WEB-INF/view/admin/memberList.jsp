@@ -1,7 +1,10 @@
+<%@page import="kh.semi.tomorrow.member.model.vo.MemberVo"%>
+<%@page import="java.util.ArrayList"%>
 <link href="<%= request.getContextPath() %>/resources/css/reset.css" rel="stylesheet" type="text/css">
 <link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +21,13 @@
        $(window).on("click", function() {
          // console.log("window 클릭");
          $(".admin_modal").hide();
-       });      
+       });          
+       
+       $("#member_del").on("click", function() {
+    	   console.log("탈퇴 버튼 실행");
+       });   	   
+       
+       
     });
   
   </script>
@@ -32,7 +41,7 @@
     #container {
      margin: 0 auto;
       width: 1300px;
-      height: 700px;
+      height: 500px;
     }
     #nav_menu {
       float: left;
@@ -60,7 +69,7 @@
       height: 100%;
     }
 
-    #member_info_content {      
+    #member_info_title {      
       position: absolute;
       top: 15%;      
       left: 100px;
@@ -68,21 +77,35 @@
       font-weight: bold;
     }
 
+    #membe_title_grp {            
+      position: absolute;
+      width: 850px;
+      height: 30px;
+      top: 19%;
+      left: 100px;
+    }
+    
     #member_del {
       position: absolute;
-      top: 13%;
-      left: 83%;
+      top:0;
+      right: 0;
     }
 
+    #member_cnt {
+      position: absolute;
+      bottom: 40%;
+    }
+    
     #member_list {                  
       position: absolute;  
-      top: 20%;
+      top: 25%;
       left: 100px;
       width: 850px;
       
       text-align: center;      
       font-size: 13px;
       line-height: 25px;
+      margin: 20px 0;
     }   
     
     #member_list tr:first-of-type {
@@ -90,11 +113,22 @@
       height: 50px;
       line-height: 50px;
     }   
+    
+    #prev_next {    
+    	clear: both;  
+      	width: 800px;
+      	text-align: center; 
+      	margin-left: 400px;
+    }
+    
+    #prev_next a {
+   		color: black;
+   	}
   </style>
 </head>
-<body>
+<body> 
 	<jsp:include page="../template_header.jsp"/>
-
+	
 	<div id="container">
     <nav id="nav_menu">
       <ul>
@@ -108,35 +142,85 @@
       </ul>
     </nav>    
     <section id="member_content">
-      <p id="member_info_content">회원 정보 조회</p>                    
-      <button type="button" id="member_del" style="width:70px; height:30px;">탈퇴</button>       
-      <table id="member_list">
-        <tr>
-          <td>회원 ID</td>
-          <td>회원 이름</td>
-          <td>닉네임</td>
-          <td>생년월일</td>
-          <td>연락처</td>
-          <td>가입날짜</td>
-        </tr>     
-        <tr>
-          <td>guset1</td>
-          <td>김철수</td>
-          <td>손님1</td>
-          <td>940912</td>
-          <td>010-1234-1234</td>
-          <td>2022.12.31</td>
-        </tr>
-        <tr>
+      <p id="member_info_title">회원 정보 조회</p>                
+      <div id="membe_title_grp">
+        <p id="member_cnt" style="font-size: 12px;">전체 회원 <%=request.getAttribute("memberCnt")%>명</p>  
+        <button type="button" id="member_del" style="width:70px; height:30px;">탈퇴</button>     
+      </div>        
+      <form action="adMemberWithDraw" method="post" id="memberListFrm">
+      	<table id="member_list">
+	        <tr>
+	          	<td colspan="2"></td>	
+          		<td>회원 ID</td>
+          		<td>회원 이름</td>
+          		<td>닉네임</td>
+          		<td>생년월일</td>
+          		<td>연락처</td>
+          		<td>가입날짜</td>
+          		<td>탈퇴여부</td>
+        	</tr>     
+<%
+	ArrayList<MemberVo> memberlist = (ArrayList<MemberVo>)request.getAttribute("memberlist");
+%>        
+<c:forEach items = "${memberlist}" var="member"> 
+	        <tr>
+          		<td colspan="2"><input type="checkbox" name="chk_box" value="${member.mId}"></td>
+          		<td>${member.mId }</td>
+          		<td>${member.mName }</td>
+          		<td>${member.mNickname }</td>
+          		<td>${member.mBrith }</td>
+          		<td>${member.mPhone }</td>
+          		<td>${member.mDate }</td>
+          		<td>${member.mNy }</td>
+        	</tr>        
+</c:forEach>        
+        <!-- <tr>
           <td>guest2</td>
           <td>홍진경</td>
           <td>손님2</td>
           <td>910327</td>
           <td>010-1414-1415</td>
           <td>2022.12.31</td>
-        </tr>   
-      </table>
+        </tr>    -->
+      	</table>
+      </form>
     </section>
+    <p id="prev_next">
+    	<c:if test="${ startPage > 1 }">
+			<a href="adMemberList?page=${ startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:if>
+		<c:forEach begin="${startPage }" end="${endPage }" var="p">
+			<a href="adMemberList?page=${ p}">${ p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:forEach>
+		<c:if test="${endPage < totalPageCnt }">
+			<a href="adMemberList?page=${ endPage+1}">다음</a>
+		</c:if>	
+    </p>
   </div>
+  
+<!-- 체크박스 클릭시 클릭한 값들을 배열로 만든 후 서블릿에 값 전달 -->
+<script>
+	$("#member_del").on("click", function() {
+		/* 
+		var strChk = [];
+		
+		$("input:checkbox[name=chk_box]:checked").each(function() {
+			strChk.push($(this).val());			
+		});
+		
+		console.log(strChk); 
+		*/
+		var cnf = confirm("해당 회원의 탈퇴 상태여부를 변경하겠습니까?");
+		if(cnf) {
+			memberListFrm.submit();			
+		} else {
+			location.href="adMemberList";
+		}
+		
+	});
+	
+	
+</script>
+
 </body>
 </html>

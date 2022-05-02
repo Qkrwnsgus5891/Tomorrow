@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AdProductDeleteServlet
  */
-@WebServlet("/admin/productDelete")
+@WebServlet("/adProductDel")
 public class AdProductDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

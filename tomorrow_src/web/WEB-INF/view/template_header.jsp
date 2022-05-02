@@ -6,6 +6,7 @@
 	MemberVo ssMV = (MemberVo)session.getAttribute("ssMV");
 %>
 <!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
 <header>
     <div id="navigation_content">   
 <c:if test="${ssMV.mNickname == '관리자'}">
@@ -23,8 +24,8 @@
         <div id="navigation_bar_logo">        
             <a href="#" id="logo" onclick="location.href='main';">내일의 집</a>
             <div id="navigation_bar_menu">
-              <a href="#"id="cmty_btn" onclick="location.href='liststory';">커뮤니티</a>
-              <a href="#"id="store_btn" onclick="location.href='store';">스토어</a>
+              <a href="liststory"id="cmty_btn" >커뮤니티</a>
+              <a href="store"id="store_btn" >스토어</a>
             </div>      
         </div>
       </div>        
@@ -36,10 +37,10 @@
             </svg>
           </a>         
 <c:if test="${empty ssMV}">
-          <a href="#" class="navigation_bar_right_btn" id="login_btn" style="left:50px; bottom:5px;">로그인</a>
+          <a href="login" class="navigation_bar_right_btn" id="login_btn" style="left:50px; bottom:5px;">로그인</a>
 </c:if>
 <c:if test="${not empty ssMV}">
-          <a href="#" class="navigation_bar_right_btn" id="logout_btn" style="left:50px; bottom:5px;">로그아웃</a>
+          <a href="logout" class="navigation_bar_right_btn" id="logout_btn" style="left:50px; bottom:5px;">로그아웃</a>
 </c:if>
           <a href="#" class="navigation_bar_right_btn" id="join_btn">회원가입</a>
 <c:if test="${not empty ssMV}">  
@@ -55,13 +56,13 @@
       </div> 
     </div>    
     <script>
-    { /* 로그인 & 로그아웃 jQery */
-    	$("#login_btn").click(function() {
+    { /* 로그인 & 로그아웃 jQuery */
+    	/* $("#login_btn").click(function() {
     		location.href="login";
     	});
 		$("#logout_btn").click(function() {
 			location.href="logout";
-    	});
+    	});  */
 		
 		// header jquery
         $("#my_info").hover( function() { 

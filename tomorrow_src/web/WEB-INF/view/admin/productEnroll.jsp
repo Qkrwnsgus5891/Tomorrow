@@ -125,9 +125,9 @@
             <label for="category" style="font-size: 15px">카테고리 종류를 입력해주세요.</label><br>
             <select name="category" id="category">
               <option value="category" selected>카테고리 종류</option>
-              <option value="furniture">가구</option>
-              <option value="fabric">패브릭</option>
-              <option value="light">조명</option>
+              <option value="1">가구</option>
+              <option value="2">패브릭</option>
+              <option value="3">조명</option>
             </select>
           </div>
           <div class="enroll_grp">

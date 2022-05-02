@@ -24,34 +24,26 @@
     });       
   </script>
   <script>
-    $(function() {
-      $("#furniture").on("click", function() {
-        console.log("가구 클릭");      
-        $("#furniture").css({"color":"black"});
-        $("#fabric").css({"color":"white"});
-        $("#light").css({"color":"white"});
-      });
-      $("#fabric").on("click", function() {
-        console.log("패브릭 클릭");      
-        $("#fabric").css({"color":"black"});
-        $("#furniture").css({"color":"white"});
-        $("#light").css({"color":"white"});
-      });
-      $("#light").on("click", function() {
-        console.log("조명 클릭");      
-        $("#light").css({"color":"black"});
-        $("#furniture").css({"color":"white"});
-        $("#fabric").css({"color":"white"});
-      });
-
-      $("#prod_alt").click(function() {
-        console.log("상품 수정");
-      });
-
-      $("#prod_del").click(function() {
-        console.log("상품 삭제");
-      });
-    });
+    $(colorChangeHandler);
+    function colorChangeHandler() {
+        $("#furniture").on("click", function() {              
+          $("#furniture").css({"color":"black"});
+          $("#fabric").css({"color":"white"});
+          $("#light").css({"color":"white"});
+        });
+        $("#fabric").on("click", function() {        
+          $("#fabric").css({"color":"black"});
+          $("#furniture").css({"color":"white"});
+          $("#light").css({"color":"white"});
+        });
+        $("#light").on("click", function() {        
+          $("#light").css({"color":"black"});
+          $("#furniture").css({"color":"white"});
+          $("#fabric").css({"color":"white"});
+        });
+     }
+    
+      
   </script>
   <style>
     #container {      
@@ -143,9 +135,9 @@
     </nav>
     <section id="product_content">
       <div id="category_group">
-        <button type="button" id="furniture" class="store_btn">가구</button>
-        <button type="button" id="fabric" class="store_btn">페브릭</button>
-        <button type="button" id="light" class="store_btn">조명</button>
+        <button type="button" id="furniture" class="store_btn" value="furniture">가구</button>
+        <button type="button" id="fabric" class="store_btn" value="fabric">페브릭</button>
+        <button type="button" id="light" class="store_btn" value="light">조명</button>
       </div>
       <div id="total">전체 상품</div>    
       <div id="prod_container"></div>
@@ -156,7 +148,30 @@
     
   </div>   
   
-  
+<script>			
+	$(".store_btn").click(btnHandler);
+	
+	function btnHandler() {
+		console.log("btnHandler() 실행");
+		var ctgry = $(this).val();
+		console.log(ctgry);
+		
+		$.ajax({
+			url : "adProductCtgry",
+			type : "post",
+			data : {
+				ctgry : $(this).val()
+			},
+			success : function(result) {
+				console.log(result);
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+	}
+</script>
   
 </body>
 </html>
