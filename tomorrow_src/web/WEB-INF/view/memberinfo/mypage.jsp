@@ -80,7 +80,7 @@
             <div style="width: 100%; height: 400px;border: 1px solid rgb(142, 141, 141);">
                
                 <div id="myface" style="display: flex;">
-                    <img name="preview" id="preview" src="./image/basicprofile.png" style="width: 240px; height: 240px;
+                    <img name="preview" id="preview" src="<%=request.getContextPath() %>/resources/images/basicprofile.png" style="width: 240px; height: 240px;
                     margin: 35px 35px 0 35px; border-radius: 50%;">
                     
                     

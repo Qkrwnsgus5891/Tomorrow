@@ -26,7 +26,7 @@
         
         }
         #bank {
-        background-image: url("/house/image/img_vbank.webp");
+        background-image: url("<%=request.getContextPath() %>/resources/images/img_vbank.png");
         width: 80px;
         height: 100px;
         background-position: top;
@@ -37,7 +37,7 @@
         cursor: pointer;
         }
         #kakao {
-        background-image: url("/house/image/img_kakaopay.webp");
+        background-image: url("<%=request.getContextPath() %>/resources/images/img_kakaopay.webp");
         width: 80px;
         height: 100px;
         background-position: top;
@@ -48,7 +48,7 @@
         cursor: pointer;
         }
         #toss {
-        background-image: url("/house/image/img_toss.webp");
+        background-image: url("<%=request.getContextPath() %>/resources/images/img_toss.webp");
         width: 80px;
         height: 100px;
         background-position: top;
@@ -59,7 +59,7 @@
         cursor: pointer;
         }
         #naver {
-        background-image: url("/house/image/img_naver.webp");
+        background-image: url("<%=request.getContextPath() %>/resources/images/img_naver.webp");
         width: 80px;
         height: 100px;
         background-position: top;
@@ -70,7 +70,7 @@
         cursor: pointer;
         }
         #payco {
-        background-image: url("/house/image/img_payco.webp");
+        background-image: url("<%=request.getContextPath() %>/resources/images/img_payco.webp");
         width: 80px;
         height: 100px;
         background-position: top;
@@ -81,7 +81,7 @@
         cursor: pointer;
         }
         #chai {
-        background-image: url("/house/image/img_chai.webp");
+        background-image: url("<%=request.getContextPath() %>/resources/images/img_chai.webp");
         width: 80px;
         height: 100px;
         background-position: top;
