@@ -43,6 +43,7 @@ public class ProductListServlet extends HttpServlet {
 		
 		try {
 			cateId = Integer.parseInt(cateIdStr);
+			pNo = Integer.parseInt(pNoStr);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

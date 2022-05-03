@@ -103,14 +103,7 @@ public class CategoryServlet extends HttpServlet {
 
 		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(startRnum, endRnum, cateId, pNo);
 		System.out.println(result);
-//
-//		request.setAttribute("selectAllProduct", selectAllProduct);
-//		request.setAttribute("startPage", startPage);
-//		request.setAttribute("endPage", endPage);
-//		request.setAttribute("currentPage", currentPage);
-//		request.setAttribute("totalPageCnt", totalPageCnt);
-//
-//		request.getRequestDispatcher("WEB-INF/view/product/productList.jsp").forward(request, response);
+
 		PrintWriter out = response.getWriter();
 		
 		Gson gobj = new GsonBuilder().setPrettyPrinting().create();

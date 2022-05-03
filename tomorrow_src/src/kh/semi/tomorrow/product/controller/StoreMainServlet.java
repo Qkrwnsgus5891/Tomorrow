@@ -25,18 +25,11 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 public class StoreMainServlet extends HttpServlet {
 	private ProductService service = new ProductService();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public StoreMainServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String cateIdStr = request.getParameter("cateId");
@@ -47,19 +40,21 @@ public class StoreMainServlet extends HttpServlet {
 		
 		try {
 			cateId = Integer.parseInt(cateIdStr);
+			pNo = Integer.parseInt(pNoStr);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println(pNo + ": CategoryServlet 카테고리 아이디");
+		System.out.println(cateId + ": CategoryServlet 카테고리 아이디");
 
 
 
-		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(pNo);
-		System.out.println(result);
+		ArrayList<ProductVo> result =  service.selectAllProduct(pNo);
+		System.out.println("결과"+result+" pNo"+pNo);
 		
 		request.setAttribute("selectAllProduct", result);
 		
 		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);
+		
 		
 	}
 	

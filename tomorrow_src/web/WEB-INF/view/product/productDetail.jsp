@@ -3,6 +3,7 @@
 <link href="<%=request.getContextPath()%>/resources/css/header.css"
 	rel="stylesheet" type="text/css">
 <link href="./css/reset.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,7 +17,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 #productdetail {
-	margin: 0 10%;
+	margin: 15px 10%;
 	width: 90%;
 }
 
@@ -39,6 +40,38 @@
 	float: left;
 }
 
+.pbrand {
+	font-size: 15px;
+	color: #656e75;
+	font-weight: 700;
+}
+
+.pname {
+	font-size: 22px;
+	line-height: 33px;
+	min-height: 43px;
+	margin: 10 92px 0 0;
+}
+
+.pprice {
+	font-size: 30px;
+	font-weight: 900;
+	margin: 10PX 0;
+}
+
+.optName {
+	font-size: 14px;
+	line-height: 21px;
+	color: #828c94;
+	margin: 10PX 0 0;
+}
+
+.optName {
+	width:100px;
+}
+
+</style>
+<style>
 #productInfoBtns {
 	clear: both;
 	padding: 3px 0;
@@ -72,78 +105,82 @@
 		</div>
 		<section>
 			<section id="productdetail">
+				<c:set var="vo" value="${selectProduct }"></c:set>
 				<section id="detail_img">
-					<img src="./upload/images/sample.jpg">
+					<img src="${vo.pContent }">
 				</section>
 				<section id="detailcontent">
-					<c:set var="vo" value="${selectProduct }"></c:set>
 
-					<div>${vo.pBrand }</div>
-					<div>${vo.pName }</div>
-					<p>${vo.pPrice }</p>
+					<div class="pbrand">${vo.pBrand }</div>
+					<div class="pname">${vo.pName }</div>
+					<div class="pprice">${vo.pPrice }<a>(원)</a>
+					</div>
 
 					<c:if test="${not empty vo.pdvo }">
 						<div>
 							<c:forEach items="${vo.pdvo }" var="pdOpt" varStatus="status">
 								<c:choose>
-								<c:when test="${status.index eq 0}">
-									<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-		<div class="optName">${pdOpt.optName }</div>
-		<select name="option_${setOpt }">
-			<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
-								</c:when>
-								<c:when test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
-									<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-		</select>
-		<div class="optName">${pdOpt.optName }</div>
-		<select name="option_${setOpt }">
-			<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
-								</c:when>
-								<c:otherwise>
-			<option  value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
-								</c:otherwise>
+									<c:when test="${status.index eq 0}">
+										<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+										<div class="optName">${pdOpt.optName }</div>
+										<select name="option_${setOpt }"  class="form-select">
+											<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+									</c:when>
+									<c:when test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
+										<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+										</select>
+										<div class="optName">${pdOpt.optName }</div>
+										<select name="option_${setOpt }"  class="form-select">
+											<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+									</c:otherwise>
 								</c:choose>
-			<option disabled hidden class="optPrice" value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
-			<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
+								<option disabled hidden class="optPrice"
+									value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
+								<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
 							</c:forEach>
 
 							</select>
 						</div>
 					</c:if>
-					<p><span id="price"></span><span>(원)</span></p>
+					<p>
+						<span>주문금액</span><span id="price"></span><span>(원)</span>
+					</p>
 					<button type="button">장바구니</button>
 					<button type="button">바로구매</button>
 				</section>
 			</section>
-<script>
-	calPrice();
-	function calPrice(){
-		var basicPrice = Number('${vo.pPrice }');
-		if(isNaN(basicPrice)) {
-			basicPrice = 0;
-		}
-		var optPrice = 0;
-		$("select").each(function(index, element){
-			var checkedEle = $(element).children(":checked");
-			console.log(checkedEle);
-			var optOnePrice = Number(checkedEle.next().text());
-			console.log(optOnePrice);
-			if(isNaN(optOnePrice)) {
-				optOnePrice = 0;
-			}
-			optPrice += optOnePrice;
-		});
-		var totalPrice = basicPrice + optPrice;
-		console.log(totalPrice);
-		$("#price").html(totalPrice);
-	}
-</script>
-<script>
-	$("select").change(function(){
-		console.log(this);
-		calPrice();
-	});
-</script>
+			<script>
+				calPrice();
+				function calPrice() {
+					var basicPrice = Number('${vo.pPrice }');
+					if (isNaN(basicPrice)) {
+						basicPrice = 0;
+					}
+					var optPrice = 0;
+					$("select").each(function(index, element) {
+						var checkedEle = $(element).children(":checked");
+						console.log(checkedEle);
+						var optOnePrice = Number(checkedEle.next().text());
+						console.log(optOnePrice);
+						if (isNaN(optOnePrice)) {
+							optOnePrice = 0;
+						}
+						optPrice += optOnePrice;
+					});
+					var totalPrice = basicPrice + optPrice;
+					console.log(totalPrice);
+					$("#price").html(totalPrice);
+				}
+			</script>
+			<script>
+				$("select").change(function() {
+					console.log(this);
+					calPrice();
+				});
+			</script>
 		</section>
 
 		<section id="productInfoBtns">

@@ -99,18 +99,11 @@ public class ProductDao {
 	public ArrayList<ProductVo> selectAllProduct(Connection conn, int pNo) {
 		ArrayList<ProductVo> volist = null;
 
-		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price from "
-				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
-		
-		sql += " order by p_no desc) t1) " + " where r between ? and ?";
+		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price from product where p_no in (1,4,7)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			if (pNo > 0) {
-				pstmt.setInt(1, pNo);
-			} else {
-			}
-
+		
 			rs = pstmt.executeQuery();
 
 			if (rs != null) {

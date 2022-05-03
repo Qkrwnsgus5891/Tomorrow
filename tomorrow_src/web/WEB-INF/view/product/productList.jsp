@@ -12,6 +12,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
+<link href="<%=request.getContextPath()%>/css/reset.css"
+	rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 section {
@@ -46,102 +48,101 @@ footer {
 }
 </style>
 <script>
-$(function(){
-	console.log("페이지 로딩");
-	$("body").show();
-	$("nav>button").click(furnitureSelect);
-});
-
-function clickproDetail(thisEle){
-	console.log(thisEle);
-	console.log($(thisEle).parent());
-	var frmEle = $(thisEle).parent().get(0);
-	console.log(frmEle);
-	frmEle.action = "./productDetail";
-	frmEle.method="get";
-	frmEle.submit();
-};
-
-function furnitureSelect(){
-	console.log(this);
-	var btnIdx = $(this).index();
-	console.log(btnIdx);
-	$.ajax({
-		url:"CategoryServlet.ax",
-		type:"post",
-		data:{cateId:btnIdx},
-		dataType: "json", 
-		success: function(result){
-			console.log(result);
-			displayProductList(result, btnIdx);
-		},
-		error : function(request,status,error) {
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+
-					"\n"+"error:"+error);
-			 	}
+	$(function() {
+		console.log("페이지 로딩");
+		$("body").show();
+		$("nav>button").click(furnitureSelect);
 	});
-	
-	
-	function displayProductList(result, btnIdx){
-		console.log(this); 
-		var html = "";
-		$("#productList").html(""); //
-		
-		var cateName = result.selectAllProduct[0].cateId;
-		
-		if(btnIdx==1){
-			cateName = "가구";
-		}else if(btnIdx==2){
-			cateName = "페브릭";
-		}else if(btnIdx==3){
-			cateName = "조명";
-		}else{
-			cateName = "전체 상품";
-		}
-		
-		html += '<h3 id="categoryName">'+cateName+'</h3>';
-		
-		
-		html += '<hr>';
-		html += '<div class="product_wrapper">';
-		for(var i=0; i<result.selectAllProduct.length; i++){
-			var vo = result.selectAllProduct[i];
-		html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
-		html += '			<div class="proDetail" onclick="clickproDetail(this);">';
-		html += '				<div>'+vo.pContent+'</div>';
-		html += '			';
-		html += '			';
-		html += '				<div>'+vo.pName+'</div>';
-		html += '			';
-		html += '			';
-		html += '				<div>'+vo.pBrand+'</div>';
-		html += '			';
-		html += '			';
-		html += '				<div>'+vo.pPrice+'</div>';
-		html += '			</div>';
-		html += '		 </form>';
-		}
 
-		html += '</div>';
-		html += '<p>';
-		if(result.startPage>1){
-		html += '		<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
-		}
-		
-		for(var p=result.startPage; p<result.endPage;p++){
-		html += '		<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;';
-		}
-		
-		if(result.endPage < result.totalPageCnt){
-		html += '		<a href="storeproduct?page=${endPage+1 }">다음</a>';
-		}
-		html += '</p>';
-		
-		$("#productList").html(html); //
+	function clickproDetail(thisEle) {
+		console.log(thisEle);
+		console.log($(thisEle).parent());
+		var frmEle = $(thisEle).parent().get(0);
+		console.log(frmEle);
+		frmEle.action = "./productDetail";
+		frmEle.method = "get";
+		frmEle.submit();
+	};
 
+	function furnitureSelect() {
+		console.log(this);
+		var btnIdx = $(this).index();
+		console.log(btnIdx);
+		$.ajax({
+			url : "CategoryServlet.ax",
+			type : "post",
+			data : {
+				cateId : btnIdx
+			},
+			dataType : "json",
+			success : function(result) {
+				console.log(result);
+				displayProductList(result, btnIdx);
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+
+		function displayProductList(result, btnIdx) {
+			console.log(this);
+			var html = "";
+			$("#productList").html(""); //
+
+			var cateName = result.selectAllProduct[0].cateId;
+
+			if (btnIdx == 1) {
+				cateName = "가구";
+			} else if (btnIdx == 2) {
+				cateName = "페브릭";
+			} else if (btnIdx == 3) {
+				cateName = "조명";
+			} else {
+				cateName = "전체 상품";
+			}
+
+			html += '<h3 id="categoryName">' + cateName + '</h3>';
+
+			html += '<hr>';
+			html += '<div class="product_wrapper">';
+			for (var i = 0; i < result.selectAllProduct.length; i++) {
+				var vo = result.selectAllProduct[i];
+				html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
+				html += '			<div class="proDetail" onclick="clickproDetail(this);">';
+				html += '				<div>' + vo.pContent + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div>' + vo.pName + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div>' + vo.pBrand + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div>' + vo.pPrice + '</div>';
+				html += '			</div>';
+				html += '		 </form>';
+			}
+
+			html += '</div>';
+			html += '<p>';
+			if (result.startPage > 1) {
+				html += '		<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+			}
+
+			for (var p = result.startPage; p < result.endPage; p++) {
+				html += '		<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+			}
+
+			if (result.endPage < result.totalPageCnt) {
+				html += '		<a href="storeproduct?page=${endPage+1 }">다음</a>';
+			}
+			html += '</p>';
+
+			$("#productList").html(html); //
+
+		}
 	}
-}
-
 </script>
 </head>
 <body>
@@ -156,32 +157,31 @@ function furnitureSelect(){
 					<button type="button" id="furniture">가구</button>
 					<button type="button" id="pabric">페브릭</button>
 					<button type="button" id="light">조명</button>
-					
+
 				</nav>
 				<section>
 					<article id="productList">
-					<h3 id="categoryName">
-			<c:set var="cateIdx" value="${selectAllProduct[0].cateId }"></c:set>
-					<c:choose>
-						<c:when test="${cateIdx==1 }">가구</c:when>
-						<c:when test="${cateIdx==2 }">페브릭</c:when>
-						<c:when test="${cateIdx==3 }">조명</c:when>
-						<c:otherwise>전체 상품</c:otherwise>
-					</c:choose>
-					
-					</h3>
-					
+						<h3 id="categoryName">
+							<c:set var="cateIdx" value="${selectAllProduct[0].cateId }"></c:set>
+							<c:choose>
+								<c:when test="${cateIdx==1 }">가구</c:when>
+								<c:when test="${cateIdx==2 }">페브릭</c:when>
+								<c:when test="${cateIdx==3 }">조명</c:when>
+							</c:choose>
+
+						</h3>
+
 						<hr>
 						<div class="product_wrapper">
 							<c:forEach items="${selectAllProduct }" var="vo">
 								<form class="prdt" action="./productDetail" method="get">
 									<input type="hidden" name="p_no" value="${vo.pNo }">
-									
+
 									<div class="proDetail" onclick="clickproDetail(this);">
-											<div>${vo.pContent }</div>
-											<div>${vo.pName }</div>
-											<div>${vo.pBrand }</div>
-											<div>${vo.pPrice }</div>
+										<div>${vo.pContent }</div>
+										<div>${vo.pName }</div>
+										<div>${vo.pBrand }</div>
+										<div>${vo.pPrice }</div>
 									</div>
 								</form>
 							</c:forEach>
