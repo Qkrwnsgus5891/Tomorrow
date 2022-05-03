@@ -16,6 +16,54 @@
        		});
         });
     </script>
+    
+    <script>
+        window.onload = function(){ 
+        var dropbox = document.getElementById("dropbox")            
+            dropbox.addEventListener("dragenter", dragEnter, false);
+            dropbox.addEventListener("dragexit", dragExit, false);
+            dropbox.addEventListener("dragover", dragOver, false);
+            dropbox.addEventListener("drop", drop, false);
+        }
+     
+            function dragEnter(){
+            event.stopPropagation();
+            event.preventDefault();    
+            }
+            function dragExit(){
+            event.stopPropagation();
+            event.preventDefault(); 
+            }
+            function dragOver(){
+            event.stopPropagation();
+            event.preventDefault(); 
+            }
+                 
+                 
+            function drop(){
+            event.stopPropagation();
+            event.preventDefault(); 
+            var files = event.dataTransfer.files;
+            var count = files.length;
+             
+            if (count > 0){
+            handleFiles(files);
+            }
+                 
+            }
+            function handleFiles(files){
+                var file = files[0];
+                document.getElementById("droplabel").innerHTML = "변경되었습니다. "
+                var reader = new FileReader(); 
+                reader.onloadend = handleReaderLoadEnd; 
+                reader.readAsDataURL(file);
+                handleFiles(files);
+            }
+            function handleReaderLoadEnd(){
+                var img = document.getElementById("preview");
+                img.src = event.target.result;
+            }
+    </script>
 
 	<style>
    * {text-decoration: none;}
@@ -32,8 +80,10 @@
             <div style="width: 100%; height: 400px;border: 1px solid rgb(142, 141, 141);">
                
                 <div id="myface" style="display: flex;">
-                    <img src="<%=request.getContextPath() %>/resources/images/basicprofile.png" style="width: 240px; height: 240px;
+                    <img name="preview" id="preview" src="./image/basicprofile.png" style="width: 240px; height: 240px;
                     margin: 35px 35px 0 35px; border-radius: 50%;">
+                    
+                    
                     <img src="<%=request.getContextPath() %>/resources/images/share.png" id="share1" style="width: 50px; height: 50px;
                     margin: 35px 0; border-radius: 50%; position: absolute; right: 120px;cursor: pointer;" >
                     
@@ -46,9 +96,10 @@
                         <img src="<%=request.getContextPath() %>/resources/images/twitter.png" style="width: 50px; height: 50px;cursor: pointer;">
                     </div>
                 </div>
-                <div style="margin: 0 auto;text-align: center;">
-                <span style="font-size: 12px;">사진을 drop해서 프로필</span><br>
-                <span style="font-size: 12px;">사진을 바꿀 수 있습니다.</span>
+                
+                <div id="dropbox" style="margin: 0 auto;text-align: center; border: 1px solid black; width: 60%;">
+                <label id="droplabel"><span style="font-size: 12px;">여기에 사진을 drop해서 프로필</span><br>
+                <span style="font-size: 12px;">사진을 바꿀 수 있습니다.</span></label>
                 </div>
 
 
