@@ -23,22 +23,28 @@ public class AdMainServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-    
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 상태 확인
-				MemberVo member = (MemberVo)request.getSession().getAttribute("ssMV");
-				//TODO - yjk 작업 동안은 잠시 로그인 필터 주석 처리
-//				if(member == null) {
-//					response.sendRedirect("login");
-//				} else {
-					System.out.println("AdMainServlet-> admain...\n");
-					request.getRequestDispatcher("WEB-INF/view/admin/main.jsp").forward(request, response);			
-//				}
+		MemberVo member = (MemberVo)request.getSession().getAttribute("ssMV");
+		//TODO - yjk 작업 동안은 잠시 로그인 필터 주석 처리
+//		if(member == null) {
+//			response.sendRedirect("login");
+//		} else {
+			System.out.println("AdMainServlet-> admain...\n");
+			request.getRequestDispatcher("WEB-INF/view/admin/main.jsp").forward(request, response);			
+//		}
+	}	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
-	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
 
 }

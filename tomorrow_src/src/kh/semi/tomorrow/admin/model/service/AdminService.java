@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import kh.semi.tomorrow.admin.model.dao.AdminDao;
 import kh.semi.tomorrow.common.JdbcTemp;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
+import kh.semi.tomorrow.product.model.vo.ProductDetailVo;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
@@ -20,6 +21,41 @@ public class AdminService {
 		return volist;
 	}
 	
+	// 상품 등록
+	public int insertProduct(ProductVo product, ProductDetailVo detail) {
+		int result = 0; int result2 = 0;
+		Connection conn= JdbcTemp.getConnection();
+		// Transaction
+		JdbcTemp.setAutocommit(conn, false);
+		int pNo = dao.getProductPNo(conn);
+		result=dao.insertProduct(conn, product, pNo);
+		
+		if(result > 0) {
+			result2=dao.insertProductDetail(conn, detail, pNo);
+		}
+		if(result > 0 && result2 > 0) {
+			JdbcTemp.commit(conn);
+		}
+		else { 
+			JdbcTemp.rollback(conn);
+		}
+		
+		System.out.println("AdminService - insertProduct()\npNo:\t" + pNo);
+		System.out.println("AdminService - insertProduct()\nresult:\t" + result);
+		System.out.println("AdminService - insertProduct()\nresult2:\t" + result2);
+		JdbcTemp.close(conn);
+		return result;
+	}
+	
+	
+	// 상품 삭제
+	public int deleteProduct(int pNo) {
+		int result = 0;
+		Connection conn= JdbcTemp.getConnection();
+		result=dao.deleteProduct(conn, pNo);
+		JdbcTemp.close(conn);
+		return result;
+	}
 	// 모든 회원 목록
 	public ArrayList<MemberVo> selectAllMember() {
 		Connection conn = JdbcTemp.getConnection();

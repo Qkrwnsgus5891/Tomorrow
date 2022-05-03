@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import kh.semi.tomorrow.common.JdbcTemp;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 import kh.semi.tomorrow.order.model.vo.OrderVo;
+import kh.semi.tomorrow.product.model.vo.ProductDetailVo;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
@@ -54,32 +55,115 @@ public class AdminDao {
 		} 
 		
 		if(productList == null) {
-			System.out.println("AdminDao-ctgryProduct()의 상품 목록 조회에 실패하였습니다.\n");
+			System.out.println("AdminDao-ctgryProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\t" + productList + "\n");
 		} else {
-			System.out.println("AdminDao-ctgryProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\n" + productList + "\n");		
+			System.out.println("AdminDao-ctgryProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + productList + "\n");		
 		}
 		return productList;
 	}
-	// 상품 등록
-	public int insertProduct(Connection conn) {
+	
+	// 상품 번호 구하기
+	public int getProductPNo(Connection conn) {
 		int result = 0;
-		String sql = "insert into product(P_NO, P_BRAND, P_NAME, P_CONTENT_, P_PRICE, CATEGORY_ID) "
-				+ " values(SEQUENCE_PRODUCT_P_NO.nextval, ?, ?, ?, ?, ?)";
+		String sql = "select SEQUENCE_PRODUCT_P_NO.nextval from dual";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
+		}
+		System.out.println("getProductPNo : "+ result + "\n");
+		return result;
+	}
+	
+	// 상품 등록
+	public int insertProduct(Connection conn, ProductVo product, int pNo) {
+		int result = 0;
+		String sql = "insert into product(P_NO, P_BRAND, P_NAME, P_CONTENT, P_PRICE, CATEGORY_ID) "
+				+ " values(?, ?, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(2, product.getpBrand());
+			pstmt.setString(3, product.getpName());
+			pstmt.setString(4, product.getpContent());
+			pstmt.setInt(5, product.getpPrice());
+			pstmt.setInt(6, product.getCateId());
+			pstmt.setInt(1, pNo);
+			
+			result = pstmt.executeUpdate();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-insertProduct()에 의한 상품 등록에 실패하였습니다.\n");
+		} else {
+			System.out.println("AdminDao-insertProduct()에 의해 상품 등록에 성공했습니다.\n[결과]\t" + result + "\n");		
+		}
+		return result;
+	}
+	
+	 
+	
+	public int insertProductDetail(Connection conn, ProductDetailVo detail, int pNo) {
+		int result = 0;
+		String sql = "insert into product_detail(P_SEQ, P_NO, OPT_NO, OPT_VAL, OPT_PRICE) "
+				+ "values (SEQUENCE_PROD_DETAIL_P_SEQ.nextval, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setInt(1, pNo);
+			pstmt.setInt(2, detail.getOptNo());
+			pstmt.setString(3, detail.getOptVal());
+			pstmt.setInt(4, detail.getOptPrice());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-insertProductDetail()에 의한 상품 등록에 실패하였습니다.\n[결과]\t"+ result + "\n");
+		} else {
+			System.out.println("AdminDao-insertProductDetail()에 의해 상품 등록에 성공했습니다.\n[결과]\t" + result + "\n");		
+		}
+		return result;	
+	}
+	
+	// 상품 수정/삭제
+	public int deleteProduct(Connection conn, int pNo) {
+		int result = 0;
+		String sql = "delete from product where p_no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		if(result == 0) {
+			System.out.println("AdminDao-deleteProduct()에 의한 상품 삭제에 실패하였습니다.\n");
+		} else {
+			System.out.println("AdminDao-deleteProduct()에 의해 상품 삭제에 성공했습니다.\n[결과]\t" + result + "\n");		
+		}
 		return result;
 	}
-	// 상품 수정/삭제
+	
 	// 주문 내역 조회	
 	public ArrayList<OrderVo> selectOrderList() {
 		ArrayList<OrderVo> orderlist = null;
-		String sql = "";
-		
+		String sql = "";	
 		
 		return orderlist;
 	}
@@ -117,7 +201,7 @@ public class AdminDao {
 		if(memberlist == null) {
 			System.out.println("AdminDao-selectAllMember()의 회원 목록 조회에 실패하였습니다.\n");
 		} else {
-			System.out.println("AdaminDao-boardList()에 의해 목록이 조회되었습니다.\n[boardlist]\n" + memberlist + "\n");		
+			System.out.println("AdaminDao-boardList()에 의해 목록이 조회되었습니다.\n[boardlist]\t" + memberlist + "\n");		
 		}
 		return memberlist;
 	}
@@ -161,7 +245,7 @@ public class AdminDao {
 		if(memberlist == null) {
 			System.out.println("AdminDao-selectAllMember()의 회원 목록 조회에 실패하였습니다.\n");
 		} else {
-			System.out.println("AdaminDao-boardList()에 의해 목록이 조회되었습니다.\n[memberlist]\n" + memberlist + "\n");		
+			System.out.println("AdaminDao-boardList()에 의해 목록이 조회되었습니다.\n[memberlist]\t" + memberlist + "\n");		
 		}
 		return memberlist;
 	}	
@@ -196,7 +280,7 @@ public class AdminDao {
 			JdbcTemp.close(rs);
 			JdbcTemp.close(pstmt);
 		}
-		System.out.println("AdminDao-leaveMember()에 의해 목록이 조회되었습니다.\n[leaveMember]\n"+ memberlist + "\n");
+		System.out.println("AdminDao-leaveMember()에 의해 목록이 조회되었습니다.\n[leaveMember]\t"+ memberlist + "\n");
 		return memberlist;
 	}
 	
@@ -301,7 +385,7 @@ public class AdminDao {
 		if(boardlist == null) {
 			System.out.println("AdaminDao-boardList()의 게시글 목록 조회에 실패하였습니다.\n[boardlist]\n" + boardlist + "\n");
 		} else {
-			System.out.println("AdaminDao-boardList()로 인해 목록이 조회되었습니다.\n[boardlist]\n" + boardlist + "\n");		
+			System.out.println("AdaminDao-boardList()로 인해 목록이 조회되었습니다.\n[boardlist]\t" + boardlist + "\n");		
 		}		
 		return boardlist;
 	}
@@ -343,7 +427,7 @@ public class AdminDao {
 		if(boardlist == null) {
 			System.out.println("AdaminDao-boardList()의 게시글 목록 조회에 실패하였습니다.\n[boardlist]\n" + boardlist + "\n");
 		} else {
-			System.out.println("AdaminDao-boardList()로 인해 목록이 조회되었습니다.\n[boardlist]\n" + boardlist + "\n");		
+			System.out.println("AdaminDao-boardList()로 인해 목록이 조회되었습니다.\n[boardlist]\t" + boardlist + "\n");		
 		}		
 		return boardlist;
 	}
@@ -367,9 +451,9 @@ public class AdminDao {
 		}
 		
 		if(result == 0) {
-			System.out.println("AdminDao-countBoard()의 게시글 개수 조회에 실패하였습니다.\n[result]\n" + result + "\n");
+			System.out.println("AdminDao-countBoard()의 게시글 개수 조회에 실패하였습니다.\n");
 		} else {
-			System.out.println("AdminDao-countBoard()의 게시글 개수 조회를 수행합니다. \n[bresult]\n" + result + "\n");
+			System.out.println("AdminDao-countBoard()의 게시글 개수 조회를 수행합니다. \n[bresult]\t" + result + "\n");
 		}
 		return result;
 	}
