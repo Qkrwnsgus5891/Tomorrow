@@ -132,7 +132,7 @@ public class ProductDao {
 		return volist;
 	}
 
-	public int countProduct(Connection conn) {
+	public int countProduct(Connection conn, int pageCateId) {
 		int result = 0;
 		String sql = "select count(*) cnt from product";
 

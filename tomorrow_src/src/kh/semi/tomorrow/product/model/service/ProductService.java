@@ -40,10 +40,10 @@ public class ProductService {
 		return result;
 	}
 	
-	public int countProduct() {
+	public int countProduct(int pageCateId) {
 		Connection conn=null;
 		conn = getConnection();
-		int result = dao.countProduct(conn);
+		int result = dao.countProduct(conn, pageCateId);
 		close(conn);
 		return result;
 	}

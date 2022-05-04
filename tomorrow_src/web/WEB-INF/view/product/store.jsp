@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <title>store</title>
 <link href="<%=request.getContextPath()%>/css/reset.css"
@@ -191,25 +190,25 @@ to {
 				<p>카테고리</p>
 				<div class="cate_buttons">
 					<button type="button" id="store_btn"
-						onclick="location.href='storeproduct?';">
+						onclick="location.href='storeproduct';">
 						<img src="./resources/images/cate_all.jpg">
 						<p>전체</p>
 					</button>
 
 					<button type="button" id="furni_btn"
-						onclick="location.href='storeproduct?cateId=1';">
+						onclick="location.href='storeproduct?pageCateId=1';">
 						<img src="./resources/images/cate_furniture.jpg">
 						<p>가구</p>
 					</button>
 
 					<button type="button" id="pabric_btn"
-						onclick="location.href='storeproduct?cateId=2';">
+						onclick="location.href='storeproduct?pageCateId=2';">
 						<img src="./resources/images/cate_pabric.jpg">
 						<p>페브릭</p>
 					</button>
 
 					<button type="button" id="light_btn"
-						onclick="location.href='storeproduct?cateId=3';">
+						onclick="location.href='storeproduct?pageCateId=3';">
 						<img src="./resources/images/cate_light.jpg">
 						<p>조명</p>
 					</button>

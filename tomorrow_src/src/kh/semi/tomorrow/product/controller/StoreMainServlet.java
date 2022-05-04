@@ -32,25 +32,25 @@ public class StoreMainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String cateIdStr = request.getParameter("cateId");
-		int cateId = 0;
+		String cateIdStr = request.getParameter("pageCateId");
+		int pageCateId = 0;
 		
 		String pNoStr = request.getParameter("pNo");
 		int pNo=0;
 		
 		try {
-			cateId = Integer.parseInt(cateIdStr);
-			pNo = Integer.parseInt(pNoStr);
+			pageCateId = Integer.parseInt(cateIdStr);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println(cateId + ": CategoryServlet 카테고리 아이디");
+		System.out.println(pageCateId + ": CategoryServlet 카테고리 아이디");
 
 
 
 		ArrayList<ProductVo> result =  service.selectAllProduct(pNo);
 		System.out.println("결과"+result+" pNo"+pNo);
 		
+		request.setAttribute("pageCateId", pageCateId);
 		request.setAttribute("selectAllProduct", result);
 		
 		request.getRequestDispatcher("WEB-INF/view/product/store.jsp").forward(request, response);

@@ -38,16 +38,15 @@ public class ProductListServlet extends HttpServlet {
 		String pNoStr = request.getParameter("pNo");
 		int pNo=0;// 전체 상품은 0
 		
-		String cateIdStr = request.getParameter("cateId");
-		int cateId =0;
+		String cateIdStr = request.getParameter("pageCateId");
+		int pageCateId =0;
 		
 		try {
-			cateId = Integer.parseInt(cateIdStr);
-			pNo = Integer.parseInt(pNoStr);
+			pageCateId = Integer.parseInt(cateIdStr);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println(cateId + ": CategoryServlet 카테고리 아이디");
+		System.out.println(pageCateId + ": CategoryServlet 카테고리 아이디");
 
 		String currentPageStr = request.getParameter("page");
 		try {
@@ -65,7 +64,7 @@ public class ProductListServlet extends HttpServlet {
 		int endRnum = 0;
 
 		int totalCnt = 0; // 총 글 수
-		totalCnt = countProduct();
+		totalCnt = countProduct(pageCateId);
 
 		System.out.println("총" + totalCnt);
 
@@ -89,7 +88,7 @@ public class ProductListServlet extends HttpServlet {
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
 		  
 		
-		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, endRnum, cateId, pNo);
+		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, endRnum, pageCateId, pNo);
 		System.out.println(result);
 
 		request.setAttribute("selectAllProduct", result);
@@ -97,12 +96,13 @@ public class ProductListServlet extends HttpServlet {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("totalPageCnt", totalPageCnt);
+		request.setAttribute("pageCateId", pageCateId);
 
 		request.getRequestDispatcher("WEB-INF/view/product/productList.jsp").forward(request, response);
 	}
 
-	private int countProduct() {
-		int result = service.countProduct();
+	private int countProduct(int pageCateId) {
+		int result = service.countProduct(pageCateId);
 		return result;
 	}
 

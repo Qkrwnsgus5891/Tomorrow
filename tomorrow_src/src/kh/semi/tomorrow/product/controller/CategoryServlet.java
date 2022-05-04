@@ -47,18 +47,18 @@ public class CategoryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String cateIdStr = request.getParameter("cateId");
-		int cateId = 0;
+		String cateIdStr = request.getParameter("pageCateId");
+		int pageCateId = 0;
 		
 		String pNoStr = request.getParameter("pNo");
 		int pNo=0;
 		
 		try {
-			cateId = Integer.parseInt(cateIdStr);
+			pageCateId = Integer.parseInt(cateIdStr);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		System.out.println(cateId + ": CategoryServlet 카테고리 아이디");
+		System.out.println(pageCateId + ": CategoryServlet 카테고리 아이디");
 
 		int currentPage = 1;
 
@@ -78,7 +78,7 @@ public class CategoryServlet extends HttpServlet {
 		int endRnum = 0;
 
 		int totalCnt = 0; // 총 글 수
-		totalCnt = countProduct();
+		totalCnt = countProduct(pageCateId);
 
 		System.out.println("총" + totalCnt);
 
@@ -101,7 +101,7 @@ public class CategoryServlet extends HttpServlet {
 		}
 		System.out.println("rnum:" + startRnum + "~" + endRnum);
 
-		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(startRnum, endRnum, cateId, pNo);
+		ArrayList<ProductVo> result =  new ProductService().selectAllProduct(startRnum, endRnum, pageCateId, pNo);
 		System.out.println(result);
 
 		PrintWriter out = response.getWriter();
@@ -114,7 +114,7 @@ public class CategoryServlet extends HttpServlet {
 		map.put("endPage", endPage);
 		map.put("currentPage", currentPage);
 		map.put("totalPageCnt", totalPageCnt);
-		
+		map.put("pageCateId", pageCateId);
 		String resStr = gobj.toJson(map);
 		
 		System.out.println(resStr);
@@ -123,8 +123,8 @@ public class CategoryServlet extends HttpServlet {
 		out.close();
 	}
 
-	private int countProduct() {
-		int result = new ProductService().countProduct();
+	private int countProduct(int pageCateId) {
+		int result = new ProductService().countProduct(pageCateId);
 		return result;
 	}
 }
