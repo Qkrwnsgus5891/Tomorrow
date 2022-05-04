@@ -29,13 +29,13 @@ public class CartListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");
-		if(ssvo == null) {	
-			response.sendRedirect("login");
-		} else {
+//	
+//		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");
+//		if(ssvo == null) {	
+//			response.sendRedirect("login");
+//		} else {
 			request.getRequestDispatcher("WEB-INF/view/orderpage/cartList.jsp").forward(request, response);	
-		}
+//		}
 	}
 
 	/**

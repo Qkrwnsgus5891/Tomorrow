@@ -30,7 +30,7 @@
                 <div>
                     <div>
                         <label>
-                        <input type="checkbox" name="confirmed" value="">
+                        <input type="checkbox" name="confirmed" required>
                         <span>위 내용을 모두 확인하였습니다.&nbsp;</span>
                         </label><br><br>
                     </div>

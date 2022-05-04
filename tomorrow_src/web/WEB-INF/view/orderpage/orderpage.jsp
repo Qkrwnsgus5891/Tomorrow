@@ -10,9 +10,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
-* {
-	text-decoration: none;
+* {text-decoration: none;}
+
+.textbox:hover {background-color: rgba(0, 0, 0, 0.04);
+border: 2px solid rgb(0, 0, 0);}
+
+
+#goPay{  
+ background-color: rgba(72, 188, 246, 0.897); 
 }
+#goPay:hover {  
+  background-color: rgb(52, 152, 219);  
+}
+
+ #fillSame {
+            color: rgb(77, 77, 255); cursor: pointer;
+        }
+#fillSame:hover {
+            color: rgba(72, 188, 246, 0.897);
+        }
 
 ul {
 	white-space: nowrap;
@@ -181,7 +197,7 @@ li {
 	$(document).ready(function() {
 		$("#bank").click(function() {
 			$(".card").hide();
-			$(".bank").slideDown();
+			$(".bank").show(100);
 			$(".kakao").hide();
 			$(".toss").hide();
 			$(".naver").hide();
@@ -200,7 +216,7 @@ li {
 		$("#kakao").click(function() {
 			$(".card").hide();
 			$(".bank").hide();
-			$(".kakao").slideDown();
+			$(".kakao").show(100);
 			$(".toss").hide();
 			$(".naver").hide();
 			$(".payco").hide();
@@ -219,7 +235,7 @@ li {
 			$(".card").hide();
 			$(".bank").hide();
 			$(".kakao").hide();
-			$(".toss").slideDown();
+			$(".toss").show(100);
 			$(".naver").hide();
 			$(".payco").hide();
 			$(".chai").hide();
@@ -238,7 +254,7 @@ li {
 			$(".bank").hide();
 			$(".kakao").hide();
 			$(".toss").hide();
-			$(".naver").slideDown();
+			$(".naver").show(100);
 			$(".payco").hide();
 			$(".chai").hide();
 			$("#card").css("border-color", "rgba(0, 0, 0, 0.359)");
@@ -257,7 +273,7 @@ li {
 			$(".kakao").hide();
 			$(".toss").hide();
 			$(".naver").hide();
-			$(".payco").slideDown();
+			$(".payco").show(100);
 			$(".chai").hide();
 			$("#card").css("border-color", "rgba(0, 0, 0, 0.359)");
 			$("#bank").css("border-color", "rgba(0, 0, 0, 0.359)");
@@ -276,7 +292,7 @@ li {
 			$(".toss").hide();
 			$(".naver").hide();
 			$(".payco").hide();
-			$(".chai").slideDown();
+			$(".chai").show(100);
 			$("#card").css("border-color", "rgba(0, 0, 0, 0.359)");
 			$("#bank").css("border-color", "rgba(0, 0, 0, 0.359)");
 			$("#kakao").css("border-color", "rgba(0, 0, 0, 0.359)");
@@ -297,34 +313,31 @@ li {
 			<div id="orderWrap"
 				style="width: 60%; padding: 50px 0 200px 200px; min-width: 550px; height: 1000px;">
 
-				<p>
 				<h2>주문/결제</h2>
-				</p>
-				<p>
 				<h4>주문자</h4>
-				</p>
 				<hr style="color: black;">
 				<br>
 				<br>
-				<table border="0" style="text-align: left;">
+				
+				<table border=0 style="text-align: left;">
 					<tr>
 						<td>이름</td>
-						<td colspan="2"><input type="text" id="orderName"
+						<td colspan="2"><input type="text" id="orderName"  class="textbox" required
 							placeholder="이름" value=""
 							style="height: 25px; width: 200px; margin-left: 20px;"></td>
 					</tr>
 
 					<tr>
 						<td>이메일</td>
-						<td colspan="2"><input type="text" placeholder="email"
+						<td colspan="2"><input type="text" placeholder="email"  class="textbox" required
 							style="height: 25px; width: 200px; margin-left: 20px;"></td>
 						<td>@</td>
-						<td colspan="2"><input type="text"
+						<td colspan="2"><input type="text"  class="textbox" required
 							style="height: 25px; width: 150px;"></td>
 					</tr>
 					<tr>
 						<td id="orderPhone">연락처</td>
-						<td colspan="2"><select size="1" id="phoneSelect"
+						<td colspan="2"><select size="1" id="phoneSelect"  class="textbox" required
 							style="height: 25px; width: 55px; margin-left: 20px;">
 								<option value="v1" selected>010</option>
 								<option value="v2">011</option>
@@ -332,7 +345,7 @@ li {
 								<option value="v4">112</option>
 								<option value="v5">119</option>
 								<option value="v6">070</option>
-						</select> <input type="text" placeholder="나머지 입력" id="phoneRest"
+						</select> <input type="text" placeholder="나머지 입력" id="phoneRest"  class="textbox" required
 							style="height: 25px; width: 140px;"></td>
 
 					</tr>
@@ -344,27 +357,27 @@ li {
 				<div style="display: flex;">
 					<span style="width: 70%;"> <b>배송지</b>
 					</span> <span id="fillSame" onclick="FillSame()"
-						style="width: 30%; color: rgb(77, 77, 255); cursor: pointer;">
+						style="width: 30%;">
 						위와 동일하게 채우기 </span>
 				</div>
 				<br>
 				<hr style="color: black;">
 				<br>
 				<br>
-				<table border="0" style="text-align: left;">
+				<table border=0 style="text-align: left;">
 					<tr>
 						<td>배송지명</td>
-						<td colspan="2"><input type="text"
+						<td colspan="2"><input type="text"  class="textbox" required
 							style="height: 25px; width: 200px; margin-left: 20px;"></td>
 					</tr>
 					<tr>
 						<td>받는사람</td>
-						<td colspan="2"><input type="text" id="receivePerson"
+						<td colspan="2"><input type="text" id="receivePerson"  class="textbox" required
 							style="height: 25px; width: 200px; margin-left: 20px;"></td>
 					</tr>
 					<tr>
 						<td>연락처</td>
-						<td colspan="2"><select size="1" id="phoneSelect2"
+						<td colspan="2"><select size="1" id="phoneSelect2"  class="textbox" required
 							style="height: 25px;; width: 55px; margin-left: 20px;">
 								<option value="v1" selected>010</option>
 								<option value="v2">011</option>
@@ -372,18 +385,18 @@ li {
 								<option value="v4">112</option>
 								<option value="v5">119</option>
 								<option value="v6">070</option>
-						</select> <input type="text" placeholder="나머지 입력" id="phoneRest2"
+						</select> <input type="text" placeholder="나머지 입력" id="phoneRest2"  class="textbox" required
 							style="height: 25px; width: 140px;"></td>
 
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td colspan="3"><input type="text"
+						<td colspan="3"><input type="text"  class="textbox" required
 							style="height: 25px; width: 400px; margin-left: 20px;"></td>
 					</tr>
 
 					<tr>
-						<td id="orderRequest" colspan="4"><select size="1"
+						<td id="orderRequest" colspan="4"><select size="1"  class="textbox" required
 							style="height: 40px; width: 500px;">
 								<option value="c1" selected>배송시 요청사항을 선택해주세요</option>
 								<option value="c2">경비실에 맡겨주세요.</option>
@@ -398,9 +411,7 @@ li {
 				<br>
 				<br>
 				<br>
-				<p>
 				<h4>주문상품</h4>
-				</p>
 				<hr>
 				<br>
 				<br>
@@ -410,9 +421,7 @@ li {
 				<br>
 				<br>
 				<br>
-				<p>
 				<h4>결제수단</h4>
-				</p>
 				<hr>
 
 
@@ -467,7 +476,13 @@ li {
 						<option value="m4" selected>12개월</option>
 					</select>
 				</div>
-
+				
+				 <div class="card" style="width: 100%; background-color: rgba(0, 0, 0, 0.137); margin-top: 20px;
+			        padding: 10px; font-size: small; border-radius: 20px; width: 610px; display: none;">
+			        <h3>카드 결제 혜택</h3>
+			        <p>-페이북 마이태그 결제혜택, 5만원 이상 결제 시 3천원 결제일 할인, 5/1~31 (기간 내 1인 1회)</p>
+			        <p>-마이태그 혜택은 결제 전, 페이북에서 오늘의집 할인 혜택을 태그해야 적용 가능</p>
+			    </div>
 				<div class="kakao"
 					style="width: 100%; background-color: rgba(0, 0, 0, 0.137); padding: 10px; font-size: small; border-radius: 20px; width: 610px; display: none;">
 					<h3>카카오페이 결제 혜택</h3>
@@ -522,7 +537,8 @@ li {
 							style="width: 20%;"></span> <span style="width: 10%;"> 원 </span>
 					</div>
 					<br>
-					<hr style="border: 1px solid rgb(117, 117, 117);">
+					<hr>
+
 
 					<div style="width: 100%;">
 						<input type="checkbox" id="allcheck"
@@ -544,10 +560,12 @@ li {
 							수집 허용 및 제 3자 제공 동의합니다.</p>
 						<input type="checkbox" class="check"
 							style="height: 15px; width: 15px;"><span> 본인은 만
-							14세 이상이며, 주문 내용을 확인하였습니다.</spans><br>
+							14세 이상이며, 주문 내용을 확인하였습니다.</span><br>
 						<br>
 
-							<button style="margin: 0 auto;">결제하기</button>
+							 <button id="goPay" style="margin: 0 auto;width: 100%; height: 40px; border: 0px; border-radius: 13px;
+          					  color: white; font-size:15px;cursor: pointer;">
+            				  <b>원 결제하기</b></button>
 					</div>
 
 
@@ -555,6 +573,6 @@ li {
 			</div>
 		</div>
 
-	<div style="position: relative ; top: 400px"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
+	<div style="position: relative ; margin-top: 400px"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 </html>

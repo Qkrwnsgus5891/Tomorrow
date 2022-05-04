@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!--   <script>
-    let orderitem = 10; //주문한 상품갯수
+  
     
     $(pageLoadedHandler);
     function pageLoadedHandler(){
