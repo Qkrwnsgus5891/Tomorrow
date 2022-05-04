@@ -34,17 +34,73 @@ nav {
 	box-sizing: border-box;
 }
 
-.product_wrapper {
-	display: grid;
-	grid-gap: 10px;
-}
-
 table tr td {
 	border: 1px solid black;
 }
 
 footer {
 	clear: both;
+}
+</style>
+<style>
+.wrap_content{
+	margin: 10px 10%;
+}
+nav div{
+	font-size: 18px;
+}
+nav button {
+	display:flex;
+	flex-direction:column;
+	font-size: 20px;
+	font-weight: 900;
+	margin: 15px;
+	border: none;
+	background-color: white;
+}
+</style>
+<style>
+.pcontent {
+	width: 200px;
+	height: 200px;
+	border-radius: 6px;
+}
+
+.product_wrapper .proDetail {
+	width: 220px;
+	padding: 15px;
+	margin: 15px;
+}
+
+.product_wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.pname {
+	padding: 10px 20px 10px 0;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.pbrand {
+	font-size: 13px;
+	font-weight: 900;
+	color: #656e75;
+}
+
+.pprice {
+	float: right;
+	padding-right: 20px;
+	color: black;
+	font-size: 20px;
+	font-weight: 900;
+}
+
+#categoryName{
+	font-size: 15px;
+	font-weight: 900;
+	color: black;
 }
 </style>
 <script>
@@ -71,79 +127,78 @@ footer {
 		$.ajax({
 			url : "CategoryServlet.ax",
 			type : "post",
-		data:{pageCateId:btnIdx},
-		dataType: "json", 
-		success: function(result){
-			console.log(result);
-			displayProductList(result, btnIdx);
-		},
-		error : function(request,status,error) {
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+
-					"\n"+"error:"+error);
-			 	}
-	});
-	
-	
-	function displayProductList(result, btnIdx){
-		console.log(this); 
-		var html = "";
-		$("#productList").html(""); //
-		
-		//var cateName = result.pageCateId;
-		
-		if(btnIdx==1){
-			cateName = "가구";
-		}else if(btnIdx==2){
-			cateName = "페브릭";
-		}else if(btnIdx==3){
-			cateName = "조명";
-		}else{
-			cateName = "전체 상품";
-		}
-		
-		html += '<h3 id="categoryName">'+cateName+'</h3>';
-		
-		
-		html += '<hr>';
-		html += '<div class="product_wrapper">';
-		for(var i=0; i<result.selectAllProduct.length; i++){
-			var vo = result.selectAllProduct[i];
-		html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
-		html += '			<div class="proDetail" onclick="clickproDetail(this);">';
-		html += '				<div>'+vo.pContent+'</div>';
-		html += '			';
-		html += '			';
-		html += '				<div>'+vo.pName+'</div>';
-		html += '			';
-		html += '			';
-		html += '				<div>'+vo.pBrand+'</div>';
-		html += '			';
-		html += '			';
-		html += '				<div>'+vo.pPrice+'</div>';
-		html += '			</div>';
-		html += '		 </form>';
-		}
+			data : {
+				pageCateId : btnIdx
+			},
+			dataType : "json",
+			success : function(result) {
+				console.log(result);
+				displayProductList(result, btnIdx);
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
 
-		html += '</div>';
-		html += '<p>';
-		if(result.startPage>1){
-		html += '		<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
-		}
-		
-		for(var p=result.startPage; p<=result.endPage;p++){
-		html += '		<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;';
-		}
-		
-		if(result.endPage < result.totalPageCnt){
-		html += '		<a href="storeproduct?page=${endPage+1 }">다음</a>';
-		}
-		html += '</p>';
-		
-		$("#productList").html(html); //
+		function displayProductList(result, btnIdx) {
+			console.log(this);
+			var html = "";
+			$("#productList").html(""); //
 
+			//var cateName = result.pageCateId;
+
+			if (btnIdx == 1) {
+				cateName = "가구";
+			} else if (btnIdx == 2) {
+				cateName = "페브릭";
+			} else if (btnIdx == 3) {
+				cateName = "조명";
+			} else {
+				cateName = "전체 상품";
+			}
+
+			html += '<h3 id="categoryName">' + cateName + '</h3>';
+
+			html += '<hr>';
+			html += '<div class="product_wrapper">';
+			for (var i = 0; i < result.selectAllProduct.length; i++) {
+				var vo = result.selectAllProduct[i];
+				html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
+				html += '			<div class="proDetail" onclick="clickproDetail(this);">';
+				html += '				<div><img src="'+vo.pContent+'" class="pcontent"></div>';
+				html += '			';
+				html += '			';
+				html += '				<div class="pname">' + vo.pName + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div class="pbrand">' + vo.pBrand + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div class="pprice">' + vo.pPrice + '</div>';
+				html += '			</div>';
+				html += '		 </form>';
+			}
+
+			html += '</div>';
+			html += '<p>';
+			if (result.startPage > 1) {
+				html += '		<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+			}
+
+			for (var p = result.startPage; p <= result.endPage; p++) {
+				html += '		<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+			}
+
+			if (result.endPage < result.totalPageCnt) {
+				html += '		<a href="storeproduct?page=${endPage+1 }">다음</a>';
+			}
+			html += '</p>';
+
+			$("#productList").html(html); //
+
+		}
 	}
-}
-
 </script>
 </head>
 <body>
@@ -154,36 +209,39 @@ footer {
 		<div class="wrap_content">
 			<div class="content">
 				<nav>
-					<h3>카테고리</h3>
+					<button type="button" id="all">전체 상품</button>
 					<button type="button" id="furniture">가구</button>
 					<button type="button" id="pabric">페브릭</button>
 					<button type="button" id="light">조명</button>
 
+
 				</nav>
 				<section>
 					<article id="productList">
-					<h3 id="categoryName">
-			<c:set var="cateIdx" value="${pageCateId }"></c:set>
-					<c:choose>
-						<c:when test="${cateIdx==1 }">가구</c:when>
-						<c:when test="${cateIdx==2 }">페브릭</c:when>
-						<c:when test="${cateIdx==3 }">조명</c:when>
-						<c:otherwise>전체 상품</c:otherwise>
-					</c:choose>
-					
-					</h3>
-					
+						<h3 id="categoryName">
+							<c:set var="cateIdx" value="${pageCateId }"></c:set>
+							<c:choose>
+								<c:when test="${cateIdx==1 }">가구</c:when>
+								<c:when test="${cateIdx==2 }">페브릭</c:when>
+								<c:when test="${cateIdx==3 }">조명</c:when>
+								<c:otherwise>전체 상품</c:otherwise>
+							</c:choose>
+
+						</h3>
+
 						<hr>
 						<div class="product_wrapper">
 							<c:forEach items="${selectAllProduct }" var="vo">
 								<form class="prdt" action="./productDetail" method="get">
 									<input type="hidden" name="p_no" value="${vo.pNo }">
-									
+
 									<div class="proDetail" onclick="clickproDetail(this);">
-										<div>${vo.pContent }</div>
-										<div>${vo.pName }</div>
-										<div>${vo.pBrand }</div>
-										<div>${vo.pPrice }</div>
+										<div>
+											<img src="${vo.pContent }" class="pcontent">
+										</div>
+										<div class="pname">${vo.pName }</div>
+										<div class="pbrand">${vo.pBrand }</div>
+										<div class="pprice">${vo.pPrice }</div>
 									</div>
 								</form>
 							</c:forEach>

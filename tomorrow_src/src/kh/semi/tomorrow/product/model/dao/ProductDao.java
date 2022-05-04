@@ -47,22 +47,22 @@ public class ProductDao {
 		return volist;
 	}
 
-	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum, int cateId, int pNo) {
+	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum, int pageCateId, int pNo) {
 		ArrayList<ProductVo> volist = null;
 
 		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price from "
 				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
-		if (cateId > 0) {
+		if (pageCateId > 0) {
 			sql += " where category_id=?";
 		}
 		sql += " order by p_no desc) t1) " + " where r between ? and ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			if (cateId > 0) {
+			if (pageCateId > 0) {
 				pstmt.setInt(2, startRnum);
 				pstmt.setInt(3, endRnum);
-				pstmt.setInt(1, cateId);
+				pstmt.setInt(1, pageCateId);
 			} else {
 				pstmt.setInt(1, startRnum);
 				pstmt.setInt(2, endRnum);
@@ -134,10 +134,22 @@ public class ProductDao {
 
 	public int countProduct(Connection conn, int pageCateId) {
 		int result = 0;
-		String sql = "select count(*) cnt from product";
+		String sql = "select count(*) cnt from product ";
+				if (pageCateId == 0) {
+					sql += " ";
+				} else {
+					sql += " where category_id=?";
+				}
+		
 
 		try {
+			
 			pstmt = conn.prepareStatement(sql);
+			if(pageCateId == 0) {
+				System.out.println("전체상품");
+			} else {
+				pstmt.setInt(1, pageCateId);
+			}
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = rs.getInt(1);

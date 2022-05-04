@@ -14,6 +14,7 @@
 	rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <style>
 .content_keyword p, .content_hit p, .content_cate p {
 	font-size: 20px;
@@ -37,6 +38,40 @@
 
 .cate_buttons p {
 	font-size: 15px;
+}
+
+
+.pcontent {
+	width: 200px;
+	height: 200px;
+	border-radius: 6px;
+}
+
+.product_wrapper .proDetail {
+	width: 220px;
+	margin: 20px;
+}
+
+.product_wrapper{
+	display: flex;
+	flex-wrap: wrap;
+}
+.pname{
+	padding:10px 20px 10px 0;
+	font-size: 17px;
+	font-weight: 500;
+}
+.pbrand{
+	font-size: 13px;
+	font-weight: 900;
+	color: #656e75;
+}
+.pprice{
+	float: right;
+	padding-right:20px;
+	color: black;
+	font-size: 20px;
+	font-weight: 900;
 }
 </style>
 <style>
@@ -119,7 +154,7 @@ keyframes fade {
 to {
 	opacity: 1
 }
-}
+
 </style>
 <script>
 	function clickproDetail(thisEle) {
@@ -176,10 +211,12 @@ to {
 						<form class="prdt" action="./productDetail" method="get">
 							<input type="hidden" name="p_no" value="${vo.pNo }">
 							<div class="proDetail" onclick="clickproDetail(this);">
-								<div>${vo.pContent }</div>
-								<div>${vo.pName }</div>
-								<div>${vo.pBrand }</div>
-								<div>${vo.pPrice }</div>
+								<div>
+									<img src="${vo.pContent }" class="pcontent">
+								</div>
+								<div class="pname">${vo.pName }</div>
+								<div class="pbrand">${vo.pBrand }</div>
+								<div class="pprice">${vo.pPrice }</div>
 							</div>
 						</form>
 					</c:forEach>
@@ -190,7 +227,7 @@ to {
 				<p>카테고리</p>
 				<div class="cate_buttons">
 					<button type="button" id="store_btn"
-						onclick="location.href='storeproduct';">
+						onclick="location.href='storeproduct?pageCateId=0';">
 						<img src="./resources/images/cate_all.jpg">
 						<p>전체</p>
 					</button>

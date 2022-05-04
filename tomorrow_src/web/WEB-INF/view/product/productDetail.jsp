@@ -1,9 +1,11 @@
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/resources/css/reset.css"
 	rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/resources/css/header.css"
 	rel="stylesheet" type="text/css">
 <link href="./css/reset.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,13 +26,15 @@
 #detail_img {
 	padding: 0 10px;
 	width: 45%;
-	height: 427px;
+	height: 500px;
 	float: left;
 }
 
 #detail_img img {
 	width: 100%;
 	height: 100%;
+	border-radius: 6px;
+	
 }
 
 #detailcontent {
@@ -54,6 +58,7 @@
 }
 
 .pprice {
+	color: #35c5f0;
 	font-size: 30px;
 	font-weight: 900;
 	margin: 10PX 0;
@@ -67,21 +72,77 @@
 }
 
 .optName {
-	width:100px;
+	width: 100px;
 }
 
+#price {
+	font-size: 30px;
+	font-weight: 700;
+	color: #000;
+}
+
+.pp {
+	margin: 20px 0;
+	text-align: right;
+	flex: 0 0 auto;
+	font-weight: 700;
+	color: #000;
+	text-align: right;
+}
+
+.orderBtn {
+	width: 48%;
+	float: right;
+	display: inline-block;
+	box-sizing: border-box;
+	border: 1px solid #35c5f0;
+	background: none;
+	font-weight: 700;
+	text-align: center;
+	border-radius: 4px;
+	background-color: #35c5f0;
+	border-color: #35c5f0;
+	color: #fff;
+	padding: 13px 10px 14px;
+	font-size: 17px;
+	line-height: 26px;
+	display: inline-block;
+}
+
+.cartBtn {
+	width: 48%;
+	display: inline-block;
+	box-sizing: border-box;
+	border: 1px solid #35c5f0;
+	background: none;
+	font-weight: 700;
+	text-align: center;
+	border-radius: 4px;
+	background-color: #fff;
+	border-color: #35c5f0;
+	color: #35c5f0;
+	padding: 13px 10px 14px;
+	font-size: 17px;
+	line-height: 26px;
+	display: inline-block;
+}
 </style>
 <style>
 #productInfoBtns {
 	clear: both;
 	padding: 3px 0;
 	width: 100%;
-	height: 30px;
+	height: 35px;
 	background-color: rgb(217, 209, 209);
 	text-align: center;
 }
 
 #productInfoBtns a {
+	color: black;
+	padding: 0 30px;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 30px;
 	padding: 0 30px;
 }
 
@@ -110,46 +171,47 @@
 					<img src="${vo.pContent }">
 				</section>
 				<section id="detailcontent">
-
-					<div class="pbrand">${vo.pBrand }</div>
-					<div class="pname">${vo.pName }</div>
-					<div class="pprice">${vo.pPrice }<a>(원)</a>
-					</div>
-
-					<c:if test="${not empty vo.pdvo }">
-						<div>
-							<c:forEach items="${vo.pdvo }" var="pdOpt" varStatus="status">
-								<c:choose>
-									<c:when test="${status.index eq 0}">
-										<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-										<div class="optName">${pdOpt.optName }</div>
-										<select name="option_${setOpt }"  class="form-select">
-											<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
-									</c:when>
-									<c:when test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
-										<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-										</select>
-										<div class="optName">${pdOpt.optName }</div>
-										<select name="option_${setOpt }"  class="form-select">
-											<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
-									</c:otherwise>
-								</c:choose>
-								<option disabled hidden class="optPrice"
-									value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
-								<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
-							</c:forEach>
-
-							</select>
+					<form>
+						<div class="pbrand">${vo.pBrand }</div>
+						<div class="pname">${vo.pName }</div>
+						<div class="pprice">${vo.pPrice }<a>(원)</a>
 						</div>
-					</c:if>
-					<p>
-						<span>주문금액</span><span id="price"></span><span>(원)</span>
-					</p>
-					<button type="button">장바구니</button>
-					<button type="button">바로구매</button>
+
+						<c:if test="${not empty vo.pdvo }">
+							<div>
+								<c:forEach items="${vo.pdvo }" var="pdOpt" varStatus="status">
+									<c:choose>
+										<c:when test="${status.index eq 0}">
+											<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+											<div class="optName">${pdOpt.optName }</div>
+											<select name="option_${setOpt }" class="form-select">
+												<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+										</c:when>
+										<c:when test="${status.index ne 0 and setOpt ne pdOpt.optNo}">
+											<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+											</select>
+											<div class="optName">${pdOpt.optName }</div>
+											<select name="option_${setOpt }" class="form-select">
+												<option selected value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${pdOpt.pSeq }">${pdOpt.optVal }</option>
+										</c:otherwise>
+									</c:choose>
+									<option disabled hidden class="optPrice"
+										value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
+									<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
+								</c:forEach>
+
+								</select>
+							</div>
+						</c:if>
+						<p class="pp">
+							<span>주문금액 </span><span id="price"></span><span>(원)</span>
+						</p>
+						<button type="button" class="cartBtn">장바구니</button>
+						<button type="button" class="orderBtn">바로구매</button>
+					</form>
 				</section>
 			</section>
 			<script>
