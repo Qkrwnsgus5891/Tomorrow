@@ -18,6 +18,11 @@ public class ProductVo {
 	
 	private ArrayList<ProductDetailVo> pdvo;
 	
+	
+	private int productImgNo;
+	private String productImgName;
+	private int productImgSize;
+	
 	public ProductVo() {}
 
 	public ProductVo(int pNo, String pContent, String pName, String pBrand,int pPrice, int cateId) {
@@ -52,24 +57,46 @@ public class ProductVo {
 		this.optVal = optVal;
 		this.optPrice = optPrice;
 	}
-
 	
 	
+	public ProductVo(int pNo, String pName, String pBrand, String pContent, int pPrice, int cateId, String cateName,
+			int optNo, String optVal, int optPrice, int pSeq, ArrayList<ProductDetailVo> pdvo, int productImgNo,
+			String productImgName, int productImgSize) {
+		super();
+		this.pNo = pNo;
+		this.pName = pName;
+		this.pBrand = pBrand;
+		this.pContent = pContent;
+		this.pPrice = pPrice;
+		this.cateId = cateId;
+		this.cateName = cateName;
+		this.optNo = optNo;
+		this.optVal = optVal;
+		this.optPrice = optPrice;
+		this.pSeq = pSeq;
+		this.pdvo = pdvo;
+		this.productImgNo = productImgNo;
+		this.productImgName = productImgName;
+		this.productImgSize = productImgSize;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductVo [pNo=" + pNo + ", pName=" + pName + ", pBrand=" + pBrand + ", pContent=" + pContent
 				+ ", pPrice=" + pPrice + ", cateId=" + cateId + ", cateName=" + cateName + ", optNo=" + optNo
-				+ ", optVal=" + optVal + ", optPrice=" + optPrice + ", pSeq=" + pSeq + ", pdvo=" + pdvo + "]";
+				+ ", optVal=" + optVal + ", optPrice=" + optPrice + ", pSeq=" + pSeq + ", pdvo=" + pdvo
+				+ ", productImgNo=" + productImgNo + ", productImgName=" + productImgName + ", productImgSize="
+				+ productImgSize + "]";
 	}
 
 	
-	
 
+	
 	public int getpNo() {
 		return pNo;
 	}
 
+	
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
 	}
@@ -161,6 +188,31 @@ public class ProductVo {
 	public void setPdvo(ArrayList<ProductDetailVo> pdvo) {
 		this.pdvo = pdvo;
 	}
+
+	public int getProductImgNo() {
+		return productImgNo;
+	}
+
+	public void setProductImgNo(int productImgNo) {
+		this.productImgNo = productImgNo;
+	}
+
+	public String getProductImgName() {
+		return productImgName;
+	}
+
+	public void setProductImgName(String productImgName) {
+		this.productImgName = productImgName;
+	}
+
+	public int getProductImgSize() {
+		return productImgSize;
+	}
+
+	public void setProductImgSize(int productImgSize) {
+		this.productImgSize = productImgSize;
+	}
+	
 	
 	
 	

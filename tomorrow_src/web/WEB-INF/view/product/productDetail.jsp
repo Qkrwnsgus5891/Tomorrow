@@ -251,7 +251,7 @@
 		</section>
 
 		<section id="productInform">
-			<img src="./upload/images/sample.jpg" id="information">
+			<img src="${vo.pContent }" id="information">
 			<div id="storylist">
 				<table>
 					<tr>
