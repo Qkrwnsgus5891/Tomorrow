@@ -45,7 +45,7 @@ public class AdCategoryProductServlet extends HttpServlet {
 		String ctgry = request.getParameter("ctgry");
 		System.out.println("선택한 카테고리: " + ctgry + "\n");
 		ArrayList<ProductVo> productList = new AdminService().ctgryProduct(ctgry);
-		System.out.println("AdCategoryProductServlet- doPost()\n[productList]\n" + productList + "\n");
+		System.out.println("AdCategoryProductServlet- doPost\n[productList]\n" + productList + "\n");
 		
 	}
 

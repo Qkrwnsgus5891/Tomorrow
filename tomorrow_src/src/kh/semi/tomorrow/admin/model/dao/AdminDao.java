@@ -62,26 +62,9 @@ public class AdminDao {
 		return productList;
 	}
 	
-	// 상품 번호 구하기
-	public int getProductPNo(Connection conn) {
-		int result = 0;
-		String sql = "select SEQUENCE_PRODUCT_P_NO.nextval from dual";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemp.close(pstmt);
-		}
-		System.out.println("getProductPNo : "+ result + "\n");
-		return result;
-	}
 	
-	// 상품 등록
+	// 상품 등록	
+	// 상품 등록시 필요한 상품번호 구하기
 	public int insertProduct(Connection conn, ProductVo product, int pNo) {
 		int result = 0;
 		String sql = "insert into product(P_NO, P_BRAND, P_NAME, P_CONTENT, P_PRICE, CATEGORY_ID) "
@@ -108,9 +91,7 @@ public class AdminDao {
 			System.out.println("AdminDao-insertProduct()에 의해 상품 등록에 성공했습니다.\n[결과]\t" + result + "\n");		
 		}
 		return result;
-	}
-	
-	 
+	}	 
 	
 	public int insertProductDetail(Connection conn, ProductDetailVo detail, int pNo) {
 		int result = 0;
@@ -131,14 +112,117 @@ public class AdminDao {
 		}
 		
 		if(result == 0) {
-			System.out.println("AdminDao-insertProductDetail()에 의한 상품 등록에 실패하였습니다.\n[결과]\t"+ result + "\n");
+			System.out.println("AdminDao-insertProductDetail()에 의한 상품 옵션 등록에 실패하였습니다.\n[결과]\t"+ result + "\n");
 		} else {
-			System.out.println("AdminDao-insertProductDetail()에 의해 상품 등록에 성공했습니다.\n[결과]\t" + result + "\n");		
+			System.out.println("AdminDao-insertProductDetail()에 의해 상품 옵션 등록에 성공했습니다.\n[결과]\t" + result + "\n");		
 		}
 		return result;	
 	}
 	
+	public int getProductPNo(Connection conn) {
+		int result = 0;
+		String sql = "select SEQUENCE_PRODUCT_P_NO.nextval from dual";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		System.out.println("getProductPNo:\t "+ result + "\n");
+		return result;
+	}
+	
 	// 상품 수정/삭제
+	public ProductVo searchProduct(Connection conn, int pNo) {
+		ProductVo product = null;
+		String sql = "select p_no, p_brand, p_name, p_content, p_price, category_id"
+				+ " from product where p_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				product = new ProductVo();
+				
+				product.setpNo(rs.getInt("p_no"));
+				product.setpBrand(rs.getString("p_brand"));
+				product.setpName(rs.getString("p_name"));
+				product.setpContent(rs.getString("p_content"));
+				product.setpPrice(rs.getInt("p_price"));
+				product.setCateId(rs.getInt("category_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		if(product == null) {
+			System.out.println("AdminDao-searchProduct()에 의해 상품 조회가 실패했습니다.\nproduct:\t" + product + "\n");
+		} else {
+			System.out.println("AdaminDao-searchProduct()에 의해 상품을 조회합니다.\nproduct:\n" + product + "\n");
+		}
+		return product;
+	}	
+	
+	public int updateProduct(Connection conn, ProductVo product, int pNo) {
+		int result= 0;
+		String sql = "update product set P_CONTENT=?, CATEGORY_ID =?, P_BRAND=?, P_NAME=?, P_PRICE=? where p_no= ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product.getpContent());
+			pstmt.setInt(2, product.getCateId());
+			pstmt.setString(3, product.getpBrand());
+			pstmt.setString(4, product.getpName());
+			pstmt.setInt(5, product.getpPrice());
+			pstmt.setInt(6, pNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-updateProduct()에 의한 상품 업데이트에 실패하였습니다.\n[결과]\t"+ result + "\n");
+		} else {
+			System.out.println("AdminDao-updateProduct()에 의해 상품 업데이트에 성공했습니다.\n[결과]\t" + result + "\n");		
+		}
+		return result;	
+	}
+	
+	public int updateProductDetail(Connection conn, ProductDetailVo detail, int pNo) {
+		int result= 0;
+		String sql = "update product_detail set opt_no=?, opt_val=?, opt_price=? where p_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, detail.getOptNo());
+			pstmt.setString(2, detail.getOptVal());
+			pstmt.setInt(3, detail.getOptPrice());
+			pstmt.setInt(4, pNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-updateProductDetail()에 의한 상품 상세옵션의 업데이트에 실패하였습니다.\n[결과]\t"+ result + "\n");
+		} else {
+			System.out.println("AdminDao-updateProductDetail()에 의해 상품 상세옵션의 업데이트에 성공했습니다.\n[결과]\t" + result + "\n");		
+		}
+		return result;	
+	}
+	
 	public int deleteProduct(Connection conn, int pNo) {
 		int result = 0;
 		String sql = "delete from product where p_no=?";

@@ -22,37 +22,6 @@
      
     });    
 </script>
-<script>
-$(colorChangeHandler);
-$(productHandler);
-function colorChangeHandler() {
-    $("#furniture").on("click", function() {              
-      $("#furniture").css({"color":"black"});
-      $("#fabric").css({"color":"white"});
-      $("#light").css({"color":"white"});
-    });
-    $("#fabric").on("click", function() {        
-      $("#fabric").css({"color":"black"});
-      $("#furniture").css({"color":"white"});
-      $("#light").css({"color":"white"});
-    });
-    $("#light").on("click", function() {        
-      $("#light").css({"color":"black"});
-      $("#furniture").css({"color":"white"});
-      $("#fabric").css({"color":"white"});
-    });
- }
- 
-function productHandler() {
-	$("#prod_alt").click(function() {
-	    console.log("상품 수정");
-	});
-
-	$("#prod_del").click(function() {
-	    console.log("상품 삭제");
-	});
-}
-</script>
 </head>
 <style>
     #container {      
@@ -169,13 +138,68 @@ function productHandler() {
   
   
 <script>
-	$(".store_btn").click(btnHandler);
+$(colorChangeHandler);
+$(productHandler);
 
-	function btnHandler() {
+
+function colorChangeHandler() {
+    $("#furniture").on("click", function() {              
+      $("#furniture").css({"color":"black"});
+      $("#fabric").css({"color":"white"});
+      $("#light").css({"color":"white"});
+    });
+    $("#fabric").on("click", function() {        
+      $("#fabric").css({"color":"black"});
+      $("#furniture").css({"color":"white"});
+      $("#light").css({"color":"white"});
+    });
+    $("#light").on("click", function() {        
+      $("#light").css({"color":"black"});
+      $("#furniture").css({"color":"white"});
+      $("#fabric").css({"color":"white"});
+    });
+}
+ 
+ function productHandler() {
+	$("#prod_alt").click(function() {
+	    console.log("수정 클릭 후 상품 수정 페이지로 이동");
+	    location.href="adProductEdit";
+	});
+
+	$("#prod_del").click(function() {
+	    console.log("상품 삭제");
+	});
+
+	$(".store_btn").click(function() {
 		var result = $(this).val();
-		console.log(result);
-		
-	}
+		console.log(result);	
+	});
+
+} 
+
+
+
+function btnHandler() {
+	console.log("btnHandler() 실행");
+	var ctgry = $(this).val();
+	console.log(ctgry);
+	
+	$.ajax({
+		url : "adProductCtgry",
+		type : "post",
+		data : {
+			ctgry : $(this).val()
+		},
+		success : function(result) {
+			console.log(result);
+		},
+		error : function(request, status, error) {
+			alert("code:" + request.status + "\n" + "message:"
+					+ request.responseText + "\n" + "error:" + error);
+		}
+	});
+}
+
 </script>
 </body>
 </html>
