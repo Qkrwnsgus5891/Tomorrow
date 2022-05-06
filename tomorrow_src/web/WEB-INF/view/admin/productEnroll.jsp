@@ -39,7 +39,7 @@
       flex-flow: row wrap;
       width: 450px;
       height: 450px;
-      background: #ccc;
+      border: 1px dotted #ccc;
     }
 
     #product_enroll_grp{
@@ -85,17 +85,18 @@
     #product_content {
       margin-top: 10px;
       width: 1000px;
-      height: 1300px;
+      height: 950px;
+      /* height: 1300px; */
       border: 1px solid #ccc;
       border-radius: 20px;
     }
     
     .prod_box{
+      display: block;
       width: 650px;
-      height: 400px;
-      border-radius: 10px;
-      background-color: #ccc;
-      margin: 10px auto;
+      height: 400px;      
+      border: 1px dotted #ccc;
+      margin: 20px auto;
     }
 
     #enroll_content {
@@ -121,9 +122,9 @@
 	<div id="container">
     <form action="adProductEnroll.aj" method="post">
       <section id="content_enroll">
-        <div id="product_img">        
+        <img src="" id="product_img">       
         
-        </div>
+        
         <div id="product_enroll_grp">
           <div class="enroll_content">
           	<!-- 카테고리 종류 -->
@@ -174,15 +175,10 @@
       
       <p id="product_info">상품 정보</p>
       <div id="product_content">
-        <div class="prod_box">
-		
-        </div>
-        <div class="prod_box">
-
-        </div>
-        <div class="prod_box">
-
-        </div>
+        <img src="" class="prod_box">
+        <input type="file" name="file_tn" id="file_btn">	
+        <img src="" class="prod_box">
+        <input type="file" name="file_tn" id="file_btn">        
       </div>      
       <div id="enroll_content">
         <button type="button" id="enroll_btn">상품 등록</button>

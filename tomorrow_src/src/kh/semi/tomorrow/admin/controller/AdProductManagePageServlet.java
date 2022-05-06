@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class AdProductDeleteServlet
  */
 @WebServlet("/adProductManage")
-public class AdProductManageServlet extends HttpServlet {
+public class AdProductManagePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdProductManageServlet() {
+    public AdProductManagePageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
