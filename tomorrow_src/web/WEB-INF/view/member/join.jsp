@@ -64,7 +64,6 @@
         <a href="<%=request.getContextPath() %>/login" class="login">로그인</a>
         </div>
     </div>
-    <br><br><br><br><br>
     </section>
     <div style="display: block"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>

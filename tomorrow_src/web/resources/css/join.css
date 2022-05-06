@@ -128,9 +128,8 @@ hr {
 }
 
 .bottom {
-    position: absolute;
-    left: 18%;
-    margin-top: 20px;
+    margin: 40px auto;
+    text-align: center;
 }
 
 .login {
