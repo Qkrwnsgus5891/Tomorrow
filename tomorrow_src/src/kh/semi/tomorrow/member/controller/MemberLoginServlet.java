@@ -51,8 +51,8 @@ public class MemberLoginServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+ "/liststory");
 		} else {
 			System.out.println("로그인에 성공하였습니다.\n");
-			request.getSession().setAttribute("id", mId);
 			request.getSession().setAttribute("ssMV", vo);
+			System.out.println(vo.getmId());
 			response.sendRedirect(request.getContextPath()+ "/liststory");
 		}
 	}

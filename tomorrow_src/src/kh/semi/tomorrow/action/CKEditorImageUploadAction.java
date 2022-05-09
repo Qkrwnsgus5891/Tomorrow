@@ -26,7 +26,7 @@ public class CKEditorImageUploadAction extends HttpServlet {
 		PrintWriter printWriter = null;
 		
         try{
-        	String web_path = "/upload/storyContentImg/";
+        	String web_path = "/upload/images/story/content/";
             String abs_path = request.getServletContext().getRealPath(web_path);
             int    max_size = 1024*1024*10;
             
