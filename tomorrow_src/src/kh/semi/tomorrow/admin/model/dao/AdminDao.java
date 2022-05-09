@@ -20,7 +20,7 @@ public class AdminDao {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
-	// 상품 관리
+	// 1. 상품 관리
 	public ArrayList<ProductVo> ctgryProduct(Connection conn, String ctgry) {
 		ArrayList<ProductVo> productList = null;
 		String sql = "select C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
@@ -119,6 +119,32 @@ public class AdminDao {
 		return result;	
 	}
 	
+	public int insertProductContent(Connection conn, ProductVo vo) {
+		int result = 0;
+		String sql = "insert into product_img(PRODUCT_IMG_NO, P_NO, PRODUCT_IMG_NAME, PRODUCT_IMG_SIZE)"
+				+ " values(SEQUENCE_PRODUCT_IMG_NO.nextval, ?, ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, vo.getpNo());
+			pstmt.setString(2, vo.getProductImgName());
+			pstmt.setInt(3, vo.getProductImgSize());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
+		}
+		if(result == 0) {
+			System.out.println("AdminDao-insertProductContent()에 의한 상품 이미지 등록에 실패하였습니다.\n[결과]\t" + result + "\n");
+		} else {
+			System.out.println("AdminDao-insertProductContent()에 의한 상품 이미지 등록에 성공했습니다.\n[결과]\t" + result + "\n");
+		}
+		return result;
+	}
+	
 	public int getProductPNo(Connection conn) {
 		int result = 0;
 		String sql = "select SEQUENCE_PRODUCT_P_NO.nextval from dual";
@@ -138,14 +164,20 @@ public class AdminDao {
 		return result;
 	}
 	
-	// 상품 수정/삭제
-	public ProductVo searchProduct(Connection conn, int pNo) {
+	// 상품 및 상품 상세 조회
+	public ProductVo searchProduct(Connection conn, int pNo, int pSeq) {
 		ProductVo product = null;
-		String sql = "select p_no, p_brand, p_name, p_content, p_price, category_id"
-				+ " from product where p_no = ?";
+		ProductDetailVo detail = null;
+//		ArrayList<ProductDetailVo> detailList = null;
+		String sql1 = "select p_no, p_brand, p_name, p_content, p_price, category_id"
+					+ " from product where p_no = ?" ;
+		String sql2 = "select d.p_no, d.p_seq, d.opt_no, op.opt_name, d.opt_val, d.opt_price"
+				+ " from product_detail d join option_parent op on d.OPT_NO= op.OPT_NO "
+				+ " where p_no= ? and p_seq = ?";
+//		String sql2 = "select p_seq, p_no, opt_no, opt_val, opt_price from product_detail where p_no=? and p_seq= ?";
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql1);
 			pstmt.setInt(1, pNo);
 			rs = pstmt.executeQuery();
 			
@@ -158,6 +190,42 @@ public class AdminDao {
 				product.setpContent(rs.getString("p_content"));
 				product.setpPrice(rs.getInt("p_price"));
 				product.setCateId(rs.getInt("category_id"));
+				JdbcTemp.close(rs);
+				JdbcTemp.close(pstmt);
+				
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, pNo);
+				pstmt.setInt(2, pSeq);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					detail = new ProductDetailVo();				
+					
+					detail.setpNo(rs.getInt("p_no"));
+					detail.setpSeq(rs.getInt("p_seq"));					
+					detail.setOptNo(rs.getInt("opt_no"));
+					detail.setOptName(rs.getString("opt_name"));
+					detail.setOptVal(rs.getString("opt_val"));
+					detail.setOptPrice(rs.getInt("opt_price"));
+					
+					product.setPdt(detail);
+				}
+//				if(rs.next()) {
+//					detailList = new ArrayList<ProductDetailVo>();					
+//					while(rs.next()) {
+//						ProductDetailVo detail = new ProductDetailVo();
+//						detail.setpSeq(rs.getInt("p_seq"));
+//						detail.setOptNo(rs.getInt("opt_no"));
+//						detail.setOptName(rs.getString("opt_name"));
+//						detail.setOptVal(rs.getString("opt_val"));
+//						detail.setOptPrice(rs.getInt("opt_price"));
+//						
+//						detailList.add(detail);
+//					}
+//					product.setPdvo(detailList);
+//				}
+				
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -171,8 +239,9 @@ public class AdminDao {
 			System.out.println("AdaminDao-searchProduct()에 의해 상품을 조회합니다.\nproduct:\n" + product + "\n");
 		}
 		return product;
-	}	
+	}		
 	
+	// 상품 수정/삭제
 	public int updateProduct(Connection conn, ProductVo product, int pNo) {
 		int result= 0;
 		String sql = "update product set P_CONTENT=?, CATEGORY_ID =?, P_BRAND=?, P_NAME=?, P_PRICE=? where p_no= ?";
@@ -199,9 +268,9 @@ public class AdminDao {
 		return result;	
 	}
 	
-	public int updateProductDetail(Connection conn, ProductDetailVo detail, int pNo) {
+	public int updateProductDetail(Connection conn, ProductDetailVo detail, int pNo, int pSeq) {
 		int result= 0;
-		String sql = "update product_detail set opt_no=?, opt_val=?, opt_price=? where p_no=?";
+		String sql = "update product_detail set opt_no=?, opt_val=?, opt_price=? where p_no=? and p_seq=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -209,6 +278,7 @@ public class AdminDao {
 			pstmt.setString(2, detail.getOptVal());
 			pstmt.setInt(3, detail.getOptPrice());
 			pstmt.setInt(4, pNo);
+			pstmt.setInt(5, pSeq);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -244,14 +314,35 @@ public class AdminDao {
 		return result;
 	}
 	
-	// 주문 내역 조회	
-	public ArrayList<OrderVo> selectOrderList() {
+	// 2. 주문 내역 조회	
+	public ArrayList<OrderVo> selectOrderList(Connection conn) {
 		ArrayList<OrderVo> orderlist = null;
-		String sql = "";	
+		String sql = "select p.p_content, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt"
+				+ "	,o.o_date, o.O_TOTAL_PRICE, o.O_NAME"
+				+ " from orders o join order_detail od on o.O_NO= od.O_NO"
+				+ " join product p on p.p_no = od.P_NO"
+				+ " order by o.o_no desc ";	
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			orderlist = new ArrayList<OrderVo>();
+			
+			while(rs.next()) {
+				ProductVo vo = new ProductVo() ;
+				vo.setpContent(rs.getString("p_content"));
+				vo.setpBrand(rs.getString("p_brand"));
+				vo.setpName(rs.getString("p_name"));
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
 		
 		return orderlist;
 	}
-	// 회원 관리
+	// 3. 회원 관리
 	public ArrayList<MemberVo> selectAllMember(Connection conn) {
 		ArrayList<MemberVo> memberlist = null;
 		String sql = "select M_ID, M_NAME, M_NICKNAME, "
@@ -439,7 +530,7 @@ public class AdminDao {
 		return result;
 	}
 	
-	// 게시물 관리
+	// 4. 게시물 관리
 	public ArrayList<StoryBoardVo> boardList(Connection conn) {
 		ArrayList<StoryBoardVo> boardlist = null;
 		String sql = "select b_no, b_title, b_writer, b_date, b_cnt from story";

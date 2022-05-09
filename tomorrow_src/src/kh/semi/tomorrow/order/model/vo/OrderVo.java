@@ -1,6 +1,9 @@
 package kh.semi.tomorrow.order.model.vo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+
+
 
 public class OrderVo {
 	private int oNo;
@@ -18,6 +21,9 @@ public class OrderVo {
 	private String rePhone;
 	private String optVal;
 	
+	private ArrayList<OrderDetailVo> odVo ;
+	
+	public OrderVo() {}
 	public OrderVo(int oNo, String mId, int pSeq, int pCnt, int pPrice, Timestamp oDate, int oTotalPrice, String oName,
 			String eMail, String oPhone, String reName, String reAddress, String rePhone, String optVal) {
 		this.oNo = oNo;
@@ -35,7 +41,15 @@ public class OrderVo {
 		this.rePhone = rePhone;
 		this.optVal = optVal;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "OrderVo [oNo=" + oNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pCnt=" + pCnt + ", pPrice=" + pPrice
+				+ ", oDate=" + oDate + ", oTotalPrice=" + oTotalPrice + ", oName=" + oName + ", eMail=" + eMail
+				+ ", oPhone=" + oPhone + ", reName=" + reName + ", reAddress=" + reAddress + ", rePhone=" + rePhone
+				+ ", optVal=" + optVal + "]";
+	}
+	
 	public int getoNo() {
 		return oNo;
 	}

@@ -56,20 +56,27 @@ input[type="text"], select {
 	margin-top: 10px;
 }
 
+#pno {
+	/* border-radius: 5px;
+	border : 2px solid black; */
+}
+
 #category, #prod_brand, #prod_name, #prod_price, #prod_option, #opt_no,
-	#opt_val, #opt_price, #prod_no, #opt_name, #opt_value, #opt_cash, #pno
-	{
+#opt_val, #opt_price, #prod_no, #opt_name, #opt_value, #opt_cash, #pno, #pSeq	{
 	width: 300px;
 	height: 30px;
+	border-radius: 5px;
+	border : 2px solid black;
 }
 
 #file_btn {
 	/* margin: 5px 0 0 150px; */
-	margin-left: 150px;
+	/*  
+	margin-left: 50px; 
+	*/
 	/* width: 150px; */
 	/* height: 40px; */
-	/* border: 1px solid #ccc; */
-	border-radius: 5px;
+	/* border: 1px solid #ccc; */	
 }
 
 #product_explanation {
@@ -164,65 +171,70 @@ input[type="text"], select {
 
 
 	<div id="container">
-		<form action="adProductEdit" method="post">
+		<form action="adProductEdit" method="post" enctype="multipart/form-data" id=edfrm>
 			<section id="content_enroll">
-				<div id="product_img">
-					<div></div>
-				</div>
-
+				<img src="" alt="image" id="product_img">
 				<div id="product_enroll_grp">
 					<div class="enroll_content">
 						<!-- 상품 번호 -->
 						<label for="pno" style="font-size: 15px;">조회할 상품 번호를	입력해주세요.</label>
-						<button type="button" id="search_btn">조회</button>
-						<br> <input type="text" name="pno" id="pno"
-							placeholder="상품 번호를 입력해주세요.">
+						<button type="button" id="search_btn">조회</button><br> 
+						<input type="text" name="pno" id="pno" required placeholder="상품 번호를 입력해주세요.">
+						<!-- <input type="hidden" name="pSeq" id="pSeq" > --> 
+							<!-- <datalist id="aaa">
+								option
+							</datalist> -->
 					</div>
-<%
-	ProductVo vo = (ProductVo) request.getAttribute("product");
-%>
-					<c:if test="${vo != null }">
+					
+					<div class="enroll_content">
+						<label for="pSeq" style="font-size: 15px;">상품 상세번호를 입력하세요.</label><br> 
+						<input type="text" name="pSeq" id="pSeq" placeholder="상품 상세번호를 입력해주세요.">
+					</div>
+					
+					
 						<div class="enroll_content">
 							<!-- 카테고리 종류 -->
 							<label for="category" style="font-size: 15px">카테고리 종류를
 								입력해주세요.</label><br> 
-							<select name="category" id="category">
-								<option value="0" selected>카테고리 종류</option>
+							<select name="category" id="category" required>
+								<option value="0" selected>카테고리 종류</option>								
 								<option value="1">가구</option>
 								<option value="2">패브릭</option>
 								<option value="3">조명</option>
 							</select>
-
+							<input type="hidden" name="ctgry" id="ctgry">
+							<input type="hidden" name="pFilePath" id="pFilePath">
 						</div>
 						<div class="enroll_content">
 							<label for="prod_brand" style="font-size: 15px;">브랜드명을
 								입력해주세요. </label><br> 
-							<input type="text" name="prod_brand" id="prod_brand" value="${vo.pBrand }"	placeholder="브랜드명을 입력해주세요.">
+							<input type="text" name="prod_brand" id="prod_brand" 	placeholder="브랜드명을 입력해주세요.">
 						</div>
 						<div class="enroll_content">
 							<!-- 상품 이름 -->
 							<label for="prod_name" style="font-size: 15px">상품명을
 								입력해주세요.</label><br> 
-							<input type="text" name="prod_name" id="prod_name" value="${vo.pName }" placeholder="상품명을 입력해주세요.">
+							<input type="text" name="prod_name" id="prod_name"  placeholder="상품명을 입력해주세요.">
 						</div>
 						<div class="enroll_content">
 							<!-- 상품 가격 -->
 							<label for="prod_price" style="font-size: 15px">가격을
 								입력해주세요.</label><br> 
-							<input type="text" name="prod_price" id="prod_price" value="${vo.pPrice}" placeholder="금액(원)을 입력해주세요.">
+							<input type="text" name="prod_price" id="prod_price"  placeholder="금액(원)을 입력해주세요.">
 						</div>
 						<div class="enroll_content">
 							<!-- 옵션 번호 -->
 							<label for="opt_no" style="font-size: 15px">옵션을 입력해주세요.</label><br>
-							<select name="opt_no" id="opt_no">
-								<option value="0" selected>옵션을 선택해주세요.</option>
+							<select name="opt_no" id="opt_no">									
+								<option value="0">옵션을 선택해주세요.</option>
 								<option value="1">색상</option>
 								<option value="2">사이즈</option>
-								<option value="3">추가상품</option>
+								<option value="3">추가상품</option>  								
 							</select><br>
+							
 							<!-- 옵션값 -->
-							<input type="text" name="opt_val" id="opt_val"
-								placeholder="옵션값을 입력해주세요.">
+<!--  					<select name="opt_val" id="opt_val">	</select>   -->
+							<input type="text" name="opt_val" id="opt_val" placeholder="옵션값을 입력해주세요."> 
 						</div>
 						<div class="enroll_content">
 							<!-- 옵션 추가가격 -->
@@ -230,10 +242,10 @@ input[type="text"], select {
 								입력해주세요.</label><br> 
 							<input type="text" name="opt_price"	id="opt_price" value=0>
 						</div>
-					</c:if>
+					
 				</div>
 			</section>
-			<input type="file" name="file_tn" id="file_btn">
+			<div class="enroll_content">파일 수정: <input type="file" name="upload" id="file_btn"></div>
 
 			<!-- 
         P_SEQ     NOT NULL VARCHAR2(10)  
@@ -257,11 +269,11 @@ input[type="text"], select {
 						<div class="enroll_content">
 							<label for="opt_name">옵션명</label>
 							<hr class="underbar">
-							<select name="opt_name" id="opt_name">
-								<option value="0" selected>옵션을 선택해주세요.</option>
+							<select name="opt_name" id="opt_name" required>			
+								<option value="0" selected >옵션을 선택해주세요.</option>
 								<option value="1">색상</option>
 								<option value="2">사이즈</option>
-								<option value="3">추가상품</option>
+								<option value="3">추가상품</option> 
 							</select> <br>
 						</div>
 						<div class="enroll_content">
@@ -299,17 +311,96 @@ input[type="text"], select {
 		$("#edit_btn").on("click", editHandler);
 		$("#add_btn").on("click", optAddtionHandler);
 
-		function searchHandler() {
-			console.log("조회한 상품번호: " + $("#pno").val());
-
+		function searchHandler() {			
+			var a = prompt("상품 상세번호를 입력하세요.");			
+			console.log("조회한 상품번호: " + $("#pno").val());		
+			console.log("상품 상세번호: " + a);
+			$("#pSeq").val(a);			
+//			var html1 = "";
+//			var html2 = "";
 			$.ajax({
 				url : "adPdSearch.aj",
 				type : "post",
 				data : {
-					pNo : $("#pno").val()
+					pNo : $("#pno").val()		
+					,pSeq : $("#pSeq").val()
 				},
-				success : function(result) {
+				dataType:"json",
+				success : function(result) {					
 					alert("상품이 조회되었습니다.");
+					console.log(result);
+					console.log("result.pdt.pSeq: " + result.pdt.pSeq);
+					console.log("result.cateId: " + result.cateId);
+					console.log("result.pdt.optVal: " + result.pdt.optVal);
+					console.log("result.pdt.optName: " + result.pdt.optName);
+// 조회한 상품의 값을 입력					
+					
+					$("#product_img").prop("src", result.pContent);	
+					
+					$("#pFilePath").prop("value", result.pContent);
+					$("#prod_brand").val(result.pBrand);
+					$("#prod_name").val(result.pName);
+					$("#prod_price").val(result.pPrice);					
+					$("#opt_price").val(result.pdt.optPrice);
+					$("#opt_val").val(result.pdt.optVal);		
+					$("#pSeq").val(result.pdt.pSeq);
+					
+					if(result.cateId == 1){
+						$("#category").val("1").prop("selected", true);	
+					}
+					if(result.cateId == 2){
+						$("#category").val("2").prop("selected", true);	
+					}
+					if(result.cateId == 3){
+						$("#category").val("3").prop("selected", true);	
+					}		
+					
+					
+					if(result.pdt.optNo == 1){
+						$("#opt_no").val("1").prop("selected", true);	
+					}
+					if(result.pdt.optNo == 2){
+						$("#opt_no").val("2").prop("selected", true);	
+					}
+					if(result.pdt.optNo == 3){
+						$("#opt_no").val("3").prop("selected", true);	
+					}
+					
+//					$("#opt_value").val(result.pdvo[0].optPrice);					
+
+// 중복값 제거
+/*
+					var orgStr = [];					
+					for(var i=0; i<result.pdvo.length; i++) {
+						vo = result.pdvo[i].optName;
+						orgStr.push(vo);
+						console.log(i+ ": " + orgStr);
+					}
+					
+					var optNames= [...new Set(orgStr)];
+					console.log("optNames: " + optNames);
+					
+					for(var i=0; i<optNames.length; i++) {							
+						var vo = result.pdvo[i];						
+//						console.log("pdvo["+i+"].optNo: "+ result.pdvo[i].optNo);
+						console.log("optNames"+[i]+": " + optNames[i]); 
+//						 if(vo.optNo[i] == vo.optNo[i+1] ) {
+//							continue;
+//						} 
+						html1 += '<option value="'+ vo.optNo  +'">';
+						html1 += optNames[i] + '</option>';
+					} 				
+					
+					
+ 					for(var j =0; j<result.pdvo.length; j++) {					
+						var vo = result.pdvo[j];
+						html2 += '<option value="'+ vo.optNo  +'">';
+						html2 += vo.optVal + '</option>';
+					} 
+					
+					$("#opt_no").append(html1);
+					$("#opt_val").append(html2);
+*/					
 				},
 				error : function(request, status, error) {
 					console.log(request);
@@ -323,6 +414,7 @@ input[type="text"], select {
 		function editHandler() {
 			var msg = confirm("상품을 수정하시겠습니까?");
 			console.log("상품번호: " + $("#pno").val());
+			console.log("상품 상세번호: " + $("#pSeq").val());
 			console.log("카테고리(가구, 패브릭, 조명)id: " + $("#category").val());
 			console.log("브랜드명: " + $("#prod_brand").val());
 			console.log("상품명: " + $("#prod_name").val());
@@ -330,12 +422,24 @@ input[type="text"], select {
 			console.log("옵션번호: " + $("#opt_no").val());
 			console.log("옵션값: " + $("#opt_val").val());
 			console.log("추가가격: " + $("#opt_price").val());
+			
+// 조건에 따른 파일경로를 지정하기 위한 파라미터 값 전달 		
+			var ctgry = $("#category").val();		
+			document.getElementById("ctgry").value = ctgry;
+			
+			if(msg) {
+				edfrm.submit();
+			} else {
+				console.log("수정 취소");
+			}
+/* 
 			if (msg) {
 				$.ajax({
 					url : "adProductEdit",
 					type : "post",
 					data : {
 						pNo : $("#pno").val(),
+						pSeq : $("#pSeq").val(),
 						pContent : '상품상세 이미지 경로',
 						cateId : $("#category").val(),
 						pBrand : $("#prod_brand").val(),
@@ -346,9 +450,10 @@ input[type="text"], select {
 						optPrice : $("#opt_price").val()
 					},
 					success : function(result) {
+						console.log(result);
 						if (result > 0) {
 							alert("상품이 성공적으로 수정되었습니다.");
-							location.href = "adProductManage";
+							location.reload();
 						} else {
 							console.log(result);
 							alert("상품 수정에 실패했습니다. 다시 입력해주세요");
@@ -359,14 +464,14 @@ input[type="text"], select {
 						console.log(request);
 						console.log(status);
 						console.log(error);
-						//에러페이지 이동		
-						//location.href="adProductEnroll";
+						//에러페이지 이동
 					}
 				});
 			} else {
 				alert("상품 수정이 취소되었습니다.");
 				location.reload();
-			}
+			} 
+*/
 		}
 
 		function optAddtionHandler() {
@@ -389,7 +494,7 @@ input[type="text"], select {
 					success : function(result) {
 						if (result > 0) {
 							alert("상품이 성공적으로 등록되었습니다.");
-							location.href = "admain";
+							location.href = "adProductEdit";
 						} else {
 							console.log(result);
 							alert("상품 등록에 실패했습니다. 다시 입력해주세요");
@@ -400,6 +505,7 @@ input[type="text"], select {
 						console.log(request);
 						console.log(status);
 						console.log(error);
+						confirm.log("error발생");
 						//에러페이지 이동		
 						//location.href="adProductEnroll";
 					}

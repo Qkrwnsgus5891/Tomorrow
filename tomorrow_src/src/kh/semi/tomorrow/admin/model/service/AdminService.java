@@ -20,17 +20,19 @@ public class AdminService {
 		JdbcTemp.close(conn);
 		return volist;
 	}
-	// 상품 번호를 통한 상품 조회
-	public ProductVo searchProduct(int pNo) {
-		Connection conn = JdbcTemp.getConnection(); 
-		ProductVo product = dao.searchProduct(conn, pNo);
+	// 상품 번호를 통한 상품 조회		
+	public ProductVo searchProduct(int pNo, int pSeq) {
+		ProductVo vo = new ProductVo();
+		Connection conn = JdbcTemp.getConnection();
+		vo = dao.searchProduct(conn, pNo, pSeq);		
+		System.out.println("AdminService - searchProduct()\nproduct:\t\t" + vo + "\n");
 		JdbcTemp.close(conn);
-		return product;
+		return vo;
 	}
 	
 	// 상품 등록
 	public int insertProduct(ProductVo product, ProductDetailVo detail) {
-		int result = 0; int result2 = 0;
+		int result = 0; int result2 = 0; int result3 = 0;
 		Connection conn= JdbcTemp.getConnection();
 		// Transaction
 		JdbcTemp.setAutocommit(conn, false);
@@ -39,6 +41,10 @@ public class AdminService {
 		
 		if(result > 0) {
 			result2=dao.insertProductDetail(conn, detail, pNo);
+		}
+		if(result2 > 0) {
+			// 상품 이미지 등록
+			
 		}
 		if(result > 0 && result2 > 0) {
 			JdbcTemp.commit(conn);
@@ -64,14 +70,28 @@ public class AdminService {
 		return result;
 	}
 	
+	// 상품 이미지 등록
+	public int insertProductContent(ProductVo vo) {
+		int result = 0;
+		Connection conn = JdbcTemp.getConnection();
+		result = dao.insertProductContent(conn, vo);
+		if(result == 0) {
+			System.out.println("AdaminService-insertProductContent()가 실패했습니다.");
+		} else {			
+			System.out.println("AdminService-insertProductContent()\nresult:\t\t" + result + "\n");			 
+		}
+		JdbcTemp.close(conn);
+		return result;
+	}
+	
 	// 상품 수정
-	public int updateProduct(ProductVo product, ProductDetailVo detail, int pNo) {
+	public int updateProduct(ProductVo product, ProductDetailVo detail, int pNo, int pSeq) {
 		int result = 0; int result2=0;
 		Connection conn = JdbcTemp.getConnection();
 		result = dao.updateProduct(conn, product, pNo);
 		
 		if(result > 0) {
-			result2 = dao.updateProductDetail(conn, detail, pNo);
+			result2 = dao.updateProductDetail(conn, detail, pNo, pSeq);
 		}
 		if(result > 0 && result2 > 0) {
 			JdbcTemp.commit(conn);
