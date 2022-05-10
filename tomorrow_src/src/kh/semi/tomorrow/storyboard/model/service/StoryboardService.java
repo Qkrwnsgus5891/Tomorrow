@@ -44,6 +44,22 @@ public class StoryboardService {
 		return result;
 	}
 	
+	public int deleteStoryBoard(int bNo) {
+		System.out.println("StoryboardService bNo : " + bNo);
+		
+		Connection conn = null;
+		int result = 0;
+		
+		conn = getConnection();
+		result = dao.deleteStoryBoard(conn, bNo);
+		
+		close(conn);
+		
+		System.out.println("StoryboardService result : " + result);
+		
+		return result;
+	}
+	
 	public int writeStoryReComment(StoryRecommentVo vo) {
 		System.out.println("StoryboardService vo : " + vo);
 		
@@ -101,11 +117,29 @@ public class StoryboardService {
 	}
 	
 	public StoryBoardVo readStoryBoard(int bNo) {
+		System.out.println("StoryboardService bNo : " + bNo);
+		
 		Connection conn = null;
 		StoryBoardVo result = null;
 		
 		conn = getConnection();
 		result = dao.readStoryBoard(conn, bNo);
+		
+		close(conn);
+		
+		System.out.println("StoryboardService result : " + result);
+		
+		return result;
+	}
+	
+	public int hitStoryBoard(int bNo) {
+		System.out.println("StoryboardService bNo : " + bNo);
+		
+		Connection conn=null;
+		int result = 0;
+		
+		conn = getConnection();
+		result = dao.hitStoryBoard(conn, bNo);
 		
 		close(conn);
 		

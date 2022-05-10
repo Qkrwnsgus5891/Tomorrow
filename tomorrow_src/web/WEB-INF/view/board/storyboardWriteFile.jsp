@@ -213,9 +213,6 @@
             </div>
         </div>
         <form name="frm_sbWrite" action="enrollF.do" method="post" enctype="multipart/form-data">
-            <div>
-                id : ${ssMV.mId }
-            </div>
             <hr>
             <div class="story_thumbnail">
                 <input type="file" name="upload" required><br>
@@ -251,6 +248,7 @@
             <div class="story_pno">
                 <input type="text" name="pNo" placeholder="상품번호" required>
             </div>
+            <hr>
             <div class="story_submit">
                 <button type="submit" class="story_submit_button">게시물 등록</button>
             </div>

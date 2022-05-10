@@ -43,7 +43,11 @@ public class ReadStoryBoardServlet extends HttpServlet {
 		}
 		StoryBoardVo result = new StoryboardService().readStoryBoard(bNo);
 		request.setAttribute("bvo", result);
-		request.getRequestDispatcher("WEB-INF/view/board/storyboardRead.jsp").forward(request, response);
+		
+		int hitresult = new StoryboardService().hitStoryBoard(bNo);
+		if (hitresult > 0) {
+			request.getRequestDispatcher("WEB-INF/view/board/storyboardRead.jsp").forward(request, response);
+		}
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

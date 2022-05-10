@@ -1,10 +1,10 @@
 --MEMBER
 INSERT INTO MEMBER VALUES ('admin001', 'admin001', '관리자', '관리자', '000000', null, sysdate, '010-0000-0000', '0', default);
-INSERT INTO MEMBER VALUES ('test001', 'test123', '김민준', '민준123', '970714', null, sysdate, '010-4528-4792', '1', default);
-INSERT INTO MEMBER VALUES ('test002', 'test123', '이서연', '서연123', '941109', null, sysdate, '010-6298-1087', '1', default);
-INSERT INTO MEMBER VALUES ('test003', 'test123', '박도윤', '도윤123', '000726', null, sysdate, '010-728-2153', '1', default);
-INSERT INTO MEMBER VALUES ('test004', 'test123', '정지우', '지우123', '020103', null, sysdate, '010-1853-7767', '1', default);
-INSERT INTO MEMBER VALUES ('test005', 'test123', '최민서', '민서123', '921018', null, sysdate, '011-8103-3924', '1', default);
+INSERT INTO MEMBER VALUES ('test001', 'test123', '김민준', '민준123', '970714', 'test001 한 줄 소개', sysdate, '010-4528-4792', '1', default);
+INSERT INTO MEMBER VALUES ('test002', 'test123', '이서연', '서연123', '941109', 'test002 한 줄 소개', sysdate, '010-6298-1087', '1', default);
+INSERT INTO MEMBER VALUES ('test003', 'test123', '박도윤', '도윤123', '000726', 'test003 한 줄 소개', sysdate, '010-728-2153', '1', default);
+INSERT INTO MEMBER VALUES ('test004', 'test123', '정지우', '지우123', '020103', 'test004 한 줄 소개', sysdate, '010-1853-7767', '1', default);
+INSERT INTO MEMBER VALUES ('test005', 'test123', '최민서', '민서123', '921018', 'test005 한 줄 소개', sysdate, '011-8103-3924', '1', default);
 
 --CART
 INSERT INTO CART VALUES (SEQUENCE_CART_C_NO.nextval, 'test001', 1, '3, 6', 1 , default);

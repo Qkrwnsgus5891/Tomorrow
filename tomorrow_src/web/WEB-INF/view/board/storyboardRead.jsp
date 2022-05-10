@@ -76,6 +76,7 @@
                     </div>
                     <c:if test="${ssMV.mId eq bvo.mId }">
                     	<button onclick="location.href='storyupdate?bno=${bvo.bNo}'">수정</button>
+                    	<button onclick="location.href='storydelete?bno=${bvo.bNo}'">삭제</button>
                     </c:if>
                 </div>
 			</section>

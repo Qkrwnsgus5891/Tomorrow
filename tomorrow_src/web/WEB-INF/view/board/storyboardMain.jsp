@@ -52,14 +52,24 @@
 	.story_image {
 		width: 100%;
 	}
-	.story_thumbnail {
-		width: 100%;
+	.wrap_story_thumbnail {
+		padding-bottom: 100%;
 		border-radius: 6px;
+		position: relative;
+		overflow: hidden;
 	}
-	.bCount {
+	.story_thumbnail {
 		position: absolute;
-		bottom: 95px;
-		right: 20px;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		transform: translate(-50%,-50%);
+		transition: transform .2s;
+	}
+	.story_bcnt {
+		position: absolute;
+		bottom: 15px;
+		right: 15px;
 		font-size: 13px;
 		color: #fff;
 		z-index: 10;
@@ -86,17 +96,19 @@
 									${vo.bWriter }
 								</div>
 								<div class="story_writer_intro">
-									한 줄 소개
+									${vo.mIntro }
 								</div>
 							</div>
 							<div class="story_image">
-								<a class="story_link" href="storyread?bno=${vo.bNo }">
-									<img class="story_thumbnail" src="${pageContext.request.contextPath }/${vo.bImgPath }">
-									<span class="bCount">
-										조회수
-										0
-									</span>
-								</a>
+								<div class="wrap_story_thumbnail">
+									<a class="story_link" href="storyread?bno=${vo.bNo }">
+										<img class="story_thumbnail" src="${pageContext.request.contextPath }/${vo.bImgPath }">
+										<span class="story_bcnt">
+											조회수
+											${vo.bCnt }
+										</span>
+									</a>
+								</div>
 							</div>
 							<div class="story_title">
 								${vo.bTitle }
