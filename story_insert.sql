@@ -7,7 +7,8 @@
 --B_DATE     NOT NULL TIMESTAMP(6)   
 --P_NO       NOT NULL NUMBER         
 --B_NY       NOT NULL VARCHAR2(1)    
---B_IMG_PATH NOT NULL VARCHAR2(300)  
+--B_IMG_PATH NOT NULL VARCHAR2(300)
+SET DEFINE OFF;
 INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         '첫 자취방, 꾸미기 로망 성공적✨', 
                         '<p><img alt="" src="http://localhost:8090/house/upload/images/story/content/s_1_c1.png" style="height:781px; width:750px" /></p>
@@ -22,6 +23,7 @@ INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         default, 
                         default,
                         '5',
+                        default,
                         'upload/images/story/detail/s_1_d.png');
 INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         '내 취향으로 가득 채우는 작고 소중한 공간🌿', 
@@ -33,6 +35,7 @@ INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         default, 
                         default,
                         '5',
+                        default,
                         'upload/images/story/detail/s_2_d.png');
 INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         '아직 완벽하지 않은 내 공간이지만 서서히 채우는 중🤍', 
@@ -44,6 +47,7 @@ INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         default, 
                         default,
                         '5',
+                        default,
                         'upload/images/story/detail/s_3_d.png');
 INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         '드디어 도착한 필로우 커버와 함께', 
@@ -75,6 +79,7 @@ INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         default, 
                         default,
                         '5',
+                        default,
                         'upload/images/story/detail/s_4_d.png');
 INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         '날씨 애매할때는 간절기 차렵', 
@@ -90,6 +95,7 @@ INSERT INTO STORY VALUES (SEQUENCE_STORY_B_NO.nextval,
                         default, 
                         default,
                         '5',
+                        default,
                         'upload/images/story/detail/s_5_d.png');
                         
 commit;
