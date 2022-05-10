@@ -168,7 +168,7 @@
 			<section id="productdetail">
 				<c:set var="vo" value="${selectProduct }"></c:set>
 				<section id="detail_img">
-					<img src="${vo.pContent }">
+					<img src="${vo.productImgName }">
 				</section>
 				<section id="detailcontent">
 					<form>

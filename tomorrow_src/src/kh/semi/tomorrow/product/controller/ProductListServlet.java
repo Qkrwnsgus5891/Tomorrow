@@ -105,6 +105,8 @@ public class ProductListServlet extends HttpServlet {
 		int result = service.countProduct(pageCateId);
 		return result;
 	}
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

@@ -177,6 +177,7 @@ public class ProductDao {
 			vo = new ProductVo();
 			
 			if(rs.next()) {
+				vo.setpNo(rs.getInt("p_no"));
 				vo.setpContent(rs.getString("p_content"));
 				vo.setpName(rs.getString("p_name"));
 				vo.setpBrand(rs.getString("p_brand"));
@@ -201,6 +202,34 @@ public class ProductDao {
 					}while(rs.next());
 					vo.setPdvo(pdvolist);
 				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return vo;
+		
+		
+	}
+	
+	public ProductVo selectProduct(Connection conn, int pNo, int productImgNo) {
+		ProductVo vo = null;
+		String sql = "select p_no, product_img_no, product_img_name from product_img where p_no=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			rs = pstmt.executeQuery();
+			vo = new ProductVo();
+			
+			if(rs.next()) {
+				vo.setpNo(rs.getInt("p_no"));
+				vo.setProductImgNo(rs.getInt("product_img_no"));
+				vo.setProductImgName(rs.getString("product_img_name"));
 			}
 			
 		} catch (SQLException e) {
