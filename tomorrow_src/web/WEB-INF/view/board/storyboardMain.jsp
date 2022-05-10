@@ -104,6 +104,17 @@
 						</div>
 					</c:forEach>
 				</div>
+				<p>
+					<c:if test="${startPage > 1 }">
+						<a href="liststory?page=${startPage - 1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="p">
+						<a href="liststory?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					</c:forEach>
+					<c:if test="${endPage < totalPageCnt }">
+						<a href="liststory?page=${endPage + 1 }">다음</a>
+					</c:if>
+				</p>
 			</section>
 		</div>
 		<div class="wrap_footer">

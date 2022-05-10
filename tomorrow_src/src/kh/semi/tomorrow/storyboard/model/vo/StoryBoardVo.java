@@ -69,12 +69,31 @@ public class StoryBoardVo {
 		this.rCnt = rCnt;
 	}
 
+	
+	public StoryBoardVo(int bNo, String bTitle, String bContent, String bWriter, String mId, int bCnt, Timestamp bDate,
+			int pNo, String bNy, String bImgPath, int rCnt, ArrayList<StoryRecommentVo> bRecommentList) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bWriter = bWriter;
+		this.mId = mId;
+		this.bCnt = bCnt;
+		this.bDate = bDate;
+		this.pNo = pNo;
+		this.bNy = bNy;
+		this.bImgPath = bImgPath;
+		this.rCnt = rCnt;
+		this.bRecommentList = bRecommentList;
+	}
+
 	@Override
 	public String toString() {
 		return "StoryBoardVo [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bWriter=" + bWriter
-				+ ", bCnt=" + bCnt + ", bDate=" + bDate + ", bNy=" + bNy + ", mId=" + mId + ", pNo=" + pNo
-				+ ", bImgPath=" + bImgPath + ", rCnt=" + rCnt + "]";
+				+ ", mId=" + mId + ", bCnt=" + bCnt + ", bDate=" + bDate + ", pNo=" + pNo + ", bNy=" + bNy
+				+ ", bImgPath=" + bImgPath + ", rCnt=" + rCnt + ", bRecommentList=" + bRecommentList + "]";
 	}
+	
 
 	public int getbNo() {
 		return bNo;

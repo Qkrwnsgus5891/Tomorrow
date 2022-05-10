@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import kh.semi.tomorrow.storyboard.model.dao.StoryboardDao;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
+import kh.semi.tomorrow.storyboard.model.vo.StoryRecommentVo;
 
 import static kh.semi.tomorrow.common.JdbcTemp.*;
 
@@ -36,6 +37,22 @@ public class StoryboardService {
 		conn = getConnection();
 		result = dao.updateStoryBoard(conn, vo);
 
+		close(conn);
+		
+		System.out.println("StoryboardService result : " + result);
+		
+		return result;
+	}
+	
+	public int writeStoryReComment(StoryRecommentVo vo) {
+		System.out.println("StoryboardService vo : " + vo);
+		
+		Connection conn = null;
+		int result = 0;
+		
+		conn = getConnection();
+		result = dao.writeStoryReComment(conn, vo);
+		
 		close(conn);
 		
 		System.out.println("StoryboardService result : " + result);
