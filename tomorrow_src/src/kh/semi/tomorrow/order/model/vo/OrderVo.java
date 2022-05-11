@@ -9,7 +9,7 @@ public class OrderVo {
 	private int oNo;
 	private String mId;
 	private int pSeq;
-	private int pCnt;
+	private int pCnt;   // 1번구매시 총상품개수
 	private int pPrice;
 	private Timestamp oDate;
 	private int oTotalPrice;
@@ -21,6 +21,14 @@ public class OrderVo {
 	private String rePhone;
 	private String optVal;
 	
+	private ArrayList<OrderDetailVo> odVolist ;
+	
+	public ArrayList<OrderDetailVo> getOdVolist() {
+		return odVolist;
+	}
+	public void setOdVolist(ArrayList<OrderDetailVo> odVolist) {
+		this.odVolist = odVolist;
+	}
 	
 	
 	public OrderVo() {}

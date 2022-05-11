@@ -1,12 +1,22 @@
 package kh.semi.tomorrow.order.model.vo;
 
+import kh.semi.tomorrow.product.model.vo.ProductVo;
+
 public class OrderDetailVo {
 	private int odSeq;
 	private int oNo;
 	private int pNo;
-	private int pSeq;
+	private String pSeq;
 	private int oDcnt;
-	
+	private ProductVo productVo;
+	public ProductVo getProductVo() {
+		return productVo;
+	}
+	public void setProductVo(ProductVo productVo) {
+		this.productVo = productVo;
+	}
+
+
 	public OrderDetailVo() {}
 	
 	@Override
@@ -39,11 +49,11 @@ public class OrderDetailVo {
 		this.pNo = pNo;
 	}
 
-	public int getpSeq() {
+	public String getpSeq() {
 		return pSeq;
 	}
 
-	public void setpSeq(int pSeq) {
+	public void setpSeq(String pSeq) {
 		this.pSeq = pSeq;
 	}
 

@@ -24,16 +24,18 @@
 <jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include>	
 	<section>
     <div class="con">
-    <a href=""><img class="logo" src="<%=request.getContextPath() %>/resources/images/내일의집.png"></a>
+    <a href="main"><img class="logo" src="<%=request.getContextPath() %>/resources/images/내일의집.png"></a>
     <br><br>
-	    <form action="login" method="post">
-		    <input type="text" name="id" class="id" placeholder="아이디"><br>
-		    <input type="password" name="pwd" class="pwd" placeholder="비밀번호">
-		    <br><br>
-		    <a href=""><button type="submit" class="btn">로그인</button></a>
+    
+    <form action="login" method="post">
+	    <input type="text" class="id" name="id" placeholder="아이디"><br>
+	    <input type="password" class="pwd" name="pwd" placeholder="비밀번호">
+	    <br><br>
+	    <button type="submit" class="btn">로그인</button>
 	    <a href="<%=request.getContextPath() %>/join"><button class="btn2">회원가입</button></a>
-	    </form>
+    </form>
     </div>
+    	
     
     </section>
         
