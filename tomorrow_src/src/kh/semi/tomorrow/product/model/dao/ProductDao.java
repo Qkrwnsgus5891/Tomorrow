@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import kh.semi.tomorrow.cart.model.vo.CartVo;
 import kh.semi.tomorrow.product.model.vo.ProductDetailVo;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
+import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 import static kh.semi.tomorrow.common.JdbcTemp.*;
 
@@ -220,6 +222,46 @@ public class ProductDao {
 		
 		
 	}
+	
+	public ArrayList<StoryBoardVo> listStoryBoard(Connection conn, int pNo) {
+		ArrayList<StoryBoardVo> volist = null;
+		String sql = "select * from story where p_no=? order by b_no desc, b_date desc";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pNo);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				volist = new ArrayList<StoryBoardVo>();
+				do {
+					StoryBoardVo vo = new StoryBoardVo();
+
+					vo.setbNo(rs.getInt("B_NO"));
+					vo.setbTitle(rs.getString("B_TITLE"));
+					vo.setbContent(rs.getString("B_CONTENT"));
+					vo.setbWriter(rs.getString("B_WRITER"));
+					vo.setmId(rs.getString("M_ID"));
+					vo.setbCnt(rs.getInt("B_CNT"));
+					vo.setbDate(rs.getTimestamp("B_DATE"));
+					vo.setpNo(rs.getInt("P_NO"));
+					vo.setbNy(rs.getString("B_NY"));
+					vo.setbImgPath(rs.getString("B_IMG_PATH"));
+
+					volist.add(vo);
+				} while (rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println("StoryboardDao vo : " + volist);
+
+		return volist;
+	}
+	
+
 	
 
 

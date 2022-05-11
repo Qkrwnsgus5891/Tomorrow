@@ -69,13 +69,19 @@ nav button {
 
 .product_wrapper .proDetail {
 	width: 220px;
-	padding: 15px;
-	margin: 15px;
+	padding: 15px 0;
+	padding-right: 15%;
+	padding-left: 15%;
+	margin: 0 40px;
+	
+	
 }
 
 .product_wrapper {
 	display: flex;
 	flex-wrap: wrap;
+	box-sizing: border-box;
+	
 }
 
 .pname {
@@ -99,7 +105,7 @@ nav button {
 }
 
 #categoryName{
-	font-size: 15px;
+	font-size: 20px;
 	font-weight: 900;
 	color: black;
 }

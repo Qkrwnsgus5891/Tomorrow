@@ -1,6 +1,8 @@
 package kh.semi.tomorrow.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.product.model.service.ProductService;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
+import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 /**
  * Servlet implementation class ProductSelectServlet
@@ -42,13 +45,14 @@ public class ProductSelectServlet extends HttpServlet {
 			
 		ProductVo result = new ProductService().selectProduct(pNo);
 		System.out.println(result);
+		ArrayList<StoryBoardVo> result2 = new ProductService().listStoryBoard(pNo);
 		
 		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));
 		System.out.println(result);
 		
 	
-		
 		request.setAttribute("selectProduct", result);
+		request.setAttribute("listStoryBoard", result2);
 		
 		
 		request.getRequestDispatcher("WEB-INF/view/product/productDetail.jsp").forward(request, response);
