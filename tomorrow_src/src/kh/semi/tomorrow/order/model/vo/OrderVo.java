@@ -21,7 +21,7 @@ public class OrderVo {
 	private String rePhone;
 	private String optVal;
 	
-	private ArrayList<OrderDetailVo> odVo ;
+	
 	
 	public OrderVo() {}
 	public OrderVo(int oNo, String mId, int pSeq, int pCnt, int pPrice, Timestamp oDate, int oTotalPrice, String oName,

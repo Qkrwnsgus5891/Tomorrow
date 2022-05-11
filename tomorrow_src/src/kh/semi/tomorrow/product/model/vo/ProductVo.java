@@ -2,8 +2,6 @@ package kh.semi.tomorrow.product.model.vo;
 
 import java.util.ArrayList;
 
-import kh.semi.tomorrow.order.model.vo.OrderVo;
-
 public class ProductVo {
 	private int pNo;
 	private String pName; 
@@ -18,8 +16,7 @@ public class ProductVo {
 	private int pSeq;
 	
 	private ProductDetailVo pdt;
-	private ArrayList<ProductDetailVo> pdvo;
-	private ArrayList<OrderVo> ovo;
+	private ArrayList<ProductDetailVo> pdvo;	
 	
 	private int productImgNo;
 	private String productImgName;
@@ -87,14 +84,13 @@ public class ProductVo {
 		return "ProductVo [pNo=" + pNo + ", pName=" + pName + ", pBrand=" + pBrand + ", pContent=" + pContent
 				+ ", pPrice=" + pPrice + ", cateId=" + cateId + ", cateName=" + cateName + ", optNo=" + optNo
 				+ ", optVal=" + optVal + ", optPrice=" + optPrice + ", pSeq=" + pSeq + ", pdt=" + pdt + ", pdvo=" + pdvo
-				+ ", ovo=" + ovo + ", productImgNo=" + productImgNo + ", productImgName=" + productImgName
-				+ ", productImgSize=" + productImgSize + "]";
-	}	
-	
+				+ ", productImgNo=" + productImgNo + ", productImgName=" + productImgName + ", productImgSize="
+				+ productImgSize + "]";
+	}
+
 	public int getpNo() {
 		return pNo;
 	}	
-
 
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
@@ -194,15 +190,7 @@ public class ProductVo {
 
 	public void setPdvo(ArrayList<ProductDetailVo> pdvo) {
 		this.pdvo = pdvo;
-	}
-	
-	public ArrayList<OrderVo> getOvo() {
-		return ovo;
-	}
-	
-	public void setOvo(ArrayList<OrderVo> ovo) {
-		this.ovo = ovo;
-	}
+	}	
 	
 	public int getProductImgNo() {
 		return productImgNo;

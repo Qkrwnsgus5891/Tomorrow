@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import kh.semi.tomorrow.admin.model.dao.AdminDao;
+import kh.semi.tomorrow.admin.model.vo.MemberOrderListVo;
 import kh.semi.tomorrow.common.JdbcTemp;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 import kh.semi.tomorrow.product.model.vo.ProductDetailVo;
@@ -20,6 +21,22 @@ public class AdminService {
 		JdbcTemp.close(conn);
 		return volist;
 	}
+	// 페이징 처리한 카테고리별 상품 조회
+	public ArrayList<ProductVo> ctgryProduct(String ctgry, int startNum, int endNum){
+		Connection conn = JdbcTemp.getConnection();
+		ArrayList<ProductVo> volist = dao.ctgryProduct(conn, ctgry, startNum, endNum);
+		JdbcTemp.close(conn);
+		return volist;
+	}
+	
+	public int countCtgryProduct(String cateName) {
+		int result = 0;
+		Connection conn= JdbcTemp.getConnection();
+		result= dao.countCtgryProduct(conn, cateName); 
+		JdbcTemp.close(conn);
+		return result;
+	}
+	
 	// 상품 번호를 통한 상품 조회		
 	public ProductVo searchProduct(int pNo, int pSeq) {
 		ProductVo vo = new ProductVo();
@@ -44,9 +61,9 @@ public class AdminService {
 		}
 		if(result2 > 0) {
 			// 상품 이미지 등록
-			
+			result3 = dao.insertProductContent(conn, product, pNo);
 		}
-		if(result > 0 && result2 > 0) {
+		if(result > 0 && result2 > 0 && result3 >0) {
 			JdbcTemp.commit(conn);
 		}
 		else { 
@@ -70,30 +87,31 @@ public class AdminService {
 		return result;
 	}
 	
-	// 상품 이미지 등록
-	public int insertProductContent(ProductVo vo) {
-		int result = 0;
-		Connection conn = JdbcTemp.getConnection();
-		result = dao.insertProductContent(conn, vo);
-		if(result == 0) {
-			System.out.println("AdaminService-insertProductContent()가 실패했습니다.");
-		} else {			
-			System.out.println("AdminService-insertProductContent()\nresult:\t\t" + result + "\n");			 
-		}
-		JdbcTemp.close(conn);
-		return result;
-	}
+//	// 상품 이미지 등록
+//	public int insertProductContent(ProductVo vo) {
+//		int result = 0;
+//		Connection conn = JdbcTemp.getConnection();
+//		result = dao.insertProductContent(conn, vo);
+//		if(result == 0) {
+//			System.out.println("AdaminService-insertProductContent()가 실패했습니다.");
+//		} else {			
+//			System.out.println("AdminService-insertProductContent()\nresult:\t\t" + result + "\n");			 
+//		}
+//		JdbcTemp.close(conn);
+//		return result;
+//	}
 	
 	// 상품 수정
 	public int updateProduct(ProductVo product, ProductDetailVo detail, int pNo, int pSeq) {
-		int result = 0; int result2=0;
+		int result = 0; int result2=0; 
 		Connection conn = JdbcTemp.getConnection();
 		result = dao.updateProduct(conn, product, pNo);
 		
 		if(result > 0) {
 			result2 = dao.updateProductDetail(conn, detail, pNo, pSeq);
 		}
-		if(result > 0 && result2 > 0) {
+		
+		if(result > 0 && result2 > 0 ) {
 			JdbcTemp.commit(conn);
 		}
 		else { 
@@ -107,6 +125,15 @@ public class AdminService {
 		return result;
 	}	
 	
+	public int updateProductContent(ProductVo product) {
+		int result = 0;
+		Connection conn= JdbcTemp.getConnection();
+		result = dao.updateProductContent(conn, product);
+		JdbcTemp.close(conn);
+		System.out.println("AdminService - updateProductContent()\nresult:\t\t " + result + "\n");
+		return result;
+	}
+	
 	// 상품 삭제
 	public int deleteProduct(int pNo) {
 		int result = 0;
@@ -115,6 +142,21 @@ public class AdminService {
 		JdbcTemp.close(conn);
 		return result;
 	}
+	// 회원들의 주문 목록 조회
+	public ArrayList<MemberOrderListVo> selectOrderList() {
+		Connection conn = JdbcTemp.getConnection();
+		ArrayList<MemberOrderListVo> orderlist = dao.selectOrderList(conn);
+		JdbcTemp.close(conn);
+		return orderlist;		
+	}
+	
+	public ArrayList<MemberOrderListVo> selectOrderList(int startNum, int endNum) {
+		Connection conn = JdbcTemp.getConnection();
+		ArrayList<MemberOrderListVo> orderlist = dao.selectOrderList(conn, startNum, endNum);
+		JdbcTemp.close(conn);
+		return orderlist;		
+	}
+	
 	
 	// 모든 회원 목록
 	public ArrayList<MemberVo> selectAllMember() {
@@ -122,6 +164,15 @@ public class AdminService {
 		ArrayList<MemberVo> volist = dao.selectAllMember(conn);
 		JdbcTemp.close(conn);
 		return volist;
+	}
+	
+	// 총 주문 수
+	public int countOrderList() {
+		int result = 0;
+		Connection conn= JdbcTemp.getConnection();
+		result= dao.countOrderList(conn); 
+		JdbcTemp.close(conn);
+		return result;
 	}
 	
 	public ArrayList<MemberVo> selectAllMember(int startNum, int endNum) {
@@ -228,5 +279,6 @@ public class AdminService {
 		JdbcTemp.close(conn);
 		return result;
 	}
+	
 	
 }

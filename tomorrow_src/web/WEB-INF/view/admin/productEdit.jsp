@@ -13,6 +13,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tomorrow : 상품 수정 페이지</title>
+<script src="//cdn.ckeditor.com/4.18.0/full/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
 #container {
@@ -61,8 +62,9 @@ input[type="text"], select {
 	border : 2px solid black; */
 }
 
-#category, #prod_brand, #prod_name, #prod_price, #prod_option, #opt_no,
-#opt_val, #opt_price, #prod_no, #opt_name, #opt_value, #opt_cash, #pno, #pSeq	{
+#category, #prod_brand, #prod_name, #prod_price, 
+#prod_option, #opt_no, #opt_val, #opt_price, #prod_no,
+#opt_name, #opt_value, #opt_cash, #pno, #pSeq {
 	width: 300px;
 	height: 30px;
 	border-radius: 5px;
@@ -81,8 +83,10 @@ input[type="text"], select {
 
 #product_explanation {
 	/* border: 1px solid black; */
+	margin-top: 100px;
 	width: 150px;
-	margin-top: 50px;
+	margin-top: 100px;
+    	margin-bottom: 30px;
 	font-weight: bold;
 	font-size: 18px;
 }
@@ -104,17 +108,16 @@ input[type="text"], select {
 	margin: 20px auto;
 }
 
-#enroll_content {
-	width: 100%;
-	height: 70px;
-	margin-top: 10px;
+#file_btn_grp {	
+	height: 80px;
+	margin-top: 170px;	
 }
 
 #opt_addition_content {
 	position: relative;
 	width: 600px;
 	height: 50px;
-	margin-top: 100px;
+	margin-top: 40px;
 }
 
 #opt_explanation {
@@ -164,6 +167,37 @@ input[type="text"], select {
 	margin-left: 0;
 	width: 310px;
 }
+
+#product_img_info {
+	margin-bottom: 15px;
+}
+
+#product_img_info tr td {		
+	display: table-cell;
+	vertical-align:middle;
+	height: 30px;
+}
+
+#product_img_info input {
+	margin-bottom: 10px;
+}
+
+.pName {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#imgEditBtn_content {
+	margin-top: 50px;
+	margin-left: 38%;
+}
+
+#imgEditBtn {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 200px;
+	height: 40px;	
+}
 </style>
 </head>
 <body>
@@ -171,7 +205,7 @@ input[type="text"], select {
 
 
 	<div id="container">
-		<form action="adProductEdit" method="post" enctype="multipart/form-data" id=edfrm>
+		<form method="post" enctype="multipart/form-data" id=edfrm>
 			<section id="content_enroll">
 				<img src="" alt="image" id="product_img">
 				<div id="product_enroll_grp">
@@ -245,72 +279,99 @@ input[type="text"], select {
 					
 				</div>
 			</section>
-			<div class="enroll_content">파일 수정: <input type="file" name="upload" id="file_btn"></div>
-
-			<!-- 
-        P_SEQ     NOT NULL VARCHAR2(10)  
-      P_NO      NOT NULL NUMBER        
-      OPT_NO    NOT NULL NUMBER        
-      OPT_VAL   NOT NULL VARCHAR2(500) 
-      OPT_PRICE NOT NULL NUMBER 
-    -->
-			<section>
-				<div id="opt_addition_content">
-					<p id="opt_explanation">옵션 정보</p>
-					<button type="button" id="add_btn">추가</button>
-				</div>
-				<div id="option_container">
-					<div id="option_content">
-						<div class="enroll_content">
-							<label for="prod_no">상품번호</label>
-							<hr class="underbar">
-							<input type="text" name="prod_no" id="prod_no"	placeholder="상품번호를 입력해주세요."> <br>
-						</div>
-						<div class="enroll_content">
-							<label for="opt_name">옵션명</label>
-							<hr class="underbar">
-							<select name="opt_name" id="opt_name" required>			
-								<option value="0" selected >옵션을 선택해주세요.</option>
-								<option value="1">색상</option>
-								<option value="2">사이즈</option>
-								<option value="3">추가상품</option> 
-							</select> <br>
-						</div>
-						<div class="enroll_content">
-							<label for="opt_value">옵션값</label>
-							<hr class="underbar">
-							<input type="text" name="opt_value" id="opt_value"	placeholder="옵션값을 입력해주세요."> <br>
-						</div>
-						<div class="enroll_content">
-							<label for="opt_cash">옵션 추가가격</label>
-							<hr class="underbar">
-							<input type="text" name="opt_cash" id="opt_cash" value="0">
-						</div>
+			<div class="enroll_content">파일 첨부 &nbsp;<input type="file" name="upload" id="file_btn"></div>
+			<div id="file_btn_grp">
+				<button type="button" id="edit_btn">상품 수정</button>
+			</div>
+		</form>			
+		<section>
+			<div id="opt_addition_content">
+				<p id="opt_explanation">옵션 정보</p>					
+				<button type="button" id="add_btn">추가</button>
+			</div>
+			<div id="option_container">
+				<div id="option_content">
+					<div class="enroll_content">
+						<label for="prod_no">상품번호</label>
+						<hr class="underbar">
+						<input type="text" name="prod_no" id="prod_no"	placeholder="상품번호를 입력해주세요."> <br>
 					</div>
-
+					<div class="enroll_content">
+						<label for="opt_name">옵션명</label>
+						<hr class="underbar">
+						<select name="opt_name" id="opt_name" required>			
+							<option value="0" selected >옵션을 선택해주세요.</option>
+							<option value="1">색상</option>
+							<option value="2">사이즈</option>
+							<option value="3">추가상품</option> 
+						</select> <br>
+					</div>
+					<div class="enroll_content">
+						<label for="opt_value">옵션값</label>
+						<hr class="underbar">
+						<input type="text" name="opt_value" id="opt_value"	placeholder="옵션값을 입력해주세요."> <br>
+					</div>
+					<div class="enroll_content">
+						<label for="opt_cash">옵션 추가가격</label>
+						<hr class="underbar">
+						<input type="text" name="opt_cash" id="opt_cash" value="0">
+					</div>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section>
+		<section>
+			<form method="post" enctype="multipart/form-data" id="imgfrm" >
 				<p id="product_explanation">상품 정보</p>
-				<div id="product_content">
-					<img src="#" alt="" class="prod_box"> 
-					<input type="file" name="file_tn" id="file_btn"> 
-					<img src="#" alt=""	class="prod_box"> 
-					<input type="file" name="file_tn"	id="file_btn">
-				</div>
-				<div id="enroll_content">
-					<button type="button" id="edit_btn">상품 수정</button>
-				</div>
-			</section>
-		</form>
+				<hr style="border:1px solid #ccc;">
+				<table id="product_img_info">
+					<tr>
+						<td><label for="pnum" class="pName">상품 번호</label></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="pnum" id="pnum" required></td>
+					</tr>
+					<tr>
+						<td><label for="fpno" class="pName">상품 파일 번호</label></td>						
+					</tr>
+					<tr>
+						<td><input type="text" name="fpno" id="fpno" required></td>
+					</tr>
+				</table>
+				<textarea id="ckeditor" name="productImgName" ></textarea>
+	    		<script>
+	    			CKEDITOR.replace('ckeditor', {
+	    				filebrowserUploadUrl: '${pageContext.request.contextPath}/ContentImageUpload.do'
+		//				filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
+		//				enterMode:CKEDITOR.ENTER_BR,
+		//				shiftEnterMode:CKEDITOR.ENTER_P
+	    			});
+	    			CKEDITOR.on('dialogDefinition', function(ev){
+		           		var dialogName = ev.data.name;
+		           		var dialogDefinition = ev.data.definition;
+			         
+		           		switch (dialogName) {
+		               		case 'image': //Image Properties dialog
+		                   		//dialogDefinition.removeContents('info');
+		                   		dialogDefinition.removeContents('Link');
+		                   		dialogDefinition.removeContents('advanced');
+		                   break;
+		           		}
+		       		});
+	    		</script>	
+	    		<div id="imgEditBtn_content">
+	    			<button type="button" id="imgEditBtn">이미지 수정</button>	
+	    		</div>
+			</form>
+		</section>		
 	</div>
 
 	<script>
 		$("#search_btn").on("click", searchHandler);
 		$("#edit_btn").on("click", editHandler);
 		$("#add_btn").on("click", optAddtionHandler);
-
+		$("#imgEditBtn").on("click", productInfoImgHandler);
+		
 		function searchHandler() {			
 			var a = prompt("상품 상세번호를 입력하세요.");			
 			console.log("조회한 상품번호: " + $("#pno").val());		
@@ -333,8 +394,8 @@ input[type="text"], select {
 					console.log("result.cateId: " + result.cateId);
 					console.log("result.pdt.optVal: " + result.pdt.optVal);
 					console.log("result.pdt.optName: " + result.pdt.optName);
-// 조회한 상품의 값을 입력					
 					
+					// 조회한 상품의 값을 입력
 					$("#product_img").prop("src", result.pContent);	
 					
 					$("#pFilePath").prop("value", result.pContent);
@@ -423,12 +484,11 @@ input[type="text"], select {
 			console.log("옵션값: " + $("#opt_val").val());
 			console.log("추가가격: " + $("#opt_price").val());
 			
-// 조건에 따른 파일경로를 지정하기 위한 파라미터 값 전달 		
-			var ctgry = $("#category").val();		
-			document.getElementById("ctgry").value = ctgry;
-			
+			var str = $("#category").val();
 			if(msg) {
-				edfrm.submit();
+				console.log("category: " + str);
+				$("#edfrm").prop("action", "adProductEdit.do");
+				edfrm.submit();				
 			} else {
 				console.log("수정 취소");
 			}
@@ -514,8 +574,19 @@ input[type="text"], select {
 				alert("옵션 추가를 취소하였습니다.");
 				location.reload();
 			}
-
 		}
+		
+		function productInfoImgHandler() {
+			var msg = confirm("이미지를 수정하시겠습니까?");			
+			if(msg){ 
+				$("#imgfrm").prop("action", "adContentImageEdit.do");
+				imgfrm.submit();
+			}
+			else {
+				console.log("이미지 수정 취소");
+			}
+		}
+		
 	</script>
 </body>
 </html>

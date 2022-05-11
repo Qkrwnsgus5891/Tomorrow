@@ -20,7 +20,7 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 /**
  * Servlet implementation class AdProductEnrollServlet
  */
-@WebServlet("/adProductEnroll.aj")
+@WebServlet("/adProductDetailFile.do")
 public class AdProductEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,11 +31,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -47,60 +43,25 @@ public class AdProductEnrollServlet extends HttpServlet {
 	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("AdProductEnrollPageServlet - doPost");
-//		PrintWriter out = response.getWriter();
-		int result = -1;
-		/*
-		 * pContent : '상품상세 이미지 경로', cateId : $("#category").val(), pBrand :
-		 * $("#prod_brand").val(), pName : $("#prod_name").val(), pPrice :
-		 * $("#prod_price").val(), optNo : $("#opt_no").val(), optVal :
-		 * $("#opt_val").val(), optPrice : $("#opt_price").val()
-		 */
-/*
-		String pContent = request.getParameter("pContent");
-		String cateId_param = request.getParameter("cateId");
-		String pBrand = request.getParameter("pBrand");
-		String pName = request.getParameter("pName");
-		String pPrice_param = request.getParameter("pPrice");
-		String optNo_param = request.getParameter("optNo");
-		String optVal = request.getParameter("optVal");
-		String optPrice_param = request.getParameter("optPrice");
-*/		
-		String fileSavePath = "upload"; // "upload"파일	
-		// 조건에 따른 파일경로를 지정하기 위한 파라미터 값 전달
-		
-		String ctgryStr = request.getParameter("ctgry");		
-		System.out.println("cateIdStr: " + ctgryStr);		
-		int ctgryId = 0;
-		try {
-			ctgryId = Integer.parseInt(ctgryStr); 
-		} catch(Exception e) {
-			System.out.println("*** 정수로 변환 도중 오류 발생 ***");
-			return ;
-		}			
-
-		if(ctgryId == 1 ) {
-			fileSavePath += "/furniture/detail";
-		}
-		if(ctgryId == 2) {
-			fileSavePath += "/fabric/detail";
-		}
-		if(ctgryId == 3) {
-			fileSavePath += "/light/detail";
-		} 
-			
-		
+		System.out.println("AdProductEnrollServlet - doPost");
+	
+		String fileSavePath = "upload/images/product/detail"; // "upload"파일			
 		String uploadPath = getServletContext().getRealPath(fileSavePath);
 		String rootPath = getServletContext().getRealPath("/");
-		System.out.println("uploadPath: " + uploadPath);
-		System.out.println("rootPath: " + rootPath + "\n");
+		
+		System.out.println("fileSavePath:\t" + fileSavePath);
+		System.out.println("uploadPath:\t" + uploadPath);
+		System.out.println("rootPath:\t" + rootPath + "\n\n");
 
 		// 업로드 할 폴더 존재여부확인 - 없다면 생성
 		File path = new File(uploadPath);
 		if (!path.exists()) {
 			path.mkdirs();
-		}		
+		}
+		
 		int maxFileSize = 10 * 1024 * 1024; // 10MG
+		// TODO 파일 사이즈 ?? 
+		int imgSize = 5;	
 		
 		// 파일 업로드 완료
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, 
@@ -113,11 +74,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 		String optNo_param = multi.getParameter("opt_no");
 		String optPrice_param = multi.getParameter("opt_price");				
 		
-		int cateId = 0;
-		int pPrice = 0;
-		int optNo = 0;
-		int optPrice = 0;
-
+		int cateId = 0; int pPrice = 0; int optNo = 0; int optPrice = 0;		
 		try {
 			cateId = Integer.parseInt(cateId_param);
 			pPrice = Integer.parseInt(pPrice_param);
@@ -129,12 +86,13 @@ public class AdProductEnrollServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 			
 		}
-	
+		
 		String pFilePathParam = multi.getParameter("pFilePath");
 				
 		String pBrand = multi.getParameter("prod_brand");
 		String pName = multi.getParameter("prod_name");
 		String optVal = multi.getParameter("opt_val");
+		String productImgName = multi.getParameter("productImgName");
 		String orgFileName = multi.getOriginalFileName("upload");  // 전송되기 전 client에서 파일이름		
 		String type = multi.getContentType("upload"); // 전송된 파일의 타입 (.png. jpg)
 		String upload = multi.getFilesystemName("upload");  // 서버에 저장된 파일이름
@@ -167,11 +125,12 @@ public class AdProductEnrollServlet extends HttpServlet {
 		} else if(upload == null && pFilePathParam != null && cateId > 0) { // 기존파일 있음 + 새파일없음
 			// 기존파일 유지 - db에 기존파일로 저장 
 			pImgPath = pFilePathParam;
-		}
+		}		
 		String pContent = pImgPath;
+		
 		System.out.println("pImgPath: " + pImgPath);
 		
-		System.out.println("페이지로부터 전달받은 데이터값");
+		System.out.println("ProductVo클래스로 들어갈 데이터값");
 		System.out.println("==============================================");
 		System.out.println("pContent:\t " + pContent);
 		System.out.println("cateId:\t " + cateId);
@@ -181,22 +140,30 @@ public class AdProductEnrollServlet extends HttpServlet {
 		System.out.println("optNo:\t " + optNo);
 		System.out.println("optVal:\t " + optVal);
 		System.out.println("optPrice:\t " + optPrice);
+		System.out.println("productImgName:\t" + productImgName);
+		System.out.println("imgSize:\t" + imgSize);
 		System.out.println("==============================================\n");
 
+		
+		
 		// product 객체에 값 저장
 		ProductVo product = new ProductVo();
 		product.setpBrand(pBrand);
-		product.setpName(pName);
-		product.setpContent(pContent);
+		product.setpName(pName);	
+		product.setpContent(pContent); // detail 용
 		product.setCateId(cateId);
 		product.setpPrice(pPrice);
-
+		
+		// content 용 
+		product.setProductImgName(productImgName);
+		product.setProductImgSize(imgSize);
 		// product_detail 객체에 값 저장
 		ProductDetailVo detail = new ProductDetailVo();
 		detail.setOptNo(optNo);
 		detail.setOptVal(optVal);
 		detail.setOptPrice(optPrice);
-
+		
+		int result = 0; 
 		result = new AdminService().insertProduct(product, detail);
 		System.out.println("AdProductEnrollServlet - reuslt:\t" + result + "\n");
 
@@ -207,9 +174,6 @@ public class AdProductEnrollServlet extends HttpServlet {
 			request.setAttribute("msg", "상품 등록에 성공하였습니다.");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 		}
-//		out.print(result);
-//		out.flush();
-//		out.close();
 		
-		}	
+	}	
 }

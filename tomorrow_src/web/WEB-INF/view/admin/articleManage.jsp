@@ -126,13 +126,13 @@
 	<div id="container">
     	<nav id="nav_menu">
       		<ul>
-	        	<li><a href="admain">상품 관리</a></li>
+        		<li><a href="admain">상품 관리</a></li>
         		<li><a href="admain" style="font-size:16px">-상품 목록</a></li>
         		<li><a href="adProductEnroll" style="font-size:16px">-상품 등록</a></li>
         		<li><a href="adProductManage" style="font-size:16px">-상품 수정/삭제</a></li>
-	        	<li><a href="adMemberOrderList">주문 내역 조회</a></li>
-    	    	<li><a href="adMemberList">회원 관리</a></li>
-	        	<li><a href="adArticleManage">게시물 관리</a></li>
+        		<li><a href="adMemberOrderList">주문 내역 조회</a></li>
+        		<li><a href="adMemberList">회원 관리</a></li>
+        		<li><a href="adArticleManage">게시물 관리</a></li>
       		</ul>
     	</nav>    
     	<section id="story_content">

@@ -33,7 +33,7 @@ public class AdMainServlet extends HttpServlet {
 		//TODO - yjk 작업 동안은 잠시 로그인 필터 주석 처리
 //		if(member == null) {
 //			response.sendRedirect("login");
-//		} else {
+//		} else {			
 			System.out.println("AdMainServlet-> admain...\n");
 			request.getRequestDispatcher("WEB-INF/view/admin/main.jsp").forward(request, response);			
 //		}

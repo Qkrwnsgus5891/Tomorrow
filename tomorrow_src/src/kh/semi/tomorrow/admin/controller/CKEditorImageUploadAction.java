@@ -18,17 +18,16 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 public class CKEditorImageUploadAction extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
-	protected void service(HttpServletRequest request, HttpServletResponse response
-			) 
-			throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		System.out.println("CKEditorImageUploadAction - service()");
 		System.out.println("ContentImageUpload.do - textarea에 사진 업로드 시작합니다.\n");
 		
 		PrintWriter printWriter = null;
 		
         try{
-        	String web_path = "/upload/storeContentImg/";
+        	String web_path = "/upload/images/product/content/";        	
             String abs_path = request.getServletContext().getRealPath(web_path);
+            int max_size = 1024*1024*10;
             
             System.out.println("web_path:\t" + web_path);
             System.out.println("abs_path:\t" + abs_path);
@@ -38,7 +37,6 @@ public class CKEditorImageUploadAction extends HttpServlet{
             if(!path.exists()) {
             	path.mkdirs();
             }
-            int max_size = 1024*1024*10;
             
             MultipartRequest mr = new MultipartRequest(request, abs_path, 
             		max_size, 
@@ -49,7 +47,7 @@ public class CKEditorImageUploadAction extends HttpServlet{
             String fileName="";
             if(f!=null){
             	fileName = f.getName();
-            }       	
+            }  	
             
             response.setContentType("text/html;charset=utf-8");
             printWriter = response.getWriter();
@@ -61,7 +59,9 @@ public class CKEditorImageUploadAction extends HttpServlet{
             String sendData = String.format("{\"filename\" : \"%s\", \"uploaded\" : 1, \"url\":\"%s\"}", 
             		                                         fileName,       					fileUrl
             		);
-            System.out.println("sendData:\t" + sendData + "\n");
+            
+            System.out.println("");
+            
             printWriter.println(sendData);
             printWriter.flush();
  

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import kh.semi.tomorrow.admin.model.vo.MemberOrderListVo;
 import kh.semi.tomorrow.common.JdbcTemp;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 import kh.semi.tomorrow.order.model.vo.OrderVo;
@@ -27,7 +28,8 @@ public class AdminDao {
 				+ "	P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
 				+ "	from PRODUCT P JOIN PRODUCT_CATEGORY C"
 				+ "	ON P.CATEGORY_ID = C.CATEGORY_ID"
-				+ "	WHERE C.CATEGORY_NAME = ? "; 
+				+ "	WHERE C.CATEGORY_NAME = ? "
+				+ " order by p_no desc "; 
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -62,6 +64,84 @@ public class AdminDao {
 		return productList;
 	}
 	
+	public ArrayList<ProductVo> ctgryProduct(Connection conn, String ctgry, int startNum, int endNum) {
+		ArrayList<ProductVo> productList = null;
+		String sql = "select * "
+				+ "    from( select rownum r, t1.* "
+				+ "        from (select C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
+				+ "					P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
+				+ "					from PRODUCT P JOIN PRODUCT_CATEGORY C"
+				+ "					ON P.CATEGORY_ID = C.CATEGORY_ID"
+				+ "					WHERE C.CATEGORY_NAME = ? "
+				+ "					order by p_no desc			"
+				+ "        ) t1 "
+				+ "    )"
+				+ "    where r between ? and ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ctgry);
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, endNum);
+			rs = pstmt.executeQuery();
+			
+			productList = new ArrayList<ProductVo>();
+			while(rs.next()) {
+				ProductVo product = new ProductVo();
+				product.setCateId(rs.getInt("CATEGORY_ID"));
+				product.setCateName(rs.getString("CATEGORY_NAME"));
+				product.setpNo(rs.getInt("P_NO"));
+				product.setpBrand(rs.getString("P_BRAND"));
+				product.setpName(rs.getString("P_NAME"));
+				product.setpContent(rs.getString("P_CONTENT"));
+				product.setpPrice(rs.getInt("P_PRICE"));
+				
+				productList.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		} 
+		
+		if(productList == null) {
+			System.out.println("AdminDao-ctgryProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\t" + productList + "\n");
+		} else {
+			System.out.println("AdminDao-ctgryProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + productList + "\n");		
+		}
+		return productList;
+	}
+	
+	public int countCtgryProduct(Connection conn, String cateName) {
+		int result= 0;
+		String sql = "select count(*)"
+				+ "                from PRODUCT P JOIN PRODUCT_CATEGORY C"
+				+ "				ON P.CATEGORY_ID = C.CATEGORY_ID"
+				+ "				WHERE C.CATEGORY_NAME = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cateName);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-countCtgryProduct()에 의한 수행이 실패했습니다.\nresult:\t" + result + "\n");
+		} else {
+			System.out.println("AdminDao-countCtgryProduct()에 의해 1행이 수행되었습다.\nresult:\t" + result + "\n");
+		}
+		return result;
+	}
 	
 	// 상품 등록	
 	// 상품 등록시 필요한 상품번호 구하기
@@ -119,7 +199,7 @@ public class AdminDao {
 		return result;	
 	}
 	
-	public int insertProductContent(Connection conn, ProductVo vo) {
+	public int insertProductContent(Connection conn, ProductVo vo, int pNo) {
 		int result = 0;
 		String sql = "insert into product_img(PRODUCT_IMG_NO, P_NO, PRODUCT_IMG_NAME, PRODUCT_IMG_SIZE)"
 				+ " values(SEQUENCE_PRODUCT_IMG_NO.nextval, ?, ?, ?)";
@@ -127,7 +207,7 @@ public class AdminDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, vo.getpNo());
+			pstmt.setInt(1, pNo);
 			pstmt.setString(2, vo.getProductImgName());
 			pstmt.setInt(3, vo.getProductImgSize());
 			result = pstmt.executeUpdate();
@@ -283,6 +363,8 @@ public class AdminDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
 		}
 		
 		if(result == 0) {
@@ -293,6 +375,31 @@ public class AdminDao {
 		return result;	
 	}
 	
+	public int updateProductContent(Connection conn, ProductVo vo ) {
+		int result = 0;
+		String sql="update product_img set product_img_name = ? "
+				+ "	where p_no =? and product_img_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, vo.getProductImgName());
+			pstmt.setInt(2, vo.getpNo());
+			pstmt.setInt(3, vo.getProductImgNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
+		}
+		if(result == 0) {
+			System.out.println("AdminDao-updateProductContent()에 의한 상품 정보 이미지 수정에 실패하였습니다.\n[결과]\t"+ result + "\n");
+		} else {
+			System.out.println("AdminDao-updateProductContent()에 의한 상품 정보 이미지 수정에 성공했습니다.\n[결과]\t"+ result + "\n");
+		}
+		
+		return result;		
+	}
 	public int deleteProduct(Connection conn, int pNo) {
 		int result = 0;
 		String sql = "delete from product where p_no=?";
@@ -315,9 +422,9 @@ public class AdminDao {
 	}
 	
 	// 2. 주문 내역 조회	
-	public ArrayList<OrderVo> selectOrderList(Connection conn) {
-		ArrayList<OrderVo> orderlist = null;
-		String sql = "select p.p_content, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt"
+	public ArrayList<MemberOrderListVo> selectOrderList(Connection conn) {
+		ArrayList<MemberOrderListVo> orderlist = null;
+		String sql = "select p.p_content, p.p_brand, p.p_name, o.o_no, od.o_detail_cnt"
 				+ "	,o.o_date, o.O_TOTAL_PRICE, o.O_NAME"
 				+ " from orders o join order_detail od on o.O_NO= od.O_NO"
 				+ " join product p on p.p_no = od.P_NO"
@@ -326,22 +433,114 @@ public class AdminDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			orderlist = new ArrayList<OrderVo>();
+			orderlist = new ArrayList<MemberOrderListVo>();
 			
 			while(rs.next()) {
-				ProductVo vo = new ProductVo() ;
+				MemberOrderListVo vo = new MemberOrderListVo();
+				
 				vo.setpContent(rs.getString("p_content"));
 				vo.setpBrand(rs.getString("p_brand"));
 				vo.setpName(rs.getString("p_name"));
+				vo.setoNo(rs.getInt("o_no"));
+				vo.setoDcnt(rs.getInt("o_detail_cnt"));
+				vo.setoDate(rs.getTimestamp("o_date"));
+				vo.setoTotalPrice(rs.getInt("o_total_price"));
+				vo.setoName(rs.getString("o_name"));
 				
+				orderlist.add(vo);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		
+		if(orderlist == null) {
+			System.out.println("AdminDao-selectOrderList()의 회원 목록 조회에 실패하였습니다.\n");
+		} else {
+			System.out.println("AdaminDao-selectOrderList()에 의해 목록이 조회되었습니다.\n[orderlist]\n" + orderlist + "\n");		
+		}		
+		return orderlist;
+	}
+	
+	public ArrayList<MemberOrderListVo> selectOrderList(Connection conn, int startNum, int endNum) {
+		ArrayList<MemberOrderListVo> orderlist = null;
+		String sql = "select * \r\n"
+				+ "    from( select rownum r, t1.* "
+				+ "        from (select p.p_content, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt,"
+				+ "                o.o_date, o.O_TOTAL_PRICE, o.O_NAME  \r\n"
+				+ "                from orders o join order_detail od on o.O_NO= od.O_NO "
+				+ "                join product p on p.p_no = od.P_NO                    "
+				+ "                order by o.o_no desc  "
+				+ "        ) t1 "
+				+ "    )"
+				+ "    where r between ? and ?";	
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			rs = pstmt.executeQuery();
+			orderlist = new ArrayList<MemberOrderListVo>();
+			
+			while(rs.next()) {
+				MemberOrderListVo vo = new MemberOrderListVo();
 				
+				vo.setpContent(rs.getString("p_content"));
+				vo.setpBrand(rs.getString("p_brand"));
+				vo.setpName(rs.getString("p_name"));
+				vo.setoNo(rs.getInt("o_no"));
+				vo.setoDcnt(rs.getInt("o_detail_cnt"));
+				vo.setoDate(rs.getTimestamp("o_date"));
+				vo.setoTotalPrice(rs.getInt("o_total_price"));
+				vo.setoName(rs.getString("o_name"));
+				
+				orderlist.add(vo);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		
+		if(orderlist == null) {
+			System.out.println("AdminDao-selectOrderList()의 회원 목록 조회에 실패하였습니다.\n");
+		} else {
+			System.out.println("AdaminDao-selectOrderList()에 의해 목록이 조회되었습니다.\n[orderlist]\n" + orderlist + "\n");		
+		}		
+		return orderlist;
+	}
+	
+	public int countOrderList(Connection conn) {
+		int result = 0;		
+		String sql = "select count(*) from orders o join order_detail od using(o_no) ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
 		
-		return orderlist;
+		if(result == 0) {
+			System.out.println("AdminDao-countOrderList()에 의한 수행이 실패하였습니다.");
+		} else {
+			System.out.println("AdminDao-countOrderList()에 의해 1행이 수행되었습니다.\n");
+		}
+		return result;
 	}
+	
 	// 3. 회원 관리
 	public ArrayList<MemberVo> selectAllMember(Connection conn) {
 		ArrayList<MemberVo> memberlist = null;
@@ -376,7 +575,7 @@ public class AdminDao {
 		if(memberlist == null) {
 			System.out.println("AdminDao-selectAllMember()의 회원 목록 조회에 실패하였습니다.\n");
 		} else {
-			System.out.println("AdaminDao-boardList()에 의해 목록이 조회되었습니다.\n[boardlist]\t" + memberlist + "\n");		
+			System.out.println("AdaminDao-selectAllMember()에 의해 목록이 조회되었습니다.\n[boardlist]\t" + memberlist + "\n");		
 		}
 		return memberlist;
 	}
@@ -497,7 +696,7 @@ public class AdminDao {
 			JdbcTemp.close(pstmt);
 		}
 		if(result < 1) {
-			System.out.println("AdaminDao-deleteMember()의 실행에 실패했습니다.\n");
+			System.out.println("AdaminDao-deleteMember()의 실행이 실패했습니다.\n");
 		} else {
 			System.out.println("AdminDao-deleteMember()에 의해 1행이 삭제되었습니다.\n");			
 		} 
@@ -523,7 +722,7 @@ public class AdminDao {
 		}
 		
 		if(result < 1) {
-			System.out.println("AdaminDao-countMember()의 실행에 실패했습니다.\n");
+			System.out.println("AdaminDao-countMember()의 실행이 실패했습니다.\n");
 		} else {
 			System.out.println("AdaminDao-countMember()로 인해 1행이 수행되었습니다.\n");			
 		} 

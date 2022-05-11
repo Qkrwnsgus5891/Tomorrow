@@ -20,7 +20,7 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 /**
  * Servlet implementation class AdProductEditServlet
  */
-@WebServlet("/adProductEdit")
+@WebServlet("/adProductEdit.do")
 public class AdProductEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,35 +40,9 @@ public class AdProductEditServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AdProductEditServlet - doPost");
-//		PrintWriter out = response.getWriter();
-		int result = -1;
-/*
-		pNo : $("#pno").val(),
-		pContent : '상품상세 이미지 경로',
-		cateId : $("#category").val(),
-		pBrand : $("#prod_brand").val(),
-		pName : $("#prod_name").val(),
-		pPrice : $("#prod_price").val(),
-		optNo : $("#opt_no").val(),
-		optVal : $("#opt_val").val(),
-		optPrice : $("#opt_price").val()
-*/		
-		// 조건에 따른 파일경로를 지정하기 위한 파라미터 값 전달 		
-//		String catdIdStr = request.getParameter("ctgry");	
-//		System.out.println("cateIdStr: " + catdIdStr);
 		
-		String fileSavePath = "upload"; // "upload"파일
-		/*
-		if(catdIdStr.equals("1")) {
-			fileSavePath += "/furniture/detail";
-		}
-		if(catdIdStr.equals("2")) {
-			fileSavePath += "/fabric/detail";
-		}
-		if(catdIdStr.equals("3")) {
-			fileSavePath += "/light/detail";
-		}
-*/	
+		String fileSavePath = "upload/images/product/detail"; // "upload"파일	
+			
 		String uploadPath = getServletContext().getRealPath(fileSavePath);
 		String rootPath = getServletContext().getRealPath("/");
 		System.out.println("uploadPath: " + uploadPath);
@@ -177,6 +151,7 @@ public class AdProductEditServlet extends HttpServlet {
 		detail.setOptPrice(optPrice);
 //		detail.setpSeq(pSeq);
 		
+		int result = 0;
 		result = new AdminService().updateProduct(product, detail, pNo, pSeq);
 		System.out.println("AdProductEditServlet - result:\t" + result + "\n");
 		
@@ -187,9 +162,7 @@ public class AdProductEditServlet extends HttpServlet {
 			request.setAttribute("msg", "상품 수정에 성공하였습니다.");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 		}
-//		out.print(result);
-//		out.flush();
-//		out.close();
+
 	}
 
 }
