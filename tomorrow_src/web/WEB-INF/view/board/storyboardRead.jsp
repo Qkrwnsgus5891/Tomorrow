@@ -13,7 +13,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	* {
-        box-sizing: border-box;
+		box-sizing: border-box;
+	}
+    button {
+        cursor: pointer;
     }
     .wrap_content {
         margin: 0 auto;
@@ -47,8 +50,58 @@
     .story_content {
         margin: 50px 0 30px;
     }
+    .story_update_btn, .story_delete_btn {
+        width: 90px;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 8px;
+        color: white;
+        background-color: #828c94;
+        border-radius: 5px;
+        border: none;
+    }
+    .story_recomment_title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 10px 0 10px;
+    }
+    .story_re_content {
+        width: 700px;
+        height: 60px;
+        resize: none;
+        padding: 5px 5px 5px;
+    }
+    .story_re_btn {
+        position: absolute;
+        margin-left: 10px;
+        width: 90px;
+        height: 60px;
+        font-size: 15px;
+        background: #35c5f0;
+        border: solid 1px #35c5f0;
+        border-radius: 5px;
+        line-height: 20px;
+        font-weight: 700;
+        color: white;
+    }
+    .story_re_btn:hover {
+        color: #72D6F4;
+    }
     .container_recomment {
-    	border-bottom: 1px solid black;
+        border-bottom: 1px solid black;
+        padding-bottom: 5px;
+        margin: 10px 0 10px;
+    }
+    .recomment_writer {
+        color: #424242;
+        font-weight: 700;
+        font-size: 15px;
+    }
+    .recomment_content {
+        color: #424242;
+    }
+    .recomment_date {
+        margin-top: 5px;
     }
 </style>
 </head>
@@ -68,25 +121,33 @@
                             ${bvo.bWriter }
                         </div>
                         <div class="story_writer_intro">
-                            한줄소개
+                            ${bvo.mIntro }
                         </div>
                     </div>
+                    <hr>
                     <div class="story_content">
                         ${bvo.bContent }
                     </div>
                     <c:if test="${ssMV.mId eq bvo.mId }">
-                    	<button onclick="location.href='storyupdate?bno=${bvo.bNo}'">수정</button>
-                    	<button onclick="location.href='storydelete?bno=${bvo.bNo}'">삭제</button>
+                    	<hr>
+                    	<button class="story_update_btn" onclick="location.href='storyupdate?bno=${bvo.bNo}'">수정</button>
+                    	<button class="story_delete_btn" onclick="location.href='storydelete?bno=${bvo.bNo}'">삭제</button>
+                    </c:if>
+                    <c:if test="${ssMV.mId ne bvo.mId }">
+                    	<hr>
                     </c:if>
                 </div>
 			</section>
 			<c:if test="${not empty ssMV.mId }">
 				<div class="story_recomment_write">
+					<div class="story_recomment_title">
+                        댓글
+                    </div>
 					<form action="reEnroll" method="post">
 						<input type="hidden" name="bNo" value="${bvo.bNo }">
 						<input type="hidden" name="mId" value="${ssMV.mId }">
-						<textarea name="bRecomment" required></textarea>
-						<button type="submit">댓글등록</button>
+						<textarea class="story_re_content" name="bRecomment" required></textarea>
+						<button class="story_re_btn" type="submit">등록</button>
 					</form>
 				</div>
 			</c:if>
@@ -98,14 +159,14 @@
 					for(StoryRecommentVo rvo : vo.getbRecommentList()) {
 %>
 						<div class="container_recomment">
-							<div class="recomment_writer">
-								<p><%= rvo.getrWriter() %></p>
-							</div>
-							<div class="recomment_content">
-								<p><%= rvo.getrContent() %></p>
-							</div>
+							<span class="recomment_writer">
+								<%= rvo.getrWriter() %>
+							</span>
+							<span class="recomment_content">
+								<%= rvo.getrContent() %>
+							</span>
 							<div class="recomment_date">
-								<p><%= rvo.getrDate() %></p>
+								<%= rvo.getrDate() %>
 							</div>
 						</div>
 <%

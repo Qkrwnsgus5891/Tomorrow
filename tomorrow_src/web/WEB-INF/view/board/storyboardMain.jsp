@@ -21,25 +21,9 @@
 	* {
 		box-sizing: border-box;
 	}
-	.wrap_content {
-		margin-top: 40px;
-		position: relative;
-		margin-left: auto;
-		margin-right: auto;
-		width: 1200px;
-	}
 	.container_content {
 		display: flex;
 		flex-wrap: wrap;
-	}
-	.story_one {
-		position: relative;
-		padding-left: 10px;
-		padding-right: 10px;
-		padding-bottom: 40px;
-		box-sizing: border-box;
-		flex: 0 0 25%;
-		width: 100%;
 	}
 	.story_one_header {
 		margin: 0 0 15px;
@@ -64,7 +48,11 @@
 		left: 50%;
 		width: 100%;
 		transform: translate(-50%,-50%);
+		transform-origin: 300% 300%;
 		transition: transform .2s;
+	}
+	.wrap_story_thumbnail:hover img{
+		transform: scale(1.2);
 	}
 	.story_bcnt {
 		position: absolute;
@@ -78,6 +66,76 @@
 		margin: 15px 0 0;
 		font-size: 15px;
 		line-height: 22px;
+	}
+	@media screen and (min-width : 1256px) {
+		.wrap_content {
+			margin-top: 40px;
+			position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			width: 1200px;
+		}
+	}
+	@media screen and (min-width : 1024px) and (max-width : 1255px) {
+		.wrap_content {
+			margin-top: 40px;
+			position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			width: calc(100% - 60px);
+		}
+	}
+	@media screen and (min-width : 768px) and (max-width : 1023px) {
+		.wrap_content {
+			margin-top: 40px;
+			position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			width: calc(100% - 40px);
+		}
+	}
+	@media screen and (max-width : 767px) {
+		.wrap_content {
+			margin-top: 40px;
+			position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			width: 728px;
+		}
+	}
+	@media screen and (min-width : 1024px) {
+		.story_one {
+			position: relative;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-bottom: 40px;
+			box-sizing: border-box;
+			flex: 0 0 25%;
+			width: 100%;
+		}
+	}
+	@media screen and (max-width : 1023px) {
+		.story_one {
+			position: relative;
+			padding-left: 7px;
+			padding-right: 7px;
+			padding-bottom: 40px;
+			box-sizing: border-box;
+			flex: 0 0 33.33%;
+			width: 100%;
+		}
+	}
+	.pasing{
+	text-align: center;
+	margin: 20px 0 5px;
+	}
+	.pasing a{
+		border: 1px solid #f5f5f5;
+		background-color: #f5f5f5;
+		padding: 0 5px;
+		color: black;
+		font-weight: 700;
+		border-radius: 3px;
 	}
 </style>
 </head>
@@ -116,15 +174,15 @@
 						</div>
 					</c:forEach>
 				</div>
-				<p>
+				<p class="pasing">
 					<c:if test="${startPage > 1 }">
-						<a href="liststory?page=${startPage - 1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="liststory?page=${startPage - 1 }">&lt;</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<c:forEach begin="${startPage }" end="${endPage }" var="p">
 						<a href="liststory?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<c:if test="${endPage < totalPageCnt }">
-						<a href="liststory?page=${endPage + 1 }">다음</a>
+						<a href="liststory?page=${endPage + 1 }">&gt;</a>
 					</c:if>
 				</p>
 			</section>

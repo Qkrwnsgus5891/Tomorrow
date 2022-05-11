@@ -239,7 +239,7 @@ public class StoryboardDao {
 	public StoryBoardVo readStoryBoard(Connection conn, int bNo) {
 		StoryBoardVo vo = null;
 		
-		String sql1 = "SELECT * FROM story WHERE b_no = ?";
+		String sql1 = "SELECT m1.m_intro, s1.* FROM story s1 JOIN member m1 ON s1.m_id = m1.m_id WHERE b_no = ?";
 		String sql2 = "SELECT * FROM story_recomment WHERE b_no = ? ORDER BY r_date DESC, r_no DESC";
 		
 		try {
@@ -271,6 +271,7 @@ public class StoryboardDao {
 				vo.setpNo(rs.getInt("P_NO"));
 				vo.setbNy(rs.getString("B_NY"));
 				vo.setbImgPath(rs.getString("B_IMG_PATH"));
+				vo.setmIntro(rs.getString("M_INTRO"));
 				
 				close(rs);
 				close(pstmt);
