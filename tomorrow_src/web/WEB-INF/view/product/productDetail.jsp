@@ -34,7 +34,6 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 6px;
-	
 }
 
 #detailcontent {
@@ -151,11 +150,19 @@
 }
 
 #information {
-	margin: 10px 30%;
+	margin: 10px 25%;
+	width: 60%;
+	font-weight: 700;
 }
 
-#ship, #shipInfo {
-	margin: 10px 30%;
+#ship {
+	margin: 10px 25%;
+	width: 60%;
+}
+
+#shipInfo {
+	margin: 10px 25%;
+	width: 60%;
 }
 </style>
 </head>
@@ -171,7 +178,7 @@
 					<img src="${vo.productImgName }">
 				</section>
 				<section id="detailcontent">
-					<form>
+					<form class="frmInf">
 						<div class="pbrand">${vo.pBrand }</div>
 						<div class="pname">${vo.pName }</div>
 						<div class="pprice">${vo.pPrice }<a>(원)</a>
@@ -209,8 +216,8 @@
 						<p class="pp">
 							<span>주문금액 </span><span id="price"></span><span>(원)</span>
 						</p>
-						<button type="button" class="cartBtn">장바구니</button>
-						<button type="button" class="orderBtn">바로구매</button>
+						<button type="button" class="cartBtn" onclick="location.href='/'">장바구니</button>
+						<button type="button" class="orderBtn" onclick="location.href='/'">바로구매</button>
 					</form>
 				</section>
 			</section>
@@ -246,8 +253,9 @@
 		</section>
 
 		<section id="productInfoBtns">
-			<a href="#productInform">상품정보</a> <a href="#storylist">리뷰</a> <a
-				href="#ship">배송/환불</a>
+			<a href="#productInform">상품정보</a> 
+			<a href="#storylist">리뷰</a> 
+			<a href="#ship">배송/환불</a>
 		</section>
 
 		<section id="productInform">

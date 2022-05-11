@@ -60,7 +60,8 @@ nav button {
 }
 </style>
 <style>
-.pcontent {
+
+.productImgName {
 	width: 200px;
 	height: 200px;
 	border-radius: 6px;
@@ -178,7 +179,7 @@ nav button {
 				var vo = result.selectAllProduct[i];
 				html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
 				html += '			<div class="proDetail" onclick="clickproDetail(this);">';
-				html += '				<div><img src="'+vo.pContent+'" class="pcontent"></div>';
+				html += '				<div><img src="'+vo.productImgName+'" class="productImgName"></div>';
 				html += '			';
 				html += '			';
 				html += '				<div class="pname">' + vo.pName + '</div>';
@@ -249,7 +250,7 @@ nav button {
 
 									<div class="proDetail" onclick="clickproDetail(this);">
 										<div>
-											<img src="${vo.pContent }" class="pcontent">
+											<img src="${vo.productImgName }" class="productImgName">
 										</div>
 										<div class="pname">${vo.pName }</div>
 										<div class="pbrand">${vo.pBrand }</div>

@@ -56,13 +56,7 @@ public class ProductService {
 		return result;
 	}
 	
-	public ProductVo selectProduct(int pNo, int productImgNo) {
-		Connection conn=null;
-		conn = getConnection();
-		ProductVo result = dao.selectProduct(conn, pNo, productImgNo);
-		close(conn);
-		return result;
-	}
+
 	
 
 }

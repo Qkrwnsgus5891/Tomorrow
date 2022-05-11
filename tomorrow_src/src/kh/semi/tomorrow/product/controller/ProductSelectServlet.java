@@ -46,6 +46,8 @@ public class ProductSelectServlet extends HttpServlet {
 		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));
 		System.out.println(result);
 		
+	
+		
 		request.setAttribute("selectProduct", result);
 		
 		

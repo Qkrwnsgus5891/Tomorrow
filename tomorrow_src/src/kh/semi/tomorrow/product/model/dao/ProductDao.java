@@ -50,12 +50,12 @@ public class ProductDao {
 	public ArrayList<ProductVo> selectAllProduct(Connection conn, int startRnum, int endRnum, int pageCateId, int pNo) {
 		ArrayList<ProductVo> volist = null;
 
-		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price from "
+		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price, product_img_name from "
 				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
 		if (pageCateId > 0) {
 			sql += " where category_id=?";
 		}
-		sql += " order by p_no desc) t1) " + " where r between ? and ?";
+		sql += " order by p_no desc) t1) join product_img using (p_no) " + " where r between ? and ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -80,6 +80,7 @@ public class ProductDao {
 					vo.setpPrice(rs.getInt("p_price"));
 					vo.setCateId(rs.getInt("category_id"));
 					vo.setpNo(rs.getInt("p_no"));
+					vo.setProductImgName(rs.getString("product_img_name"));
 					volist.add(vo);
 				}
 			}
@@ -99,7 +100,9 @@ public class ProductDao {
 	public ArrayList<ProductVo> selectAllProduct(Connection conn, int pNo) {
 		ArrayList<ProductVo> volist = null;
 
-		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price from product where p_no in (1,4,7)";
+		String sql = "select p_no, p_name, p_brand,p_price, category_id, product_img_name "
+				+ "from product p join product_img i using(p_no) "
+				+ "where p_no in (1,4,7)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -110,7 +113,7 @@ public class ProductDao {
 				volist = new ArrayList<ProductVo>();
 				while (rs.next()) {
 					ProductVo vo = new ProductVo();
-					vo.setpContent(rs.getString("p_content"));
+					vo.setProductImgName(rs.getString("product_img_name"));
 					vo.setpName(rs.getString("p_name"));
 					vo.setpBrand(rs.getString("p_brand"));
 					vo.setpPrice(rs.getInt("p_price"));
@@ -167,7 +170,7 @@ public class ProductDao {
 	public ProductVo selectProduct(Connection conn, int pNo) {
 		ProductVo vo = null;
 		ArrayList<ProductDetailVo> pdvolist = null;
-		String sql1 = "select p_no, p_content, p_name, p_brand, p_price from product where p_no=?";
+		String sql1 = "select p_no, p_content, p_name, p_brand, p_price, product_img_name from product join product_img using(p_no) where p_no=?";
 		String sql2 = "select p_seq, opt_no, opt_name, opt_val,opt_price from product_detail join option_parent using(opt_no) where p_no=?";
 		
 		try {
@@ -177,11 +180,13 @@ public class ProductDao {
 			vo = new ProductVo();
 			
 			if(rs.next()) {
+				
 				vo.setpNo(rs.getInt("p_no"));
 				vo.setpContent(rs.getString("p_content"));
 				vo.setpName(rs.getString("p_name"));
 				vo.setpBrand(rs.getString("p_brand"));
 				vo.setpPrice(rs.getInt("p_price"));
+				vo.setProductImgName(rs.getString("product_img_name"));
 				
 				close(rs);
 				close(pstmt);
@@ -216,32 +221,6 @@ public class ProductDao {
 		
 	}
 	
-	public ProductVo selectProduct(Connection conn, int pNo, int productImgNo) {
-		ProductVo vo = null;
-		String sql = "select p_no, product_img_no, product_img_name from product_img where p_no=?";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, pNo);
-			rs = pstmt.executeQuery();
-			vo = new ProductVo();
-			
-			if(rs.next()) {
-				vo.setpNo(rs.getInt("p_no"));
-				vo.setProductImgNo(rs.getInt("product_img_no"));
-				vo.setProductImgName(rs.getString("product_img_name"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return vo;
-		
-		
-	}
+
 
 }
