@@ -198,7 +198,7 @@
       	파일: <input type="file" name="upload" required>
       </div>
       <p id="product_info">상품 정보</p>
-      <textarea id="ckeditor" name="productImgName" ></textarea>
+      <textarea id="ckeditor" name="pContent" ></textarea>
 	    <script>
 	    	CKEDITOR.replace('ckeditor', {
 	    		filebrowserUploadUrl: '${pageContext.request.contextPath}/ContentImageUpload.do'
