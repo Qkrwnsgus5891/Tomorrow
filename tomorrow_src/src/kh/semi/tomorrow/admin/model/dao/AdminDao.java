@@ -69,7 +69,7 @@ public class AdminDao {
 		String sql = "select * "
 				+ "    from( select rownum r, t1.* "
 				+ "        from (select C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
-				+ "					P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
+				+ "					P.P_BRAND, P.P_NAME, p_content, P.P_PRICE"
 				+ "					from PRODUCT P JOIN PRODUCT_CATEGORY C"
 				+ "					ON P.CATEGORY_ID = C.CATEGORY_ID"
 				+ "					WHERE C.CATEGORY_NAME = ? "
@@ -77,7 +77,7 @@ public class AdminDao {
 				+ "        ) t1 "
 				+ "    )"
 				+ "    where r between ? and ?";
-		
+		String sql_img = "select * from product_img where p_no=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ctgry);
@@ -93,10 +93,23 @@ public class AdminDao {
 				product.setpNo(rs.getInt("P_NO"));
 				product.setpBrand(rs.getString("P_BRAND"));
 				product.setpName(rs.getString("P_NAME"));
-				product.setpContent(rs.getString("P_CONTENT"));
+//				product.setProductImgName(rs.getString("product_Img_Name"));
 				product.setpPrice(rs.getInt("P_PRICE"));
 				
 				productList.add(product);
+			}
+			System.out.println("제품 dao ======= Product_Img====");
+			for(ProductVo pvo : productList) {
+				JdbcTemp.close(rs);
+				JdbcTemp.close(pstmt);
+				System.out.println("제품dao pvo :"+ pvo);
+				pstmt = conn.prepareStatement(sql_img);
+				pstmt.setInt(1, pvo.getpNo());			
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					pvo.setProductImgName(rs.getString("product_Img_Name"));
+					//pivo.setProductImgSize(rs.getInt("product_Img_Size"));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -199,7 +212,7 @@ public class AdminDao {
 		return result;	
 	}
 	
-	public int insertProductContent(Connection conn, ProductVo vo, int pNo) {
+	public int insertProductImg(Connection conn, ProductVo vo, int pNo) {
 		int result = 0;
 		String sql = "insert into product_img(PRODUCT_IMG_NO, P_NO, PRODUCT_IMG_NAME, PRODUCT_IMG_SIZE)"
 				+ " values(SEQUENCE_PRODUCT_IMG_NO.nextval, ?, ?, ?)";

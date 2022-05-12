@@ -61,7 +61,7 @@ public class AdminService {
 		}
 		if(result2 > 0) {
 			// 상품 이미지 등록
-			result3 = dao.insertProductContent(conn, product, pNo);
+			result3 = dao.insertProductImg(conn, product, pNo);
 		}
 		if(result > 0 && result2 > 0 && result3 >0) {
 			JdbcTemp.commit(conn);

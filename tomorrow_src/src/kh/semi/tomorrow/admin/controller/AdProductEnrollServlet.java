@@ -84,7 +84,6 @@ public class AdProductEnrollServlet extends HttpServlet {
 			System.out.println("*** 정수로 변환 도중 오류 발생 ***");
 			request.setAttribute("msg", "오류가 발생했습니다.");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
-			
 		}
 		
 		String pFilePathParam = multi.getParameter("pFilePath");
@@ -92,7 +91,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 		String pBrand = multi.getParameter("prod_brand");
 		String pName = multi.getParameter("prod_name");
 		String optVal = multi.getParameter("opt_val");
-		String productImgName = multi.getParameter("productImgName");
+		String pContent = multi.getParameter("pContent");   // to_yjk
 		String orgFileName = multi.getOriginalFileName("upload");  // 전송되기 전 client에서 파일이름		
 		String type = multi.getContentType("upload"); // 전송된 파일의 타입 (.png. jpg)
 		String upload = multi.getFilesystemName("upload");  // 서버에 저장된 파일이름
@@ -126,7 +125,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 			// 기존파일 유지 - db에 기존파일로 저장 
 			pImgPath = pFilePathParam;
 		}		
-		String pContent = pImgPath;
+		String productImgName = pImgPath;
 		
 		System.out.println("pImgPath: " + pImgPath);
 		

@@ -213,7 +213,7 @@
 <c:forEach items="${productList }" var="vo">      	
 			<div class="proDetail">
 				<div>
-					<img src="${vo.pContent }" class="pcontent">
+					<img src="${vo.productImgName }" class="pcontent">
 				</div>
 				<div class="pname">${vo.pName}</div>
 				<div class="pbrand">${vo.pBrand }</div>
