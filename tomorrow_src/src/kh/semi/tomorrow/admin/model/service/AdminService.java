@@ -29,10 +29,28 @@ public class AdminService {
 		return volist;
 	}
 	
+	// 페이징 처리한 모든 상품 조회
+	public ArrayList<ProductVo> seachAllProduct(int startNum, int endNum) {
+		Connection conn = JdbcTemp.getConnection();
+		ArrayList<ProductVo> volist = dao.seachAllProduct(conn, startNum, endNum);
+		JdbcTemp.close(conn);
+		return volist;
+	}
+	
+	// 카테고리별 상품 개수
 	public int countCtgryProduct(String cateName) {
 		int result = 0;
 		Connection conn= JdbcTemp.getConnection();
 		result= dao.countCtgryProduct(conn, cateName); 
+		JdbcTemp.close(conn);
+		return result;
+	}
+	
+	// 모든 상품 개수
+	public int countAllProduct() {
+		int result = 0;
+		Connection conn= JdbcTemp.getConnection();
+		result= dao.countAllProduct(conn); 
 		JdbcTemp.close(conn);
 		return result;
 	}
@@ -58,11 +76,12 @@ public class AdminService {
 		
 		if(result > 0) {
 			result2=dao.insertProductDetail(conn, detail, pNo);
+			if(result2 > 0) {
+				// 상품 이미지 등록
+				result3 = dao.insertProductImg(conn, product, pNo);
+			}
 		}
-		if(result2 > 0) {
-			// 상품 이미지 등록
-			result3 = dao.insertProductImg(conn, product, pNo);
-		}
+		
 		if(result > 0 && result2 > 0 && result3 >0) {
 			JdbcTemp.commit(conn);
 		}
@@ -103,15 +122,18 @@ public class AdminService {
 	
 	// 상품 수정
 	public int updateProduct(ProductVo product, ProductDetailVo detail, int pNo, int pSeq) {
-		int result = 0; int result2=0; 
+		int result = 0; int result2=0; int result3=0;
 		Connection conn = JdbcTemp.getConnection();
+		System.out.println("product:\t\t" + product);
 		result = dao.updateProduct(conn, product, pNo);
-		
 		if(result > 0) {
 			result2 = dao.updateProductDetail(conn, detail, pNo, pSeq);
+			if(result2 > 0) {
+				result3 = dao.updateProductImage(conn, product, pNo);
+			}
 		}
 		
-		if(result > 0 && result2 > 0 ) {
+		if(result > 0 && result2 > 0 && result3 > 0) {
 			JdbcTemp.commit(conn);
 		}
 		else { 
@@ -121,6 +143,7 @@ public class AdminService {
 		System.out.println("AdminService - updateProduct()\npNo:\t\t" + pNo);
 		System.out.println("AdminService - updateProduct()\nresult:\t\t" + result);
 		System.out.println("AdminService - updateProductDetail()\nresult2:\t\t" + result2 + "\n");
+		System.out.println("AdminService - updateProductImage()\nresult3:\t\t" + result3 + "\n");
 		JdbcTemp.close(conn);
 		return result;
 	}	

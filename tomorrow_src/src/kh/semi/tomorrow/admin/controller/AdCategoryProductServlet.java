@@ -32,7 +32,7 @@ public class AdCategoryProductServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
 		System.out.println("상품 목록 페이지로 이동합니다...");
-		System.out.println("AdCategoryProductServlet - doPost");	
+		System.out.println("AdCategoryProductServlet - doGet");	
 		int currentPage = 1;		
 		String currentPageStr = request.getParameter("page");
 		

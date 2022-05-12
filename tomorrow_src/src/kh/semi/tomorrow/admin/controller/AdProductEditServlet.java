@@ -92,21 +92,21 @@ public class AdProductEditServlet extends HttpServlet {
 		String upload = multi.getFilesystemName("upload");  // 서버에 저장된 파일이름
 		System.out.println("upload: " + upload);
 		
-		if (upload == null && orgFileName != null && cateId == 0) {	// orgFileName은 있는데 + 파일업로드가 없는 경우
+		if (upload == null && orgFileName != null && pNo == 0) {	// orgFileName은 있는데 + 파일업로드가 없는 경우
 			// 파일 저장 실패
 			System.out.println("upload가 null");
 			response.sendRedirect("adProductEnroll");
 			return;
 		}
 		String pImgPath = "";		
-		if(upload != null && cateId != 0) { // 글쓰기 + 파일이 있는 경우
+		if(upload != null && pNo == 0) { // 글쓰기 + 파일이 있는 경우
 			
 			File file= new File(fileSavePath);
 			if (!file.exists()) {
 				file.mkdirs();
 			}	
 			pImgPath = fileSavePath + "/" + upload;
-		} else if(upload != null && pFilePathParam != null && cateId > 0) { // 기존파일 있음 + 새파일 있는 경우
+		} else if(upload != null && pFilePathParam != null && pNo > 0) { // 기존파일 있음 + 새파일 있는 경우
 			// 기존 파일 삭제
 			File file = new File(rootPath + pFilePathParam);
 			if(file.exists()) { // 파일 존재여부 확인 
@@ -116,18 +116,17 @@ public class AdProductEditServlet extends HttpServlet {
 			
 			// 새파일을 db에 저장
 			pImgPath = fileSavePath + "/" + upload;
-		} else if(upload == null && pFilePathParam != null && cateId > 0) { // 기존파일 있음 + 새파일없음
+		} else if(upload == null && pFilePathParam != null && pNo > 0) { // 기존파일 있음 + 새파일없음
 			// 기존파일 유지 - db에 기존파일로 저장 
 			pImgPath = pFilePathParam;
 		}
-		String pContent = pImgPath;		
+		String productImgName = pImgPath;		
 		System.out.println("pImgPath: " + pImgPath);
 		
 		System.out.println("페이지로부터 전달받은 데이터값");
 		System.out.println("=============================================================");
 		System.out.println("pNo:\t\t\t" + pNo);
 		System.out.println("pSeq:\t\t\t" + pSeq);
-		System.out.println("pContent:\t\t\t" + pContent);
 		System.out.println("cateId:\t\t\t" + cateId);
 		System.out.println("pBrand:\t\t\t" + pBrand);
 		System.out.println("pName:\t\t\t" + pName);
@@ -135,10 +134,11 @@ public class AdProductEditServlet extends HttpServlet {
 		System.out.println("optNo:\t\t\t" + optNo);
 		System.out.println("optVal:\t\t\t" + optVal);
 		System.out.println("optPrice:\t\t\t" + optPrice);
+		System.out.println("productImgName:\t\t" + productImgName);
 		System.out.println("=============================================================\n");
 //		product 객체 저장
 		ProductVo product= new ProductVo();
-		product.setpContent(pContent);
+		product.setProductImgName(productImgName);
 		product.setCateId(cateId);
 		product.setpBrand(pBrand);
 		product.setpName(pName);

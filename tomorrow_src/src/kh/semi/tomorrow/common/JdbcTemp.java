@@ -19,8 +19,8 @@ public class JdbcTemp {
 		try {
 			Context initContext = new InitialContext();
 			Context evnContext = (Context)initContext.lookup("java:/comp/env");
-//			DataSource ds = (DataSource) evnContext.lookup("jdbc/tomorrowLocal");
-			DataSource ds = (DataSource) evnContext.lookup("jdbc/tomorrowPclass");
+			DataSource ds = (DataSource) evnContext.lookup("jdbc/tomorrowLocal");
+//			DataSource ds = (DataSource) evnContext.lookup("jdbc/tomorrowPclass");
 			conn = ds.getConnection();
 		}  catch (SQLException e) {
 			e.printStackTrace();

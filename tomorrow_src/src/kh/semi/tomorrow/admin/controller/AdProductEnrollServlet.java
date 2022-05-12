@@ -149,11 +149,11 @@ public class AdProductEnrollServlet extends HttpServlet {
 		ProductVo product = new ProductVo();
 		product.setpBrand(pBrand);
 		product.setpName(pName);	
-		product.setpContent(pContent); // detail 용
+		product.setpContent(pContent); // 상품 정보용
 		product.setCateId(cateId);
 		product.setpPrice(pPrice);
 		
-		// content 용 
+		// 대표 이미지용 
 		product.setProductImgName(productImgName);
 		product.setProductImgSize(imgSize);
 		// product_detail 객체에 값 저장

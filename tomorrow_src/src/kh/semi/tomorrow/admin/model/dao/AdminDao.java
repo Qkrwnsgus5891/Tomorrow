@@ -98,7 +98,7 @@ public class AdminDao {
 				
 				productList.add(product);
 			}
-			System.out.println("제품 dao ======= Product_Img====");
+			System.out.println("========== Product_Img ==========");
 			for(ProductVo pvo : productList) {
 				JdbcTemp.close(rs);
 				JdbcTemp.close(pstmt);
@@ -123,6 +123,59 @@ public class AdminDao {
 		} else {
 			System.out.println("AdminDao-ctgryProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + productList + "\n");		
 		}
+		return productList;
+	}
+	
+	public ArrayList<ProductVo> seachAllProduct(Connection conn, int startNum, int endNum) {
+		ArrayList<ProductVo> productList = null;
+		String sql = "select * "
+				+ "    from( select rownum r, t1.* "
+				+ "        from (select C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
+				+ "					P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
+				+ "					from PRODUCT P JOIN PRODUCT_CATEGORY C"
+				+ "					ON P.CATEGORY_ID = C.CATEGORY_ID"
+				+ "					order by p_no desc"
+				+ "        ) t1 "
+				+ "    )"
+				+ " where r between ? and ?";
+				
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			rs = pstmt.executeQuery();
+			
+			
+			productList = new ArrayList<ProductVo>();				
+			while(rs.next()) {
+				ProductVo product = new ProductVo();
+				product.setCateId(rs.getInt("CATEGORY_ID"));
+				product.setCateName(rs.getString("CATEGORY_NAME"));
+				product.setpNo(rs.getInt("P_NO"));
+				product.setpBrand(rs.getString("P_BRAND"));
+				product.setpName(rs.getString("P_NAME"));
+				product.setpContent(rs.getString("P_CONTENT"));
+				product.setpPrice(rs.getInt("P_PRICE"));
+				
+				productList.add(product);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		
+		
+		if(productList == null) {
+			System.out.println("AdminDao-seachAllProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\t" + productList + "\n");
+		} else {
+			System.out.println("AdminDao-seachAllProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + productList + "\n");		
+		}
+		
 		return productList;
 	}
 	
@@ -152,6 +205,34 @@ public class AdminDao {
 			System.out.println("AdminDao-countCtgryProduct()에 의한 수행이 실패했습니다.\nresult:\t" + result + "\n");
 		} else {
 			System.out.println("AdminDao-countCtgryProduct()에 의해 1행이 수행되었습다.\nresult:\t" + result + "\n");
+		}
+		return result;
+	}
+	
+	public int countAllProduct(Connection conn) {
+		int result= 0;
+		String sql = "select count(*)"
+				+ "                from PRODUCT P JOIN PRODUCT_CATEGORY C"
+				+ "				ON P.CATEGORY_ID = C.CATEGORY_ID";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-countAllProduct()에 의한 수행이 실패했습니다.\nresult:\t" + result + "\n");
+		} else {
+			System.out.println("AdminDao-countAllProduct()에 의해 1행이 수행되었습다.\nresult:\t" + result + "\n");
 		}
 		return result;
 	}
@@ -268,6 +349,7 @@ public class AdminDao {
 				+ " from product_detail d join option_parent op on d.OPT_NO= op.OPT_NO "
 				+ " where p_no= ? and p_seq = ?";
 //		String sql2 = "select p_seq, p_no, opt_no, opt_val, opt_price from product_detail where p_no=? and p_seq= ?";
+		String sql3 = "select product_img_name, product_img_size from product_img where p_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql1);
@@ -303,21 +385,18 @@ public class AdminDao {
 					
 					product.setPdt(detail);
 				}
-//				if(rs.next()) {
-//					detailList = new ArrayList<ProductDetailVo>();					
-//					while(rs.next()) {
-//						ProductDetailVo detail = new ProductDetailVo();
-//						detail.setpSeq(rs.getInt("p_seq"));
-//						detail.setOptNo(rs.getInt("opt_no"));
-//						detail.setOptName(rs.getString("opt_name"));
-//						detail.setOptVal(rs.getString("opt_val"));
-//						detail.setOptPrice(rs.getInt("opt_price"));
-//						
-//						detailList.add(detail);
-//					}
-//					product.setPdvo(detailList);
-//				}
+//				
+				JdbcTemp.close(rs);
+				JdbcTemp.close(pstmt);
 				
+				pstmt = conn.prepareStatement(sql3);		
+				pstmt.setInt(1, pNo);
+				rs = pstmt.executeQuery();
+							
+				if(rs.next()) {
+					product.setProductImgName(rs.getString("product_img_name"));
+					product.setProductImgSize(rs.getInt("product_img_size"));	
+				}
 				
 			}
 		} catch (SQLException e) {
@@ -337,16 +416,16 @@ public class AdminDao {
 	// 상품 수정/삭제
 	public int updateProduct(Connection conn, ProductVo product, int pNo) {
 		int result= 0;
-		String sql = "update product set P_CONTENT=?, CATEGORY_ID =?, P_BRAND=?, P_NAME=?, P_PRICE=? where p_no= ?";
+		String sql = "update product set CATEGORY_ID =?, P_BRAND=?, P_NAME=?, P_PRICE=? where p_no= ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, product.getpContent());
-			pstmt.setInt(2, product.getCateId());
-			pstmt.setString(3, product.getpBrand());
-			pstmt.setString(4, product.getpName());
-			pstmt.setInt(5, product.getpPrice());
-			pstmt.setInt(6, pNo);
+			
+			pstmt.setInt(1, product.getCateId());
+			pstmt.setString(2, product.getpBrand());
+			pstmt.setString(3, product.getpName());
+			pstmt.setInt(4, product.getpPrice());
+			pstmt.setInt(5, pNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -388,16 +467,36 @@ public class AdminDao {
 		return result;	
 	}
 	
-	public int updateProductContent(Connection conn, ProductVo vo ) {
+	public int updateProductImage(Connection conn, ProductVo vo, int pNo) {
 		int result = 0;
-		String sql="update product_img set product_img_name = ? "
-				+ "	where p_no =? and product_img_no = ?";
+		String sql = "update product_img set product_img_name = ? where p_no = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getProductImgName());
+			pstmt.setInt(2, pNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result == 0) {
+			System.out.println("AdminDao-updateProductImage()에 의한 상품 대표 이미지 변경에 실패하였습니다.\n[결과]\t"+ result + "\n");
+		} else {
+			System.out.println("AdminDao-updateProductImage()에 의해 상품 대표 이미지 변경에 성공했습니다.\n[결과]\t" + result + "\n");		
+		}
+		return result;
+	}
+	
+	public int updateProductContent(Connection conn, ProductVo vo) {
+		int result = 0;
+		String sql="update product set p_content=? where p_no = ? ";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);			
-			pstmt.setString(1, vo.getProductImgName());
+			pstmt.setString(1, vo.getpContent());
 			pstmt.setInt(2, vo.getpNo());
-			pstmt.setInt(3, vo.getProductImgNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

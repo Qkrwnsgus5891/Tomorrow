@@ -279,7 +279,7 @@ input[type="text"], select {
 					
 				</div>
 			</section>
-			<div class="enroll_content">파일 첨부 &nbsp;<input type="file" name="upload" id="file_btn"></div>
+			<div class="enroll_content">파일 첨부 &nbsp;<input type="file" name="upload" id="file_btn"></div>			
 			<div id="file_btn_grp">
 				<button type="button" id="edit_btn">상품 수정</button>
 			</div>
@@ -331,14 +331,9 @@ input[type="text"], select {
 					<tr>
 						<td><input type="text" name="pnum" id="pnum" required></td>
 					</tr>
-					<tr>
-						<td><label for="fpno" class="pName">상품 파일 번호</label></td>						
-					</tr>
-					<tr>
-						<td><input type="text" name="fpno" id="fpno" required></td>
-					</tr>
+					<input type="hidden" name="pContentPath" id="pContentPath">					
 				</table>
-				<textarea id="ckeditor" name="productImgName" ></textarea>
+				<textarea id="ckeditor" name="pContent" ></textarea>
 	    		<script>
 	    			CKEDITOR.replace('ckeditor', {
 	    				filebrowserUploadUrl: '${pageContext.request.contextPath}/ContentImageUpload.do'
@@ -390,15 +385,16 @@ input[type="text"], select {
 				success : function(result) {					
 					alert("상품이 조회되었습니다.");
 					console.log(result);
+					console.log("result.productImgName: " + result.productImgName);
 					console.log("result.pdt.pSeq: " + result.pdt.pSeq);
 					console.log("result.cateId: " + result.cateId);
 					console.log("result.pdt.optVal: " + result.pdt.optVal);
 					console.log("result.pdt.optName: " + result.pdt.optName);
 					
 					// 조회한 상품의 값을 입력
-					$("#product_img").prop("src", result.pContent);	
-					
-					$("#pFilePath").prop("value", result.pContent);
+					$("#product_img").prop("src", result.productImgName);						
+					$("#pFilePath").prop("value", result.productImgName);
+					$("#pContentPath").prop("value", result.pContent);
 					$("#prod_brand").val(result.pBrand);
 					$("#prod_name").val(result.pName);
 					$("#prod_price").val(result.pPrice);					
@@ -406,6 +402,7 @@ input[type="text"], select {
 					$("#opt_val").val(result.pdt.optVal);		
 					$("#pSeq").val(result.pdt.pSeq);
 					
+					console.log("pFilePath: " + $("#pFilePath").val());
 					if(result.cateId == 1){
 						$("#category").val("1").prop("selected", true);	
 					}
@@ -485,6 +482,7 @@ input[type="text"], select {
 			console.log("추가가격: " + $("#opt_price").val());
 			
 			var str = $("#category").val();
+			
 			if(msg) {
 				console.log("category: " + str);
 				$("#edfrm").prop("action", "adProductEdit.do");
@@ -554,7 +552,7 @@ input[type="text"], select {
 					success : function(result) {
 						if (result > 0) {
 							alert("상품이 성공적으로 등록되었습니다.");
-							location.href = "adProductEdit";
+							location.href = "admain";
 						} else {
 							console.log(result);
 							alert("상품 등록에 실패했습니다. 다시 입력해주세요");

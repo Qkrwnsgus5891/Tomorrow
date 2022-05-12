@@ -11,15 +11,16 @@ import kh.semi.tomorrow.product.model.service.ProductService;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
 
 /**
- * Servlet implementation class ProductSelectServlet
+ * Servlet implementation class ProductDetailImgServlet
  */
-@WebServlet("/productDetail")
-public class ProductSelectServlet extends HttpServlet {
+@WebServlet("/ProductDetailImgServlet")
+public class ProductDetailImgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSelectServlet() {
+    public ProductDetailImgServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,28 +31,22 @@ public class ProductSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pNoStr = request.getParameter("p_no");
 		int pNo = 0;
+		String proImgNoStr = request.getParameter("product_img_no");
+		int productImgNo = 0;
+		
 		try {
 			pNo = Integer.parseInt(pNoStr);
+			productImgNo = Integer.parseInt(proImgNoStr);
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
-		if(pNo < 1 ) {
-			//오류 페이지로 이동. 또는 boardlist로 이동
-			return;
-		} else {
-			
-//		ProductVo result = new ProductService().selectProduct(pNo);
-		ProductVo result = new ProductService().searchProduct(pNo);
-		System.out.println(result);
 		
-		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));
-		System.out.println("ProductSelectServlet reuslt:\t" + result + "\n");
 		
+		ProductVo result = new ProductService().selectProduct(pNo, productImgNo);
 		request.setAttribute("selectProduct", result);
 		
 		
 		request.getRequestDispatcher("WEB-INF/view/product/productDetail.jsp").forward(request, response);
-		}
 	}
 
 	/**
