@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import kh.semi.tomorrow.common.JdbcTemp;
 import kh.semi.tomorrow.order.model.vo.OrderDetailVo;
 import kh.semi.tomorrow.order.model.vo.OrderVo;
+import kh.semi.tomorrow.product.model.vo.ProductVo;
+
 import static kh.semi.tomorrow.common.JdbcTemp.close;
 
 public class OrderDao {
@@ -81,7 +83,7 @@ public class OrderDao {
 //					+ "					join product t3 using (p_no)"
 //					+ "                    left outer join PRODUCT_IMG t4 using (p_no)";
 		String sql_order = "select * from orders where m_id=?";
-		String sql_order_detail = "select * from order_detail where o_no=?";
+		String sql_order_detail = "select * from (select * from order_detail where o_no=?) t1 join product t2 using (p_no)";
 		try {
 			pstmt = conn.prepareStatement(sql_order);
 			pstmt.setString(1, mId);			
@@ -115,13 +117,18 @@ public class OrderDao {
 					odvo.setoDcnt(rs.getInt("O_DETAIL_CNT"));
 					pCnt += odvo.getoDcnt(); // 1번구매시 총상품개수 - 상품개수 누적
 					System.out.println("구매목록dao odvo :"+ odvo);
+					
+					ProductVo pvo = new ProductVo();
+					pvo.setpBrand(rs.getString("p_Brand"));
+					pvo.setpName(rs.getString("p_Name"));
+					// TODO :윤성훈 추가 컬럼들 더 채우기	
+					odvo.setProductVo(pvo);
+								
+					
 					odvolist.add(odvo);
 				}
 				ovo.setpCnt(pCnt); // 1번구매시 총상품개수  
 				ovo.setOdVolist(odvolist);
-				
-				
-				
 				
 			}
 			

@@ -1,7 +1,4 @@
-<%@page import="kh.semi.tomorrow.order.model.vo.OrderVo"%>
-<%@page import="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo"%>
-<%@page import="kh.semi.tomorrow.product.model.vo.ProductVo"%>
-<%@page import="kh.semi.tomorrow.product.model.vo.ProductDetailVo"%>
+
 <%@page import="java.util.ArrayList"%>
 <link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">    
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -139,10 +136,10 @@
                     <div style="display: flex; padding: 10px; width: 95%; ">
                         <div id="sumNailProduct" style="background-color: rgb(116, 116, 116);
                         width: 100px;height: 100px;"></div>
-                        <div>&nbsp;&nbsp;&nbsp;주문번호:<a href="storyread?bno=${ovo.oNo }">${ovo.oNo }</a>
-                        <br>&nbsp;&nbsp;&nbsp;주문자: ${ovo.oName }
-                        <br>&nbsp;&nbsp;&nbsp;주문날짜:${ovo.oDate } 
-                        <br>&nbsp;&nbsp;&nbsp;주문갯수:${ovo.pCnt }</div>
+                        <div style="padding-left= 10px;">주문번호:<a href="storyread?bno=${ovo.oNo }">${ovo.oNo }</a>
+                        <br>주문자: ${ovo.oName }
+                        <br>주문날짜:${ovo.oDate } 
+                        <br>주문갯수:${ovo.pCnt }</div>
                     </div>
                     <div style="width: 95%;"><h4 style="text-align: end;">금액  ${ovo.oTotalPrice }원</h4></div>                
                 </div>
@@ -151,11 +148,7 @@
                 
 	 </div>
             
-            
-            
-            
-            
-            
+  
              <!-- 나의 스토리 목록 -->
             <h3>나의 스토리</h3>   
             <div id="recentOrderWrap" style="width: 95%;overflow: auto;">
@@ -168,9 +161,7 @@
           			<td width="120">작성일</td>
           			<td width="50">조회수</td>          
         		</tr>    
-<%
-	ArrayList<StoryBoardVo> boardlist = (ArrayList<StoryBoardVo>)request.getAttribute("boardlist");
-%>        
+
 <c:forEach items="${boardlist }" var="vo">        
         		<tr>
           			<td><a href="storyread?bno=${vo.bNo }">${vo.bNo }</a></td>

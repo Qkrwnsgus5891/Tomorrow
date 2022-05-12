@@ -52,6 +52,10 @@ public class MemberInfoReadServlet extends HttpServlet {
 		System.out.println("orderVoList:"+orderVoList);
 		request.setAttribute("orderVoList", orderVoList);
 		
+		//회원이름
+		
+//		MemberVo memberVo = new MemberService().myName(mId);
+
 		
 		// 내 스토리 목록
 		int currentPage = 1;		

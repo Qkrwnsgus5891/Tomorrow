@@ -3,7 +3,7 @@ package kh.semi.tomorrow.cart.model.vo;
 public class CartVo {
 	private int cNo;
 	private String mId;
-	private int pSeq;
+	private String pSeq;
 	private int pNo;
 	private int cCnt;
 	private String cNy;
@@ -12,8 +12,8 @@ public class CartVo {
 	private int optNo;
 	private String optVal;
 	private String optPrice;
-	
-	public CartVo(int cNo, String mId, int pSeq, int pNo, int cCnt, String cNy, String pName, String pBrand, int optNo,
+
+	public CartVo(int cNo, String mId, String pSeq, int pNo, int cCnt, String cNy, String pName, String pBrand, int optNo,
 			String optVal, String optPrice) {
 		this.cNo = cNo;
 		this.mId = mId;
@@ -27,6 +27,8 @@ public class CartVo {
 		this.optVal = optVal;
 		this.optPrice = optPrice;
 	}
+
+	public CartVo() {}
 
 	@Override
 	public String toString() {
@@ -51,11 +53,11 @@ public class CartVo {
 		this.mId = mId;
 	}
 
-	public int getpSeq() {
+	public String getpSeq() {
 		return pSeq;
 	}
 
-	public void setpSeq(int pSeq) {
+	public void setpSeq(String pSeq) {
 		this.pSeq = pSeq;
 	}
 
@@ -121,7 +123,6 @@ public class CartVo {
 
 	public void setOptPrice(String optPrice) {
 		this.optPrice = optPrice;
-	}	
-	
-	
+	}
+
 }

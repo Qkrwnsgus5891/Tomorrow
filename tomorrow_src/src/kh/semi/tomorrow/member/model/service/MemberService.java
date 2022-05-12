@@ -24,6 +24,15 @@ public class MemberService {
 		return vo;
 	}
 	
+//	public MemberVo myName(String mId) {
+//		Connection conn = null;
+//		conn = JdbcTemp.getConnection();
+//		MemberVo vo = dao.myName(conn, mId);
+//		JdbcTemp.close(conn);	
+//		return vo;
+//	}
+	
+	
 
 	//보드리스트
 	public ArrayList<StoryBoardVo> myBoardList(int startNum, int endNum, String mId) {
@@ -42,12 +51,12 @@ public class MemberService {
 	}	
 
 	
-	//장바구니 목록
+	//구매 목록
 	public ArrayList<ProductVo> myProduct(String mId) {
 		Connection conn = JdbcTemp.getConnection();
-		ArrayList<ProductVo> ProductVo = dao.myProduct(conn, mId);
+		ArrayList<ProductVo> productVo = dao.myProduct(conn, mId);
 		JdbcTemp.close(conn);
-		return ProductVo;
+		return productVo;
 	}
 	
 	

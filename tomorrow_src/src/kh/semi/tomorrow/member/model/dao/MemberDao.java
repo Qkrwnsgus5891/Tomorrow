@@ -64,6 +64,8 @@ public class MemberDao {
 	}
 	
 	
+
+	
 	
 	//내가쓴 게시글 조회
 	public ArrayList<StoryBoardVo> myBoardList(Connection conn, int startNum, int endNum, String mId) {
@@ -139,7 +141,7 @@ public class MemberDao {
 	
 	//구매목록보기
 	public ArrayList<ProductVo> myProduct(Connection conn, String mId) {
-		ArrayList<ProductVo> ProductVo = null;
+		ArrayList<ProductVo> productVo = null;
 		
 		String sql = "select p_no,p_name,p_brand,p_price,cate_id,"
 				+ "cate_name,opt_no,opt_val,opt_price,p_seq "
@@ -153,7 +155,7 @@ public class MemberDao {
 			pstmt.setString(1, mId);			
 			rs = pstmt.executeQuery();
 			
-			ProductVo = new ArrayList<ProductVo>();
+			productVo = new ArrayList<ProductVo>();
 		
 			while(rs.next()) {
 				ProductVo vo = new ProductVo();
@@ -168,7 +170,7 @@ public class MemberDao {
 				vo.setOptPrice(rs.getInt("opt_price"));
 				vo.setpSeq(rs.getInt("p_seq"));
 		
-				ProductVo.add(vo);
+				productVo.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -177,7 +179,7 @@ public class MemberDao {
 			JdbcTemp.close(pstmt);
 		}
 				
-		return ProductVo;
+		return productVo;
 	}
 
 	

@@ -1,3 +1,4 @@
+<%@page import="kh.semi.tomorrow.cart.model.vo.CartVo"%>
 <%@page import="java.util.ArrayList"%>
 <link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">    
 <%@page import="kh.semi.tomorrow.product.model.vo.ProductVo"%>
@@ -37,6 +38,13 @@
 <style>
 * {text-decoration: none;}
 </style>
+<style>
+#all_revoke:hover { color:blue;
+}
+</style>
+
+
+
 
 </head>
 <body>
@@ -46,37 +54,25 @@
 			style="width: 60%; padding: 100px 50px 100px 50px; min-width: 350px;">
 
 			<div id="allSelect" style="width: 100%; display: flex;">
-				<span style="width: 80%;"><input type="checkbox"
-					id="all_check"> 모두 선택</span> <span style="width: 20%;"><input
-					type="checkbox" id="rev_check"> 선택 해제</span>
+				<span style="width: 85%; margin-left:15px"><input type="checkbox"
+					id="all_check"> 모두 선택</span> 
+					<span id="all_revoke" style="width: 15%; cursor:pointer;"> 선택 해제</span>
 			</div>
 			<div class="orderitems"
-				style="border: 1px solid black;border-radius:15px ; width: 100%; margin-top: 20px; padding: 10px 0;">
-				<div
-					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
-
-				</div>
- <%
-	ArrayList<ProductVo> ProductVo = (ArrayList<ProductVo>)request.getAttribute("ProductVo");
-%>    
-<table>
-<c:forEach items="${ProductVo }" var="vo">        
-        		<tr>
-          			<td>${vo.pNo }</td>
-          			<td>${vo.pPrice }</td>
-          			<td>${vo.pBrand }</td>
-          			<td>${vo.pName }</td>
-        		</tr>
-</c:forEach>      
-     </table>           
-				<div
-					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
-
-				</div>
-				<div
-					style="width: 90%; height: 150px; border: 1px solid black; margin: 15px auto 0px;">
-
-				</div>
+				style="border: 0px solid black;border-radius:15px ; width: 100%;  padding: 10px;">
+				
+ 
+<c:forEach items="${cartVoList}" var="vo">        
+                    <div
+					style="width: 90%;padding:20px;;border-radius:15px; text-align: right;
+					border: 1px solid black; margin: 10px;">			  
+                        상품번호:${vo.pNo }
+                        <br>주문갯수:${vo.cCnt} 
+                        <br>주문옵션:${vo.pSeq} 
+                     </div>         
+</c:forEach>   
+              
+	
 			</div>
 		</div>
 

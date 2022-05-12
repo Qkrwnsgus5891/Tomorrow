@@ -417,7 +417,21 @@ li {
 				<br>
 
 				<div id="orderProducts"
-					style="height: 200px; background-color: antiquewhite;"></div>
+					style="height: 200px; background-color: antiquewhite;">
+				
+<c:forEach items="${cartVoList}" var="vo">        
+
+                        <div>
+
+                        <br>상품번호: ${vo.pNo }
+                        <br>주문날짜:${vo.mId} 
+                        <br>주문갯수:${vo.cCnt} 
+                        <br>주문갯수:${vo.cNy }
+                        </div>         
+</c:forEach>  
+              
+		
+					</div>
 				<br>
 				<br>
 				<br>
