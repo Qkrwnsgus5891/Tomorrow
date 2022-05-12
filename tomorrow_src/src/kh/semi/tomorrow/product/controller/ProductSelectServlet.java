@@ -40,8 +40,8 @@ public class ProductSelectServlet extends HttpServlet {
 			return;
 		} else {
 			
-//		ProductVo result = new ProductService().selectProduct(pNo);
-		ProductVo result = new ProductService().searchProduct(pNo);
+		ProductVo result = new ProductService().selectProduct(pNo);
+		
 		System.out.println(result);
 		
 		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));

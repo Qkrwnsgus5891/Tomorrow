@@ -91,7 +91,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 		String pBrand = multi.getParameter("prod_brand");
 		String pName = multi.getParameter("prod_name");
 		String optVal = multi.getParameter("opt_val");
-		String pContent = multi.getParameter("pContent");   // to_yjk
+		String pContent = multi.getParameter("pContent");   
 		String orgFileName = multi.getOriginalFileName("upload");  // 전송되기 전 client에서 파일이름		
 		String type = multi.getContentType("upload"); // 전송된 파일의 타입 (.png. jpg)
 		String upload = multi.getFilesystemName("upload");  // 서버에 저장된 파일이름
