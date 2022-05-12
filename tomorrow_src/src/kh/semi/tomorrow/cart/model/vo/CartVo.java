@@ -12,6 +12,9 @@ public class CartVo {
 	private int optNo;
 	private String optVal;
 	private String optPrice;
+	
+
+	private String productImageName;
 
 	public CartVo(int cNo, String mId, String pSeq, int pNo, int cCnt, String cNy, String pName, String pBrand, int optNo,
 			String optVal, String optPrice) {
@@ -28,14 +31,16 @@ public class CartVo {
 		this.optPrice = optPrice;
 	}
 
-	public CartVo() {}
-
 	@Override
 	public String toString() {
 		return "CartVo [cNo=" + cNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pNo=" + pNo + ", cCnt=" + cCnt + ", cNy="
 				+ cNy + ", pName=" + pName + ", pBrand=" + pBrand + ", optNo=" + optNo + ", optVal=" + optVal
-				+ ", optPrice=" + optPrice + "]";
+				+ ", optPrice=" + optPrice + ", productImageName=" + productImageName + "]";
 	}
+
+	public CartVo() {}
+
+
 
 	public int getcNo() {
 		return cNo;
@@ -125,4 +130,11 @@ public class CartVo {
 		this.optPrice = optPrice;
 	}
 
+	public String getProductImageName() {
+		return productImageName;
+	}
+	
+	public void setProductImageName(String productImageName) {
+		this.productImageName = productImageName;
+	}
 }

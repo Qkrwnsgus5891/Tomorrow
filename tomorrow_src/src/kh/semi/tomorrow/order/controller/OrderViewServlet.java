@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.cart.model.service.CartService;
 import kh.semi.tomorrow.cart.model.vo.CartVo;
+import kh.semi.tomorrow.member.model.service.MemberService;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 
 /**
@@ -39,6 +40,13 @@ public class OrderViewServlet extends HttpServlet {
 					mId = ssvo.getmId();
 				}
 		
+		//회원정보
+		MemberVo memberVo = new MemberService().myName(mId);
+		System.out.println("memberVo:"+ memberVo);
+		request.setAttribute("memberVo", memberVo);
+						
+				
+		//장바구니 목록
 		ArrayList<CartVo> cartVoList = new CartService().myCart(mId);
 		System.out.println("cartVoList:"+ cartVoList);
 		request.setAttribute("cartVoList", cartVoList);

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import kh.semi.tomorrow.cart.model.vo.CartVo;
 import kh.semi.tomorrow.common.JdbcTemp;
+import kh.semi.tomorrow.order.model.vo.OrderDetailVo;
+import kh.semi.tomorrow.product.model.vo.ProductVo;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 public class CartDao {
@@ -53,8 +55,11 @@ public class CartDao {
 	public ArrayList<CartVo> myCart(Connection conn, String mId) {
 		ArrayList<CartVo> cartVoList = null;
 
-		String sql = "select c_no,m_id,p_no,p_seq,c_cnt,c_ny from cart where m_id = ?";
-
+		String sql = "select * from cart "
+				+ "left outer join product using(p_no) "
+				+ "left outer join product_img using(p_no) where m_id = ?";
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
@@ -71,9 +76,14 @@ public class CartDao {
 				vo.setpSeq(rs.getString("p_seq"));
 				vo.setcCnt(rs.getInt("c_cnt"));
 				vo.setcNy(rs.getString("c_ny"));
+//				vo.setProductImageName(rs.getString("product_image_name"));
+				vo.setpBrand(rs.getString("p_brand"));
+				vo.setpName(rs.getString("p_name"));
+				
 
 				cartVoList.add(vo);
 			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

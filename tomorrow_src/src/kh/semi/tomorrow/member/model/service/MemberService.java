@@ -24,13 +24,15 @@ public class MemberService {
 		return vo;
 	}
 	
-//	public MemberVo myName(String mId) {
-//		Connection conn = null;
-//		conn = JdbcTemp.getConnection();
-//		MemberVo vo = dao.myName(conn, mId);
-//		JdbcTemp.close(conn);	
-//		return vo;
-//	}
+	
+	//회원이름
+	public MemberVo myName(String mId) {
+		Connection conn = null;
+		conn = JdbcTemp.getConnection();
+		MemberVo vo = dao.myName(conn, mId);
+		JdbcTemp.close(conn);	
+		return vo;
+	}
 	
 	
 

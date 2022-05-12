@@ -184,7 +184,43 @@ public class MemberDao {
 
 	
 
+	//회원정보
 	
+	public MemberVo myName(Connection conn, String mId) {
+		MemberVo vo= null;
+		String sql = "select * from member where mId = ?";
+		
+			try {
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, mId);
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					vo = new MemberVo(
+						rs.getString("M_ID"),
+						rs.getString("M_PW"),
+						rs.getString("M_NAME"),
+						rs.getString("M_NICKNAME"),
+						rs.getString("M_PHONE"),
+						rs.getInt("M_GRADE"),
+						rs.getString("M_NY"),
+						rs.getTimestamp("M_DATE"),
+						rs.getString("M_BIRTH"),
+						rs.getString("M_INTRO")
+					);	
+				}					
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+
+		return vo;
+	}
 	
 	
 	

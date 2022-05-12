@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.cart.model.service.CartService;
 import kh.semi.tomorrow.cart.model.vo.CartVo;
+import kh.semi.tomorrow.member.model.service.MemberService;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 
 /**
@@ -36,7 +37,8 @@ public class CartListServlet extends HttpServlet {
 		} else { // 로그인한 상태라면 write page 진입
 			mId = ssvo.getmId();
 		}
-
+		
+		//장바구니목록
 		ArrayList<CartVo> cartVoList = new CartService().myCart(mId);
 		System.out.println("cartVoList:" + cartVoList);
 		request.setAttribute("cartVoList", cartVoList);

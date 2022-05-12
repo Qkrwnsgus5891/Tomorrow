@@ -55,7 +55,7 @@ public class MemberInfoReadServlet extends HttpServlet {
 		//회원이름
 		
 //		MemberVo memberVo = new MemberService().myName(mId);
-
+//		request.setAttribute("memberVo", memberVo);
 		
 		// 내 스토리 목록
 		int currentPage = 1;		
