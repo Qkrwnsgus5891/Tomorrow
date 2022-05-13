@@ -5,7 +5,6 @@
 	rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/resources/css/header.css"
 	rel="stylesheet" type="text/css">
-<link href="./css/reset.css" rel="stylesheet">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -130,6 +129,13 @@
 }
 </style>
 <style>
+.up img{
+	width: 70px;
+	position : fixed;
+	bottom: 20px; 
+	right: 200px;
+	z-index: 999;
+}
 #productInfoBtns {
 	clear: both;
 	padding: 3px 0;
@@ -139,8 +145,10 @@
 	text-align: center;
 }
 
-#productInfoBtns a {
+#productInfoBtns button {
 	color: black;
+	background-color: rgb(217, 209, 209);
+	border : none;
 	padding: 0 30px;
 	font-size: 20px;
 	font-weight: 700;
@@ -158,17 +166,19 @@
 	font-weight: 700;
 }
 
-#ship {
+#ship, #refund {
 	margin: 50px 25%;
 	width: 60%;
 	font-size : 20px;
 	font-weight: 600;
+	line-height: 50px;
 	margin-bottom: 20px;
 }
 
 #shipInfo {
 	margin: 10px 25%;
 	width: 60%;
+	line-height: 30px;
 }
 </style>
 <style>
@@ -246,7 +256,7 @@
 </head>
 <body>
 	<div class="main_wrap">
-		<div class="wrap_header">
+		<div class="wrap_header" id="top">
 			<jsp:include page="../template_header.jsp" />
 		</div>
 		<section>
@@ -332,9 +342,10 @@
 		</section>
 
 		<section id="productInfoBtns">
-			<a href="#productInform">상품정보</a> 
-			<a href="#story">리뷰</a> 
-			<a href="#ship">배송/환불</a>
+			<button type="button" onclick="location.replace('#productInform')">상품정보</button>
+			<button type="button" onclick="location.replace('#story')">리뷰</button>
+			<button type="button" onclick="location.replace('#ship')">배송/환불</button>
+			
 		</section>
 
 		<section id="productInform">
@@ -365,8 +376,12 @@
 						</c:forEach>
 					</div>
 			</div>
-			<p id="ship">배송관련 안내</p>
+			
+			
 			<table id="shipInfo">
+				<tr>
+					<td id="ship">배송관련 안내</td>
+				</tr>
 				<tr>
 					<td>배송</td>
 					<td>일반택배</td>
@@ -384,13 +399,34 @@
 					<td>배송불가 지역</td>
 					<td>배송불가 지역이 없습니다.</td>
 				</tr>
+				<tr>
+					<td id="refund">교환/환불 안내</td>
+				</tr>
+				<tr>
+					<td>반품 배송비</td>
+					<td>5,000원 (최초 배송비가 무료인 경우 10,000원 부과)</td>
+				</tr>
+				<tr>
+					<td>교환배송비</td>
+					<td>10,000원</td>
+				</tr>
+
+				<tr>
+					<td>보내실 곳</td>
+					<td>서울특별시 중구 남대문로 120 대일빌딩 2F, 3F</td>
+				</tr>
+				
 			</table>
 
+		</section>
+		<section class="up">
+			<img src="resources/images/product_up.png" onclick="location.replace('#top')">
 		</section>
 		<div class="wrap_footer">
 			<jsp:include page="../template_footer.jsp" />
 		</div>
 	</div>
+	
 
 </body>
 </html>

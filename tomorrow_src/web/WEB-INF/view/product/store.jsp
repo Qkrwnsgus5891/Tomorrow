@@ -34,10 +34,13 @@
 	width: 100%
 }
 
+.cate_buttons button:hover {
+	color: #35c5f0;
+}
+
 .cate_buttons p {
 	font-size: 15px;
 }
-
 
 .pcontent {
 	width: 200px;
@@ -50,23 +53,26 @@
 	margin: 20px;
 }
 
-.product_wrapper{
+.product_wrapper {
 	display: flex;
 	flex-wrap: wrap;
 }
-.pname{
-	padding:10px 20px 10px 0;
+
+.pname {
+	padding: 10px 20px 10px 0;
 	font-size: 17px;
 	font-weight: 500;
 }
-.pbrand{
+
+.pbrand {
 	font-size: 13px;
 	font-weight: 900;
 	color: #656e75;
 }
-.pprice{
+
+.pprice {
 	float: right;
-	padding-right:20px;
+	padding-right: 20px;
 	color: black;
 	font-size: 20px;
 	font-weight: 900;
@@ -152,7 +158,6 @@ keyframes fade {
 to {
 	opacity: 1
 }
-
 </style>
 <script>
 	function clickproDetail(thisEle) {
@@ -165,6 +170,7 @@ to {
 		frmEle.submit();
 	};
 </script>
+
 </head>
 <body>
 	<div class="main_wrap">
@@ -189,15 +195,9 @@ to {
 					<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a
 						class="next" onclick="plusSlides(1)">&#10095;</a>
 				</div>
-				<br>
-				<div style="text-align: center">
-					<span class="dot" onclick="currentSlide(1)"></span> <span
-						class="dot" onclick="currentSlide(2)"></span> <span class="dot"
-						onclick="currentSlide(3)"></span>
-				</div>
+			
 			</section>
 
-			
 
 			<section class="content_hit">
 				<p>인기상품</p>
@@ -284,6 +284,24 @@ to {
 			dots[slideIndex - 1].className += " active";
 		}
 	</script>
+	<script>
+	var myIndex = 0;
+	carousel();
+
+	function carousel() {
+		var i;
+		var x = document.getElementsByClassName("bannerSlides");
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+		myIndex++;
+		if (myIndex > x.length) {
+			myIndex = 1
+		}
+		x[myIndex - 1].style.display = "block";
+		setTimeout(carousel, 2500); 
+	}
+</script>
 
 </body>
 </html>

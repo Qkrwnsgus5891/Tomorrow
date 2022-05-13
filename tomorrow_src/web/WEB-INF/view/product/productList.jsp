@@ -58,6 +58,9 @@ nav button {
 	border: none;
 	background-color: white;
 }
+nav button:hover{
+	color: #35c5f0;
+}
 </style>
 <style>
 
