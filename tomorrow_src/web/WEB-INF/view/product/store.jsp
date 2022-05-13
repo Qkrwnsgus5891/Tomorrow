@@ -210,7 +210,7 @@ to {
 							<input type="hidden" name="p_no" value="${vo.pNo }">
 							<div class="proDetail" onclick="clickproDetail(this);">
 								<div>
-									<img src="${vo.pContent }" class="pcontent">
+									<img src="${vo.productImgName }" class="pcontent">
 								</div>
 								<div class="pname">${vo.pName }</div>
 								<div class="pbrand">${vo.pBrand }</div>

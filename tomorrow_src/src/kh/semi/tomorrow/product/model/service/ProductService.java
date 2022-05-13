@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import kh.semi.tomorrow.product.model.dao.ProductDao;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
+import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 
 import static kh.semi.tomorrow.common.JdbcTemp.*;
 
@@ -55,6 +56,20 @@ public class ProductService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<StoryBoardVo> listStoryBoard(int pNo) {
+		Connection conn = null;
+		ArrayList<StoryBoardVo> result = null;
+		
+		conn = getConnection();
+		result = dao.listStoryBoard(conn, pNo);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+
 	
 
 }

@@ -26,7 +26,7 @@
 #detail_img {
 	padding: 0 10px;
 	width: 45%;
-	height: 500px;
+	height: 650px;
 	float: left;
 }
 
@@ -34,17 +34,17 @@
 	width: 100%;
 	height: 100%;
 	border-radius: 6px;
-	
 }
 
 #detailcontent {
 	padding: 0 10px;
 	width: 45%;
-	height: 427px;
+	height: 700px;
 	float: left;
 }
 
 .pbrand {
+	margin-top : 30px;
 	font-size: 15px;
 	color: #656e75;
 	font-weight: 700;
@@ -54,35 +54,37 @@
 	font-size: 22px;
 	line-height: 33px;
 	min-height: 43px;
-	margin: 10 92px 0 0;
+	margin: 30px 92px 0 0;
 }
 
 .pprice {
 	color: #35c5f0;
 	font-size: 30px;
 	font-weight: 900;
-	margin: 10PX 0;
+	margin: 30px 0;
 }
 
 .optName {
 	font-size: 14px;
 	line-height: 21px;
 	color: #828c94;
-	margin: 10PX 0 0;
+	margin: 30px 0 0;
 }
 
 .optName {
+	margin-top : 15px;
 	width: 100px;
 }
 
 #price {
+	margin-top : 15px;
 	font-size: 30px;
 	font-weight: 700;
 	color: #000;
 }
 
 .pp {
-	margin: 20px 0;
+	margin: 30px 0;
 	text-align: right;
 	flex: 0 0 auto;
 	font-weight: 700;
@@ -151,11 +153,94 @@
 }
 
 #information {
-	margin: 10px 30%;
+	margin: 10px 25%;
+	width: 60%;
+	font-weight: 700;
 }
 
-#ship, #shipInfo {
-	margin: 10px 30%;
+#ship {
+	margin: 50px 25%;
+	width: 60%;
+	font-size : 20px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+#shipInfo {
+	margin: 10px 25%;
+	width: 60%;
+}
+</style>
+<style>
+#story{
+	font-size : 20px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+.wrap_content {
+	margin: 10px 25%;
+	position: relative;
+	width: 60%;
+}
+
+.container_content {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.story_one {
+	position: relative;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 40px;
+	box-sizing: border-box;
+	flex: 0 0 30%;
+	width: 100%;
+}
+
+.story_one_header {
+	margin: 0 0 15px;
+}
+
+.story_writer {
+	font-size: 15px;
+	line-height: 19px;
+	font-weight: 600;
+}
+
+.story_image {
+	width: 100%;
+}
+
+.wrap_story_thumbnail {
+	padding-bottom: 100%;
+	border-radius: 6px;
+	position: relative;
+	overflow: hidden;
+}
+
+.story_thumbnail {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	transform: translate(-50%, -50%);
+	transition: transform .2s;
+}
+
+.story_bcnt {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	font-size: 13px;
+	color: #fff;
+	z-index: 10;
+}
+
+.story_title {
+	margin: 15px 0 0;
+	font-size: 15px;
+	line-height: 22px;
 }
 </style>
 </head>
@@ -168,10 +253,10 @@
 			<section id="productdetail">
 				<c:set var="vo" value="${selectProduct }"></c:set>
 				<section id="detail_img">
-					<img src="${vo.pContent }">
+					<img src="${vo.productImgName }">
 				</section>
 				<section id="detailcontent">
-					<form>
+					<form class="frmInf">
 						<div class="pbrand">${vo.pBrand }</div>
 						<div class="pname">${vo.pName }</div>
 						<div class="pprice">${vo.pPrice }<a>(원)</a>
@@ -202,6 +287,7 @@
 										value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
 									<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
 								</c:forEach>
+								
 
 								</select>
 							</div>
@@ -209,8 +295,8 @@
 						<p class="pp">
 							<span>주문금액 </span><span id="price"></span><span>(원)</span>
 						</p>
-						<button type="button" class="cartBtn">장바구니</button>
-						<button type="button" class="orderBtn">바로구매</button>
+						<button type="button" class="cartBtn" onclick="location.href='cart/enroll?pNo=${vo.pNo}'">장바구니</button>
+						<button type="button" class="orderBtn" onclick="location.href='order?pNo=${vo.pNo}'">바로구매</button>
 					</form>
 				</section>
 			</section>
@@ -246,29 +332,37 @@
 		</section>
 
 		<section id="productInfoBtns">
-			<a href="#productInform">상품정보</a> <a href="#storylist">리뷰</a> <a
+			<a href="#productInform">상품정보</a> <a href="#story">리뷰</a> <a
 				href="#ship">배송/환불</a>
 		</section>
 
 		<section id="productInform">
-			<img src="./upload/images/sample.jpg" id="information">
-			<div id="storylist">
-				<table>
-					<tr>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
-						<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-							sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-							ullamco laboris nisi ut aliquip ex ea commodo consequat.</td>
-					</tr>
-				</table>
+			<div>
+				<img src="${vo.pContent }" id="information">
+			</div>
+			<div class="wrap_content">
+				<section>
+					<p id="story">리뷰 (오늘의 스토리)</p>
+					<div class="container_content">
+						<c:forEach items="${listStoryBoard }" var="voi">
+							<div class="story_one">
+								<div class="story_one_header">
+									<div class="story_writer">${voi.bWriter }</div>
+									<div class="story_writer_intro">${voi.mIntro }</div>
+								</div>
+								<div class="story_image">
+									<div class="wrap_story_thumbnail">
+										<a class="story_link" href="storyread?bno=${voi.bNo }"> 
+										<img class="story_thumbnail"
+											src="${pageContext.request.contextPath }/${voi.bImgPath }">
+											<span class="story_bcnt"> 조회수 ${voi.bCnt } </span>
+										</a>
+									</div>
+								</div>
+								<div class="story_title">${voi.bTitle }</div>
+							</div>
+						</c:forEach>
+					</div>
 			</div>
 			<p id="ship">배송관련 안내</p>
 			<table id="shipInfo">

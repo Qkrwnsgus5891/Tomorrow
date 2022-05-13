@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="<%=request.getContextPath()%>/resources/css/header.css"
 	rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -308,10 +309,11 @@ li {
 </head>
 <body>
 	<div><jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include></div>
-
-		<div id="cartWrap" style="display: flex;">
+<c:set var="vo" value="${memberVo }"></c:set>
+<c:out value="${vo.mName }"/>
+		<div id="cartWrap" style="display: flex; margin:0 10% 0 10%">
 			<div id="orderWrap"
-				style="width: 60%; padding: 50px 0 200px 200px; min-width: 550px; height: 1000px;">
+				style="width: 60%; padding: 100px 0 200px 50px; min-width: 550px; height: 1000px;">
 
 				<h2>주문/결제</h2>
 				<h4>주문자</h4>
@@ -416,8 +418,28 @@ li {
 				<br>
 				<br>
 
-				<div id="orderProducts"
-					style="height: 200px; background-color: antiquewhite;"></div>
+				<div id="orderProducts">
+				
+			<c:forEach items="${cartVoList}" var="vo">
+			
+					<div
+						style="width: 80%; padding: 25px;; border-radius: 15px; text-align: right; border: 1px solid black; margin: 15px; display: flex;">
+						<div style="width: 50%;"><%-- <img src="${vo.productImgName }"> --%></div>
+						<div style="width: 50%; text-align: left; font-size: small;">
+							상품번호:${vo.pNo }
+							<br>주문갯수:${vo.cCnt}
+							<br>주문옵션:${vo.pSeq}
+							<p>상품이름:<span style="color:blue;"><b>${vo.pName} </b></span></p>
+							브랜드명:${vo.pBrand}
+							<%-- <br>브랜드명:${vo.pBrand} --%>
+						</div>
+					</div>
+				</c:forEach>
+              
+
+              
+		
+					</div>
 				<br>
 				<br>
 				<br>
@@ -525,7 +547,7 @@ li {
 			<div id="finalPriceWrap"
 				style="width: 40%; padding: 70px 100px 0 50px;">
 				<div
-					style="width: 400px; padding: 20px; border: 2px solid rgb(117, 117, 117);">
+					style="width: 400px; padding: 20px; border: 2px solid rgb(117, 117, 117);border-radius:15px ;">
 					<h3>결제금액</h3>
 					<div style="display: flex;">
 						<span style="width: 70%;"> 총 할인 금액</span> <span
@@ -573,6 +595,6 @@ li {
 			</div>
 		</div>
 
-	<div style="position: relative ; margin-top: 400px"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
+	<div style="position: relative ; margin-top: 1300px"><jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 </html>

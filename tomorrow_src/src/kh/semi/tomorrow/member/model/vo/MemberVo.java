@@ -115,6 +115,7 @@ public class MemberVo {
 				+ mPhone + ", mGrade=" + mGrade + ", mNy=" + mNy + ", mDate=" + mDate + ", mBrith=" + mBrith
 				+ ", mIntro=" + mIntro + "]";
 	}
+
 	
 	
 	

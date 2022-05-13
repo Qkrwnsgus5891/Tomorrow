@@ -59,7 +59,7 @@
     #category_group {
       position: absolute;      
       top: 100px;
-      left: 10%;
+      left: 4%;
     }
     .store_btn {
       width: 100px;
@@ -78,7 +78,7 @@
       /* border: 1px solid black; */
       position: absolute;
       top: 200px;
-      left: 10%;
+      left: 4%;
       font-size: 15px;
       font-weight: bold;
       width: 100px;
@@ -91,7 +91,7 @@
       width: 300px;
       height: 40px;
       top: 180px;
-      left: 83%;
+      left: 76%;
     }
 
     #prod_container {
@@ -102,7 +102,7 @@
       height: 500px;
 
       top: 22%;
-      left: 10%;      
+      left: 4%;      
     }
   </style>
 <body>
@@ -113,8 +113,8 @@
       <ul>
         <li><a href="admain">상품 관리</a></li>
         <li><a href="admain" style="font-size:16px">-상품 목록</a></li>
-        <li><a href="adProductEnroll" style="font-size:16px">-상품 등록</a></li>
-        <li><a href="adProductManage" style="font-size:16px">-상품 수정/삭제</a></li>
+   		<li><a href="adProductEnroll" style="font-size:16px">-상품 등록</a></li>
+    	<li><a href="adProductEdit.do" style="font-size:16px">-상품 수정/삭제</a></li>
         <li><a href="adMemberOrderList">주문 내역 조회</a></li>
         <li><a href="adMemberList">회원 관리</a></li>
         <li><a href="adArticleManage">게시물 관리</a></li>
@@ -163,7 +163,7 @@ function colorChangeHandler() {
  function productHandler() {
 	$("#prod_alt").click(function() {
 	    console.log("수정 클릭 후 상품 수정 페이지로 이동");
-	    location.href="adProductEdit";
+	    location.href="adProductEdit.do";
 	});
 
 	$("#prod_del").click(function() {

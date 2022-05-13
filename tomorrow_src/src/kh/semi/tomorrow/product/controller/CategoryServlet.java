@@ -71,7 +71,7 @@ public class CategoryServlet extends HttpServlet {
 		}
 
 		final int pageSize = 6; // 한페이지에 보여줄 행
-		final int pageBlock = 3; // 페이징에 나타날 페이지수
+		final int pageBlock = 5; // 페이징에 나타날 페이지수
 		int startPage = 0;
 		int endPage = 0;
 		int startRnum = 0;

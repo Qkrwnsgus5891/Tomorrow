@@ -1,12 +1,15 @@
 package kh.semi.tomorrow.order.model.vo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+
+
 
 public class OrderVo {
 	private int oNo;
 	private String mId;
-	private int pSeq;
-	private int pCnt;
+	private String pSeq;
+	private int pCnt;   // 1번구매시 총상품개수
 	private int pPrice;
 	private Timestamp oDate;
 	private int oTotalPrice;
@@ -18,7 +21,18 @@ public class OrderVo {
 	private String rePhone;
 	private String optVal;
 	
-	public OrderVo(int oNo, String mId, int pSeq, int pCnt, int pPrice, Timestamp oDate, int oTotalPrice, String oName,
+	private ArrayList<OrderDetailVo> odVolist ;
+	
+	public ArrayList<OrderDetailVo> getOdVolist() {
+		return odVolist;
+	}
+	public void setOdVolist(ArrayList<OrderDetailVo> odVolist) {
+		this.odVolist = odVolist;
+	}
+	
+	
+	public OrderVo() {}
+	public OrderVo(int oNo, String mId, String pSeq, int pCnt, int pPrice, Timestamp oDate, int oTotalPrice, String oName,
 			String eMail, String oPhone, String reName, String reAddress, String rePhone, String optVal) {
 		this.oNo = oNo;
 		this.mId = mId;
@@ -35,7 +49,15 @@ public class OrderVo {
 		this.rePhone = rePhone;
 		this.optVal = optVal;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "OrderVo [oNo=" + oNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pCnt=" + pCnt + ", pPrice=" + pPrice
+				+ ", oDate=" + oDate + ", oTotalPrice=" + oTotalPrice + ", oName=" + oName + ", eMail=" + eMail
+				+ ", oPhone=" + oPhone + ", reName=" + reName + ", reAddress=" + reAddress + ", rePhone=" + rePhone
+				+ ", optVal=" + optVal + "]";
+	}
+	
 	public int getoNo() {
 		return oNo;
 	}
@@ -52,11 +74,11 @@ public class OrderVo {
 		this.mId = mId;
 	}
 
-	public int getpSeq() {
+	public String getpSeq() {
 		return pSeq;
 	}
 
-	public void setpSeq(int pSeq) {
+	public void setpSeq(String pSeq) {
 		this.pSeq = pSeq;
 	}
 

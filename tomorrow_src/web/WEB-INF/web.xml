@@ -4,6 +4,15 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+  <servlet>
+  	<servlet-name>rootPath</servlet-name>
+  	<servlet-class>kh.semi.tomorrow.main.controller.MainController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>rootPath</servlet-name>
+  	<url-pattern>/main</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.css</url-pattern>
@@ -13,6 +22,9 @@
     <url-pattern>*.ico</url-pattern>
     <url-pattern>*.swf</url-pattern>
     <url-pattern>*.svg</url-pattern>
+    <url-pattern>*.JPG</url-pattern>
+    <url-pattern>*.PNG</url-pattern>
+    <url-pattern>*.html</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>EncodingFilter</filter-name>

@@ -6,7 +6,8 @@ public class ProductDetailVo {
 	private String optVal;
 	private int optPrice;
 	private int pSeq;
-	
+//	
+	private int pNo;
 	
 	
 	public ProductDetailVo() {
@@ -79,6 +80,13 @@ public class ProductDetailVo {
 		this.pSeq = pSeq;
 	}
 	
+	public int getpNo() {
+		return pNo;
+	}
+	
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
+	}
 	
 
 	

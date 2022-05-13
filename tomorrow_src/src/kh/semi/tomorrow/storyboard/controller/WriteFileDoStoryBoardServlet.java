@@ -45,7 +45,7 @@ public class WriteFileDoStoryBoardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doPost - enrollF.do");
 
-		String fileSavePath = "upload/storyMainImg";
+		String fileSavePath = "upload/images/story/detail";
 		String uploadPath = getServletContext().getRealPath(fileSavePath);
 		String rootPath = getServletContext().getRealPath("/");
 		

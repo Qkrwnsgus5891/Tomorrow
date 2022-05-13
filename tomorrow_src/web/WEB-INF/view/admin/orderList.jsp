@@ -1,7 +1,10 @@
+<%@page import="kh.semi.tomorrow.admin.model.vo.MemberOrderListVo"%>
+<%@page import="java.util.ArrayList"%>
 <link href="<%= request.getContextPath() %>/resources/css/reset.css" rel="stylesheet" type="text/css">
 <link href="<%= request.getContextPath() %>/resources/css/header.css" rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +18,7 @@
         // console.log("hover 실행");
         $(".admin_modal").show();
       });      
+      
       $(window).on("click", function() {
         // console.log("window 클릭");
         $(".admin_modal").hide();
@@ -26,19 +30,23 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&family=Nanum+Pen+Script&display=swap');
     table,  td, th{
-	    border-top: 1px solid black;            
+	  border-top: 1px solid black;            
       font-family: 'IBM Plex Sans KR', sans-serif;
       /* font-family: 'Nanum Pen Script', cursive; */
 	  }
+	td {
+		display: table-cell;
+		vertical-align:middle;
+	}	 
     #container {
      margin: 0 auto;
       width: 1300px;
-      height: 700px;
+      height: 100%;
     }
     #nav_menu {
       float: left;
       width: 20%;
-      height: 100%;
+      height: 850px;
       /* background-color: #ccc; */
     }
 
@@ -58,12 +66,12 @@
       float: right;
       position: relative;      
       width: 80%;
-      height: 100%;
+      height: 850px;
     }
 
     #order_info_content {      
       position: absolute;
-      top: 15%;      
+      top: 13%;      
       left: 10px;
       font-size: 16px;
       font-weight: bold;
@@ -77,13 +85,13 @@
 
     #order_list {                  
       position: absolute;  
-      top: 20%;
+      top: 18%;
       left: 10px;
       width: 900px;
           
       font-size: 13px;
       height: 25px;
-      line-height: 25px;
+      line-height: 25px;      
     }   
 
     #order_list tr th {      
@@ -92,13 +100,13 @@
 
     #order_list td:not(:first-of-type) {
       text-align: center;    
-      line-height: 2rem;      
+      line-height: 1rem;     
     }
 
     .order_box {
       /* border: 1px solid #ccc; */
       display: flex;
-      margin: 15px;      
+      margin: 15px 15px 5px 15px;      
       height: 90px;
     }
 
@@ -114,7 +122,7 @@
       flex-flow: row nowrap;
       width: 300px;      
     }
-
+	
     #brand{
       font-size: 12px;
     }   
@@ -126,7 +134,20 @@
       color: #ccc;
       font-size: 11px;
     } 
-
+	
+	#prev_next {    
+    	clear: both;  
+      	width: 800px;
+      	height: 100px;
+      	text-align: center; 
+      	margin-left: 350px;
+      	padding-top: 30px;       	
+    }
+    
+    #prev_next a {
+   		color: black;
+   		
+   	}
   </style>
 </head>
 <body>
@@ -147,51 +168,50 @@
     <section id="order_content">
       <p id="order_info_content">주문 내역 조회</p>                    
       <!-- <button type="button" id="total_order" style="width:70px; height:30px;">전체</button>        -->
-      <table id="order_list">
-        <thead>
+      <table id="order_list">        
         <tr>
           <th width="300">상품 정보</th>          
-          <th width="150">주문 번호(수량)</th>
           <th width="150">주문일자</th>
-          <th width="150">상품 금액</th>
+          <th width="150">주문 번호</th>
+          <th width="150">상품 금액(수량)</th>
           <th width="150">주문한 고객</th>
-         </tr>  
-        </thead>
-        <tbody>
-        <tr>
-          <td>
-            <div class="order_box">
-              <!-- 사진 배치 예시, 추후 img태그 사용 -->
-              <div class="sumnail">img</div>                          
-              <!-- <img src="resources/images/main_bg.jpg" alt="썸네일" class="sumnail"> -->
-              <ul class="order_info">
-                <li id="brand">브랜드명</li>
-                <li id="prod_name">상품명</li>
-                <li id="prod_opt">옵션명</li>
-              </ul>      
-            </div>
-          </td>
-          <td>                                    
-              0000000<br>
-              N개            
-          </td>
-          <td>2022.12.31</td>
-          <td>가격(원)</td>
-          <td>홍길동</td>
         </tr>
+<%
+	ArrayList<MemberOrderListVo> orderlist = (ArrayList<MemberOrderListVo>)request.getAttribute("orderlist");
+%>                
+<c:forEach items = "${orderlist }" var="vo"> 
         <tr>
           <td>
-            <div class="order_box">
-              <!-- 사진 배치 예시, 추후 img태그 사용 -->
-              <div class="sumnail">img</div>                          
-              <!-- <img src="resources/images/main_bg.jpg" alt="썸네일" class="sumnail"> -->
+            <div class="order_box">                                   
+              <img src="${vo.productImgName}" alt="img" class="sumnail">
               <ul class="order_info">
-                <li id="brand">브랜드명</li>
-                <li id="prod_name">상품명</li>
-                <li id="prod_opt">옵션명</li>
+                <li id="brand">${vo.pBrand }</li>
+                <li id="prod_name">${vo.pName }</li>
               </ul>      
             </div>
           </td>
+          <td>${vo.oDate }</td>
+          <td>${vo.oNo }</td>
+          <td>          	
+          	${vo.oTotalPrice}(원)<br>          	
+            <span>${vo.oDcnt }개</span>  
+          </td>
+          <td>${vo.oName }</td>
+        </tr>
+</c:forEach>
+<!-- 
+        <tr>
+          <td>
+            <div class="order_box">
+              사진 배치 예시, 추후 img태그 사용
+              <div class="sumnail">img</div>                          
+              <img src="resources/images/main_bg.jpg" alt="썸네일" class="sumnail" />
+              <ul class="order_info">
+                <li id="brand">브랜드명</li>
+                <li id="prod_name">상품명</li>
+              </ul>      
+            </div>
+          </td> 
           <td>                                    
               0000000<br>
               N개            
@@ -200,9 +220,20 @@
           <td>가격(원)</td>
           <td>홍길동</td>
         </tr>  
-      </tbody>         
+-->             
       </table>
-    </section>
+    </section>    
+    <p id="prev_next">
+    	<c:if test="${ startPage > 1 }">
+			<a href="adMemberOrderList?page=${ startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:if>
+		<c:forEach begin="${startPage }" end="${endPage }" var="p">
+			<a href="adMemberOrderList?page=${ p}">${ p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:forEach>
+		<c:if test="${endPage < totalPageCnt }">
+			<a href="adMemberOrderList?page=${ endPage+1}">다음</a>
+		</c:if>	
+    </p>
   </div>
 </body>
 </html>

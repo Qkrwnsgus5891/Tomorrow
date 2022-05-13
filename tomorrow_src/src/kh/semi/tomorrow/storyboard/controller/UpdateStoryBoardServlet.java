@@ -30,6 +30,7 @@ public class UpdateStoryBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bnoStr = request.getParameter("bno");
+		System.out.println("bnoStr : " + bnoStr);
 		int bNo = 0;
 		try {
 			bNo = Integer.parseInt(bnoStr);

@@ -77,6 +77,60 @@ public class StoryboardDao {
 		
 		return result;
 	}
+	
+	public int deleteStoryBoard(Connection conn, int bNo) {
+		System.out.println("StoryboardDao bNo : " + bNo);
+		int result = 0;
+		
+		String sql = "DELETE FROM story WHERE b_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("StoryboardDao result : " + result);
+		
+		return result;
+	}
+	
+	public int writeStoryReComment(Connection conn, StoryRecommentVo vo) {
+		System.out.println("StoryboardDao vo : " + vo);
+		int result = 0;
+		
+//		R_NO      NOT NULL NUMBER        
+//		B_NO      NOT NULL NUMBER        
+//		R_WRITER  NOT NULL VARCHAR2(20)  
+//		M_ID      NOT NULL VARCHAR2(20)  
+//		R_CONTENT NOT NULL VARCHAR2(100) 
+//		R_DATE    NOT NULL TIMESTAMP(6)  
+		
+		String sql = "INSERT INTO story_recomment VALUES ((SELECT nvl(max(r_no), 0) + 1 FROM story_recomment WHERE b_no = ?), ?, (SELECT m_nickname FROM member WHERE m_id = ?), ?, ?, default)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getbNo());
+			pstmt.setInt(2, vo.getbNo());
+			pstmt.setString(3, vo.getmId());
+			pstmt.setString(4, vo.getmId());
+			pstmt.setString(5, vo.getrContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("StoryboardDao vo : " + result);
+		
+		return result;
+	}
+	
+	
 
 	public ArrayList<StoryBoardVo> listStoryBoard(Connection conn) {
 		ArrayList<StoryBoardVo> volist = null;
@@ -118,8 +172,8 @@ public class StoryboardDao {
 	public ArrayList<StoryBoardVo> listStoryBoard(Connection conn, int startRnum, int endRnum){
 		ArrayList<StoryBoardVo> volist = null;
 		
-		String sql ="SELECT * FROM (SELECT rownum AS r, t1.* FROM (SELECT s1.*, (SELECT count(*) FROM story_recomment r1 WHERE r1.b_no = s1.b_no) r_cnt "
-				+ "FROM story s1 ORDER BY s1.b_no DESC, b_date DESC) t1) WHERE r BETWEEN ? AND ?";
+		String sql ="SELECT * FROM (SELECT rownum AS r, m_intro, t1.* FROM (SELECT s1.*, (SELECT count(*) FROM story_recomment r1 WHERE r1.b_no = s1.b_no) r_cnt "
+				+ "FROM story s1 ORDER BY s1.b_no DESC, b_date DESC) t1 JOIN member m1 ON m1.m_id = t1.m_id) WHERE r BETWEEN ? AND ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -144,6 +198,7 @@ public class StoryboardDao {
 					vo.setbNy(rs.getString("B_NY"));
 					vo.setbImgPath(rs.getString("B_IMG_PATH"));
 					vo.setrCnt(rs.getInt("R_CNT"));
+					vo.setmIntro(rs.getString("M_INTRO"));
 					
 					volist.add(vo);
 				}
@@ -183,9 +238,10 @@ public class StoryboardDao {
 	
 	public StoryBoardVo readStoryBoard(Connection conn, int bNo) {
 		StoryBoardVo vo = null;
-		String sql1 = "SELECT * FROM story WHERE b_no = ?";
-		String sql2 = "SELECT * FROM story_recomment WHERE b_no = ?";
-
+		
+		String sql1 = "SELECT m1.m_intro, s1.* FROM story s1 JOIN member m1 ON s1.m_id = m1.m_id WHERE b_no = ?";
+		String sql2 = "SELECT * FROM story_recomment WHERE b_no = ? ORDER BY r_date DESC, r_no DESC";
+		
 		try {
 			pstmt = conn.prepareStatement(sql1);
 			pstmt.setInt(1, bNo);
@@ -215,13 +271,15 @@ public class StoryboardDao {
 				vo.setpNo(rs.getInt("P_NO"));
 				vo.setbNy(rs.getString("B_NY"));
 				vo.setbImgPath(rs.getString("B_IMG_PATH"));
+				vo.setmIntro(rs.getString("M_INTRO"));
 				
 				close(rs);
 				close(pstmt);
+				
 				pstmt = conn.prepareStatement(sql2);
 				pstmt.setInt(1, bNo);
-
 				rs = pstmt.executeQuery();
+				
 				if(rs.next()) {
 					ArrayList<StoryRecommentVo> brvoList = new ArrayList<StoryRecommentVo>();
 					do {
@@ -232,7 +290,11 @@ public class StoryboardDao {
 //						R_WRITER  NOT NULL VARCHAR2(20)  
 //						M_ID      NOT NULL VARCHAR2(20)  
 //						R_CONTENT NOT NULL VARCHAR2(100) 
-//						R_DATE    NOT NULL TIMESTAMP(6)  
+//						R_DATE    NOT NULL TIMESTAMP(6)
+						rvo.setrNo(rs.getInt("R_NO"));
+						rvo.setbNo(rs.getInt("B_NO"));
+						rvo.setrWriter(rs.getString("R_WRITER"));
+						rvo.setmId(rs.getString("M_ID"));
 						rvo.setrContent(rs.getString("R_CONTENT"));
 						rvo.setrDate(rs.getTimestamp("R_DATE"));
 						brvoList.add(rvo);
@@ -246,7 +308,29 @@ public class StoryboardDao {
 			close(rs);
 			close(pstmt);
 		}
-
+		System.out.println("StoryboardDao vo : " + vo);
+		
 		return vo;
+	}
+	
+	public int hitStoryBoard(Connection conn, int bNo) {
+		System.out.println("StoryboardDao bNo : " + bNo);
+		int result = 0;
+		
+		String sql = "UPDATE story SET b_cnt = b_cnt + 1 WHERE b_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bNo);	
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("StoryboardDao vo : " + result);
+		
+		return result;
 	}
 }

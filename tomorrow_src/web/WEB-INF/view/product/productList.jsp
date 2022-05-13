@@ -60,7 +60,8 @@ nav button {
 }
 </style>
 <style>
-.pcontent {
+
+.productImgName {
 	width: 200px;
 	height: 200px;
 	border-radius: 6px;
@@ -68,13 +69,19 @@ nav button {
 
 .product_wrapper .proDetail {
 	width: 220px;
-	padding: 15px;
-	margin: 15px;
+	padding: 15px 0;
+	padding-right: 15%;
+	padding-left: 15%;
+	margin: 0 40px;
+	
+	
 }
 
 .product_wrapper {
 	display: flex;
 	flex-wrap: wrap;
+	box-sizing: border-box;
+	
 }
 
 .pname {
@@ -98,9 +105,21 @@ nav button {
 }
 
 #categoryName{
-	font-size: 15px;
+	font-size: 20px;
 	font-weight: 900;
 	color: black;
+}
+.pasing{
+	text-align: center;
+	margin: 20px 0 5px;
+}
+.pasing a{
+	border: 1px solid #f5f5f5;
+	background-color: #f5f5f5;
+	padding: 0 5px;
+	color: black;
+	font-weight: 700;
+	border-radius: 3px;
 }
 </style>
 <script>
@@ -166,7 +185,7 @@ nav button {
 				var vo = result.selectAllProduct[i];
 				html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
 				html += '			<div class="proDetail" onclick="clickproDetail(this);">';
-				html += '				<div><img src="'+vo.pContent+'" class="pcontent"></div>';
+				html += '				<div><img src="'+vo.productImgName+'" class="productImgName"></div>';
 				html += '			';
 				html += '			';
 				html += '				<div class="pname">' + vo.pName + '</div>';
@@ -181,17 +200,19 @@ nav button {
 			}
 
 			html += '</div>';
-			html += '<p>';
+			html += '<p class="pasing">';
 			if (result.startPage > 1) {
-				html += '		<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				html += '		<a href="storeproduct?page=' + result.startPage-1 + '">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
 			}
 
 			for (var p = result.startPage; p <= result.endPage; p++) {
-				html += '		<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				html += '		<a href="storeproduct?page=' + p + '">' + p + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				
+				
 			}
 
 			if (result.endPage < result.totalPageCnt) {
-				html += '		<a href="storeproduct?page=${endPage+1 }">다음</a>';
+				html += '		<a href="storeproduct?page=' + result.endPage+1 + '">다음</a>';
 			}
 			html += '</p>';
 
@@ -237,7 +258,7 @@ nav button {
 
 									<div class="proDetail" onclick="clickproDetail(this);">
 										<div>
-											<img src="${vo.pContent }" class="pcontent">
+											<img src="${vo.productImgName }" class="productImgName">
 										</div>
 										<div class="pname">${vo.pName }</div>
 										<div class="pbrand">${vo.pBrand }</div>
@@ -248,7 +269,7 @@ nav button {
 
 
 						</div>
-						<p>
+						<p class="pasing">
 							<c:if test="${startPage > 1 }">
 								<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:if>

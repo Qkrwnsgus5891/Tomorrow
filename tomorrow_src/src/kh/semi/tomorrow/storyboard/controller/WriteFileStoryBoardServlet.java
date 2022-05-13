@@ -1,6 +1,8 @@
 package kh.semi.tomorrow.storyboard.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.semi.tomorrow.member.model.vo.MemberVo;
+import kh.semi.tomorrow.product.model.service.ProductService;
+import kh.semi.tomorrow.product.model.vo.ProductVo;
 
 /**
  * Servlet implementation class WriteFileStoryBoardServlet
@@ -30,7 +34,9 @@ public class WriteFileStoryBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet - enrollF");
 		
-		
+		ArrayList<ProductVo> volist = new ProductService().selectAllProduct();
+		System.out.println(volist);
+		request.setAttribute("listProduct", volist);
 		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");
 		if(ssvo == null) {	// 로그아웃 상태라면 login page 진입
 			response.sendRedirect("login");
