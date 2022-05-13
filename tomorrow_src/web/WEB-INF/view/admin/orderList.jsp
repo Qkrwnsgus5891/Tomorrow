@@ -18,6 +18,7 @@
         // console.log("hover 실행");
         $(".admin_modal").show();
       });      
+      
       $(window).on("click", function() {
         // console.log("window 클릭");
         $(".admin_modal").hide();
@@ -182,7 +183,7 @@
         <tr>
           <td>
             <div class="order_box">                                   
-              <img src="${vo.pContent}" alt="썸네일" class="sumnail"> 
+              <img src="${vo.productImgName}" alt="img" class="sumnail">
               <ul class="order_info">
                 <li id="brand">${vo.pBrand }</li>
                 <li id="prod_name">${vo.pName }</li>

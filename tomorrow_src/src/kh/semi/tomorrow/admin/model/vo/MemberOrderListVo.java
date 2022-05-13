@@ -3,7 +3,7 @@ package kh.semi.tomorrow.admin.model.vo;
 import java.sql.Timestamp;
 
 public class MemberOrderListVo {
-	private String pContent;
+	private String productImgName;
 	private String pBrand;
 	private String pName;
 	private int oNo;
@@ -12,20 +12,21 @@ public class MemberOrderListVo {
 	private int oTotalPrice;
 	private String oName;
 	
-	public MemberOrderListVo () {}		
-
+	public MemberOrderListVo () {}
+	
 	@Override
 	public String toString() {
-		return "MemberOrderListVo [pContent=" + pContent + ", pBrand=" + pBrand + ", pName=" + pName + ", oNo=" + oNo
-				+ ", oDcnt=" + oDcnt + ", oDate=" + oDate + ", oTotalPrice=" + oTotalPrice + ", oName=" + oName + "]";
+		return "MemberOrderListVo [productImgName=" + productImgName + ", pBrand=" + pBrand + ", pName=" + pName
+				+ ", oNo=" + oNo + ", oDcnt=" + oDcnt + ", oDate=" + oDate + ", oTotalPrice=" + oTotalPrice + ", oName="
+				+ oName + "]";
+	}
+	
+	public String getProductImgName() {
+		return productImgName;
 	}
 
-	public String getpContent() {
-		return pContent;
-	}
-
-	public void setpContent(String pContent) {
-		this.pContent = pContent;
+	public void setProductImgName(String productImgName) {
+		this.productImgName = productImgName;
 	}
 
 	public String getpBrand() {
@@ -82,8 +83,9 @@ public class MemberOrderListVo {
 
 	public void setoName(String oName) {
 		this.oName = oName;
-	}
-	
+	}		
+
+		
 	
 	
 }

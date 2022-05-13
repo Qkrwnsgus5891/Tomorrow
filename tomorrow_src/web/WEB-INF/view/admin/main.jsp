@@ -52,7 +52,7 @@
     #container {      
     	margin: 0 auto;
       	width: 1300px;
-      	height: 1200px;
+      	height: 1500px;
     }
     
     #nav_menu {
@@ -116,7 +116,7 @@
     	border-radius: 5px;
     	position: absolute;
       	width: 900px;
-      	height: 1000px;
+      	height: 1200px;
 
       	top: 16%;
       	left: 4%;
@@ -169,7 +169,7 @@
 	#prev_next {    
     	clear: both;  
       	width: 800px;
-      	height: 100px;
+      	height: 50px;
       	text-align: center; 
       	margin-left: 350px;
       	padding-top: 30px;       	

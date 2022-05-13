@@ -49,6 +49,7 @@ public class AdminDao {
 				
 				productList.add(product);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -138,7 +139,7 @@ public class AdminDao {
 				+ "        ) t1 "
 				+ "    )"
 				+ " where r between ? and ?";
-				
+		String sql_img = "select * from product_img";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -159,6 +160,20 @@ public class AdminDao {
 				product.setpPrice(rs.getInt("P_PRICE"));
 				
 				productList.add(product);
+			}			
+			
+			System.out.println("========== Product_Img ==========");
+			for(ProductVo pvo : productList) {
+				JdbcTemp.close(rs);
+				JdbcTemp.close(pstmt);
+				System.out.println("제품dao pvo :"+ pvo);
+				pstmt = conn.prepareStatement(sql_img);
+				pstmt.setInt(1, pvo.getpNo());			
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					pvo.setProductImgName(rs.getString("product_Img_Name"));
+					//pivo.setProductImgSize(rs.getInt("product_Img_Size"));
+				}
 			}
 			
 			
@@ -535,13 +550,13 @@ public class AdminDao {
 	
 	// 2. 주문 내역 조회	
 	public ArrayList<MemberOrderListVo> selectOrderList(Connection conn) {
-		ArrayList<MemberOrderListVo> orderlist = null;
-		String sql = "select p.p_content, p.p_brand, p.p_name, o.o_no, od.o_detail_cnt"
-				+ "	,o.o_date, o.O_TOTAL_PRICE, o.O_NAME"
-				+ " from orders o join order_detail od on o.O_NO= od.O_NO"
-				+ " join product p on p.p_no = od.P_NO"
-				+ " order by o.o_no desc ";	
-		
+		ArrayList<MemberOrderListVo> orderlist = null;		
+		String sql = "select i.product_img_name, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt"
+				+ "    	o.o_date, o.O_TOTAL_PRICE, o.O_NAME"
+				+ "     	from orders o join order_detail od on o.O_NO= od.O_NO"
+				+ "         join product p on p.p_no = od.P_NO"
+				+ "         join product_img i on i.p_no = p.p_no"
+				+ "         order by o.o_no desc";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -550,7 +565,7 @@ public class AdminDao {
 			while(rs.next()) {
 				MemberOrderListVo vo = new MemberOrderListVo();
 				
-				vo.setpContent(rs.getString("p_content"));
+				vo.setProductImgName(rs.getString("product_img_name"));
 				vo.setpBrand(rs.getString("p_brand"));
 				vo.setpName(rs.getString("p_name"));
 				vo.setoNo(rs.getInt("o_no"));
@@ -579,13 +594,14 @@ public class AdminDao {
 	
 	public ArrayList<MemberOrderListVo> selectOrderList(Connection conn, int startNum, int endNum) {
 		ArrayList<MemberOrderListVo> orderlist = null;
-		String sql = "select * \r\n"
+		String sql = "select * "
 				+ "    from( select rownum r, t1.* "
-				+ "        from (select p.p_content, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt,"
-				+ "                o.o_date, o.O_TOTAL_PRICE, o.O_NAME  \r\n"
-				+ "                from orders o join order_detail od on o.O_NO= od.O_NO "
-				+ "                join product p on p.p_no = od.P_NO                    "
-				+ "                order by o.o_no desc  "
+				+ "        from (select i.product_img_name, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt,"
+				+ "                o.o_date, o.O_TOTAL_PRICE, o.O_NAME "
+				+ "                from orders o join order_detail od on o.O_NO= od.O_NO"
+				+ "                join product p on p.p_no = od.P_NO"
+				+ "                join product_img i on i.p_no = p.p_no"
+				+ "                order by o.o_no desc"
 				+ "        ) t1 "
 				+ "    )"
 				+ "    where r between ? and ?";	
@@ -600,7 +616,7 @@ public class AdminDao {
 			while(rs.next()) {
 				MemberOrderListVo vo = new MemberOrderListVo();
 				
-				vo.setpContent(rs.getString("p_content"));
+				vo.setProductImgName(rs.getString("product_img_name"));
 				vo.setpBrand(rs.getString("p_brand"));
 				vo.setpName(rs.getString("p_name"));
 				vo.setoNo(rs.getInt("o_no"));

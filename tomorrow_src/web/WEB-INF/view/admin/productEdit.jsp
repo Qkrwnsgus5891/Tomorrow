@@ -321,7 +321,7 @@ input[type="text"], select {
 		</section>
 
 		<section>
-			<form method="post" enctype="multipart/form-data" id="imgfrm" >
+			<form action="adContentImageEdit.do" method="post" enctype="multipart/form-data" id="imgfrm" >
 				<p id="product_explanation">상품 정보</p>
 				<hr style="border:1px solid #ccc;">
 				<table id="product_img_info">
@@ -576,8 +576,7 @@ input[type="text"], select {
 		
 		function productInfoImgHandler() {
 			var msg = confirm("이미지를 수정하시겠습니까?");			
-			if(msg){ 
-				$("#imgfrm").prop("action", "adContentImageEdit.do");
+			if(msg){				
 				imgfrm.submit();
 			}
 			else {
