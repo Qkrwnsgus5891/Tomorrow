@@ -185,10 +185,9 @@ public class MemberDao {
 	
 
 	//회원정보
-	
 	public MemberVo myName(Connection conn, String mId) {
 		MemberVo vo= null;
-		String sql = "select * from member where mId = ?";
+		String sql = "select * from member where m_Id = ?";
 		
 			try {
 				pstmt= conn.prepareStatement(sql);

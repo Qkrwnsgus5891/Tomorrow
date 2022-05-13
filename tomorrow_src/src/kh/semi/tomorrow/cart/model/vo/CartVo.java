@@ -7,17 +7,35 @@ public class CartVo {
 	private int pNo;
 	private int cCnt;
 	private String cNy;
+	
 	private String pName;
 	private String pBrand;
 	private int optNo;
 	private String optVal;
 	private String optPrice;
 	
-
+	private String pContent;
+	private int pPrice;
 	private String productImageName;
+	
+	public String getpContent() {
+		return pContent;
+	}
+
+	public void setpContent(String pContent) {
+		this.pContent = pContent;
+	}
+
+	public int getpPrice() {
+		return pPrice;
+	}
+
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
+	}
 
 	public CartVo(int cNo, String mId, String pSeq, int pNo, int cCnt, String cNy, String pName, String pBrand, int optNo,
-			String optVal, String optPrice) {
+			String optVal, String optPrice, String pContent, int pPrice, String productImageName) {
 		this.cNo = cNo;
 		this.mId = mId;
 		this.pSeq = pSeq;
@@ -29,13 +47,17 @@ public class CartVo {
 		this.optNo = optNo;
 		this.optVal = optVal;
 		this.optPrice = optPrice;
+		this.pContent = pContent;
+		this.pPrice = pPrice;
+		this.productImageName = productImageName;
 	}
 
 	@Override
 	public String toString() {
 		return "CartVo [cNo=" + cNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pNo=" + pNo + ", cCnt=" + cCnt + ", cNy="
 				+ cNy + ", pName=" + pName + ", pBrand=" + pBrand + ", optNo=" + optNo + ", optVal=" + optVal
-				+ ", optPrice=" + optPrice + ", productImageName=" + productImageName + "]";
+				+ ", optPrice=" + optPrice + ", pContent=" + pContent + ", pPrice=" + pPrice + ", productImageName="
+				+ productImageName + "]";
 	}
 
 	public CartVo() {}

@@ -21,45 +21,97 @@ public class CartDao {
 	private Statement stmt = null;
 
 	// 장바구니 넣기
-	public int insertmyCart(Connection conn, CartVo vo) {
-			
-			int result = 0;
-			String sql = "insert into cart values ?, ?, ?, ?, ?, ?";
-		
-			try {
-				pstmt = conn.prepareStatement(sql);			
-				rs = pstmt.executeQuery();
-			
-		
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, vo.getcNo());
-				pstmt.setString(2, vo.getmId());
-				pstmt.setInt(3, vo.getpNo());
-				pstmt.setString(4, vo.getpSeq());
-				pstmt.setString(5, vo.getcNy());
-				
-				result = pstmt.executeUpdate();
-					
-			
-				}catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					JdbcTemp.close(rs);
-					JdbcTemp.close(pstmt);
-				}
+	public int insertmyCart(Connection conn, String mId, int pNo, String option1) {
+//		C_NO  NOT NULL NUMBER       
+//		M_ID  NOT NULL VARCHAR2(20) 
+//		P_NO  NOT NULL NUMBER       
+//		P_SEQ NOT NULL VARCHAR2(10) 
+//		C_CNT NOT NULL NUMBER       
+//		C_NY  NOT NULL VARCHAR2(1)
+		int result = 0;
+		String sql = "insert into cart (C_NO,M_ID,P_NO,P_SEQ,C_CNT,C_NY) values (SEQUENCE_CART_C_NO.nextval, ?, ?, ?, 1, default)";
 
-				return result;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setInt(2, pNo);
+			pstmt.setString(3, option1);
+//			pstmt.setInt(4, cnt);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+System.out.println("shyoon:"+ result);
+		return result;
+	}
+
+	// 장바구니 목록에 들어있는 개수
+	public int checkCntCart(Connection conn, String mId, int pNo) {
+		int cnt = 0;
+
+		String sql = "select c_cnt from cart where m_id=? and p_no=?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setInt(2, pNo);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cnt = rs.getInt("c_cnt");
 			}
-			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+
+		return cnt;
+	}
+	
+	
+	// 장바구니 업데이트
+		public int updatemyCart(Connection conn, String mId, int pNo, int cnt, String option1) {
+//			C_NO  NOT NULL NUMBER       
+//			M_ID  NOT NULL VARCHAR2(20) 
+//			P_NO  NOT NULL NUMBER       
+//			P_SEQ NOT NULL VARCHAR2(10) 
+//			C_CNT NOT NULL NUMBER       
+//			C_NY  NOT NULL VARCHAR2(1)
+			int result = 0;
+			String sql = "update cart (C_NO,M_ID,P_NO,P_SEQ,C_CNT,C_NY) values (SEQUENCE_CART_C_NO.nextval, ?, ?, ?, ?, default)";
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mId);
+				pstmt.setInt(2, pNo);
+				pstmt.setString(3, option1);
+				pstmt.setInt(4, cnt);
+
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JdbcTemp.close(rs);
+				JdbcTemp.close(pstmt);
+			}
+	System.out.println("shyoon:"+ result);
+			return result;
+		}
+
 	// 장바구니 목록보기
 	public ArrayList<CartVo> myCart(Connection conn, String mId) {
 		ArrayList<CartVo> cartVoList = null;
 
-		String sql = "select * from cart "
-				+ "left outer join product using(p_no) "
+		String sql = "select * from cart " + "left outer join product using(p_no) "
 				+ "left outer join product_img using(p_no) where m_id = ?";
-		
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
@@ -79,11 +131,10 @@ public class CartDao {
 //				vo.setProductImageName(rs.getString("product_image_name"));
 				vo.setpBrand(rs.getString("p_brand"));
 				vo.setpName(rs.getString("p_name"));
-				
 
 				cartVoList.add(vo);
 			}
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
