@@ -197,10 +197,7 @@ to {
 				</div>
 			</section>
 
-			<section class="content_keyword">
-				<p>인기키워드</p>
-
-			</section>
+			
 
 			<section class="content_hit">
 				<p>인기상품</p>

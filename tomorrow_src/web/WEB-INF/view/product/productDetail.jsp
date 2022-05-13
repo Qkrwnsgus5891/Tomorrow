@@ -332,13 +332,14 @@
 		</section>
 
 		<section id="productInfoBtns">
-			<a href="#productInform">상품정보</a> <a href="#story">리뷰</a> <a
-				href="#ship">배송/환불</a>
+			<a href="#productInform">상품정보</a> 
+			<a href="#story">리뷰</a> 
+			<a href="#ship">배송/환불</a>
 		</section>
 
 		<section id="productInform">
-			<div>
-				<img src="${vo.pContent }" id="information">
+			<div id="information">
+				${vo.pContent }
 			</div>
 			<div class="wrap_content">
 				<section>
