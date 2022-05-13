@@ -224,7 +224,24 @@ public class MemberDao {
 	
 	
 	//회원탈퇴
-	
+	public int deleteAccount(Connection conn, String mId) {
+		int result = 0;
+		String sql = "update member set m_ny= 'Y' where m_id =? "; 
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(pstmt);
+		}
+		
+		System.out.println("탈퇴되었습니다.");
+		return result;
+	}
 	
 	
 	

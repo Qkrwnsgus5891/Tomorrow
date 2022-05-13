@@ -27,8 +27,8 @@ public class CartService {
 		int result = 0;
 		if(cnt == 0)
 			result = dao.insertmyCart(conn, mId, pNo, option1);
-//		else 
-//			result = dao.updatemyCart(conn, mId, pNo, cnt++, option1);
+		else 
+			result = dao.updatemyCart(conn, mId, pNo, ++cnt, option1);
 		
 		
 		

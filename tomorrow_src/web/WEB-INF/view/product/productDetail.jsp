@@ -1,10 +1,8 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/reset.css"
-	rel="stylesheet" type="text/css">
-<link href="<%=request.getContextPath()%>/resources/css/header.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/resources/css/header.css"	rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -266,7 +264,7 @@
 					<img src="${vo.productImgName }">
 				</section>
 				<section id="detailcontent">
-					<form class="frmInf">
+					<form id="frmInf">
 						<div class="pbrand">${vo.pBrand }</div>
 						<div class="pname">${vo.pName }</div>
 						<div class="pprice">${vo.pPrice }<a>(원)</a>
@@ -305,11 +303,34 @@
 						<p class="pp">
 							<span>주문금액 </span><span id="price"></span><span>(원)</span>
 						</p>
-						<button type="button" class="cartBtn" onclick="location.href='cart/enroll?pNo=${vo.pNo}'">장바구니</button>
-						<button type="button" class="orderBtn" onclick="location.href='order?pNo=${vo.pNo}'">바로구매</button>
+						<input type="hidden" name="pNo" value ="${vo.pNo}">
+						<button type="button" class="cartBtn">장바구니</button>
+						<button type="button" class="orderBtn">바로구매</button>
 					</form>
 				</section>
 			</section>
+			
+			
+			<script>
+				$(".cartBtn").click(function() {
+					console.log(this);
+					frmInf.action = 'cartEnroll';
+					frmInf.method = 'post';
+					frmInf.submit();
+				});
+			</script>
+			<script>
+				$(".orderBtn").click(function() {
+					console.log(this);
+					frmInf.action = 'orderEnroll';
+					frmInf.method = 'post';
+					frmInf.submit();
+				});
+			</script>
+			
+			
+			
+			
 			<script>
 				calPrice();
 				function calPrice() {
@@ -319,8 +340,6 @@
 					}
 					var optPrice = 0;
 					$("select").each(function(index, element) {
-						var checkedEle = $(element).children(":checked");
-						console.log(checkedEle);
 						var optOnePrice = Number(checkedEle.next().text());
 						console.log(optOnePrice);
 						if (isNaN(optOnePrice)) {

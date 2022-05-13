@@ -14,8 +14,7 @@ import kh.semi.tomorrow.cart.model.vo.CartVo;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 import kh.semi.tomorrow.product.model.service.ProductService;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
-import kh.semi.tomorrow.storyboard.model.service.StoryboardService;
-import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
+
 
 /**
  * Servlet implementation class CartInsertServlet
@@ -75,6 +74,7 @@ public class CartInsertServlet extends HttpServlet {
 			
 			ArrayList<CartVo> cartVoList = new CartService().myCart(mId);
 			request.setAttribute("cartVoList", cartVoList);
+			
 			request.getRequestDispatcher("WEB-INF/view/orderpage/cartList.jsp").forward(request, response);
 		}
 		

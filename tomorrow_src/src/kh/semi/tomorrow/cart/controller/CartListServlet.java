@@ -28,8 +28,7 @@ public class CartListServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 상태 확인
 		MemberVo ssvo = (MemberVo) request.getSession().getAttribute("ssMV");
 		String mId = "";
