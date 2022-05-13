@@ -143,7 +143,7 @@ commit;
 insert into product values (SEQUENCE_PRODUCT_P_NO.nextval, '퀵슬립', 'Q4 유로탑 롤팩 매트리스 2size', '상품 정보 이미지 경로', 284900, 1);
 insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 2, 'SS 슈퍼싱글(284,900원)', 0);
 insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 2, 'Q 퀸(334,900원)', 50000);
-insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 3, '밴드형 매트리스 방수커버 슈퍼싱글 사이즈(전용제품)', 34900);
+insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 2, '밴드형 매트리스 방수커버 슈퍼싱글 사이즈(전용제품)', 34900);
 insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 2, '밴드형 매트리스 방수커버 퀸 사이즈(전용제품)', 44900);
 insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 2, '밴드형 매트리스 그레이 순면커버 슈퍼싱글 사이즈(전용제품)', 52900);
 insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 11, 2, '밴드형 매트리스 그레이 순면커버 퀸 사이즈(전용제품)', 62900);
