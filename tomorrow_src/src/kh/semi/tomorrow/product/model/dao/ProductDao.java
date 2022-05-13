@@ -19,7 +19,7 @@ public class ProductDao {
 
 	public ArrayList<ProductVo> selectAllProduct(Connection conn) {
 		ArrayList<ProductVo> volist = null;
-		String sql = "select p_content, p_name, p_brand, p_price from product order by p_no desc";
+		String sql = "select p_no, p_content, p_name, p_brand, p_price from product order by p_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -29,7 +29,8 @@ public class ProductDao {
 				volist = new ArrayList<ProductVo>();
 				do {
 					ProductVo vo = new ProductVo();
-					vo.setpContent(rs.getString("pContent"));
+					vo.setpNo(rs.getInt("p_no"));
+					vo.setpContent(rs.getString("p_content"));
 					vo.setpName(rs.getString("p_name"));
 					vo.setpBrand(rs.getString("p_brand"));
 					vo.setpPrice(rs.getInt("p_price"));
