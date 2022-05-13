@@ -33,6 +33,10 @@
 		line-height: 19px;
 		font-weight: 600;
 	}
+	.story_writer_intro {
+		color: #656e75;
+		text-overflow: ellipsis;
+	}
 	.story_image {
 		width: 100%;
 	}

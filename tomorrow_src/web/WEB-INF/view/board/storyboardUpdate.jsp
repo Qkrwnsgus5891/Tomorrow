@@ -74,6 +74,58 @@
             font-size: 15px;
             line-height: 25px;
         }
+        .story_thumbnail {
+            text-align: center;
+        }
+        #before_file_preview {
+        	width: 400px;
+            height: 500px;
+            border-radius: 10px;
+        }
+        #file_preview {
+            height: 500px;
+            display: none;
+        }
+        .preview_img {
+            width: 400px;
+            height: 500px;
+            border-radius: 10px;
+        }
+        .file_upload {
+            margin-top: 10px;
+        }
+        .file_upload .file_name {
+            display: inline-block;
+            height: 40px;
+            padding: 0 10px;
+            vertical-align: middle;
+            font-size: 15px;
+            border: 1px solid #eaebef;
+            width: 600px;
+            color: #828c94;
+        }
+        .file_upload .file_label {
+            display: inline-block;
+            padding: 10px;
+            color: white;
+            vertical-align: middle;
+            background-color: #828c94;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            width: 100px;
+            height: 20px;
+            margin-left: 10px;
+            border-radius: 8px;
+        }
+        .file_upload input[type="file"] {
+            position: absolute;
+            width: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+        }
         .story_title {
             margin: 45px 0 0;
         }
@@ -195,6 +247,7 @@
                     <li>사진이 있으면 좋아요. (손그림도 OK)</li>
                     <li>사진 속 제품 정보를 본문에 최대한 적어주세요. (제품분류/브랜드/제품명 등)</li>
                     <li>사진 첨부 시 용량은 장당 <b>최대 10MB</b>까지 업로드할 수 있고, jpg, png 포맷을 지원합니다.</li>
+                    <li>대표사진 권장 사이즈 : 1920 x 1920, 최소 1400 x 1400 (1:1 비율)</li>
                     <li>정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라갑니다.</li>
                     <li>게시글은 관리자에 의해 <b>변경/삭제</b>될 수 있습니다.</li>
                     <li>게시글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요.</li>
@@ -205,11 +258,34 @@
             <hr>
             <input type="hidden" name="bNo" value="${bvo.bNo }">
             <div class="story_thumbnail">
-            <c:if test="${not empty bvo.bImgPath }">
-				<img src="${pageContext.request.contextPath }/${bvo.bImgPath }" width="300"><br>
-			</c:if>
+	            <c:if test="${not empty bvo.bImgPath }">
+					<img id="before_file_preview" src="${pageContext.request.contextPath }/${bvo.bImgPath }" width="300"><br>
+				</c:if>
 				<input type="hidden" name="bFilePath" value="${bvo.bImgPath }">
-                <input type="file" name="upload"><br>
+				<div id="file_preview"></div>
+                <div class="file_upload">
+                    <input class="file_name" value="대표사진 첨부" placeholder="대표사진 첨부">
+                    <lable class="file_label" for="input_file" onclick="$('#input_file').trigger('click');">사진찾기</lable>
+                    <input type="file" id="input_file" name="upload" required><br>
+                </div>
+                <script>
+                function readInputFile(input) {
+                    if(input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#file_preview').html("<img src="+ e.target.result +" class='preview_img'>");
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#input_file").on('change', function(){
+                    readInputFile(this);
+                    var fileName = $("#input_file").val();
+                    $(".file_name").val(fileName);
+                    $("#before_file_preview").hide();
+                    $("#file_preview").show();
+                });
+            	</script>
             </div>
             <div class="story_title">
                 <input type="text" class="input_title" name="bTitle" value="${bvo.bTitle }" required>
@@ -218,6 +294,7 @@
                 <textarea id="ckeditor" name="bContent" required>${bvo.bContent }</textarea>
                 <script>
                     CKEDITOR.replace('ckeditor', {
+                    	height: 500,
                         filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
         //				enterMode:CKEDITOR.ENTER_BR,
         //				shiftEnterMode:CKEDITOR.ENTER_P
@@ -240,7 +317,7 @@
                 <input type="hidden" name="mId" value="${ssMV.mId }">
             </div>
             <div class="story_pno">
-                <input type="text" name="pNo" value="${bvo.pNo }" required>
+                <input type="hidden" name="pNo" value="${bvo.pNo }">
             </div>
             <hr>
             <div class="story_submit">

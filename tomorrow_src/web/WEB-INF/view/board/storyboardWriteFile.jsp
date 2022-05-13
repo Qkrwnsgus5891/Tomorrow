@@ -1,4 +1,5 @@
 <link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -12,6 +13,7 @@
 <script src="<%=request.getContextPath()%>/resources/js/jquery-animate-css-rotate-scale.js"></script>
 <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
 <script src="https://ucarecdn.com/libs/widget-tab-effects/1.x/uploadcare.tab-effects.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<style>
         button {
             cursor: pointer;
@@ -74,6 +76,59 @@
             font-size: 15px;
             line-height: 25px;
         }
+        .story_thumbnail {
+            text-align: center;
+        }
+        #file_preview {
+            height: 500px;
+            font-size: 40px;
+            font-weight: 700;
+            color: #a4acb3;
+        }
+        #file_request {
+            position: absolute;
+        	transform: translate(40%, 550%);
+        }
+        .preview_img {
+            width: 400px;
+            height: 500px;
+            border-radius: 10px;
+        }
+        .file_upload {
+            margin-top: 10px;
+        }
+        .file_upload .file_name {
+            display: inline-block;
+            height: 40px;
+            padding: 0 10px;
+            vertical-align: middle;
+            font-size: 15px;
+            border: 1px solid #eaebef;
+            width: 600px;
+            color: #828c94;
+        }
+        .file_upload .file_label {
+            display: inline-block;
+            padding: 10px;
+            color: white;
+            vertical-align: middle;
+            background-color: #828c94;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            width: 100px;
+            height: 20px;
+            margin-left: 10px;
+            border-radius: 8px;
+        }
+        .file_upload input[type="file"] {
+            position: absolute;
+            width: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 0;
+        }
         .story_title {
             margin: 45px 0 0;
         }
@@ -90,6 +145,14 @@
         }
         .story_pno {
             margin: 40px 0 0;
+        }
+        #select2 {
+            padding: 10px 15px;
+            width: 800px;
+            height: 40px;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 20px;
         }
         .story_submit {
             margin: 40px 0 20px;
@@ -206,6 +269,7 @@
                     <li>사진이 있으면 좋아요. (손그림도 OK)</li>
                     <li>사진 속 제품 정보를 본문에 최대한 적어주세요. (제품분류/브랜드/제품명 등)</li>
                     <li>사진 첨부 시 용량은 장당 <b>최대 10MB</b>까지 업로드할 수 있고, jpg, png 포맷을 지원합니다.</li>
+                    <li>대표사진 권장 사이즈 : 1920 x 1920, 최소 1400 x 1400 (1:1 비율)</li>
                     <li>정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라갑니다.</li>
                     <li>게시글은 관리자에 의해 <b>변경/삭제</b>될 수 있습니다.</li>
                     <li>게시글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요.</li>
@@ -215,15 +279,39 @@
         <form name="frm_sbWrite" action="enrollF.do" method="post" enctype="multipart/form-data">
             <hr>
             <div class="story_thumbnail">
-                <input type="file" name="upload" required><br>
+                <div id="file_preview">
+                	<div id="file_request">대표사진을 추가해주세요</div>
+                </div>
+                <div class="file_upload">
+                    <input class="file_name" value="대표사진 첨부" placeholder="대표사진 첨부">
+                    <lable class="file_label" for="input_file" onclick="$('#input_file').trigger('click');">사진찾기</lable>
+                    <input type="file" id="input_file" name="upload" required><br>
+                </div>
+                <script>
+                function readInputFile(input) {
+                    if(input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#file_preview').html("<img src="+ e.target.result +" class='preview_img'>");
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#input_file").on('change', function(){
+                    readInputFile(this);
+                    var fileName = $("#input_file").val();
+                    $(".file_name").val(fileName);
+                });
+            	</script>
             </div>
             <div class="story_title">
-                <input type="text" class="input_title" name="bTitle" placeholder="제목을 입력해주세요." required>
+                <input type="text" class="input_title" name="bTitle" placeholder="제목을 입력해주세요." maxlength="33" required>
             </div>
             <div class="story_content">
                 <textarea id="ckeditor" name="bContent" placeholder="내용을 입력해주세요." required></textarea>
                 <script>
                     CKEDITOR.replace('ckeditor', {
+                    	height: 500,
                         filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
         //				enterMode:CKEDITOR.ENTER_BR,
         //				shiftEnterMode:CKEDITOR.ENTER_P
@@ -246,8 +334,21 @@
                 <input type="hidden" name="mId" value="${ssMV.mId }">
             </div>
             <div class="story_pno">
-                <input type="text" name="pNo" placeholder="상품번호" required>
+                <!-- input type="text" name="pNo" placeholder="상품번호" required> -->
+                <select id="select2" class="js-example-basic-single" name="pNo" required>
+                	<c:forEach items="${listProduct }" var="vo">
+                		<option value="${vo.pNo }">${vo.pName }</option>
+                	</c:forEach>
+                </select>
             </div>
+            <script>
+                $(document).ready(function() {
+                    $('.js-example-basic-single').select2({
+                        placeholder: "상품을 선택해주세요",
+                        allowClear: true
+                    });
+                });
+            </script>
             <hr>
             <div class="story_submit">
                 <button type="submit" class="story_submit_button">게시물 등록</button>
