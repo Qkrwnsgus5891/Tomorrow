@@ -124,7 +124,7 @@
         <!-- 회원구매목록 -->
         <div id="infoWrap02" style="width: 90%; overflow:visible; 
         min-width: 600px; padding:75px 100px 0 50px;">
-            <h3>회원 장바구니 목록</h3>
+            <h3>회원 구매목록</h3>
             
             <div id="recentOrderWrap" style="width: 90%; padding: 20px;
             border: 1px solid rgb(142, 141, 141); overflow: auto;border-radius:15px ; ">

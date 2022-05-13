@@ -1,6 +1,9 @@
 
 <link href="<%=request.getContextPath()%>/resources/css/header.css"
 	rel="stylesheet" type="text/css">
+	<link href="<%=request.getContextPath()%>/resources/css/reset.css"
+	rel="stylesheet" type="text/css">
+	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -82,7 +85,7 @@
 					<div
 						style="width: 92%; padding: 25px;; border-radius: 15px; text-align: right; border: 1px solid black; margin: 15px; display: flex;">
 						<input type="checkbox" class="checkbox">
-						<div style="width: 60%;"><%-- <img src="${vo.productImgName }"> --%></div>
+						<div style="width: 60%;"><img src="${pageContext.request.contextPath }/${vo.productImgName }"></div>
 						<div style="width: 40%; text-align: left;">
 							<p>상품번호:${vo.pNo } </p>
 							<p>주문갯수:${vo.cCnt} </p>
