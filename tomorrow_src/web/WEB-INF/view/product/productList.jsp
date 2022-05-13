@@ -42,7 +42,7 @@ footer {
 </style>
 <style>
 .wrap_content{
-	margin: 10px 10%;
+	margin: 30px 15%;
 }
 nav div{
 	font-size: 18px;

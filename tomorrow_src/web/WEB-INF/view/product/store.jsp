@@ -20,13 +20,13 @@
 }
 
 .content_keyword, .content_hit, .content_cate {
-	margin: 30px 10%;
+	margin: 30px 15%;
 }
 
 .content_cate button {
 	background-color: white;
 	border: 0px;
-	margin: 0 5%
+	margin: 0 6%
 }
 
 .cate_buttons {
