@@ -139,13 +139,13 @@ public class ProductDao {
 
 	public int countProduct(Connection conn, int pageCateId) {
 		int result = 0;
-		String sql = "select count(*) cnt from product ";
-				if (pageCateId == 0) {
-					sql += " ";
-				} else {
+		String sql = "select count(*) cnt from (select p_no, category_id, p_content, p_name, p_brand, p_price, product_img_name "
+				+ "from (select rownum r, t1.* from (select p1.* from product p1";
+				
+				if (pageCateId > 0) {
 					sql += " where category_id=?";
 				}
-		
+				sql += " order by p_no desc) t1) join product_img using (p_no))";
 
 		try {
 			

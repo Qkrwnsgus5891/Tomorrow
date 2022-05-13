@@ -295,8 +295,8 @@
 						<p class="pp">
 							<span>주문금액 </span><span id="price"></span><span>(원)</span>
 						</p>
-						<button type="button" class="cartBtn" onclick="location.href='/'">장바구니</button>
-						<button type="button" class="orderBtn" onclick="location.href='/'">바로구매</button>
+						<button type="button" class="cartBtn" onclick="location.href='cart/enroll?pNo=${vo.pNo}'">장바구니</button>
+						<button type="button" class="orderBtn" onclick="location.href='order?pNo=${vo.pNo}'">바로구매</button>
 					</form>
 				</section>
 			</section>
@@ -352,8 +352,8 @@
 								</div>
 								<div class="story_image">
 									<div class="wrap_story_thumbnail">
-										<a class="story_link" href="storyread?bno=${voi.bNo }"> <img
-											class="story_thumbnail"
+										<a class="story_link" href="storyread?bno=${voi.bNo }"> 
+										<img class="story_thumbnail"
 											src="${pageContext.request.contextPath }/${voi.bImgPath }">
 											<span class="story_bcnt"> 조회수 ${voi.bCnt } </span>
 										</a>

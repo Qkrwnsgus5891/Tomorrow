@@ -207,6 +207,8 @@ nav button {
 
 			for (var p = result.startPage; p <= result.endPage; p++) {
 				html += '		<a href="storeproduct?page=' + p + '">' + p + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				
+				
 			}
 
 			if (result.endPage < result.totalPageCnt) {

@@ -39,7 +39,6 @@ public class ProductSelectServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(pNo < 1 ) {
-			//오류 페이지로 이동. 또는 boardlist로 이동
 			return;
 		} else {
 			
