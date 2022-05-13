@@ -50,6 +50,10 @@
     .story_content {
         margin: 50px 0 30px;
     }
+    .story_content img {
+    	max-width: 800px;
+    	height: auto !important;
+    }
     .story_update_btn, .story_delete_btn {
         width: 90px;
         font-size: 15px;

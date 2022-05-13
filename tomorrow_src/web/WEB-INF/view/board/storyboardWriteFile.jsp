@@ -90,7 +90,7 @@
         	transform: translate(40%, 550%);
         }
         .preview_img {
-            width: 400px;
+            width: 500px;
             height: 500px;
             border-radius: 10px;
         }

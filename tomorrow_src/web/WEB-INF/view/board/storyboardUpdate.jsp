@@ -78,7 +78,7 @@
             text-align: center;
         }
         #before_file_preview {
-        	width: 400px;
+            width: 500px;
             height: 500px;
             border-radius: 10px;
         }
@@ -87,7 +87,7 @@
             display: none;
         }
         .preview_img {
-            width: 400px;
+            width: 500px;
             height: 500px;
             border-radius: 10px;
         }
