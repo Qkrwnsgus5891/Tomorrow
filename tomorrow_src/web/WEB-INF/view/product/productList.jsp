@@ -166,13 +166,13 @@ nav button:hover{
 			var html = "";
 			$("#productList").html(""); //
 
-			//var cateName = result.pageCateId;
+			var pageCateId = result.pageCateId;
 
-			if (btnIdx == 1) {
+			if (pageCateId == 1) {
 				cateName = "가구";
-			} else if (btnIdx == 2) {
+			} else if (pageCateId == 2) {
 				cateName = "페브릭";
-			} else if (btnIdx == 3) {
+			} else if (pageCateId == 3) {
 				cateName = "조명";
 			} else {
 				cateName = "전체 상품";
@@ -203,17 +203,17 @@ nav button:hover{
 			html += '</div>';
 			html += '<p class="pasing">';
 			if (result.startPage > 1) {
-				html += '		<a href="storeproduct?page=' + result.startPage-1 + '">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				html += '		<a href="storeproduct?pageCateId='+pageCateId+'&page=' + result.startPage-1 + '">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
 			}
 
 			for (var p = result.startPage; p <= result.endPage; p++) {
-				html += '		<a href="storeproduct?page=' + p + '">' + p + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				html += '		<a href="storeproduct?pageCateId='+pageCateId+'&page=' + p + '">' + p + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
 				
 				
 			}
 
 			if (result.endPage < result.totalPageCnt) {
-				html += '		<a href="storeproduct?page=' + result.endPage+1 + '">다음</a>';
+				html += '		<a href="storeproduct?&pageCateId='+pageCateId+'&page=' + result.endPage+1 + '">다음</a>';
 			}
 			html += '</p>';
 
@@ -270,15 +270,16 @@ nav button:hover{
 
 
 						</div>
+						
 						<p class="pasing">
 							<c:if test="${startPage > 1 }">
-								<a href="storeproduct?page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="storeproduct?pageCateId=${pageCateId }&page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:if>
 							<c:forEach begin="${startPage }" end="${endPage }" var="p">
-								<a href="storeproduct?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="storeproduct?pageCateId=${pageCateId }&page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:forEach>
 							<c:if test="${endPage < totalPageCnt }">
-								<a href="storeproduct?page=${endPage+1 }">다음</a>
+								<a href="storeproduct?pageCateId=${pageCateId }&page=${endPage+1 }">다음</a>
 							</c:if>
 						</p>
 					</article>
