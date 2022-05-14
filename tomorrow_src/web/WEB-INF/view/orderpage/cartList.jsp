@@ -73,9 +73,10 @@
 			style="width: 55%; padding: 100px 50px 100px 50px; min-width: 350px;">
 
 			<div id="allSelect" style="width: 100%; display: flex;">
-				<span style="width: 85%; margin-left: 15px"><input
-					type="checkbox" id="allcheck"> 모두 선택</span> <span id="allrevoke"
-					style="width: 15%; cursor: pointer;"> 선택 해제</span>
+				<span style="width: 85%; margin-left: 45px">
+				<label><input
+					type="checkbox" id="allcheck"> 모두 선택</span></label> <span id="allrevoke"
+					style="width: 15%; cursor: pointer;"> 전체 해제</span>
 			</div>
 			<div class="orderitems"
 				style="border: 0px solid black; border-radius: 15px; width: 100%; padding: 10px;">
@@ -85,13 +86,18 @@
 					<div
 						style="width: 92%; padding: 25px;; border-radius: 15px; text-align: right; border: 1px solid black; margin: 15px; display: flex;">
 						<input type="checkbox" class="checkbox">
-						<div style="width: 60%;"><img src="${pageContext.request.contextPath }/${vo.productImgName }"></div>
-						<div style="width: 40%; text-align: left;">
-							<p>상품번호:${vo.pNo } </p>
+						<div style="width: 60%;"><img src="<%=request.getContextPath() %>/${vo.productImgName }" 
+						style="width: 140px; heigth: 140px; margin-right:150px; border-radius:15px;">
+						<%-- <img src="http://localhost:8090/house/${vo.productImgName}"> --%></div>
+						
+						
+						<div style="width: 40%; text-align: left;">	
+							<p>상품번호:<a href="productDetail?p_no=${vo.pNo }">${vo.pNo } </a></p>
 							<p>주문갯수:${vo.cCnt} </p>
 							<p>주문옵션:${vo.pSeq} </p>
-							<p style="color:blue;"><b>상품이름:${vo.pName} </b></p>
+							<p style="color:blue;"><b>상품이름:<a href="productDetail?p_no=${vo.pNo }">${vo.pName} </b> </a></p>
 							<p>브랜드명:${vo.pBrand} </p>
+							
 						</div>
 					</div>
 				</c:forEach>
@@ -106,9 +112,11 @@
 			<div
 				style="border: 2px solid rgb(110, 110, 110); border-radius: 15px; width: 70%; 
 				padding: 30px; min-width: 300px;">
+				
+				<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
 
 				<div style="display: flex;">
-					<span style="width: 70%;"><b> 총 상품금액</b></span> <span
+					<span style="width: 70%;"><b> 총 상품금액</b></span><span id="price"></span> <span
 						style="width: 20%; text-align: end;">금액(원)</span><br>
 				</div>
 				<div style="display: flex; margin-top: 40px;">
@@ -135,5 +143,9 @@
 	</div>
 	<div style="display: block"><jsp:include
 			page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
+			
+
+			
+			
 </body>
 </html>

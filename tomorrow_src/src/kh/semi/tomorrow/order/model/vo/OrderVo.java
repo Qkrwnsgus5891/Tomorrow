@@ -20,7 +20,15 @@ public class OrderVo {
 	private String reAddress;
 	private String rePhone;
 	private String optVal;
+	private String productImgName;
 	
+	public String getproductImgName() {
+		return productImgName;
+	}
+	public void setproductImgName(String productImgName) {
+		this.productImgName = productImgName;
+	}
+
 	private ArrayList<OrderDetailVo> odVolist ;
 	
 	public ArrayList<OrderDetailVo> getOdVolist() {
@@ -55,7 +63,7 @@ public class OrderVo {
 		return "OrderVo [oNo=" + oNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pCnt=" + pCnt + ", pPrice=" + pPrice
 				+ ", oDate=" + oDate + ", oTotalPrice=" + oTotalPrice + ", oName=" + oName + ", eMail=" + eMail
 				+ ", oPhone=" + oPhone + ", reName=" + reName + ", reAddress=" + reAddress + ", rePhone=" + rePhone
-				+ ", optVal=" + optVal + "]";
+				+ ", optVal=" + optVal + ", productImgName=" + productImgName + ", odVolist=" + odVolist + "]";
 	}
 	
 	public int getoNo() {

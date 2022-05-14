@@ -135,8 +135,8 @@
           			  <div style="border: 1px solid rgb(142, 141, 141);">
                     <div style="display: flex; padding: 10px; width: 95%; ">
                         <div id="sumNailProduct" style="background-color: rgb(116, 116, 116);
-                        width: 100px;height: 100px;"></div>
-                        <div style="padding-left= 10px;">주문번호:<a href="storyread?bno=${ovo.oNo }">${ovo.oNo }</a>
+                        width: 120px;height: 120px; padding: 20px; "></div>
+                        <div style="padding-left= 10px; padding: 20px;">주문번호:<a href="productDetail?p_no=${ovo.oNo }">${ovo.oNo }</a>
                         <br>주문자: ${ovo.oName }
                         <br>주문날짜:${ovo.oDate } 
                         <br>주문갯수:${ovo.pCnt }</div>

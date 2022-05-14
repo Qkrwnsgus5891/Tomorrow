@@ -18,60 +18,6 @@ public class OrderDao {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 
-
-	public int order(Connection conn, OrderVo vo) {
-		
-//		private int oNo;
-//		private String mId;
-//		private int pSeq;
-//		private int pCnt;
-//		private int pPrice;
-//		private Timestamp oDate;
-//		private int oTotalPrice;
-		
-//		private String oName;
-//		private String eMail;
-//		private String oPhone;
-		
-//		private String reName;
-//		private String reAddress;
-//		private String rePhone;
-//		private String optVal;
-		
-		int result = 0;
-		
-		String sql = "insert into board () "
-				+ " values (  )";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-//			pstmt.setString(1, vo.get());
-//			pstmt.setString(2, vo.get());
-//			pstmt.setString(3, vo.get());
-//			pstmt.setString(4, vo.get());
-//			pstmt.setString(5, vo.get());
-//			pstmt.setString(6, vo.get());
-//			pstmt.setString(7, vo.get());
-//			pstmt.setString(8, vo.get());
-//			pstmt.setString(9, vo.get());
-//			pstmt.setString(10, vo.get());
-//			pstmt.setString(11, vo.get());
-
-			result = pstmt.executeUpdate();
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}		
-		
-		return result;
-	}
-	
-	
-
 	//구매목록보기
 	public ArrayList<OrderVo> myOrder(Connection conn, String mId) {
 		ArrayList<OrderVo> orderVoList = new ArrayList<OrderVo>();
@@ -83,7 +29,8 @@ public class OrderDao {
 //					+ "					join product t3 using (p_no)"
 //					+ "                    left outer join PRODUCT_IMG t4 using (p_no)";
 		String sql_order = "select * from orders where m_id=?";
-		String sql_order_detail = "select * from (select * from order_detail where o_no=?) t1 join product t2 using (p_no)";
+		String sql_order_detail = "select * from (select * from order_detail where o_no=?) t1 "
+				+ "left outer join product t2 using (p_no)";
 		try {
 			pstmt = conn.prepareStatement(sql_order);
 			pstmt.setString(1, mId);			
@@ -94,7 +41,7 @@ public class OrderDao {
 				ovo.setoDate(rs.getTimestamp("o_date"));
 				ovo.setoName(rs.getString("o_name"));
 				ovo.setoTotalPrice(rs.getInt("o_total_price"));
-				//TODO:윤성훈 추가 컬럼들 더 채우기
+//				ovo.setproductImgName(rs.getString("product_img_name"));
 				System.out.println("구매목록dao ovo :"+ ovo);
 				orderVoList.add(ovo);
 			}
@@ -115,12 +62,14 @@ public class OrderDao {
 					odvo.setpNo(rs.getInt("P_NO"));
 					odvo.setpSeq(rs.getString("P_SEQ"));
 					odvo.setoDcnt(rs.getInt("O_DETAIL_CNT"));
+					
 					pCnt += odvo.getoDcnt(); // 1번구매시 총상품개수 - 상품개수 누적
 					System.out.println("구매목록dao odvo :"+ odvo);
 					
 					ProductVo pvo = new ProductVo();
 					pvo.setpBrand(rs.getString("p_Brand"));
 					pvo.setpName(rs.getString("p_Name"));
+					
 					// TODO :윤성훈 추가 컬럼들 더 채우기	
 					odvo.setProductVo(pvo);
 								
@@ -139,31 +88,7 @@ public class OrderDao {
 			JdbcTemp.close(pstmt);
 		}
 
-		
-//			ArrayList<OrderDetailVo> odVolist = new ArrayList<OrderDetailVo>();
-//			OrderDetailVo odvo = new OrderDetailVo();
-//			odvo.setoDcnt(rs.getInt("o_detail_cnt"));
-//			ProductVo = new ArrayList<ProductVo>();
-//			ProductVo vo = new ProductVo();
-//			vo.setpNo(rs.getInt("p_no"));
-//			ovo.setOdVo(odVolist);
-//			
-//			vo.setpSeq(rs.getInt("p_seq"));
-//			vo.setpBrand(rs.getString("p_brand"));
-//			vo.setpName(rs.getString("p_name"));
-//			vo.setProductImgName(rs.getString("PRODUCT_IMG_NAME"));
 
-		
-//			vo.setOvo(ovo);
-//			vo.setpName(rs.getString("p_name"));
-//			vo.setpPrice(rs.getInt("p_price"));
-//			vo.setCateId(rs.getInt("cate_id"));
-//			vo.setCateName(rs.getString("cate_name"));
-//			vo.setOptNo(rs.getInt("opt_no"));
-//			vo.setOptVal(rs.getString("opt_val"));
-//			vo.setOptPrice(rs.getInt("opt_price"));
-		
-		
 		System.out.println("구매목록dao orderVoList :"+ orderVoList);
 		return orderVoList;
 	}

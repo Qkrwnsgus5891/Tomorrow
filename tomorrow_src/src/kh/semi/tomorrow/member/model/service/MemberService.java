@@ -61,7 +61,14 @@ public class MemberService {
 		return productVo;
 	}
 	
-	
+	//회원탈퇴
+		public int deleteAccount(String mId) {
+			int result = 0;
+			Connection conn= JdbcTemp.getConnection();
+			result=dao.deleteAccount(conn, mId);
+			JdbcTemp.close(conn);
+			return result;
+		}
 	
 	
 }

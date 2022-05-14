@@ -16,7 +16,7 @@ public class CartVo {
 	
 	private String pContent;
 	private int pPrice;
-	private String productImageName;
+	private String productImgName;
 	
 	public String getpContent() {
 		return pContent;
@@ -35,7 +35,7 @@ public class CartVo {
 	}
 
 	public CartVo(int cNo, String mId, String pSeq, int pNo, int cCnt, String cNy, String pName, String pBrand, int optNo,
-			String optVal, String optPrice, String pContent, int pPrice, String productImageName) {
+			String optVal, String optPrice, String pContent, int pPrice, String productImgName) {
 		this.cNo = cNo;
 		this.mId = mId;
 		this.pSeq = pSeq;
@@ -49,15 +49,15 @@ public class CartVo {
 		this.optPrice = optPrice;
 		this.pContent = pContent;
 		this.pPrice = pPrice;
-		this.productImageName = productImageName;
+		this.productImgName = productImgName;
 	}
 
 	@Override
 	public String toString() {
 		return "CartVo [cNo=" + cNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pNo=" + pNo + ", cCnt=" + cCnt + ", cNy="
 				+ cNy + ", pName=" + pName + ", pBrand=" + pBrand + ", optNo=" + optNo + ", optVal=" + optVal
-				+ ", optPrice=" + optPrice + ", pContent=" + pContent + ", pPrice=" + pPrice + ", productImageName="
-				+ productImageName + "]";
+				+ ", optPrice=" + optPrice + ", pContent=" + pContent + ", pPrice=" + pPrice + ", productImgName="
+				+ productImgName + "]";
 	}
 
 	public CartVo() {}
@@ -152,11 +152,11 @@ public class CartVo {
 		this.optPrice = optPrice;
 	}
 
-	public String getProductImageName() {
-		return productImageName;
+	public String getproductImgName() {
+		return productImgName;
 	}
 	
-	public void setProductImageName(String productImageName) {
-		this.productImageName = productImageName;
+	public void setproductImgName(String productImgName) {
+		this.productImgName = productImgName;
 	}
 }

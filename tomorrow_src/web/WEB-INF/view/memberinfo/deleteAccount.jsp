@@ -30,18 +30,28 @@
                 <div>
                     <div>
                         <label>
-                        <input type="checkbox" name="confirmed" required>
+                        <input type="checkbox" name="confirmed" id="check" required>
                         <span>위 내용을 모두 확인하였습니다.&nbsp;</span>
                         </label><br><br>
                     </div>
                 <div>고객센터 <b>1234-5678</b></div><br><br>
                 </div>
             <div>
-            <button type="submit">탈퇴신청</button>
-            <button type="button">취소하기</button>
+            <button type="submit" onclick="deleteid()">탈퇴신청</button>
+            <button onclick="location.href='main'">취소하기</button>
             </div>
         </div></div></div>
     </form>
     <jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include>	
 </body>
+
+
+<script>
+function deleteid() {	
+  alert("탈퇴되었습니다. 감사합니다.");
+  location.href = "DeleteDo";
+}
+</script>
+
+
 </html>

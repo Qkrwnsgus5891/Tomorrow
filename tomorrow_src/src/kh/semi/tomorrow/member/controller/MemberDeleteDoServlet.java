@@ -1,36 +1,34 @@
 package kh.semi.tomorrow.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.semi.tomorrow.admin.model.service.AdminService;
 import kh.semi.tomorrow.member.model.service.MemberService;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
-import kh.semi.tomorrow.order.model.service.OrderService;
-import kh.semi.tomorrow.order.model.vo.OrderVo;
 
 /**
- * Servlet implementation class MemberDeleteServlet
+ * Servlet implementation class MemberDeleteDoServlet
  */
-@WebServlet("/deleteAccount")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/DeleteDo")
+public class MemberDeleteDoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public MemberDeleteServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MemberDeleteDoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		// 로그인 상태 확인
 		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");
 		String mId = "";
@@ -40,7 +38,13 @@ public class MemberDeleteServlet extends HttpServlet {
 		} else {	// 로그인한 상태라면 write page 진입
 			mId = ssvo.getmId();
 		}
-					
-		request.getRequestDispatcher("WEB-INF/view/memberinfo/deleteAccount.jsp").forward(request, response);
+		
+		int result = new MemberService().deleteAccount(mId);
+		if (result > 0) {
+			System.out.println("탈퇴되었습니다");
+			response.sendRedirect("main");
+		}
+		
+		}
 	}
-}
+
