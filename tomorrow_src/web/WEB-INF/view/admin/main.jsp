@@ -118,11 +118,11 @@
       	width: 900px;
       	height: 1200px;
 
-      	top: 16%;
+      	top: 13%;
       	left: 4%;
     }
     
-	.pcontent {
+	.productImg {
 		width: 200px;
 		height: 200px;
 		border-radius: 6px;
@@ -136,10 +136,15 @@
 
 	.product_wrapper {
 		display: flex;
-		flex-wrap: wrap;
-		
+		flex-wrap: wrap;		
 	}
-
+	
+	#p_no {
+		font-size: 12px;
+		font-family: bold;
+		color: black;
+	}
+	
 	.pname {
 		padding: 10px 20px 10px 0;
 		font-size: 17px;
@@ -176,8 +181,7 @@
     }
     
     #prev_next a {
-   		color: black;
-   		
+   		color: black;   		
    	}
   </style>
   <body>
@@ -197,27 +201,31 @@
     </nav>
     <div id="product_content">
       <div id="category_group">
-<form action="adProductCtgry" method="get" id="btnFrm">      
-        <button type="button" id="furniture" class="store_btn" value="furniture">가구</button>
-        <button type="button" id="fabric" class="store_btn" value="fabric">페브릭</button>
-        <button type="button" id="light" class="store_btn" value="light">조명</button>        
-        <input type="hidden" name="ctgry" id="ctgry">
+<form action="adProductCtgry" method="get" id="btnFrm">
+      <button type="button" id="furniture" class="store_btn" value="furniture">가구</button>
+      <button type="button" id="fabric" class="store_btn" value="fabric">페브릭</button>
+      <button type="button" id="light" class="store_btn" value="light">조명</button>
+      <input type="hidden" name="ctgry" id="ctgry">                
 </form>        
       </div>
       <div id="total">전체 상품</div>
       <div id="prod_container">   
       	<div class="product_wrapper">
+      	
 <%
-	ArrayList<ProductVo> productList = (ArrayList<ProductVo>)request.getAttribute("productList");
+	ArrayList<ProductVo> productList = (ArrayList<ProductVo>)request.getAttribute("productlist");
 %>      	
-<c:forEach items="${productList }" var="vo">      	
+<c:forEach items="${productList}" var="vo">      	
 			<div class="proDetail">
+				<div id="p_no">상품번호 ${vo.pNo }</div>
 				<div>
-					<img src="${vo.productImgName }" class="pcontent">
+					<a href="productDetail?p_no=${vo.pNo }">
+						<img src="${vo.productImgName }" class="productImg">
+					</a>
 				</div>
 				<div class="pname">${vo.pName}</div>
 				<div class="pbrand">${vo.pBrand }</div>
-				<div class="pprice">${vo.pPrice }원</div>
+				<div class="pprice">${vo.pPrice }원</div>				
 			</div>
 </c:forEach>						
       	</div>      	    	
@@ -225,19 +233,30 @@
   	</div>   
       	<p id="prev_next">
     		<c:if test="${ startPage > 1 }">
-				<a href="adProductCtgry?page=${ startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="adProductCtgry?page=${startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
 			<c:forEach begin="${startPage }" end="${endPage }" var="p">
-				<a href="adProductCtgry?page=${ p}ctgry=${ctgry}">${ p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="adProductCtgry?page=${p}ctgry=${ctgry}">${ p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach>
 			<c:if test="${endPage < totalPageCnt }">
-				<a href="adProductCtgry?page=${ endPage+1}">다음</a>
+				<a href="adProductCtgry?page=${endPage+1}">다음</a>
 			</c:if>	
     	</p>      
   </div>
-<script>			
-	
+<script>		
 	$(".store_btn").click(btnHandler);
+	
+	
+	function clickproDetail(thisEle) {
+		console.log(thisEle);
+		console.log($(thisEle).parent());
+		var frmEle = $(thisEle).parent().get(0);
+		console.log(frmEle);
+		frmEle.action = "./productDetail";
+		frmEle.method = "get";
+		frmEle.submit();
+	};
+	
 	function btnHandler() {
 		console.log("btnHandler() 실행");
 		var ctgry = $(this).val();
@@ -245,7 +264,8 @@
 		$("#ctgry").val(ctgry);		
 		
 		btnFrm.submit();
-		/* $.ajax({
+		/* 
+		$.ajax({
 			url : "adProductCtgry",
 			type : "post",
 			data : {
@@ -259,7 +279,8 @@
 				alert("code:" + request.status + "\n" + "message:"
 						+ request.responseText + "\n" + "error:" + error);
 			}
-		}); */
+		}); 
+		*/
 
 	}
 </script>

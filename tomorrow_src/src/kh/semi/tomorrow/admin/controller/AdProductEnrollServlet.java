@@ -20,7 +20,7 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 /**
  * Servlet implementation class AdProductEnrollServlet
  */
-@WebServlet("/adProductDetailFile.do")
+@WebServlet("/adProductEnroll.do")
 public class AdProductEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -33,8 +33,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 	}
 	
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		
 //	}
 
 	/**
@@ -43,7 +42,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 	*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("AdProductEnrollServlet - doPost");
+		System.out.println("AdProductEnrollServlet - doPost\n");
 	
 		String fileSavePath = "upload/images/product/detail"; // "upload"파일			
 		String uploadPath = getServletContext().getRealPath(fileSavePath);
@@ -61,7 +60,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 		
 		int maxFileSize = 10 * 1024 * 1024; // 10MG
 		// TODO 파일 사이즈 ?? 
-		int imgSize = 5;	
+		int imgSize = 124;	
 		
 		// 파일 업로드 완료
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, 

@@ -35,10 +35,7 @@ public class AdProductAddOptServlet extends HttpServlet {
 		System.out.println("AdProductAddOptServlet - doPost");
 		PrintWriter out = response.getWriter();
 		int result = -1;
-//		pNo : $("#prod_no").val(),
-//		optNo : $("#opt_name").val(),
-//		optVal : $("#opt_value").val(),
-//		optPrice : $("#opt_cash").val()
+
 		String pNo_param = request.getParameter("pNo");
 		String optNo_param = request.getParameter("optNo");
 		String optVal = request.getParameter("optVal");

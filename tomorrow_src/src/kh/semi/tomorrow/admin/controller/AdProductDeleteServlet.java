@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.semi.tomorrow.admin.model.service.AdminService;
+
 /**
  * Servlet implementation class AdProductDeleteServlet
  */
@@ -29,12 +31,36 @@ public class AdProductDeleteServlet extends HttpServlet {
 //	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("AdProductDeleteServlet - doPost");
+		System.out.println("AdProductDeleteServlet - doPost\n");
+		int result = 0;				
+		String[] numbers = request.getParameterValues("selectPno");
+		if(numbers == null) {
+			System.out.println("삭제할 상품번호를 선택해주세요.");
+			request.setAttribute("msg", "삭제할 상품번호를 선택해주세요.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
+		}
 		
+		int[] pNos = new int[numbers.length];
 		
-		System.out.println("페이지로부터 전달받은 데이터값");
-		System.out.println("==============================================");
-		System.out.println("==============================================\n");
+		for(int i=0; i<numbers.length; i++) {
+			System.out.println("선택한 글번호: " + numbers[i]);
+		}
+		
+		for(int i=0; i<numbers.length; i++) {
+			pNos[i] = Integer.parseInt(numbers[i]);
+			System.out.println("선택한 pNos[i]: " + pNos[i]);
+		}
+		result = new AdminService().deleteProduct(pNos);		
+		
+		if(result < 1) {
+			System.out.println("상품을 삭제하는데 실패했습니다.");
+			request.setAttribute("msg", "상품을 삭제하는데 실패했습니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
+		} else {
+			System.out.println("관리자가 상품을 삭제했습니다.");
+			request.setAttribute("msg", "관리자가 상품을 삭제했습니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
+		}
 	}
 
 }

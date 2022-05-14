@@ -46,8 +46,7 @@ public class AdStoryBoardDeleteServlet extends HttpServlet {
 			bNos[i] = Integer.parseInt(numbers[i]);
 			System.out.println("bNos[i]: " + bNos[i]);
 		}
-		result = new AdminService().deleteBoard(bNos);
-		
+		result = new AdminService().deleteBoard(bNos);		
 		if(result < 1) {
 			System.out.println("게시글을 삭제하는데 실패했습니다.");
 			request.setAttribute("msg", "게시글을 삭제하는데 실패했습니다.");

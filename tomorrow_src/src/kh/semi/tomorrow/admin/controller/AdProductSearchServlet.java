@@ -50,9 +50,7 @@ public class AdProductSearchServlet extends HttpServlet {
 		System.out.println("조회한 상품 번호:\t" + pNo);
 		System.out.println("상품 상세번호:\t" + pSeq);
 		ProductVo result = new ProductVo();		
-		result = new AdminService().searchProduct(pNo, pSeq);		
-//		request.setAttribute("product", result);
-//		request.getRequestDispatcher("WEB-INF/view/admin/productEdit.jsp").forward(request, response);
+		result = new AdminService().searchProduct(pNo, pSeq);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		System.out.println(" *** 상품정보 ***");

@@ -198,31 +198,10 @@
           </td>
           <td>${vo.oName }</td>
         </tr>
-</c:forEach>
-<!-- 
-        <tr>
-          <td>
-            <div class="order_box">
-              사진 배치 예시, 추후 img태그 사용
-              <div class="sumnail">img</div>                          
-              <img src="resources/images/main_bg.jpg" alt="썸네일" class="sumnail" />
-              <ul class="order_info">
-                <li id="brand">브랜드명</li>
-                <li id="prod_name">상품명</li>
-              </ul>      
-            </div>
-          </td> 
-          <td>                                    
-              0000000<br>
-              N개            
-          </td>
-          <td>2022.12.31</td>
-          <td>가격(원)</td>
-          <td>홍길동</td>
-        </tr>  
--->             
+</c:forEach>            
       </table>
-    </section>    
+    </section>
+        
     <p id="prev_next">
     	<c:if test="${ startPage > 1 }">
 			<a href="adMemberOrderList?page=${ startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;

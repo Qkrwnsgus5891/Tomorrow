@@ -58,10 +58,11 @@ public class AdminDao {
 		} 
 		
 		if(productList == null) {
-			System.out.println("AdminDao-ctgryProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\t" + productList + "\n");
+			System.out.println("AdminDao-ctgryProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\n" + productList + "\n");
 		} else {
-			System.out.println("AdminDao-ctgryProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + productList + "\n");		
+			System.out.println("AdminDao-ctgryProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\n" + productList + "\n");		
 		}
+		
 		return productList;
 	}
 	
@@ -99,7 +100,7 @@ public class AdminDao {
 				
 				productList.add(product);
 			}
-			System.out.println("========== Product_Img ==========");
+			System.out.println("\n[Product_Img]\n");
 			for(ProductVo pvo : productList) {
 				JdbcTemp.close(rs);
 				JdbcTemp.close(pstmt);
@@ -131,15 +132,14 @@ public class AdminDao {
 		ArrayList<ProductVo> productList = null;
 		String sql = "select * "
 				+ "    from( select rownum r, t1.* "
-				+ "        from (select C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
-				+ "					P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
-				+ "					from PRODUCT P JOIN PRODUCT_CATEGORY C"
-				+ "					ON P.CATEGORY_ID = C.CATEGORY_ID"
-				+ "					order by p_no desc"
+				+ "        from (select i.PRODUCT_IMG_NAME, C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
+				+ "   		P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
+				+ "		    from PRODUCT P JOIN PRODUCT_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID"
+				+ "    		join product_img i on i.p_no = p.p_no"
+				+ "    		order by p_no desc "
 				+ "        ) t1 "
 				+ "    )"
-				+ " where r between ? and ?";
-		String sql_img = "select * from product_img";
+				+ "    where r between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -151,6 +151,8 @@ public class AdminDao {
 			productList = new ArrayList<ProductVo>();				
 			while(rs.next()) {
 				ProductVo product = new ProductVo();
+				
+				product.setProductImgName(rs.getString("PRODUCT_IMG_NAME"));
 				product.setCateId(rs.getInt("CATEGORY_ID"));
 				product.setCateName(rs.getString("CATEGORY_NAME"));
 				product.setpNo(rs.getInt("P_NO"));
@@ -161,21 +163,6 @@ public class AdminDao {
 				
 				productList.add(product);
 			}			
-			
-			System.out.println("========== Product_Img ==========");
-			for(ProductVo pvo : productList) {
-				JdbcTemp.close(rs);
-				JdbcTemp.close(pstmt);
-				System.out.println("제품dao pvo :"+ pvo);
-				pstmt = conn.prepareStatement(sql_img);
-				pstmt.setInt(1, pvo.getpNo());			
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					pvo.setProductImgName(rs.getString("product_Img_Name"));
-					//pivo.setProductImgSize(rs.getInt("product_Img_Size"));
-				}
-			}
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -357,13 +344,11 @@ public class AdminDao {
 	public ProductVo searchProduct(Connection conn, int pNo, int pSeq) {
 		ProductVo product = null;
 		ProductDetailVo detail = null;
-//		ArrayList<ProductDetailVo> detailList = null;
 		String sql1 = "select p_no, p_brand, p_name, p_content, p_price, category_id"
 					+ " from product where p_no = ?" ;
 		String sql2 = "select d.p_no, d.p_seq, d.opt_no, op.opt_name, d.opt_val, d.opt_price"
 				+ " from product_detail d join option_parent op on d.OPT_NO= op.OPT_NO "
-				+ " where p_no= ? and p_seq = ?";
-//		String sql2 = "select p_seq, p_no, opt_no, opt_val, opt_price from product_detail where p_no=? and p_seq= ?";
+				+ " where p_no= ? and p_seq = ?";		
 		String sql3 = "select product_img_name, product_img_size from product_img where p_no = ?";
 		
 		try {

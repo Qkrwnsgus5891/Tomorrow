@@ -41,12 +41,12 @@
     #container {
      margin: 0 auto;
       width: 1300px;
-      height: 500px;
+      height: 100%;
     }
     #nav_menu {
       float: left;
       width: 20%;
-      height: 100%;
+      height: 850px;
       /* background-color: #ccc; */
     }
 
@@ -66,13 +66,13 @@
       float: right;
       position: relative;      
       width: 80%;
-      height: 100%;
+      height: 850px;
     }
 
     #member_info_title {      
       position: absolute;
-      top: 15%;      
-      left: 100px;
+      top: 13%;      
+      left: 10px;
       font-size: 15px;
       font-weight: bold;
     }
@@ -81,8 +81,8 @@
       position: absolute;
       width: 850px;
       height: 30px;
-      top: 19%;
-      left: 100px;
+      top: 16%;
+      left: 10px;
     }
     
     #member_del {
@@ -98,8 +98,8 @@
     
     #member_list {                  
       position: absolute;  
-      top: 25%;
-      left: 100px;
+      top: 19%;
+      left: 10px;
       width: 850px;
       
       text-align: center;      
@@ -118,7 +118,7 @@
     	clear: both;  
       	width: 800px;
       	text-align: center; 
-      	margin-left: 400px;
+      	margin-left: 350px;
     }
     
     #prev_next a {
@@ -173,15 +173,7 @@
           		<td>${member.mDate }</td>
           		<td>${member.mNy }</td>
         	</tr>        
-</c:forEach>        
-        <!-- <tr>
-          <td>guest2</td>
-          <td>홍진경</td>
-          <td>손님2</td>
-          <td>910327</td>
-          <td>010-1414-1415</td>
-          <td>2022.12.31</td>
-        </tr>    -->
+</c:forEach>
       	</table>
       </form>
     </section>

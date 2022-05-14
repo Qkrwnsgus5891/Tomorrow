@@ -21,6 +21,7 @@ public class AdminService {
 		JdbcTemp.close(conn);
 		return volist;
 	}
+	
 	// 페이징 처리한 카테고리별 상품 조회
 	public ArrayList<ProductVo> ctgryProduct(String ctgry, int startNum, int endNum){
 		Connection conn = JdbcTemp.getConnection();
@@ -106,20 +107,6 @@ public class AdminService {
 		return result;
 	}
 	
-//	// 상품 이미지 등록
-//	public int insertProductContent(ProductVo vo) {
-//		int result = 0;
-//		Connection conn = JdbcTemp.getConnection();
-//		result = dao.insertProductContent(conn, vo);
-//		if(result == 0) {
-//			System.out.println("AdaminService-insertProductContent()가 실패했습니다.");
-//		} else {			
-//			System.out.println("AdminService-insertProductContent()\nresult:\t\t" + result + "\n");			 
-//		}
-//		JdbcTemp.close(conn);
-//		return result;
-//	}
-	
 	// 상품 수정
 	public int updateProduct(ProductVo product, ProductDetailVo detail, int pNo, int pSeq) {
 		int result = 0; int result2=0; int result3=0;
@@ -158,10 +145,27 @@ public class AdminService {
 	}
 	
 	// 상품 삭제
-	public int deleteProduct(int pNo) {
+	public int deleteProduct(int[] pNos) {
 		int result = 0;
 		Connection conn= JdbcTemp.getConnection();
-		result=dao.deleteProduct(conn, pNo);
+		JdbcTemp.setAutocommit(conn, false);
+		boolean bool = true;
+		
+		for(int i=0; i<pNos.length; i++) {
+			System.out.println("AdminService() - 선택한 pNos[i]:\t" + pNos[i]);
+			result = dao.deleteProduct(conn, pNos[i]);
+			if(result == 0) {
+				bool = false;
+				break;
+			}
+		}
+		
+		if(bool) {
+			JdbcTemp.commit(conn);
+		} else {
+			JdbcTemp.rollback(conn);
+		}
+		
 		JdbcTemp.close(conn);
 		return result;
 	}

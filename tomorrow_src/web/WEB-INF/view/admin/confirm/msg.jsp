@@ -11,8 +11,8 @@
 	String msg = (String)request.getAttribute("msg");
 %>
 	<script>
-	var msg = '${msg}';
-	if(msg != ''){
+	var msg = '${msg}';	
+	if(msg != ''){		
 		alert(msg);
 		location.replace("admain");
 	}

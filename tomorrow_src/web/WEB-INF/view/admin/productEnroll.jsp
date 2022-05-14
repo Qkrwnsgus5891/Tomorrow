@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tomorrow : 관리자 상품 등록 페이지</title>
@@ -36,13 +37,19 @@
       display: flex;
       width: 950px;
     }
-    #product_img {
+    
+    #previewImage {
       flex-flow: row wrap;
-      width: 370px;
+      width: 470px;
       height: 450px;
       border: 1px dotted #ccc;
+      font-size:12px;
     }
-
+	.preview_img {
+      width: 380px;
+      height: 400px;
+    }
+        
     #product_enroll_grp{
       /* border: 1px solid black; */
       flex-flow: row wrap;
@@ -142,11 +149,7 @@
     <form method="post" enctype="multipart/form-data" id="efrm">
       <div id="content_enroll">      
        <!-- <img src="" alt="이미지" id="product_img">   -->      
-         <div id="product_img">
-          <div>
-            
-          </div>
-        </div>
+        <img id="previewImage" src="https://dummyimage.com/300x100/ffffff/000000.jpg&text=&nbsp;"/>
         <div id="product_enroll_grp">        
           <div class="enroll_content">
           	<!-- 카테고리 종류 -->
@@ -195,11 +198,30 @@
       </div>
        
       <div class="enroll_content">
-      	파일: <input type="file" name="upload" required>
+      	<label for="input_file">사진찾기&nbsp;</label>
+      	<input type="file" name="upload" id="inputImage" required>
       </div>
+<script>
+function readImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+// 이벤트 리스너
+document.getElementById('inputImage').addEventListener('change', (e) => {
+    readImage(e.target);
+})	
+</script>
       <p id="product_info">상품 정보</p>
       <textarea id="ckeditor" name="pContent" ></textarea>
-	    <script>
+<script>
+
 	    	CKEDITOR.replace('ckeditor', {
 	    		filebrowserUploadUrl: '${pageContext.request.contextPath}/ContentImageUpload.do'
 //				filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
@@ -218,55 +240,13 @@
 		                   break;
 		           }
 		       });
-	    </script>        
-      <div id="enroll_content">
-        <button type="button" id="enroll_btn">상품 등록</button>
-      </div>
-      
-    </form>   
-<!--   
-    <form action="adImageEnroll.do" method="post" method="post" enctype="multipart/form-data" id="cfrm"> 
-      <p id="product_info">상품 정보</p>
-  	<div id="product_content"> 
-          	<div id="productImage">
-	  				<label for="pdNo">상품 번호 :
-	  					<input type="text" name="pdNo" id="pdNo" placeholder="상품번호를 입력하세요.">
-		  			</label><br><br>
-		  			<input type="file" name="upload">
-			</div>
-<  			
-      	<textarea id="ckeditor" name="productImgName" ></textarea>
-	    <script>
-	    	CKEDITOR.replace('ckeditor', {
-	    		filebrowserUploadUrl: '${pageContext.request.contextPath}/ContentImageUpload.do'
-//				filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
-//				enterMode:CKEDITOR.ENTER_BR,
-//				shiftEnterMode:CKEDITOR.ENTER_P
-	    	});
-	    	CKEDITOR.on('dialogDefinition', function(ev){
-		           var dialogName = ev.data.name;
-		           var dialogDefinition = ev.data.definition;
-		         
-		           switch (dialogName) {
-		               case 'image': //Image Properties dialog
-		                   //dialogDefinition.removeContents('info');
-		                   dialogDefinition.removeContents('Link');
-		                   dialogDefinition.removeContents('advanced');
-		                   break;
-		           }
-		       });
-	    </script>                
-        
-               	       
-	  	<div id="enroll_content">
-        	<button type="button" id="img_btn">상품 정보 등록</button>
-      	</div>        
-    </form>
--->    
+</script>        
+      	<div id="enroll_content">
+        	<button type="button" id="enroll_btn">상품 등록</button>
+      		</div>      
+    	</form>      
 	</div>    
-<!-- 
-P_NO, P_BRAND, P_NAME, P_CONTENT_, P_PRICE, CATEGORY_ID
- -->
+
 <script>
 	$("#enroll_btn").click(enrollHandler);	
 	$("#img_btn").click(contentAddtionHandler);	
@@ -280,8 +260,7 @@ P_NO, P_BRAND, P_NAME, P_CONTENT_, P_PRICE, CATEGORY_ID
 		console.log("옵션값: " +$("#opt_val").val());
 		console.log("추가가격: " +$("#opt_price").val());
 		
-		// 조건에 따른 파일경로를 지정하기 위한 파라미터 값 전달
-//		$("#ctgry").val(str);
+		
 		document.querySelector("#ctgry").value = $("#category").val(); 
 //		$("#ctgry").prop("value", $("#category").val());
 		console.log("전달할 파라미터 ctgry값: " + $("#ctgry").val());
@@ -290,25 +269,8 @@ P_NO, P_BRAND, P_NAME, P_CONTENT_, P_PRICE, CATEGORY_ID
 		var msg = confirm("상품을 등록하시겠습니까?");		
 		if(msg){	
 			console.log("category: " + str);
-			$("#efrm").prop("action", "adProductDetailFile.do");
-			efrm.submit();
-			/* 
-			if(str == '1'){
-				console.log("category: " + str);
-				$("#efrm").prop("action", "adProductDetail.a");
-				efrm.submit();			
-			}
-			else if(str == '2'){
-				console.log("category: " + str);
-				$("#efrm").prop("action", "adProductDetail.b");
-				efrm.submit();
-			}
-			else if(str == '3') {
-				console.log("category: " + str);
-				$("#efrm").prop("action", "adProductDetail.c");
-				efrm.submit();
-			} 
-			*/
+			$("#efrm").prop("action", "adProductEnroll.do");
+			efrm.submit();			
 		} else {
 			console.log("등록 취소");
 		}

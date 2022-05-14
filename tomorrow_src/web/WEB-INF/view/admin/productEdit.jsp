@@ -422,43 +422,8 @@ input[type="text"], select {
 					}
 					if(result.pdt.optNo == 3){
 						$("#opt_no").val("3").prop("selected", true);	
-					}
-					
-//					$("#opt_value").val(result.pdvo[0].optPrice);					
+					}				
 
-// 중복값 제거
-/*
-					var orgStr = [];					
-					for(var i=0; i<result.pdvo.length; i++) {
-						vo = result.pdvo[i].optName;
-						orgStr.push(vo);
-						console.log(i+ ": " + orgStr);
-					}
-					
-					var optNames= [...new Set(orgStr)];
-					console.log("optNames: " + optNames);
-					
-					for(var i=0; i<optNames.length; i++) {							
-						var vo = result.pdvo[i];						
-//						console.log("pdvo["+i+"].optNo: "+ result.pdvo[i].optNo);
-						console.log("optNames"+[i]+": " + optNames[i]); 
-//						 if(vo.optNo[i] == vo.optNo[i+1] ) {
-//							continue;
-//						} 
-						html1 += '<option value="'+ vo.optNo  +'">';
-						html1 += optNames[i] + '</option>';
-					} 				
-					
-					
- 					for(var j =0; j<result.pdvo.length; j++) {					
-						var vo = result.pdvo[j];
-						html2 += '<option value="'+ vo.optNo  +'">';
-						html2 += vo.optVal + '</option>';
-					} 
-					
-					$("#opt_no").append(html1);
-					$("#opt_val").append(html2);
-*/					
 				},
 				error : function(request, status, error) {
 					console.log(request);

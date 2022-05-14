@@ -21,15 +21,8 @@
       $(window).on("click", function() {
         // console.log("window 클릭");
         $(".admin_modal").hide();
-      });
-
-
-
-      
-    });
-  
-
-  
+      });      
+    });  
   </script>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&family=Nanum+Pen+Script&display=swap');
@@ -41,12 +34,12 @@
     #container {
       margin: 0 auto;
       width: 1300px;
-      height: 700px;
+      height: 100%;
     }
     #nav_menu {
       float: left;
       width: 20%;
-      height: 100%;
+      height: 850px;
       /* background-color: #ccc; */
     }
 
@@ -66,13 +59,13 @@
       float: right;
       position: relative;      
       width: 80%;
-      height: 100%;
+      height: 850px;
     }
 
     #story_info_title {      
       position: absolute;
-      top: 10%;      
-      left: 70px;
+      top: 13%;      
+      left: 10px;
       font-size: 15px;
       font-weight: bold;
     }
@@ -81,8 +74,8 @@
       position: absolute;      
       width: 150px;
       height: 40px; 
-      top: 9%;
-      left: 85%;
+      top: 13%;
+      left: 79%;
     }
 
     #story_ins, #story_del {      
@@ -92,8 +85,8 @@
 
     #story_list {                  
       position: absolute;  
-      top: 13%;
-      left: 70px;
+      top: 19%;
+      left: 10px;
       width: 970px;
       text-align: center;      
       font-size: 13px;      
@@ -112,7 +105,7 @@
     	clear: both;  
       	width: 800px;
       	text-align: center; 
-      	margin-left: 400px;
+      	margin-left: 350px;
     }
     
     #prev_next a {
@@ -138,7 +131,7 @@
     	<section id="story_content">
       		<p id="story_info_title">오늘의 스토리</p>                   
       		<div id="story_manage_grp">
-        		<button type="button" id="story_ins" style="width:70px; height:30px;">작성</button>
+        		<button type="button" id="story_ins" onclick="location.href='enrollF';" style="width:70px; height:30px;">작성</button>
         		<button type="button" id="story_del" style="width:70px; height:30px;">삭제</button>       
       		</div>       
       	<form action="adAritcleDelete" method="post" id="boardFrm">
@@ -180,14 +173,17 @@
 		</p>
   </div>
   
-  <script>
-  	$("#story_ins").on("click", storyWrite);
+ <%
+	String msg = (String)request.getAttribute("msg");
+%>
+<script>
+	var msg = '${msg}';	
+	if(msg != ''){		
+		alert(msg);		
+	}
+</script>
+  <script>  	
   	$("#story_del").on("click", storyDelete);
-  	
-  	function storyWrite() {
-  		console.log("storyWrite()");
-//  	location.href="";
-  	}
   	
 	function storyDelete() {
 //		console.log("storyDelete()");		
@@ -199,8 +195,8 @@
 //		console.log(strChk);		
 		var cnf = confirm("게시글을 삭제하시겠습니까?");
 		if(cnf) {
-			boardFrm.submit();			
-		} else {
+			boardFrm.submit();		
+		} else {			
 			location.href="adArticleManage";
 		}
 		

@@ -216,7 +216,7 @@ ALTER TABLE Cart ADD CONSTRAINT FK_Product_TO_Cart_1 FOREIGN KEY (
 )
 REFERENCES Product (
 	P_NO
-);
+)on delete cascade;
 
 ALTER TABLE Orders ADD CONSTRAINT FK_Member_TO_Order_1 FOREIGN KEY (
 	M_ID

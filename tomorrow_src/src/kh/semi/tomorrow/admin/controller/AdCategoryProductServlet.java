@@ -31,7 +31,7 @@ public class AdCategoryProductServlet extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			
-		System.out.println("상품 목록 페이지로 이동합니다...");
+		System.out.println("상품 목록 페이지로 이동합니다.");
 		System.out.println("AdCategoryProductServlet - doGet");	
 		int currentPage = 1;		
 		String currentPageStr = request.getParameter("page");
@@ -57,7 +57,7 @@ public class AdCategoryProductServlet extends HttpServlet {
 		int totalCnt = 0; 
 		totalCnt = new AdminService().countCtgryProduct(ctgry);
 		
-		System.out.println(ctgry +" 상품 개수:\t"+totalCnt + "\n");
+		System.out.println(ctgry +"의 상품 개수:\t"+totalCnt + "\n");
 		
 		/* Paging 처리 */
 		int totalPageCnt = (totalCnt/pageSize) + (totalCnt%pageSize==0 ? 0 : 1);
@@ -79,8 +79,7 @@ public class AdCategoryProductServlet extends HttpServlet {
 			endNum = totalCnt;
 		}
 		System.out.println("rnum:"+ startNum +"~"+endNum+"\n");			
-		
-		
+				
 		System.out.println("선택한 카테고리: " + ctgry + "\n");
 		ArrayList<ProductVo> productList = new AdminService().ctgryProduct(ctgry, startNum, endNum);
 		System.out.println("AdCategoryProductServlet- doPost\n[productList]\n" + productList + "\n");
