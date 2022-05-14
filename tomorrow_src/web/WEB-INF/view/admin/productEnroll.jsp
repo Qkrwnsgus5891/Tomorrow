@@ -148,8 +148,10 @@
 	<div id="container">
     <form method="post" enctype="multipart/form-data" id="efrm">
       <div id="content_enroll">      
-       <!-- <img src="" alt="이미지" id="product_img">   -->      
+       
         <img id="previewImage" src="https://dummyimage.com/300x100/ffffff/000000.jpg&text=&nbsp;"/>
+        
+        
         <div id="product_enroll_grp">        
           <div class="enroll_content">
           	<!-- 카테고리 종류 -->

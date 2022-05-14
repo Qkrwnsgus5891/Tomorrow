@@ -61,7 +61,7 @@ public class AdProductContentEditServlet extends HttpServlet {
 			pNo = Integer.parseInt(pNo_param);
 		} catch(Exception e) {
 			System.out.println("*** 정수로 변환 도중 오류 발생 ***");
-			request.setAttribute("msg", "오류가 발생했습니다.");
+			request.setAttribute("msg", "오류가 발생했습니다. 메인 화면으로 이동합니다.");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 		}
 		String pFilePathParam = multi.getParameter("pContentPath");

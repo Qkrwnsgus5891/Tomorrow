@@ -36,6 +36,11 @@ public class AdStoryBoardDeleteServlet extends HttpServlet {
 		System.out.println("AdStoryBoardDeleteServlet - doGet");
 		int result = 0;				
 		String[] numbers = request.getParameterValues("checkBoard");
+		if(numbers == null) {
+			System.out.println("게시물을 선택하지 않았습니다. 메인화면으로 이동합니다.");
+			request.setAttribute("msg", "게시물을 선택하지 않았습니다. 메인화면으로 이동합니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);			
+		}
 		int[] bNos = new int[numbers.length];
 		
 		for(int i=0; i<numbers.length; i++) {

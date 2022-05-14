@@ -82,7 +82,8 @@
     }    
 
     #category_group {      
-      	position: absolute;      
+      	position: absolute;
+      	width: 500px;      
       	top: 100px;
       	left: 4%;
     }
@@ -90,10 +91,10 @@
     	width: 100px;
       	height: 40px;
       	background: rgb(158, 158, 158);
-      	color: white;
-	
+      	color: white;	
    		border: 1px solid rgb(158, 158, 158);
-      	border-radius: 50px;      
+      	border-radius: 50px; 
+      	margin-right: 10px;     
     }
 
     #funiture, #fabric, #light{
@@ -115,75 +116,76 @@
     	border: 1px solid #ccc;
     	border-radius: 5px;
     	position: absolute;
-      	width: 900px;
-      	height: 1200px;
+      	width: 1000px;
+      	height: 700px;
 
       	top: 13%;
       	left: 4%;
-    }
-    
-	.productImg {
-		width: 200px;
-		height: 200px;
-		border-radius: 6px;
-	}
-
-	.product_wrapper .proDetail {
-		width: 220px;
-		padding: 15px;
-		margin: 15px;
-	}
-
-	.product_wrapper {
-		display: flex;
-		flex-wrap: wrap;		
-	}
-	
-	#p_no {
-		font-size: 12px;
-		font-family: bold;
-		color: black;
-	}
-	
-	.pname {
-		padding: 10px 20px 10px 0;
-		font-size: 17px;
-		font-weight: 500;
-	}
-
-	.pbrand {
-		font-size: 13px;
-		font-weight: 900;
-		color: #656e75;
-	}
-
-	.pprice {
-		float: right;
-		padding-right: 20px;
-		color: black;
-		font-size: 20px;
-		font-weight: 900;
-	}
-
-	#categoryName{
-		font-size: 15px;
-		font-weight: bold;
-		color: black;
-	}
-	
-	#prev_next {    
-    	clear: both;  
-      	width: 800px;
-      	height: 50px;
-      	text-align: center; 
-      	margin-left: 350px;
-      	padding-top: 30px;       	
-    }
-    
-    #prev_next a {
-   		color: black;   		
-   	}
+    }   	
   </style>
+  <style>
+
+.productImgName {
+	width: 200px;
+	height: 200px;
+	border-radius: 6px;
+}
+
+.product_wrapper .proDetail {
+	width: 220px;
+	padding: 15px 0;
+	padding-right: 15%;
+	padding-left: 15%;
+	margin: 0 40px;
+	
+	
+}
+
+.product_wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	
+}
+
+.pname {
+	padding: 10px 20px 10px 0;
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.pbrand {
+	font-size: 13px;
+	font-weight: 900;
+	color: #656e75;
+}
+
+.pprice {
+	float: right;
+	padding-right: 20px;
+	color: black;
+	font-size: 20px;
+	font-weight: 900;
+}
+
+#categoryName{
+	font-size: 20px;
+	font-weight: 900;
+	color: black;
+}
+.pasing{
+	text-align: center;
+	margin: 20px 0 5px;
+}
+.pasing a{
+	border: 1px solid #f5f5f5;
+	background-color: #f5f5f5;
+	padding: 0 5px;
+	color: black;
+	font-weight: 700;
+	border-radius: 3px;
+}
+</style>
   <body>
   <jsp:include page="../template_header.jsp"/>	
 
@@ -201,20 +203,19 @@
     </nav>
     <div id="product_content">
       <div id="category_group">
-<form action="adProductCtgry" method="get" id="btnFrm">
-      <button type="button" id="furniture" class="store_btn" value="furniture">가구</button>
-      <button type="button" id="fabric" class="store_btn" value="fabric">페브릭</button>
-      <button type="button" id="light" class="store_btn" value="light">조명</button>
-      <input type="hidden" name="ctgry" id="ctgry">                
-</form>        
+		<button type="button" id="all" class="store_btn">전체</button>
+      	<button type="button" id="furniture" class="store_btn">가구</button>
+      	<button type="button" id="fabric" class="store_btn">페브릭</button>
+      	<button type="button" id="light" class="store_btn" >조명</button>
+      	<input type="hidden" name="ctgry" id="ctgry">                
+        
       </div>
       <div id="total">전체 상품</div>
-      <div id="prod_container">   
+     <div id="prod_container"> 
+
+<!--      	
       	<div class="product_wrapper">
       	
-<%
-	ArrayList<ProductVo> productList = (ArrayList<ProductVo>)request.getAttribute("productlist");
-%>      	
 <c:forEach items="${productList}" var="vo">      	
 			<div class="proDetail">
 				<div id="p_no">상품번호 ${vo.pNo }</div>
@@ -228,23 +229,53 @@
 				<div class="pprice">${vo.pPrice }원</div>				
 			</div>
 </c:forEach>						
-      	</div>      	    	
+      	</div>   
+-->   	    
+		<section>
+					<article id="productList">						
+							<c:set var="cateIdx" value="${pageCateId }"></c:set>
+							
+						<div class="product_wrapper">
+							<c:forEach items="${productList }" var="vo">
+								<form class="prdt" action="./productDetail" method="get">
+									<input type="hidden" name="p_no" value="${vo.pNo }">
+
+									<div class="proDetail" onclick="clickproDetail(this);">
+										<div>
+											<img src="${vo.productImgName }" class="productImgName">
+										</div>
+										<div class="pname">${vo.pName }</div>
+										<div class="pbrand">${vo.pBrand }</div>
+										<div class="pprice">${vo.pPrice }</div>
+									</div>
+								</form>
+							</c:forEach>
+						</div>
+						
+						<p class="pasing">
+							<c:if test="${startPage > 1 }">
+								<a href="admain?pageCateId=${pageCateId }&page=${startPage-1 }">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:if>
+							<c:forEach begin="${startPage }" end="${endPage }" var="p">
+								<a href="admain?pageCateId=${pageCateId }&page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+							<c:if test="${endPage < totalPageCnt }">
+								<a href="admain?pageCateId=${pageCateId }&page=${endPage+1 }">다음</a>
+							</c:if>
+						</p>
+					</article>
+		</section>	
       </div>
-  	</div>   
-      	<p id="prev_next">
-    		<c:if test="${ startPage > 1 }">
-				<a href="adProductCtgry?page=${startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			</c:if>
-			<c:forEach begin="${startPage }" end="${endPage }" var="p">
-				<a href="adProductCtgry?page=${p}ctgry=${ctgry}">${ p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			</c:forEach>
-			<c:if test="${endPage < totalPageCnt }">
-				<a href="adProductCtgry?page=${endPage+1}">다음</a>
-			</c:if>	
-    	</p>      
+  	</div>         	     
   </div>
-<script>		
+<script>
+/*
 	$(".store_btn").click(btnHandler);
+*/
+
+	console.log("페이지 로딩");
+	$("body").show();
+	$("button").click(furnitureSelect);
 	
 	
 	function clickproDetail(thisEle) {
@@ -257,6 +288,85 @@
 		frmEle.submit();
 	};
 	
+	function furnitureSelect() {
+		console.log(this);
+		var btnIdx = $(this).index();
+		console.log(btnIdx);
+		$.ajax({
+			url : "adProductCtgry",
+			type : "post",
+			data : {
+				pageCateId : btnIdx
+			},
+			dataType : "json",
+			success : function(result) {
+				console.log(result);
+				displayProductList(result, btnIdx);
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+		
+		function displayProductList(result, btnIdx) {
+			console.log(this);
+			var html = "";
+			$("#productList").html(""); //
+
+			var pageCateId = result.pageCateId;
+
+			if (pageCateId == 1) {
+				cateName = "가구";
+			} else if (pageCateId == 2) {
+				cateName = "페브릭";
+			} else if (pageCateId == 3) {
+				cateName = "조명";
+			} else {
+				cateName = "전체 상품";
+			}
+
+	
+			html += '<div class="product_wrapper">';
+			for (var i = 0; i < result.productList.length; i++) {
+				var vo = result.productList[i];
+				html += '		<form class="prdt"><input type="hidden" name="p_no" value="'+vo.pNo+'">';
+				html += '			<div class="proDetail" onclick="clickproDetail(this);">';
+				html += '				<div><img src="'+vo.productImgName+'" class="productImgName"></div>';
+				html += '			';
+				html += '			';
+				html += '				<div class="pname">' + vo.pName + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div class="pbrand">' + vo.pBrand + '</div>';
+				html += '			';
+				html += '			';
+				html += '				<div class="pprice">' + vo.pPrice + '</div>';
+				html += '			</div>';
+				html += '		 </form>';
+			}
+
+			html += '</div>';
+			html += '<p class="pasing">';
+			if (result.startPage > 1) {
+				html += '		<a href="admain?pageCateId='+pageCateId+'&page=' + result.startPage-1 + '">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+			}
+
+			for (var p = result.startPage; p <= result.endPage; p++) {
+				html += '		<a href="admain?pageCateId='+pageCateId+'&page=' + p + '">' + p + '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				
+				
+			}
+
+			if (result.endPage < result.totalPageCnt) {
+				html += '		<a href="admain?&pageCateId='+pageCateId+'&page=' + result.endPage+1 + '">다음</a>';
+			}
+			html += '</p>';
+
+			$("#productList").html(html); //
+
+		}
+/*
 	function btnHandler() {
 		console.log("btnHandler() 실행");
 		var ctgry = $(this).val();
@@ -283,6 +393,7 @@
 		*/
 
 	}
+
 </script>
   
 </body>

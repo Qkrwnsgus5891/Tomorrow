@@ -202,7 +202,7 @@
 		
 		console.log(strChk); 
 		*/
-		var cnf = confirm("해당 회원의 탈퇴 상태여부를 변경하겠습니까?");
+		var cnf = confirm("해당 회원의 탈퇴 상태여부를 변경하겠습니까?");		
 		if(cnf) {
 			memberListFrm.submit();			
 		} else {

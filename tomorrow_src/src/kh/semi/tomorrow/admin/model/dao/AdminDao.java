@@ -1,5 +1,7 @@
 package kh.semi.tomorrow.admin.model.dao;
 
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -181,19 +183,81 @@ public class AdminDao {
 		return productList;
 	}
 	
-	public int countCtgryProduct(Connection conn, String cateName) {
-		int result= 0;
-		String sql = "select count(*)"
-				+ "                from PRODUCT P JOIN PRODUCT_CATEGORY C"
-				+ "				ON P.CATEGORY_ID = C.CATEGORY_ID"
-				+ "				WHERE C.CATEGORY_NAME = ? ";
-		
+	public ArrayList<ProductVo> seachAllProduct(Connection conn, int startNum, int endNum, int pageCateId) {
+		ArrayList<ProductVo> volist = null;
+
+		String sql = "select p_no, category_id, p_content, p_name, p_brand, p_price, product_img_name from "
+				+ " (select rownum r, t1.* from (select p1.* from product p1 ";
+		if (pageCateId > 0) {
+			sql += " where category_id=?";
+		}
+		sql += " order by p_no desc) t1) join product_img using (p_no) " + " where r between ? and ?";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cateName);
+			if (pageCateId > 0) {
+				pstmt.setInt(2, startNum);
+				pstmt.setInt(3, endNum);
+				pstmt.setInt(1, pageCateId);
+			} else {
+				pstmt.setInt(1, startNum);
+				pstmt.setInt(2, endNum);
+			}
+
 			rs = pstmt.executeQuery();
+
+			if (rs != null) {
+				volist = new ArrayList<ProductVo>();
+				while (rs.next()) {
+					ProductVo vo = new ProductVo();
+					vo.setpContent(rs.getString("p_content"));
+					vo.setpName(rs.getString("p_name"));
+					vo.setpBrand(rs.getString("p_brand"));
+					vo.setpPrice(rs.getInt("p_price"));
+					vo.setCateId(rs.getInt("category_id"));
+					vo.setpNo(rs.getInt("p_no"));
+					vo.setProductImgName(rs.getString("product_img_name"));
+					volist.add(vo);
+				}
+			}			
 			
-			if(rs.next()) {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+		
+		
+		if(volist == null) {
+			System.out.println("AdminDao-seachAllProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\t" + volist + "\n");
+		} else {
+			System.out.println("AdminDao-seachAllProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + volist + "\n");		
+		}
+		
+		return volist;
+	}
+	
+	public int countProduct(Connection conn, int pageCateId) {
+		int result = 0;
+		String sql = "select count(*) cnt from (select p_no, category_id, p_content, p_name, p_brand, p_price, product_img_name "
+				+ "from (select rownum r, t1.* from (select p1.* from product p1";
+				
+				if (pageCateId > 0) {
+					sql += " where category_id=?";
+				}
+				sql += " order by p_no desc) t1) join product_img using (p_no))";
+
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			if(pageCateId == 0) {
+				System.out.println("전체상품");
+			} else {
+				pstmt.setInt(1, pageCateId);
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -202,12 +266,7 @@ public class AdminDao {
 			JdbcTemp.close(rs);
 			JdbcTemp.close(pstmt);
 		}
-		
-		if(result == 0) {
-			System.out.println("AdminDao-countCtgryProduct()에 의한 수행이 실패했습니다.\nresult:\t" + result + "\n");
-		} else {
-			System.out.println("AdminDao-countCtgryProduct()에 의해 1행이 수행되었습다.\nresult:\t" + result + "\n");
-		}
+
 		return result;
 	}
 	
@@ -385,7 +444,7 @@ public class AdminDao {
 					
 					product.setPdt(detail);
 				}
-//				
+
 				JdbcTemp.close(rs);
 				JdbcTemp.close(pstmt);
 				
@@ -414,6 +473,9 @@ public class AdminDao {
 	}		
 	
 	// 상품 수정/삭제
+	
+	
+	
 	public int updateProduct(Connection conn, ProductVo product, int pNo) {
 		int result= 0;
 		String sql = "update product set CATEGORY_ID =?, P_BRAND=?, P_NAME=?, P_PRICE=? where p_no= ?";
@@ -512,6 +574,7 @@ public class AdminDao {
 		
 		return result;		
 	}
+	
 	public int deleteProduct(Connection conn, int pNo) {
 		int result = 0;
 		String sql = "delete from product where p_no=?";

@@ -31,18 +31,26 @@ public class AdminService {
 	}
 	
 	// 페이징 처리한 모든 상품 조회
-	public ArrayList<ProductVo> seachAllProduct(int startNum, int endNum) {
+	public ArrayList<ProductVo> seachAllProduct(int startNum, int endNum ) {
 		Connection conn = JdbcTemp.getConnection();
 		ArrayList<ProductVo> volist = dao.seachAllProduct(conn, startNum, endNum);
 		JdbcTemp.close(conn);
 		return volist;
 	}
 	
+	////////////
+	public ArrayList<ProductVo> seachAllProduct(int startNum, int endNum, int cateId) {
+		Connection conn = JdbcTemp.getConnection();
+		ArrayList<ProductVo> volist = dao.seachAllProduct(conn, startNum, endNum, cateId);
+		JdbcTemp.close(conn);
+		return volist;
+	}
+	
 	// 카테고리별 상품 개수
-	public int countCtgryProduct(String cateName) {
+	public int countProduct(int cateId) {
 		int result = 0;
 		Connection conn= JdbcTemp.getConnection();
-		result= dao.countCtgryProduct(conn, cateName); 
+		result= dao.countProduct(conn, cateId); 
 		JdbcTemp.close(conn);
 		return result;
 	}

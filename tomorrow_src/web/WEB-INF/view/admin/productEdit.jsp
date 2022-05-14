@@ -372,8 +372,7 @@ input[type="text"], select {
 			console.log("조회한 상품번호: " + $("#pno").val());		
 			console.log("상품 상세번호: " + a);
 			$("#pSeq").val(a);			
-//			var html1 = "";
-//			var html2 = "";
+
 			$.ajax({
 				url : "adPdSearch.aj",
 				type : "post",
@@ -382,47 +381,50 @@ input[type="text"], select {
 					,pSeq : $("#pSeq").val()
 				},
 				dataType:"json",
-				success : function(result) {					
-					alert("상품이 조회되었습니다.");
-					console.log(result);
-					console.log("result.productImgName: " + result.productImgName);
-					console.log("result.pdt.pSeq: " + result.pdt.pSeq);
-					console.log("result.cateId: " + result.cateId);
-					console.log("result.pdt.optVal: " + result.pdt.optVal);
-					console.log("result.pdt.optName: " + result.pdt.optName);
+				success : function(result) {		
+					if(result == null || result.pdt == null) {
+						alert("상품 조회에 실패했습니다. 상품번호와 상세번호를 다시 확인해주세요");
+						location.reload();
+					} else {
+						alert("상품이 조회되었습니다.");
+						console.log(result);
+						console.log("result.productImgName: " + result.productImgName);
+						console.log("result.pdt.pSeq: " + result.pdt.pSeq);
+						console.log("result.cateId: " + result.cateId);
+						console.log("result.pdt.optVal: " + result.pdt.optVal);
+						console.log("result.pdt.optName: " + result.pdt.optName);
 					
-					// 조회한 상품의 값을 입력
-					$("#product_img").prop("src", result.productImgName);						
-					$("#pFilePath").prop("value", result.productImgName);
-					$("#pContentPath").prop("value", result.pContent);
-					$("#prod_brand").val(result.pBrand);
-					$("#prod_name").val(result.pName);
-					$("#prod_price").val(result.pPrice);					
-					$("#opt_price").val(result.pdt.optPrice);
-					$("#opt_val").val(result.pdt.optVal);		
-					$("#pSeq").val(result.pdt.pSeq);
-					
-					console.log("pFilePath: " + $("#pFilePath").val());
-					if(result.cateId == 1){
-						$("#category").val("1").prop("selected", true);	
+						// 조회한 상품의 값을 입력
+						$("#product_img").prop("src", result.productImgName);						
+						$("#pFilePath").prop("value", result.productImgName);
+						$("#pContentPath").prop("value", result.pContent);
+						$("#prod_brand").val(result.pBrand);
+						$("#prod_name").val(result.pName);
+						$("#prod_price").val(result.pPrice);					
+						$("#opt_price").val(result.pdt.optPrice);
+						$("#opt_val").val(result.pdt.optVal);	
+						$("#pSeq").val(result.pdt.pSeq);
+											
+						if(result.cateId == 1){
+							$("#category").val("1").prop("selected", true);	
+						}
+						if(result.cateId == 2){
+							$("#category").val("2").prop("selected", true);	
+						}
+						if(result.cateId == 3){
+							$("#category").val("3").prop("selected", true);	
+						}		
+										
+						if(result.pdt.optNo == 1){
+							$("#opt_no").val("1").prop("selected", true);	
+						}
+						if(result.pdt.optNo == 2){
+							$("#opt_no").val("2").prop("selected", true);	
+						}
+						if(result.pdt.optNo == 3){
+							$("#opt_no").val("3").prop("selected", true);	
+						}		
 					}
-					if(result.cateId == 2){
-						$("#category").val("2").prop("selected", true);	
-					}
-					if(result.cateId == 3){
-						$("#category").val("3").prop("selected", true);	
-					}		
-					
-					
-					if(result.pdt.optNo == 1){
-						$("#opt_no").val("1").prop("selected", true);	
-					}
-					if(result.pdt.optNo == 2){
-						$("#opt_no").val("2").prop("selected", true);	
-					}
-					if(result.pdt.optNo == 3){
-						$("#opt_no").val("3").prop("selected", true);	
-					}				
 
 				},
 				error : function(request, status, error) {
