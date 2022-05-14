@@ -2,9 +2,7 @@ insert into product_category values (1, 'furniture');
 insert into product_category values (2, 'fabric');
 insert into product_category values (3, 'light');
 
-insert into product values (SEQUENCE_PRODUCT_P_NO.nextval, '저스트슬립', '저스트슬립 Air/Deep 매트리스 4types S/SS/Q', 
-'<p><img alt="" src="http://localhost:8090/house/upload/images/product/content/furniture_c1_1.jpg" /></p>', 
-92900, 1);
+insert into product values (SEQUENCE_PRODUCT_P_NO.nextval, '저스트슬립', '저스트슬립 Air/Deep 매트리스 4types S/SS/Q', '<p><img alt="" src="http://localhost:8090/house/upload/images/product/content/furniture_c1_1.jpg" /></p>', 92900, 1);
 insert into product values (SEQUENCE_PRODUCT_P_NO.nextval, '에어론', '리버서블 오피스데스크 6size 2colors', '<p><img alt="" src="http://localhost:8090/house/upload/images/product/content/furniture_c2_1.jpg" /></p>',  39800, 1);
 insert into product values (SEQUENCE_PRODUCT_P_NO.nextval, '도모디자인', '(후기이벤트) 1+1커버증정 기능성/워셔블 패브릭소파 4인/6인/8인', '<p><img alt="" src="http://localhost:8090/house/upload/images/product/content/furniture_c3_1.jpg"  /></p>',  1739000, 1);
 
@@ -264,6 +262,6 @@ insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 15, 1, '�
 insert into product_detail values(SEQUENCE_PROD_DETAIL_P_SEQ.nextval, 15, 1, '브라운(CH08)1p', 4100);
 insert into product_img values (SEQUENCE_PRODUCT_IMG_NO.nextval, 15, 'upload/images/product/detail/fabric_d6.jpg', 124);
 
-
--- light 4,5,6 쪽은 등록 기능으로 구현하기
 commit;
+
+
