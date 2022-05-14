@@ -10,7 +10,7 @@
 <body>
 <body>
 <jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include>	
-    <form style="width: 80%; margin: 100px; border: 1px solid black; padding: 50px;">
+    <div style="width: 80%; margin: 100px; border: 1px solid black; padding: 50px;">
         <div>
             <h1>회원탈퇴 신청</h1>
             <div>
@@ -30,7 +30,7 @@
                 <div>
                     <div>
                         <label>
-                        <input type="checkbox" name="confirmed" id="check" required>
+                        <input type="checkbox" id="check" checked required>
                         <span>위 내용을 모두 확인하였습니다.&nbsp;</span>
                         </label><br><br>
                     </div>
@@ -41,7 +41,7 @@
             <button onclick="location.href='main'">취소하기</button>
             </div>
         </div></div></div>
-    </form>
+    </div>
     <jsp:include page="/WEB-INF/view/template_footer.jsp"></jsp:include>	
 </body>
 

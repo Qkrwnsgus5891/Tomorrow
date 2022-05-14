@@ -33,6 +33,16 @@
 * {
 	text-decoration: none;
 }
+
+
+#cartDelBtn {
+	color: rgb(77, 77, 255);
+	cursor: pointer;
+}
+
+#cartDelBtn:hover {
+	color: rgba(72, 188, 246, 0.897);
+}
 </style>
 
 <!-- 모두체크하기  -->
@@ -46,8 +56,9 @@
 	}
 </script>
 
+
 <script>
-function myFunction() {
+function goDelete() {
 	var strChk = [];
 	 
 	 $("input:checkbox[name=selectPno]:checked").each(function() {
@@ -86,7 +97,7 @@ function myFunction() {
 			<div id="allSelect" style="width: 100%; display: flex;">
 				<span style="width: 75%; margin-left: 45px"> <label><input
 						type="checkbox" id="allcheck"> 모두 선택</span></label> <span id="cartDelBtn"
-					onclick="myFunction()"
+					onclick="goDelete()"
 					style="width: 25%; cursor: pointer; text-align: left;"> 선택한
 					상품삭제</span>
 			</div>
@@ -106,7 +117,6 @@ function myFunction() {
 							<div style="width: 40%;">
 								<img src="<%=request.getContextPath() %>/${vo.productImgName }"
 									style="width: 150px; heigth: 150px; margin-right: 70px; margin-left: 20px; border-radius: 15px;">
-								<%-- <img src="http://localhost:8090/house/${vo.productImgName}"> --%>
 							</div>
 
 
@@ -124,6 +134,14 @@ function myFunction() {
 						</div>
 					</c:forEach>
 				</form>
+				<c:if test="${empty cartVoList }">
+				<div style="width: 88%; padding: 25px; border-radius: 15px; text-align: center; margin: auto 0;
+				border: 1px solid black; margin: 15px;height: 200px; ">
+				<br><br><br><br><br><br>선택된 상품이 없습니다. 
+				</div>
+				</c:if>
+
+
 
 			</div>
 		</div>

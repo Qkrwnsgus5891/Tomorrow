@@ -98,8 +98,9 @@ public class CartDao {
 	public ArrayList<CartVo> myCart(Connection conn, String mId) {
 		ArrayList<CartVo> cartVoList = null;
 
-		String sql = "select * from cart " + "left outer join product using(p_no) "
-				+ "left outer join product_img using(p_no) where m_id = ?";
+		String sql = "select * from cart left outer join product using(p_no) "
+				+ "left outer join product_img using(p_no) where m_id = ?"
+				+ "order by c_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
