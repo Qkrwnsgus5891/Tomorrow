@@ -63,6 +63,10 @@
 	margin: 30px 0;
 }
 
+#optselect {
+	font-weight: 700;
+}
+
 .optName {
 	font-size: 14px;
 	line-height: 21px;
@@ -158,12 +162,12 @@
 }
 
 #productInform {
-	width: 90%;
+	width: 100%;
 }
 
 #information {
 	margin: 10px 25%;
-	width: 60%;
+	width: 70%;
 	font-weight: 700;
 }
 
@@ -274,6 +278,9 @@
 						<div class="pprice">${vo.pPrice }<a>(원)</a>
 						</div>
 
+						<div>
+							<p id="optselect">옵션 선택</p>
+						</div>
 						<c:if test="${not empty vo.pdvo }">
 							<div>
 								<c:forEach items="${vo.pdvo }" var="pdOpt" varStatus="status">
@@ -315,62 +322,13 @@
 			</section>
 
 
-			<script>
-				$(".cartBtn").click(function() {
-					console.log(this);
-					frmInf.action = 'cartEnroll';
-					frmInf.method = 'post';
-					frmInf.submit();
-				});
-			</script>
-			<script>
-				$(".orderBtn").click(function() {
-					console.log(this);
-					frmInf.action = 'orderEnroll';
-					frmInf.method = 'post';
-					frmInf.submit();
-				});
-			</script>
 
-
-
-
-			<script>
-				calPrice();
-				function calPrice() {
-					var basicPrice = Number('${vo.pPrice }');
-					if (isNaN(basicPrice)) {
-						basicPrice = 0;
-					}
-					var optPrice = 0;
-					$("select").each(function(index, element) {
-						var checkedEle = $(element).children(":checked");
-						console.log(checkedEle);
-						var optOnePrice = Number(checkedEle.next().text());
-						console.log(optOnePrice);
-						if (isNaN(optOnePrice)) {
-							optOnePrice = 0;
-						}
-						optPrice += optOnePrice;
-					});
-					var totalPrice = basicPrice + optPrice;
-					console.log(totalPrice);
-					$("#price").html(totalPrice);
-				}
-			</script>
-			<script>
-				$("select").change(function() {
-					console.log(this);
-					calPrice();
-				});
-			</script>
 		</section>
 
 		<section id="productInfoBtns">
 			<button type="button" onclick="location.replace('#productInform')">상품정보</button>
 			<button type="button" onclick="location.replace('#story')">리뷰</button>
 			<button type="button" onclick="location.replace('#ship')">배송/환불</button>
-
 		</section>
 
 		<section id="productInform">
@@ -450,6 +408,58 @@
 			<jsp:include page="../template_footer.jsp" />
 		</div>
 	</div>
+
+
+	<script>
+		$(".cartBtn").click(function() {
+			console.log(this);
+			frmInf.action = 'cartEnroll';
+			frmInf.method = 'post';
+			frmInf.submit();
+		});
+	</script>
+	<script>
+		$(".orderBtn").click(function() {
+			console.log(this);
+			frmInf.action = 'orderEnroll';
+			frmInf.method = 'post';
+			frmInf.submit();
+		});
+	</script>
+
+
+
+
+	<script>
+		calPrice();
+		function calPrice() {
+			var basicPrice = Number('${vo.pPrice }');
+			if (isNaN(basicPrice)) {
+				basicPrice = 0;
+			}
+			var optPrice = 0;
+			$("select").each(function(index, element) {
+				var checkedEle = $(element).children(":checked");
+				console.log(checkedEle);
+				var optOnePrice = Number(checkedEle.next().text());
+				console.log(optOnePrice);
+				if (isNaN(optOnePrice)) {
+					optOnePrice = 0;
+				}
+				optPrice += optOnePrice;
+			});
+			var totalPrice = basicPrice + optPrice;
+			console.log(totalPrice);
+			$("#price").html(totalPrice);
+		}
+	</script>
+	<script>
+		$("select").change(function() {
+			console.log(this);
+			calPrice();
+		});
+	</script>
+
 
 
 </body>
