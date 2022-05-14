@@ -16,9 +16,7 @@ import kh.semi.tomorrow.cart.model.vo.CartVo;
 import kh.semi.tomorrow.member.model.service.MemberService;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 
-/**
- * Servlet implementation class CartListServlet
- */
+
 @WebServlet("/cartlist")
 public class CartListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

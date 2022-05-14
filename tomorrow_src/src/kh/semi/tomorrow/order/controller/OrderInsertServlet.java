@@ -42,11 +42,21 @@ public class OrderInsertServlet extends HttpServlet {
 
 		String option1 = request.getParameter("option_1");
 		String option2 = request.getParameter("option_2");
-		System.out.println(option1);
-		System.out.println(option2);
-
-		if (option2 != null && option2.equals("")) {
-			option1 += ", " + option2;
+		String option3 = request.getParameter("option_3");
+		String option4 = request.getParameter("option_4");
+		System.out.println("option1 :"+option1);
+		System.out.println("option2 :"+option2);
+		System.out.println("option3 :"+option3);
+		System.out.println("option4 :"+option4);
+		
+		if(option2 != null && option2.equals("")) {
+			option1 += ", "+option2;
+		}
+		if(option3 != null && option3.equals("")) {
+			option1 += ", "+option3;
+		}
+		if(option4 != null && option4.equals("")) {
+			option1 += ", "+option4;
 		}
 		System.out.println(option1);
 

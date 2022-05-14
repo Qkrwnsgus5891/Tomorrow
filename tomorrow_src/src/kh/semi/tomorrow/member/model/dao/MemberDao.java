@@ -239,7 +239,7 @@ public class MemberDao {
 			JdbcTemp.close(pstmt);
 		}
 		
-		System.out.println("탈퇴되었습니다.");
+		System.out.println("탈퇴 성공");
 		return result;
 	}
 	

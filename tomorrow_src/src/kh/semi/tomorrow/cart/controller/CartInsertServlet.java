@@ -44,11 +44,21 @@ public class CartInsertServlet extends HttpServlet {
 		
 		String option1 = request.getParameter("option_1");
 		String option2 = request.getParameter("option_2");
-		System.out.println(option1);
-		System.out.println(option2);
+		String option3 = request.getParameter("option_3");
+		String option4 = request.getParameter("option_4");
+		System.out.println("옵션1 :"+option1);
+		System.out.println("옵션2 :"+option2);
+		System.out.println("옵션3 :"+option3);
+		System.out.println("옵션4 :"+option4);
 		
 		if(option2 != null && option2.equals("")) {
 			option1 += ", "+option2;
+		}
+		if(option3 != null && option3.equals("")) {
+			option1 += ", "+option3;
+		}
+		if(option4 != null && option4.equals("")) {
+			option1 += ", "+option4;
 		}
 		System.out.println(option1);
 		
@@ -61,15 +71,10 @@ public class CartInsertServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		
 		if(pNo < 1 ) {
 			return;
 		} else {
 			
-//			ProductVo result = new ProductService().selectProduct(pNo);
-//			System.out.println(result);
-//			request.setAttribute("selectProduct", result);
-
 			int result = new CartService().insertmyCart(mId, pNo, option1);
 			
 			ArrayList<CartVo> cartVoList = new CartService().myCart(mId);

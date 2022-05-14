@@ -407,34 +407,27 @@ li {
 				<div id="orderProducts">
 
 					<c:forEach items="${cartVoList}" var="vo">
-
-						<div
-							style="width: 80%; padding: 25px;; border-radius: 15px; text-align: right; border: 1px solid black; margin: 15px; display: flex;">
-							<div style="width: 50%;">
-								<img
-									src="${pageContext.request.contextPath }/${vo.productImageName }">
-							</div>
-
-							<div style="width: 50%; text-align: left; font-size: small;">
-								상품번호:${vo.pNo } <br>주문갯수:${vo.cCnt} <br>주문옵션:${vo.pSeq}
-								<p>
-									상품이름:<span style="color: blue;"><b>${vo.pName} </b></span>
-								</p>
-								브랜드명:${vo.pBrand}
-
-							</div>
+			
+					<div
+						style="width: 92%; padding: 25px;; border-radius: 15px; text-align: right; border: 1px solid black; margin: 15px; display: flex;">
+						<div style="width: 60%;"><img src="<%=request.getContextPath() %>/${vo.productImgName }" 
+						style="width: 180px; heigth: 180px; margin-right:150px; border-radius:15px;"></div>
+									
+						<div style="width: 40%; text-align: left; font-size:small;">	
+							<p>상품번호:<a href="productDetail?p_no=${vo.pNo }">${vo.pNo } </a></p>
+							<p>주문갯수:${vo.cCnt} </p>
+							<p>주문옵션:${vo.pSeq} </p>
+							<p style="color:blue;"><b>상품이름:<a href="productDetail?p_no=${vo.pNo }">${vo.pName} </b> </a></p>
+							<p>브랜드명:${vo.pBrand} </p>
+							
 						</div>
-					</c:forEach>
-
-
-
+					</div>
+				</c:forEach>
 
 				</div>
 				<br> <br> <br>
 				<h4>결제수단</h4>
 				<hr>
-
-
 
 				<div id="payWrap" style="width: 60%;">
 					<ul>
@@ -586,7 +579,7 @@ li {
 	</form>
 
 
-	<div style="position: relative; margin-top: 1000px"><jsp:include
+	<div style="position: relative; margin-top: 1500px"><jsp:include
 			page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 
