@@ -96,18 +96,17 @@ a {
 #modal_content {  
   position: absolute;
   top: 75px;
-  left: 73%;  
+  left: 83%;  
 }
-.admin_modal {  
+.admin_modal {	
   position: absolute;
   border: 1px solid white;
   border-radius: 10px;  
   background-color: #ccc;
   width: 180px;
-  height: 40px; 
-  margin-left: 200px;
+  height: 40px;  
   display: none; 
-  z-index: 5;
+  z-index: 5;  
 }
 
 #admin_img {
@@ -172,7 +171,11 @@ a {
   }
   #navigation_primary_right { 
     left: 60%;
+  } 
+  #modal_content {
+  	left: 74%;
   }
+  
 }
 @media screen and (max-width: 1200px) {
   #navigation_primary_menu { 
@@ -180,5 +183,8 @@ a {
   }
   #navigation_primary_right{ 
     left: 700px;    
+  }
+  #modal_content {
+  	left: 800px;
   }
 }
