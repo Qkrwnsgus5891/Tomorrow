@@ -150,7 +150,8 @@
             
   
              <!-- 나의 스토리 목록 -->
-            <h3>나의 스토리</h3>   
+             <c:set var="vo" value="${memberVo }"></c:set>
+            <h3>${vo.mName }님의 스토리</h3>   
             <div id="recentOrderWrap" style="width: 95%;overflow: auto;">
                 
                 <table border="1px" style="width: 100%; height: 40px; text-align: center;" >
@@ -171,8 +172,8 @@
         		</tr>
 </c:forEach>  
 		</table>    
-		        
-      	<p id="prev_next">		
+		     
+      	<p id="prev_next" style="text-align: center;">		
 			<c:if test="${ startPage > 1 }">
 				<a href="memberinfo?page=${ startPage-1}">이전</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:if>
@@ -183,7 +184,7 @@
 				<a href="memberinfo?page=${ endPage+1}">다음</a>
 			</c:if>
 		</p>
-
+	
 
 
 

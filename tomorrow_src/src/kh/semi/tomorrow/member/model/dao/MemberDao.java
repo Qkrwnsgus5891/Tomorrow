@@ -72,9 +72,9 @@ public class MemberDao {
 		ArrayList<StoryBoardVo> boardlist = null;
 		
 		String sql = "select *"
-				+ "    from (select rownum r, t1.*"
-				+ "            from (select s1.b_no, s1.b_title, s1.b_date, s1.b_cnt"
-				+ "                    from story s1 where m_Id=?  order by b_date desc, b_no desc) t1"
+				+ "    from (select rownum r, b1.*"
+				+ "            from (select st.b_no, st.b_title, st.b_date, st.b_cnt"
+				+ "                    from story st where m_Id=?  order by b_date desc, b_no desc) b1"
 				+ "    		)"
 				+ "	where r between ? and ?";
 		

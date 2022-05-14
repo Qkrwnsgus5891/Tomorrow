@@ -312,6 +312,7 @@ li {
 
 </head>
 <body>
+<div>
 	<div><jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include></div>
 
 
@@ -319,7 +320,7 @@ li {
 		<c:set var="vo" value="${memberVo }"></c:set>
 		<div id="cartWrap" style="display: flex; margin: 0 10% 0 10%">
 			<div id="orderWrap"
-				style="width: 60%; padding: 100px 0 200px 50px; min-width: 550px; height: 1000px;">
+				style="width: 60%; padding: 100px 0 200px 50px; min-width: 550px;">
 
 				<h2>주문/결제</h2>
 				<h4>주문자</h4>
@@ -577,9 +578,9 @@ li {
 			</div>
 		</div>
 	</form>
+</div>
 
-
-	<div style="position: relative; margin-top: 1500px"><jsp:include
+	<div style="box-sizing: border-box;"><jsp:include
 			page="/WEB-INF/view/template_footer.jsp"></jsp:include></div>
 </body>
 
