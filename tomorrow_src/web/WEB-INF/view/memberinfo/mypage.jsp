@@ -82,7 +82,7 @@
 	<jsp:include page="/WEB-INF/view/template_header.jsp"></jsp:include>	
 	
        <!-- 썸네일, 회원정보수정 -->
-    <div id="myPageWrap01" style="width: 100%; display: flex; margin: 50px;">
+    <div id="myPageWrap01" style="width: 90%; display: flex; margin: 50px;">
 
         <div id="infoWrap" style="width: 20%; padding: 100px; min-width: 300px;
          left: 50px; position: relative;">
@@ -122,8 +122,8 @@
         </div>
 
         <!-- 회원구매목록 -->
-        <div id="infoWrap02" style="width: 90%; overflow:visible; 
-        min-width: 600px; padding:75px 100px 0 50px;">
+        <div id="infoWrap02" style="width: 100%; overflow:visible; 
+        min-width: 500px; padding:75px 100px 0 50px;">
             <h3>회원 구매목록</h3>
             
             <div id="recentOrderWrap" style="width: 90%; padding: 20px;
