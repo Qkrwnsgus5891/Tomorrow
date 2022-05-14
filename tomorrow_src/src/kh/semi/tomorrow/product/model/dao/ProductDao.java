@@ -105,7 +105,7 @@ public class ProductDao {
 
 		String sql = "select p_no, p_name, p_brand,p_price, category_id, product_img_name "
 				+ "from product p join product_img i using(p_no) "
-				+ "where p_no in (1,4,7)";
+				+ "where p_no in (1,4,7,2,5)";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
