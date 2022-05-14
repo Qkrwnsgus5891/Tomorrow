@@ -139,7 +139,7 @@ public class MemberDao {
 		return result;
 	}
 	
-	//구매목록보기
+	//구매목록보
 	public ArrayList<ProductVo> myProduct(Connection conn, String mId) {
 		ArrayList<ProductVo> productVo = null;
 		
@@ -169,6 +169,7 @@ public class MemberDao {
 				vo.setOptVal(rs.getString("opt_val"));
 				vo.setOptPrice(rs.getInt("opt_price"));
 				vo.setpSeq(rs.getInt("p_seq"));
+				vo.setProductImgName(rs.getString("product_img_name"));
 		
 				productVo.add(vo);
 			}

@@ -20,6 +20,7 @@ public class CartService {
 		return cartVo;
 	}
 	
+	//상품추가
 	public int insertmyCart(String mId, int pNo, String option1) {
 		Connection conn = JdbcTemp.getConnection();
 		
@@ -30,12 +31,32 @@ public class CartService {
 		else 
 			result = dao.updatemyCart(conn, mId, pNo, ++cnt, option1);
 		
-		
-		
 		JdbcTemp.close(conn);
 		return result;
 	}
-	
+	// 상품 삭제
+		public int cartDelete(int[] cNo,String mId) {
+			int result = 0;
+			Connection conn= JdbcTemp.getConnection();
+			JdbcTemp.setAutocommit(conn, false);
+			boolean bool = true;
+			
+			for(int i=0; i<cNo.length; i++) {
+				result = dao.cartDelete(conn, cNo[i], mId);
+				if(result == 0) {
+					bool = false;
+					break;
+				}
+			}
+			if(bool) {
+				JdbcTemp.commit(conn);
+			} else {
+				JdbcTemp.rollback(conn);
+			}
+			
+			JdbcTemp.close(conn);
+			return result;
+		}
 	
 
 }

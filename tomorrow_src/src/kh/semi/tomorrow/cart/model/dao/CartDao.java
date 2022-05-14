@@ -121,8 +121,6 @@ public class CartDao {
 				vo.setpName(rs.getString("p_name"));
 				vo.setproductImgName(rs.getString("product_img_name"));
 				
-				
-
 				cartVoList.add(vo);
 			}
 
@@ -135,4 +133,32 @@ public class CartDao {
 
 		return cartVoList;
 	}
+	
+	//장바구니에서 빼기
+	public int cartDelete(Connection conn, int cNo, String mId) {
+		int result = 0;
+		String sql = "delete from cart where c_no=? and m_id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			pstmt.setString(2, mId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result == 0) {
+			System.out.println("상품을 삭제하지 못했습니다.");
+		} else {
+			System.out.println("상품이 삭제되었습니다.");		
+		}
+		return result;
+	}
+
+	
+	
+	
+	
 }

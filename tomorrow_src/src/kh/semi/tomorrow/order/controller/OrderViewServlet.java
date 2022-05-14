@@ -44,7 +44,7 @@ public class OrderViewServlet extends HttpServlet {
 		MemberVo memberVo = new MemberService().myName(mId);
 		System.out.println("memberVo:"+ memberVo);
 		request.setAttribute("memberVo", memberVo);
-						
+		
 				
 		//장바구니 목록
 		ArrayList<CartVo> cartVoList = new CartService().myCart(mId);

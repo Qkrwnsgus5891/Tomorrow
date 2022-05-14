@@ -17,4 +17,11 @@ public class OrderService {
 		JdbcTemp.close(conn);
 		return orderVoList;
 	}
+	//구매 목록2
+	public ArrayList<OrderVo> myOrder2(String mId) {
+		Connection conn = JdbcTemp.getConnection();
+		ArrayList<OrderVo> orderVoList = new OrderDao().myOrder2(conn, mId);
+		JdbcTemp.close(conn);
+		return orderVoList;
+	}
 }

@@ -33,7 +33,7 @@ public class CartListServlet extends HttpServlet {
 		if (ssvo == null) { // 로그아웃 상태라면 login page 진입
 			response.sendRedirect("login");
 			return; // DB저장 안하고 밖으로 빠지게
-		} else { // 로그인한 상태라면 write page 진입
+		} else { // 로그인한 상태라면 mId 가져오기
 			mId = ssvo.getmId();
 		}
 

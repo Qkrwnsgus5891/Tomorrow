@@ -2,7 +2,7 @@ package kh.semi.tomorrow.member.model.vo;
 
 import java.sql.Timestamp;
 
-public class MemberVo {	
+public class MemberVo {
 	private String mId;
 	private String mPw;
 	private String mName;
@@ -12,9 +12,13 @@ public class MemberVo {
 	private String mNy;
 	private Timestamp mDate;
 	private String mBrith;
-	private String mIntro;	
-	
-	public MemberVo() {}
+	private String mIntro;
+
+	private String productImgName;
+
+	public MemberVo() {
+	}
+
 	public MemberVo(String mId, String mPw, String mName, String mNickname, String mPhone, int mGrade, String mNy,
 			Timestamp mDate, String mBrith, String mIntro) {
 		this.mId = mId;
@@ -27,7 +31,15 @@ public class MemberVo {
 		this.mDate = mDate;
 		this.mBrith = mBrith;
 		this.mIntro = mIntro;
-	}	
+	}
+
+	public String getProductImgName() {
+		return productImgName;
+	}
+
+	public void setProductImgName(String productImgName) {
+		this.productImgName = productImgName;
+	}
 
 	public String getmId() {
 		return mId;
@@ -113,10 +125,7 @@ public class MemberVo {
 	public String toString() {
 		return "MemberVo [mId=" + mId + ", mPw=" + mPw + ", mName=" + mName + ", mNickname=" + mNickname + ", mPhone="
 				+ mPhone + ", mGrade=" + mGrade + ", mNy=" + mNy + ", mDate=" + mDate + ", mBrith=" + mBrith
-				+ ", mIntro=" + mIntro + "]";
+				+ ", mIntro=" + mIntro + ", productImgName=" + productImgName + "]";
 	}
 
-	
-	
-	
 }

@@ -9,6 +9,8 @@ public class OrderDetailVo {
 	private String pSeq;
 	private int oDcnt;
 	private ProductVo productVo;
+	private String productImgName;
+	
 	public ProductVo getProductVo() {
 		return productVo;
 	}
@@ -22,9 +24,15 @@ public class OrderDetailVo {
 	@Override
 	public String toString() {
 		return "OrderDetailVo [odSeq=" + odSeq + ", oNo=" + oNo + ", pNo=" + pNo + ", pSeq=" + pSeq + ", oDcnt=" + oDcnt
-				+ "]";
+				+ ", productImgName=" + productImgName + "]";
 	}
 	
+	public String getProductImgName() {
+		return productImgName;
+	}
+	public void setProductImgName(String productImgName) {
+		this.productImgName = productImgName;
+	}
 	public int getOdSeq() {
 		return odSeq;
 	}

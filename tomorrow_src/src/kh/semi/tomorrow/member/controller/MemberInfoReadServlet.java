@@ -48,12 +48,11 @@ public class MemberInfoReadServlet extends HttpServlet {
 		}
 
 		// 구매 목록 
-		ArrayList<OrderVo> orderVoList = new OrderService().myOrder(mId);
+		ArrayList<OrderVo> orderVoList = new OrderService().myOrder2(mId);
 		System.out.println("orderVoList:"+orderVoList);
 		request.setAttribute("orderVoList", orderVoList);
 		
 		//회원이름
-		
 		MemberVo memberVo = new MemberService().myName(mId);
 		request.setAttribute("memberVo", memberVo);
 		

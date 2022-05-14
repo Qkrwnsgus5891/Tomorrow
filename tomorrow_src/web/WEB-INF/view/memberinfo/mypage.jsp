@@ -130,18 +130,21 @@
             border: 1px solid rgb(142, 141, 141); overflow: auto;border-radius:15px ; ">
                            
 
-<c:forEach items="${orderVoList }" var="ovo">        
-          			<%-- ${ovo.odVolist[2].oDcnt } --%>
+<c:forEach items="${orderVoList }" var="vo">        
+          			
           			  <div style="border: 1px solid rgb(142, 141, 141);">
-                    <div style="display: flex; padding: 10px; width: 95%; ">
-                        <div id="sumNailProduct" style="background-color: rgb(116, 116, 116);
-                        width: 120px;height: 120px; padding: 20px; "></div>
-                        <div style="padding-left= 10px; padding: 20px;">주문번호:<a href="productDetail?p_no=${ovo.oNo }">${ovo.oNo }</a>
-                        <br>주문자: ${ovo.oName }
-                        <br>주문날짜:${ovo.oDate } 
-                        <br>주문갯수:${ovo.pCnt }</div>
+                    <div style="display: flex; padding: 20px; width: 95%; ">
+                       
+                        <img src="<%=request.getContextPath() %>/${vo.productImgName }" 
+						style="width: 140px; heigth: 140px;border-radius:15px; margin-top:10px">
+						
+                        <div style="padding: 20px;">주문번호:<a href="productDetail?p_no=${vo.oNo }">${vo.oNo }</a>
+                        <br>주문자: ${vo.oName }
+                        <br>주문날짜:${vo.oDate } 
+                        <br>상품이름:<a href="productDetail?p_no=${vo.oNo }">${vo.pName }</a>
+                        <br>상품브랜드:${vo.pBrand }</div>
                     </div>
-                    <div style="width: 95%;"><h4 style="text-align: end;">금액  ${ovo.oTotalPrice }원</h4></div>                
+                    <div style="width: 95%;"><h4 style="text-align: end;">총 주문금액 :  ${vo.oTotalPrice }원</h4></div>                
                 </div>
 </c:forEach>
 

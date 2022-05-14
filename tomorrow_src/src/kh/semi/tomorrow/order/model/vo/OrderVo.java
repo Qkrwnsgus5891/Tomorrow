@@ -22,11 +22,21 @@ public class OrderVo {
 	private String optVal;
 	private String productImgName;
 	
-	public String getproductImgName() {
-		return productImgName;
+	private String pName;
+	private String pBrand;
+	
+
+	public String getpBrand() {
+		return pBrand;
 	}
-	public void setproductImgName(String productImgName) {
-		this.productImgName = productImgName;
+	public void setpBrand(String pBrand) {
+		this.pBrand = pBrand;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
 	}
 
 	private ArrayList<OrderDetailVo> odVolist ;
@@ -58,14 +68,22 @@ public class OrderVo {
 		this.optVal = optVal;
 	}
 	
+
+	
 	@Override
 	public String toString() {
 		return "OrderVo [oNo=" + oNo + ", mId=" + mId + ", pSeq=" + pSeq + ", pCnt=" + pCnt + ", pPrice=" + pPrice
 				+ ", oDate=" + oDate + ", oTotalPrice=" + oTotalPrice + ", oName=" + oName + ", eMail=" + eMail
 				+ ", oPhone=" + oPhone + ", reName=" + reName + ", reAddress=" + reAddress + ", rePhone=" + rePhone
-				+ ", optVal=" + optVal + ", productImgName=" + productImgName + ", odVolist=" + odVolist + "]";
+				+ ", optVal=" + optVal + ", productImgName=" + productImgName + ", pName=" + pName + ", pBrand="
+				+ pBrand + ", odVolist=" + odVolist + "]";
 	}
-	
+	public String getProductImgName() {
+		return productImgName;
+	}
+	public void setProductImgName(String productImgName) {
+		this.productImgName = productImgName;
+	}
 	public int getoNo() {
 		return oNo;
 	}
