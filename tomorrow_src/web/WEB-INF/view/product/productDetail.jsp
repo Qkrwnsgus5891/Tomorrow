@@ -1,8 +1,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/css/reset.css" rel="stylesheet" type="text/css">
-<link href="<%=request.getContextPath()%>/resources/css/header.css"	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/resources/css/reset.css"
+	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/resources/css/header.css"
+	rel="stylesheet" type="text/css">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,8 +18,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 #productdetail {
-	margin: 15px 10%;
-	width: 90%;
+	margin: 15px 15%;
+	width: 75%;
 }
 
 #detail_img {
@@ -41,7 +43,7 @@
 }
 
 .pbrand {
-	margin-top : 30px;
+	margin-top: 30px;
 	font-size: 15px;
 	color: #656e75;
 	font-weight: 700;
@@ -69,12 +71,12 @@
 }
 
 .optName {
-	margin-top : 15px;
+	margin-top: 15px;
 	width: 100px;
 }
 
 #price {
-	margin-top : 15px;
+	margin-top: 15px;
 	font-size: 30px;
 	font-weight: 700;
 	color: #000;
@@ -127,13 +129,14 @@
 }
 </style>
 <style>
-.up img{
+.up img {
 	width: 70px;
-	position : fixed;
-	bottom: 20px; 
+	position: fixed;
+	bottom: 20px;
 	right: 200px;
 	z-index: 999;
 }
+
 #productInfoBtns {
 	clear: both;
 	padding: 3px 0;
@@ -146,7 +149,7 @@
 #productInfoBtns button {
 	color: black;
 	background-color: rgb(217, 209, 209);
-	border : none;
+	border: none;
 	padding: 0 30px;
 	font-size: 20px;
 	font-weight: 700;
@@ -167,7 +170,7 @@
 #ship, #refund {
 	margin: 50px 25%;
 	width: 60%;
-	font-size : 20px;
+	font-size: 20px;
 	font-weight: 600;
 	line-height: 50px;
 	margin-bottom: 20px;
@@ -180,11 +183,12 @@
 }
 </style>
 <style>
-#story{
-	font-size : 20px;
+#story {
+	font-size: 20px;
 	font-weight: 600;
 	margin-bottom: 20px;
 }
+
 .wrap_content {
 	margin: 10px 25%;
 	position: relative;
@@ -295,7 +299,7 @@
 										value="${pdOpt.optPrice }">${pdOpt.optPrice }</option>
 									<option disabled hidden class="pSeq" value="${pdOpt.pSeq }">${pdOpt.pSeq }</option>
 								</c:forEach>
-								
+
 
 								</select>
 							</div>
@@ -303,14 +307,14 @@
 						<p class="pp">
 							<span>주문금액 </span><span id="price"></span><span>(원)</span>
 						</p>
-						<input type="hidden" name="pNo" value ="${vo.pNo}">
+						<input type="hidden" name="pNo" value="${vo.pNo}">
 						<button type="button" class="cartBtn">장바구니</button>
 						<button type="button" class="orderBtn">바로구매</button>
 					</form>
 				</section>
 			</section>
-			
-			
+
+
 			<script>
 				$(".cartBtn").click(function() {
 					console.log(this);
@@ -327,10 +331,10 @@
 					frmInf.submit();
 				});
 			</script>
-			
-			
-			
-			
+
+
+
+
 			<script>
 				calPrice();
 				function calPrice() {
@@ -340,6 +344,8 @@
 					}
 					var optPrice = 0;
 					$("select").each(function(index, element) {
+						var checkedEle = $(element).children(":checked");
+						console.log(checkedEle);
 						var optOnePrice = Number(checkedEle.next().text());
 						console.log(optOnePrice);
 						if (isNaN(optOnePrice)) {
@@ -364,13 +370,11 @@
 			<button type="button" onclick="location.replace('#productInform')">상품정보</button>
 			<button type="button" onclick="location.replace('#story')">리뷰</button>
 			<button type="button" onclick="location.replace('#ship')">배송/환불</button>
-			
+
 		</section>
 
 		<section id="productInform">
-			<div id="information">
-				${vo.pContent }
-			</div>
+			<div id="information">${vo.pContent }</div>
 			<div class="wrap_content">
 				<section>
 					<p id="story">리뷰 (오늘의 스토리)</p>
@@ -383,8 +387,8 @@
 								</div>
 								<div class="story_image">
 									<div class="wrap_story_thumbnail">
-										<a class="story_link" href="storyread?bno=${voi.bNo }"> 
-										<img class="story_thumbnail"
+										<a class="story_link" href="storyread?bno=${voi.bNo }"> <img
+											class="story_thumbnail"
 											src="${pageContext.request.contextPath }/${voi.bImgPath }">
 											<span class="story_bcnt"> 조회수 ${voi.bCnt } </span>
 										</a>
@@ -395,8 +399,8 @@
 						</c:forEach>
 					</div>
 			</div>
-			
-			
+
+
 			<table id="shipInfo">
 				<tr>
 					<td id="ship">배송관련 안내</td>
@@ -434,18 +438,19 @@
 					<td>보내실 곳</td>
 					<td>서울특별시 중구 남대문로 120 대일빌딩 2F, 3F</td>
 				</tr>
-				
+
 			</table>
 
 		</section>
 		<section class="up">
-			<img src="resources/images/product_up.png" onclick="location.replace('#top')">
+			<img src="resources/images/product_up.png"
+				onclick="location.replace('#top')">
 		</section>
 		<div class="wrap_footer">
 			<jsp:include page="../template_footer.jsp" />
 		</div>
 	</div>
-	
+
 
 </body>
 </html>
