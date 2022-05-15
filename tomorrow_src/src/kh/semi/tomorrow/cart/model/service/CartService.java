@@ -23,18 +23,15 @@ public class CartService {
 	public int insertmyCart(String mId, int pNo, String option1) {
 		Connection conn = JdbcTemp.getConnection();
 		
-		int cnt = dao.checkCntCart(conn, mId, pNo);
-		int eql = dao.checkEqualCart(conn, mId, pNo, option1);
+		/* int cnt = dao.checkCntCart(conn, mId, pNo); */
+		/* int eql = dao.checkEqualCart(conn, mId, pNo, option1); */
 		
 		int result = 0;
-		if(cnt == 0)
-			result = dao.insertmyCart(conn, mId, pNo, option1);
-		else{
-			if(eql == 0){
-				result = dao.insertmyCart(conn, mId, pNo, option1);
-			}else
-				result = dao.updatemyCart(conn, mId, pNo, ++cnt, option1);
-		}
+		result = dao.insertmyCart(conn, mId, pNo, option1);
+		/*
+		 * else{ if(eql == 0){ result = dao.insertmyCart(conn, mId, pNo, option1); }else
+		 * result = dao.updatemyCart(conn, mId, pNo, ++cnt, option1); }
+		 */
 			
 		
 		JdbcTemp.close(conn);
