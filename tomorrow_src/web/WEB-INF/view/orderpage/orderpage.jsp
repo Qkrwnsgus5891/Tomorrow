@@ -308,7 +308,11 @@ li {
 	});
 </script>
 
-
+<script>
+	$(document).ready(function() {
+		$(".tprice").hide();
+	});
+</script>
 
 </head>
 <body>
@@ -412,7 +416,7 @@ li {
 						<c:forEach items="${cartVoList}" var="vo">
 
 							<div
-								style="width: 90%; padding: 25px;; border-radius: 15px; text-align: right; border: 1px solid black; display: flex;">
+								style="width: 90%; padding: 25px;; border-radius: 15px; text-align: right; margin-top: 10px; border: 1px solid black; display: flex;">
 								<div style="width: 50%;">
 									<img src="<%=request.getContextPath() %>/${vo.productImgName }"
 										style="width: 180px; heigth: 180px; margin-right: 100px; border-radius: 15px;">
@@ -436,12 +440,9 @@ li {
 						<c:if test="${empty cartVoList }">
 							<div
 								style="width: 88%; padding: 25px; border-radius: 15px; text-align: center; margin: auto 0; border: 1px solid black; height: 200px;">
-								<br>
-								<br>
-								<br>
-								
-								<br>구매하실 상품이 상품이 없습니다.
-								<br><a href=storeproduct?pageCateId=0 style="text-decoration: none"><<구매하러 가기>></a>
+								<br> <br> <br> <br>구매하실 상품이 상품이 없습니다. <br>
+								<a href=storeproduct?pageCateId=0 style="text-decoration: none"><<구매하러
+										가기>></a>
 							</div>
 						</c:if>
 					</div>
@@ -537,8 +538,6 @@ li {
 						<p>-차이 신용카드 전용 부스트 : 5만원 이상 결제 시 15,000원 캐시백, 5/1~31</p>
 						<p>-차이 부스트 혜택 : 10만원 이상 결제 시 10,000원 캐시백, 5/1~31</p>
 					</div>
-
-
 				</div>
 
 
@@ -550,16 +549,22 @@ li {
 					<div <c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
 						style="width: 400px; padding: 20px; border: 2px solid rgb(117, 117, 117); border-radius: 15px;">
 						<h3>결제금액</h3>
-						<div style="display: flex;">
-							<span style="width: 70%;"> 총 할인 금액</span> <span
-								style="width: 20%;"></span> <span style="width: 10%;"> 원
-							</span>
+						
+						<div class="tprice">
+							<c:set var="tPrice" value="0" />
+							<c:forEach items="${cartVoList}" var="vo">
+						${vo.pPrice}
+						${vo.cCnt }
+						<c:set var="tPrice" value="${( tPrice + vo.pPrice ) * vo.cCnt }"></c:set>
+							</c:forEach>
 						</div>
+						
 						<br>
-						<div style="display: flex;">
-							<span style="width: 70%;"> 총 상품 금액</span> <span
-								style="width: 20%;"></span> <span style="width: 10%;"><span></span>
-								원 </span>
+						<div style="display: flex; margin-top: 40px;">
+							<span style="width: 30%; padding-top: 10px;">결제금액 : </span> <span
+								style="width: 40%; text-align: center; font-size: 40px; font-weight: 700; color: rgb(52, 152, 219);">${tPrice }</span>
+							<span
+								style="width: 20%; padding-top: 10px; text-align: right; font-size: medium;"><b>(원)</b></span><br>
 						</div>
 						<br>
 						<hr>
@@ -587,7 +592,14 @@ li {
 
 							<button id="goPay"
 								style="margin: 0 auto; width: 100%; height: 40px; border: 0px; border-radius: 13px; color: white; font-size: 15px; cursor: pointer;">
-								<b><span name="price"></span> 원 결제하기</b>
+
+								<div class="tprice">
+									<c:set var="tCnt" value="0" />
+									<c:forEach items="${cartVoList}" var="vo"> ${vo.cCnt }
+						<c:set var="tCnt" value="${tCnt + vo.cCnt }"></c:set>
+									</c:forEach>
+								</div>
+								<b>${tCnt }개 상품 결제하기</b>
 							</button>
 
 						</div>

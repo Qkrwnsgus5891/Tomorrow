@@ -167,13 +167,6 @@
 				</div>
 
 
-
-
-
-
-
-
-
 				<div style="display: flex; margin-top: 40px;">
 					<span style="width: 30%; padding-top: 10px;">결제금액 : </span> <span
 						style="width: 40%; text-align: center; font-size: 40px; font-weight: 700; color: rgb(52, 152, 219);">${tPrice }</span>
