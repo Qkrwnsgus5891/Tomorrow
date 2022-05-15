@@ -293,7 +293,7 @@ public class AdminDao {
 		if(result == 0) {
 			System.out.println("AdminDao-countAllProduct()에 의한 수행이 실패했습니다.\nresult:\t" + result + "\n");
 		} else {
-			System.out.println("AdminDao-countAllProduct()에 의해 1행이 수행되었습다.\nresult:\t" + result + "\n");
+			System.out.println("AdminDao-countAllProduct()에 의해 1행이 수행되었습니다.\nresult:\t" + result + "\n");
 		}
 		return result;
 	}

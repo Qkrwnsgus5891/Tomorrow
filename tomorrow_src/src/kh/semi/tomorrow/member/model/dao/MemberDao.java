@@ -57,15 +57,80 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcTemp.close(rs);
-			JdbcTemp.close(pstmt);
+			close(rs);
+			close(pstmt);
 		}			
 		return vo;
 	}
 	
-	
+	// 회원가입 
+	public int insertMember(Connection conn, MemberVo member) {
+//		M_ID       NOT NULL VARCHAR2(20) 
+//		M_PW       NOT NULL VARCHAR2(20) 
+//		M_NAME     NOT NULL VARCHAR2(20) 
+//		M_NICKNAME NOT NULL VARCHAR2(20) 
+//		M_BIRTH    NOT NULL CHAR(6)      
+//		M_INTRO             VARCHAR2(30) 
+//		M_DATE     NOT NULL TIMESTAMP(6) 
+//		M_PHONE    NOT NULL VARCHAR2(20) 
+//		M_GRADE    NOT NULL NUMBER       
+//		M_NY       NOT NULL VARCHAR2(1)
+		int result=0;
+		String sql = "INSERT INTO MEMBER(M_ID, M_PW, M_NAME, M_NICKNAME, "
+				+ "	M_BIRTH, M_INTRO, M_DATE, M_PHONE, M_GRADE, M_NY) "
+				+ "	VALUES(?, ?, ?, ?, ?, ?, default, ?, default, default)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);			
+			
+			pstmt.setString(1, member.getmId());
+			pstmt.setString(2, member.getmPw());
+			pstmt.setString(3, member.getmName());
+			pstmt.setString(4, member.getmNickname());
+			pstmt.setString(5, member.getmBrith());
+			pstmt.setString(6, member.getmIntro());			
+			pstmt.setString(7, member.getmPhone());			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		if(result == 0) {
+			System.out.println("MemberDao - insertMember()에 의해 수행이 실패되었습니다.\nresult:\t" + result + "\n" );
+		} else {
+			System.out.println("MemberDao - insertMember()에 의해 수행이 성공되었습니다.\nresult:\t" + result + "\n" );
+		}
+		
+		return result;
+	}
 
-	
+	public int updateMember(Connection conn, MemberVo member) {
+		int result = 0;
+		String sql = "update member set m_nickname = ?, m_birth= ?, m_phone= ?, m_intro=? where m_id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getmNickname());
+			pstmt.setString(2, member.getmBrith());
+			pstmt.setString(3, member.getmPhone());
+			pstmt.setString(4, member.getmIntro());
+			pstmt.setString(5, member.getmId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result == 0) {
+			System.out.println("MemberDao - updateMember()에 의한 수행이 실패했습니다.\nresult:\t " + result + "\n");
+		} else {
+			System.out.println("MemberDao - updateMember()에 의한 수행을 성공했습니다.\nresult:\t " + result + "\n");
+		}
+		return result;
+	}
 	
 	//내가쓴 게시글 조회
 	public ArrayList<StoryBoardVo> myBoardList(Connection conn, int startNum, int endNum, String mId) {
@@ -139,7 +204,7 @@ public class MemberDao {
 		return result;
 	}
 	
-	//구매목록보
+	//구매 목록보기
 	public ArrayList<ProductVo> myProduct(Connection conn, String mId) {
 		ArrayList<ProductVo> productVo = null;
 		

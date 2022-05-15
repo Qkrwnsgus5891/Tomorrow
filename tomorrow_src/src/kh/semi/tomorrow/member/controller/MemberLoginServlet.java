@@ -25,7 +25,8 @@ public class MemberLoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doGet - login");
+		System.out.println("MemberLoginServlet - doGet");
+		System.out.println("로그인 페이지로 이동합니다.\n");
 		request.getRequestDispatcher("WEB-INF/view/member/login.jsp").forward(request, response);
 	}
 
@@ -46,8 +47,9 @@ public class MemberLoginServlet extends HttpServlet {
 		MemberVo vo = new MemberService().login(mId, pw);
 		if (vo == null) {
 			System.out.println("로그인에 실패했습니다.\n");
-			response.sendRedirect("login");
-		} else if (vo != null && vo.getmId().equals("admin001")) {
+			request.setAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			request.getRequestDispatcher("WEB-INF/view/member/confirm/msg.jsp").forward(request, response);
+		} else if (vo != null && vo.getmId().equals("admin001") && vo.getmPw().equals("admin001")) {
 			System.out.println("로그인에 성공하였습니다.");
 			System.out.println("*** 관리자님이 로그인하였습니다. ***\n");
 			request.getSession().setAttribute("ssMV", vo);

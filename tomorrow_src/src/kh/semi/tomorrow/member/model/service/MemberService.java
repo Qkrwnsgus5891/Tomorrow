@@ -24,6 +24,22 @@ public class MemberService {
 		return vo;
 	}
 	
+	// 회원가입
+	public int insertMember(MemberVo member) {
+		Connection conn = JdbcTemp.getConnection();
+		int result = dao.insertMember(conn, member);
+		JdbcTemp.close(conn);	
+		return result;
+		
+	}
+	
+	// 내 정보 수정
+	public int updateMember(MemberVo member) {
+		Connection conn = JdbcTemp.getConnection();
+		int result = dao.updateMember(conn, member);
+		JdbcTemp.close(conn);	
+		return result;
+	}
 	
 	//회원이름
 	public MemberVo myName(String mId) {

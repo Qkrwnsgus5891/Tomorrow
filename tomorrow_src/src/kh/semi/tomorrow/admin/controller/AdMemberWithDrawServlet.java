@@ -34,8 +34,8 @@ public class AdMemberWithDrawServlet extends HttpServlet {
 		int result = 0;
 		String[] mIds = request.getParameterValues("chk_box");
 		if(mIds == null) {
-			System.out.println("회원을 선택하지 않았습니다. 메인화면으로 이동합니다.");
-			request.setAttribute("msg", "회원을 선택하지 않았습니다. 메인화면으로 이동합니다.");
+			System.out.println("회원을 선택하지 않았습니다.");
+			request.setAttribute("msg", "회원을 선택하지 않았습니다.");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);			
 		}
 		
