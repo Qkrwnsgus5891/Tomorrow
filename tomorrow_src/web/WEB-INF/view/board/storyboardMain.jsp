@@ -32,9 +32,18 @@
 		font-size: 15px;
 		line-height: 19px;
 		font-weight: 600;
+		width: 220px;
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 	.story_writer_intro {
 		color: #656e75;
+		width: 220px;
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 	.story_image {
@@ -158,7 +167,7 @@
 									${vo.bWriter }
 								</div>
 								<div class="story_writer_intro">
-									${vo.mIntro }
+									${vo.mIntro }&nbsp;
 								</div>
 							</div>
 							<div class="story_image">
@@ -180,13 +189,13 @@
 				</div>
 				<p class="pasing">
 					<c:if test="${startPage > 1 }">
-						<a href="liststory?page=${startPage - 1 }">&lt;</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="storylist?page=${startPage - 1 }">&lt;</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<c:forEach begin="${startPage }" end="${endPage }" var="p">
-						<a href="liststory?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="storylist?page=${p }">${p }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<c:if test="${endPage < totalPageCnt }">
-						<a href="liststory?page=${endPage + 1 }">&gt;</a>
+						<a href="storylist?page=${endPage + 1 }">&gt;</a>
 					</c:if>
 				</p>
 			</section>

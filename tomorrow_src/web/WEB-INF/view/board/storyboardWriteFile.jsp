@@ -276,7 +276,7 @@
                 </ul>
             </div>
         </div>
-        <form name="frm_sbWrite" action="enrollF.do" method="post" enctype="multipart/form-data">
+        <form name="frm_sbWrite" action="storyenroll.do" method="post" enctype="multipart/form-data">
             <hr>
             <div class="story_thumbnail">
                 <div id="file_preview">

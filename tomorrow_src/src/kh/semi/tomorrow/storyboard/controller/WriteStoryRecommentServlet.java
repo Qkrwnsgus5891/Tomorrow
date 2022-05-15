@@ -13,7 +13,7 @@ import kh.semi.tomorrow.storyboard.model.vo.StoryRecommentVo;
 /**
  * Servlet implementation class WriteStoryRecommentServlet
  */
-@WebServlet("/reEnroll")
+@WebServlet("/storyrenroll")
 public class WriteStoryRecommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,7 +37,7 @@ public class WriteStoryRecommentServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost - reEnroll");
+		System.out.println("doPost - storyrenroll");
 		
 		String bNoStr = request.getParameter("bNo");
 		int bNo = 0;
@@ -47,7 +47,7 @@ public class WriteStoryRecommentServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(bNo <= 0) {
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 			return;
 		}
 		String mId = request.getParameter("mId");
@@ -58,7 +58,7 @@ public class WriteStoryRecommentServlet extends HttpServlet {
 		vo.setrContent(bRecomment);
 		int result = new StoryboardService().writeStoryReComment(vo);
 		if(result < 1) {
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 		} else {
 			response.sendRedirect("storyread?bno=" + bNo);
 		}

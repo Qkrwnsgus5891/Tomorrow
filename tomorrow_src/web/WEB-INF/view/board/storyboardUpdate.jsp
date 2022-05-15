@@ -254,7 +254,7 @@
                 </ul>
             </div>
         </div>
-        <form name="frm_sbWrite" action="enrollF.do" method="post" enctype="multipart/form-data">
+        <form name="frm_sbWrite" action="storyenroll.do" method="post" enctype="multipart/form-data">
             <hr>
             <input type="hidden" name="bNo" value="${bvo.bNo }">
             <div class="story_thumbnail">
@@ -266,7 +266,7 @@
                 <div class="file_upload">
                     <input class="file_name" value="대표사진 첨부" placeholder="대표사진 첨부">
                     <lable class="file_label" for="input_file" onclick="$('#input_file').trigger('click');">사진찾기</lable>
-                    <input type="file" id="input_file" name="upload" required><br>
+                    <input type="file" id="input_file" name="upload"><br>
                 </div>
                 <script>
                 function readInputFile(input) {

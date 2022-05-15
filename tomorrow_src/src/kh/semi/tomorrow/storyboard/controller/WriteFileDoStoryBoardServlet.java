@@ -19,7 +19,7 @@ import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 /**
  * Servlet implementation class WriteFileDoStoryBoardServlet
  */
-@WebServlet("/enrollF.do")
+@WebServlet("/storyenroll.do")
 public class WriteFileDoStoryBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,7 +43,7 @@ public class WriteFileDoStoryBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost - enrollF.do");
+		System.out.println("doPost - storyenroll.do");
 
 		String fileSavePath = "upload/images/story/detail";
 		String uploadPath = getServletContext().getRealPath(fileSavePath);
@@ -81,7 +81,7 @@ public class WriteFileDoStoryBoardServlet extends HttpServlet {
 		if (uploadName == null && orgFileName != null && bNo == 0) {	// 글쓰기 + orgFileName은 있는데 + 파일업로드가 없는 경우
 			// 파일 저장 실패
 			System.out.println("upload 가 null");
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 			return;
 		}
 		String bImgPath = "";
@@ -130,9 +130,9 @@ public class WriteFileDoStoryBoardServlet extends HttpServlet {
 		}
 		if(result < 1) {	// 글등록 실패
 			// 기존 저장된 파일이 있다면 삭제
-			response.sendRedirect("enrollF");
+			response.sendRedirect("storyenroll");
 		} else {	// 글등록 성공
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 		}
 	}
 

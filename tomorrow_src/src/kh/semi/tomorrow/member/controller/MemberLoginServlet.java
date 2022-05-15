@@ -51,12 +51,12 @@ public class MemberLoginServlet extends HttpServlet {
 			System.out.println("로그인에 성공하였습니다.");
 			System.out.println("*** 관리자님이 로그인하였습니다. ***\n");
 			request.getSession().setAttribute("ssMV", vo);
-			response.sendRedirect(request.getContextPath() + "/liststory");
+			response.sendRedirect(request.getContextPath() + "/storylist");
 		} else {
 			System.out.println("로그인에 성공하였습니다.\n");
 			request.getSession().setAttribute("ssMV", vo);
 			System.out.println(vo.getmId());
-			response.sendRedirect(request.getContextPath() + "/liststory");
+			response.sendRedirect(request.getContextPath() + "/storylist");
 		}
 	}
 

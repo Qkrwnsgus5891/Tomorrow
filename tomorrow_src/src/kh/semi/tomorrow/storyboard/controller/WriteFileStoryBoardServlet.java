@@ -16,7 +16,7 @@ import kh.semi.tomorrow.product.model.vo.ProductVo;
 /**
  * Servlet implementation class WriteFileStoryBoardServlet
  */
-@WebServlet("/enrollF")
+@WebServlet("/storyenroll")
 public class WriteFileStoryBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,7 +32,7 @@ public class WriteFileStoryBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet - enrollF");
+		System.out.println("doGet - storyenroll");
 		
 		ArrayList<ProductVo> volist = new ProductService().selectAllProduct();
 		System.out.println(volist);

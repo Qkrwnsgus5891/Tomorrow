@@ -147,7 +147,7 @@
 					<div class="story_recomment_title">
                         댓글
                     </div>
-					<form action="reEnroll" method="post">
+					<form action="storyrenroll" method="post">
 						<input type="hidden" name="bNo" value="${bvo.bNo }">
 						<input type="hidden" name="mId" value="${ssMV.mId }">
 						<textarea class="story_re_content" name="bRecomment" required></textarea>

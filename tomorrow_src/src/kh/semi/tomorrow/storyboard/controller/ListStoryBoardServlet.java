@@ -16,7 +16,7 @@ import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
 /**
  * Servlet implementation class ListStoryBoardServlet
  */
-@WebServlet("/liststory")
+@WebServlet("/storylist")
 public class ListStoryBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StoryboardService service = new StoryboardService();  

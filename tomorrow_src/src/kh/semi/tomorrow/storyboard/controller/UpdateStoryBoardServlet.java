@@ -39,7 +39,7 @@ public class UpdateStoryBoardServlet extends HttpServlet {
 		}
 		if (bNo < 1) {
 			// 오류 페이지 또는 storylist
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 			return;
 		}
 		StoryBoardVo result = new StoryboardService().readStoryBoard(bNo);

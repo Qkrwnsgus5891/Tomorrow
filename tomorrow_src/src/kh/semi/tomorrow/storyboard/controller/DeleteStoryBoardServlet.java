@@ -41,14 +41,14 @@ public class DeleteStoryBoardServlet extends HttpServlet {
 		if (bNo < 1) {
 			// 오류 페이지 또는 storylist
 			System.out.println("storydelete fail");
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 			return;
 		}
 		int result = new StoryboardService().deleteStoryBoard(bNo);
 		System.out.println(result);
 		if (result > 0) {
 			System.out.println("storydelete end");
-			response.sendRedirect("liststory");
+			response.sendRedirect("storylist");
 		}
 	}
 
