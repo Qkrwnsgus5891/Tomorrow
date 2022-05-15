@@ -168,16 +168,23 @@
 
 
 
-				
-				<br>
-				<div style="display: flex;">
-					<span style="width: 40%;"> 총 결제 금액</span> <span style="width: 50%;"><span
-						style="font-size: x-large;"><b>${tPrice }</b></span></span> <span
-						style="width: 10%;"> 원</span>
+
+
+
+
+
+
+				<div style="display: flex; margin-top: 40px;">
+					<span style="width: 30%; padding-top: 10px;">결제금액 : </span> <span
+						style="width: 40%; text-align: center; font-size: 40px; font-weight: 700; color: rgb(52, 152, 219);">${tPrice }</span>
+					<span
+						style="width: 20%; padding-top: 10px; text-align: right; font-size: medium;"><b>(원)</b></span><br>
 				</div>
 
 				<button onclick="location.href='orderpage'" id="goPay"
 					style="margin: 40px 0 0 0; width: 100%; height: 40px; border: 0px; border-radius: 13px; color: white; font-size: 15px; cursor: pointer;">
+
+
 					<div class="tprice">
 						<c:set var="tCnt" value="0" />
 						<c:forEach items="${cartVoList}" var="vo"> ${vo.cCnt }
