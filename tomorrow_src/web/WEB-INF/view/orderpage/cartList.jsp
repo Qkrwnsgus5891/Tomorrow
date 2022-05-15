@@ -5,6 +5,7 @@
 	rel="stylesheet" type="text/css">
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,6 +35,7 @@
 	text-decoration: none;
 }
 
+
 #cartDelBtn {
 	color: rgb(77, 77, 255);
 	cursor: pointer;
@@ -57,18 +59,18 @@
 
 
 <script>
-	function goDelete() {
-		var strChk = [];
-
-		$("input:checkbox[name=selectPno]:checked").each(function() {
-			strChk.push($(this).val());
-		});
-
-		var cnf = confirm("상품을 삭제하시겠습니까?");
-		if (cnf) {
-			del_container.submit();
-		} else {
-			location.href = "cartlist";
+function goDelete() {
+	var strChk = [];
+	 
+	 $("input:checkbox[name=selectPno]:checked").each(function() {
+			strChk.push($(this).val());			
+	 });
+	 
+	 var cnf = confirm("상품을 삭제하시겠습니까?");
+	 if(cnf) {
+			del_container.submit();		
+		} else {			
+			location.href="cartlist";
 		}
 	}
 </script>
