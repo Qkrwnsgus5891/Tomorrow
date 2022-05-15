@@ -129,6 +129,7 @@ function goDelete() {
 									<b>상품이름:<a href="productDetail?p_no=${vo.pNo }">${vo.pName}</a></b>
 								</p>
 								<p style="margin-top: 8px;">브랜드명:${vo.pBrand}</p>
+								<p style="margin-top: 8px;">가격:${vo.pPrice * vo.cCnt}</p>
 
 							</div>
 						</div>
@@ -151,10 +152,10 @@ function goDelete() {
 			<div
 				style="border: 2px solid rgb(110, 110, 110); border-radius: 15px; width: 70%; padding: 30px; min-width: 300px;">
 
-				<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
 
+				<c:set var="vo" value="${cartVoList.get(0)}"></c:set>
 				<div style="display: flex;">
-					<span style="width: 70%;"><b> 총 상품금액</b></span><span id="price"></span>
+					<span style="width: 70%;"><b> 총 상품금액: ${vo.pPrice }</b></span><span id="price"></span>
 					<span style="width: 20%; text-align: end;">금액(원)</span><br>
 				</div>
 				<div style="display: flex; margin-top: 40px;">
