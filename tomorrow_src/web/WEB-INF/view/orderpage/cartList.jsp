@@ -34,7 +34,6 @@
 	text-decoration: none;
 }
 
-
 #cartDelBtn {
 	color: rgb(77, 77, 255);
 	cursor: pointer;
@@ -58,20 +57,20 @@
 
 
 <script>
-function goDelete() {
-	var strChk = [];
-	 
-	 $("input:checkbox[name=selectPno]:checked").each(function() {
-			strChk.push($(this).val());			
-	 });
-	 
-	 var cnf = confirm("상품을 삭제하시겠습니까?");
-	 if(cnf) {
-			del_container.submit();		
-		} else {			
-			location.href="cartlist";
+	function goDelete() {
+		var strChk = [];
+
+		$("input:checkbox[name=selectPno]:checked").each(function() {
+			strChk.push($(this).val());
+		});
+
+		var cnf = confirm("상품을 삭제하시겠습니까?");
+		if (cnf) {
+			del_container.submit();
+		} else {
+			location.href = "cartlist";
 		}
-}
+	}
 </script>
 
 <!-- 모두 해제하기 -->
@@ -85,7 +84,11 @@ function goDelete() {
 		});
 	}
 </script> -->
-
+<script>
+	$(document).ready(function() {
+		$(".tprice").hide();
+	});
+</script>
 
 </head>
 <body>
@@ -136,10 +139,11 @@ function goDelete() {
 					</c:forEach>
 				</form>
 				<c:if test="${empty cartVoList }">
-				<div style="width: 88%; padding: 25px; border-radius: 15px; text-align: center; margin: auto 0;
-				border: 1px solid black; margin: 15px;height: 200px; ">
-				<br><br><br><br><br><br>선택된 상품이 없습니다. 
-				</div>
+					<div
+						style="width: 88%; padding: 25px; border-radius: 15px; text-align: center; margin: auto 0; border: 1px solid black; margin: 15px; height: 200px;">
+						<br> <br> <br> <br> <br> <br>선택된 상품이
+						없습니다.
+					</div>
 				</c:if>
 
 
@@ -152,24 +156,35 @@ function goDelete() {
 			<div
 				style="border: 2px solid rgb(110, 110, 110); border-radius: 15px; width: 70%; padding: 30px; min-width: 300px;">
 
-				<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
-				
-				<div style="display: flex;">
-					<c:set var="tPrice" value="0"/>
+
+				<div class="tprice">
+					<c:set var="tPrice" value="0" />
 					<c:forEach items="${cartVoList}" var="vo">
-						<c:set var="tPrice" value="${tPrice + (vo.pPrice * vo.cCnt) }"></c:set>
+						${vo.pPrice}
+						${vo.cCnt }
+						<c:set var="tPrice" value="${( tPrice + vo.pPrice ) * vo.cCnt }"></c:set>
 					</c:forEach>
-					<span style="width: 70%;"><b>총 상품금액 : ${tPrice }</b></span><span id="price"></span>
-					<span style="width: 20%; text-align: end;">금액(원)</span><br>
 				</div>
-				<div style="display: flex; margin-top: 40px;">
-					<span style="width: 70%;"><b> 결제금액 : ${tPrice }</b></span> <span
-						style="width: 20%; text-align: end; font-size: medium;"><b>금액(원)</b></span><br>
+
+
+
+				
+				<br>
+				<div style="display: flex;">
+					<span style="width: 40%;"> 총 결제 금액</span> <span style="width: 50%;"><span
+						style="font-size: x-large;"><b>${tPrice }</b></span></span> <span
+						style="width: 10%;"> 원</span>
 				</div>
 
 				<button onclick="location.href='orderpage'" id="goPay"
 					style="margin: 40px 0 0 0; width: 100%; height: 40px; border: 0px; border-radius: 13px; color: white; font-size: 15px; cursor: pointer;">
-					<b>원 상품 결제하기</b>
+					<div class="tprice">
+						<c:set var="tCnt" value="0" />
+						<c:forEach items="${cartVoList}" var="vo"> ${vo.cCnt }
+						<c:set var="tCnt" value="${tCnt + vo.cCnt }"></c:set>
+						</c:forEach>
+					</div>
+					<b>${tCnt }개 상품 결제하기</b>
 				</button>
 			</div>
 			<br>
