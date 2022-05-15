@@ -207,7 +207,7 @@ input[type="text"], select {
 	<div id="container">
 		<form method="post" enctype="multipart/form-data" id=edfrm>
 			<section id="content_enroll">
-				<img src="" alt="image" id="product_img">
+				<img id="product_img">
 				<div id="product_enroll_grp">
 					<div class="enroll_content">
 						<!-- 상품 번호 -->

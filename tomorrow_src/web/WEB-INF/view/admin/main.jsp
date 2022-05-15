@@ -84,7 +84,7 @@
     #category_group {      
       	position: absolute;
       	width: 500px;      
-      	top: 100px;
+      	top: 150px;
       	left: 4%;
     }
     .store_btn {
@@ -101,14 +101,14 @@
       	margin: 0 10px;
     }
 
-    #total {
+    #guide {
     	/* border: 1px solid black; */
       	position: absolute;
-      	top: 160px;
+      	top: 110px;
       	left: 4%;
       	font-size: 15px;
       	font-weight: bold;
-      	width: 100px;
+      	width: 400px;
       	height: 40px;
     }
     
@@ -119,7 +119,7 @@
       	width: 1000px;
       	height: 700px;
 
-      	top: 13%;
+      	top: 15%;
       	left: 4%;
     }   	
   </style>
@@ -210,7 +210,7 @@
       	<input type="hidden" name="ctgry" id="ctgry">                
         
       </div>
-      <div id="total">전체 상품</div>
+      <div id="guide">카테고리를 선택하세요</div>
      <div id="prod_container"> 
 
 <!--      	

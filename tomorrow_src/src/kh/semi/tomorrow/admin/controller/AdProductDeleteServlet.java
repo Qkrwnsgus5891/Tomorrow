@@ -35,8 +35,8 @@ public class AdProductDeleteServlet extends HttpServlet {
 		int result = 0;				
 		String[] numbers = request.getParameterValues("selectPno");
 		if(numbers == null) {
-			System.out.println("삭제할 상품번호를 선택해주세요.");
-			request.setAttribute("msg", "삭제할 상품번호를 선택해주세요.");
+			System.out.println("상품번호가 선택되지 않았습니다. 다시 입력해주세요");
+			request.setAttribute("msg", "상품번호가 선택되지 않았습니다. 다시 입력해주세요");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 		}
 		
