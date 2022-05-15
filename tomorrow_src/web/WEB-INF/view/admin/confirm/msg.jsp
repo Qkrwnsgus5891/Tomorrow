@@ -42,7 +42,7 @@
 	
 	if(msg == '상품 수정에 실패하였습니다.') {
 		alert(msg);
-		location.replace("ad");
+		location.replace("admain");
 	}
 	if(msg == '회원을 선택하지 않았습니다.' || msg == '회원 탈퇴 여부를 변경했습니다.'){
 		alert(msg);
