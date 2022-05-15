@@ -121,6 +121,7 @@ public class CartDao {
 				vo.setpBrand(rs.getString("p_brand"));
 				vo.setpName(rs.getString("p_name"));
 				vo.setproductImgName(rs.getString("product_img_name"));
+				vo.setpPrice(rs.getInt("p_price"));
 				
 				cartVoList.add(vo);
 			}

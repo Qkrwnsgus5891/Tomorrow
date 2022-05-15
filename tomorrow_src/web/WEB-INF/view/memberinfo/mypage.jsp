@@ -15,9 +15,58 @@
         table, td, th{
 	    border-top: 1px solid black;            
     </style>
-    
-    
-    
+    <style>
+    	.container_content {
+    		position: relative;
+			display: flex;
+			flex-wrap: wrap;
+		}
+    	.story_image {
+			width: 100%;
+		}
+    	.wrap_story_thumbnail {
+			background-color: black;
+			padding-bottom: 100%;
+			border-radius: 6px;
+			position: relative;
+			overflow: hidden;
+		}
+		.story_thumbnail {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 100%;
+			transform: translate(-50%,-50%);
+			transform-origin: 300% 300%;
+			transition: transform .2s;
+		}
+		.wrap_story_thumbnail:hover img{
+			transform: scale(1.2);
+		}
+		.story_bcnt {
+			position: absolute;
+			bottom: 15px;
+			right: 15px;
+			font-size: 13px;
+			color: #fff;
+			z-index: 10;
+		}
+		.story_title {
+			margin: 15px 0 0;
+			font-size: 15px;
+			line-height: 22px;
+		}
+		.story_one {
+			position: relative;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-bottom: 40px;
+			box-sizing: border-box;
+			flex: 0 0 25%;
+			width: 100%;
+		}
+    </style>
+    	
     <script>
        $(document).ready(function(){
         $("#share1").click(function(){
@@ -155,26 +204,27 @@
              <!-- 나의 스토리 목록 -->
              <c:set var="vo" value="${memberVo }"></c:set>
             <h3>${vo.mName }님의 스토리</h3>   
-            <div id="recentOrderWrap" style="width: 95%;overflow: auto;">
-                
-                <table border="1px" style="width: 100%; height: 40px; text-align: center;" >
-
-        		<tr>
-          			<td width="65">글번호</td>
-          			<td width="500">제목</td>
-          			<td width="120">작성일</td>
-          			<td width="50">조회수</td>          
-        		</tr>    
-
+            <div id="recentOrderWrap" style="width: 95%;overflow: auto;"> 
+<div class="container_content">
 <c:forEach items="${boardlist }" var="vo">        
-        		<tr>
-          			<td><a href="storyread?bno=${vo.bNo }">${vo.bNo }</a></td>
-          			<td><a href="storyread?bno=${vo.bNo }">${vo.bTitle }</a></td>
-          			<td>${vo.bDate }</td>
-          			<td>${vo.bCnt }</td>
-        		</tr>
-</c:forEach>  
-		</table>    
+        		<div class="story_one">
+        			<div class="story_image">
+								<div class="wrap_story_thumbnail">
+									<a class="story_link" href="storyread?bno=${vo.bNo }">
+										<img class="story_thumbnail" src="${pageContext.request.contextPath }/${vo.bImgPath }">
+										<span class="story_bcnt">
+											조회수
+											${vo.bCnt }
+										</span>
+									</a>
+								</div>
+							</div>
+							<div class="story_title">
+								${vo.bTitle }
+							</div>
+          		</div>
+</c:forEach>
+</div>    
 		     
       	<p id="prev_next" style="text-align: center;">		
 			<c:if test="${ startPage > 1 }">
@@ -187,11 +237,6 @@
 				<a href="memberinfo?page=${ endPage+1}">다음</a>
 			</c:if>
 		</p>
-	
-
-
-
-
             </div>
         </div>
     </div>

@@ -138,7 +138,7 @@ public class MemberDao {
 		
 		String sql = "select *"
 				+ "    from (select rownum r, b1.*"
-				+ "            from (select st.b_no, st.b_title, st.b_date, st.b_cnt"
+				+ "            from (select st.b_no, st.b_title, st.b_date, st.b_cnt, st.b_img_path"
 				+ "                    from story st where m_Id=?  order by b_date desc, b_no desc) b1"
 				+ "    		)"
 				+ "	where r between ? and ?";
@@ -158,6 +158,7 @@ public class MemberDao {
 				vo.setbTitle(rs.getString("b_title"));
 				vo.setbDate(rs.getTimestamp("b_date"));
 				vo.setbCnt(rs.getInt("b_cnt"));
+				vo.setbImgPath(rs.getString("b_img_path"));
 				
 				boardlist.add(vo);
 			}

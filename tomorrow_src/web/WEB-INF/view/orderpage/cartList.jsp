@@ -152,14 +152,18 @@ function goDelete() {
 			<div
 				style="border: 2px solid rgb(110, 110, 110); border-radius: 15px; width: 70%; padding: 30px; min-width: 300px;">
 
-
-				<c:set var="vo" value="${cartVoList.get(0)}"></c:set>
+				<c:set var="setOpt" value="${pdOpt.optNo }"></c:set>
+				
 				<div style="display: flex;">
-					<span style="width: 70%;"><b> 총 상품금액: ${vo.pPrice }</b></span><span id="price"></span>
+					<c:set var="tPrice" value="0"/>
+					<c:forEach items="${cartVoList}" var="vo">
+						<c:set var="tPrice" value="${tPrice + (vo.pPrice * vo.cCnt) }"></c:set>
+					</c:forEach>
+					<span style="width: 70%;"><b>총 상품금액 : ${tPrice }</b></span><span id="price"></span>
 					<span style="width: 20%; text-align: end;">금액(원)</span><br>
 				</div>
 				<div style="display: flex; margin-top: 40px;">
-					<span style="width: 70%;"><b> 결제금액</b></span> <span
+					<span style="width: 70%;"><b> 결제금액 : ${tPrice }</b></span> <span
 						style="width: 20%; text-align: end; font-size: medium;"><b>금액(원)</b></span><br>
 				</div>
 

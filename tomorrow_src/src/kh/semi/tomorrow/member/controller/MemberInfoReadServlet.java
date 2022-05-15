@@ -67,7 +67,7 @@ public class MemberInfoReadServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		final int pageSize = 10;  // 한페이지에 보여줄 행
+		final int pageSize = 8;  // 한페이지에 보여줄 행
 		final int pageBlock = 3;  // 페이징에 나타날 페이지수
 		int startPage=0;
 		int endPage=0;
