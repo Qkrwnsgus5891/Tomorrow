@@ -42,6 +42,7 @@ public class CartInsertServlet extends HttpServlet {
 			mId = ssvo.getmId();
 		}
 		
+
 		String option1 = request.getParameter("option_1");
 		String option2 = request.getParameter("option_2");
 		String option3 = request.getParameter("option_3");

@@ -69,6 +69,32 @@ public class CartDao {
 		return cnt;
 	}
 
+	//옵션값 불러오기 
+	public int checkEqualCart(Connection conn, String mId, int pNo, String option1) {
+		int eql = 0;
+
+		String sql = "select p_seq from cart where m_id=? and p_no=? and option1";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setInt(2, pNo);
+			pstmt.setString(3, option1);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				eql = rs.getInt("p_seq");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemp.close(rs);
+			JdbcTemp.close(pstmt);
+		}
+
+		return eql;
+	}
+	
+	
 	// 장바구니 업데이트
 	public int updatemyCart(Connection conn, String mId, int pNo, int cnt, String option1) {
 
