@@ -48,6 +48,8 @@ public class AdProductAddOptServlet extends HttpServlet {
 			optPrice = Integer.parseInt(optPrice_param);
 		} catch(Exception e) {
 			System.out.println("*** 정수로 변환 도중 오류 발생 ***\n");
+			request.setAttribute("msg", "정수로 변환 중 오류가 발생했습니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 			return ;
 		}
 		System.out.println("페이지로부터 전달받은 데이터값");

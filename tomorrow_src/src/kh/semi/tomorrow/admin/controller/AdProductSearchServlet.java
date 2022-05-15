@@ -45,6 +45,8 @@ public class AdProductSearchServlet extends HttpServlet {
 			pSeq = Integer.parseInt(pSeq_param);
 		} catch(Exception e) {
 			System.out.println("*********** 정수로 변환 중 오류가 발생했습니다. ***********");
+			request.setAttribute("msg", "정수로 변환 중 오류가 발생했습니다.");
+			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 			return; 
 		}
 		System.out.println("조회한 상품 번호:\t" + pNo);

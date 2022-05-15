@@ -81,7 +81,7 @@ public class AdProductEnrollServlet extends HttpServlet {
 			optPrice = Integer.parseInt(optPrice_param);
 		} catch (Exception e) {
 			System.out.println("*** 정수로 변환 도중 오류 발생 ***");
-			request.setAttribute("msg", "오류가 발생했습니다.");
+			request.setAttribute("msg", "정수로 변환 중 오류가 발생했습니다.");
 			request.getRequestDispatcher("WEB-INF/view/admin/confirm/msg.jsp").forward(request, response);
 		}
 		

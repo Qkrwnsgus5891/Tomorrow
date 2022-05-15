@@ -131,7 +131,7 @@
     	<section id="story_content">
       		<p id="story_info_title">오늘의 스토리</p>                   
       		<div id="story_manage_grp">
-        		<button type="button" id="story_ins" onclick="location.href='enrollF';" style="width:70px; height:30px;">작성</button>
+        		<button type="button" id="story_ins" onclick="location.href='storyenroll';" style="width:70px; height:30px;">작성</button>
         		<button type="button" id="story_del" style="width:70px; height:30px;">삭제</button>       
       		</div>       
       	<form action="adAritcleDelete" method="post" id="boardFrm">
