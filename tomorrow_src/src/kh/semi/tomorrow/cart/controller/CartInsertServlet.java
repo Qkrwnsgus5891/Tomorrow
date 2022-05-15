@@ -51,13 +51,13 @@ public class CartInsertServlet extends HttpServlet {
 		System.out.println("옵션3 :"+option3);
 		System.out.println("옵션4 :"+option4);
 		
-		if(option2 != null && option2.equals("")) {
+		if(option2 != null && !option2.equals("")) {
 			option1 += ", "+option2;
 		}
-		if(option3 != null && option3.equals("")) {
+		if(option3 != null && !option3.equals("")) {
 			option1 += ", "+option3;
 		}
-		if(option4 != null && option4.equals("")) {
+		if(option4 != null && !option4.equals("")) {
 			option1 += ", "+option4;
 		}
 		System.out.println(option1);
