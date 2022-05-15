@@ -50,6 +50,7 @@
 		width: 100%;
 	}
 	.wrap_story_thumbnail {
+		background-color: black;
 		padding-bottom: 100%;
 		border-radius: 6px;
 		position: relative;
