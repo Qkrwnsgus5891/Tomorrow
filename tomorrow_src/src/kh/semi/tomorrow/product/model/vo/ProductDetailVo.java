@@ -6,6 +6,9 @@ public class ProductDetailVo {
 	private String optVal;
 	private int optPrice;
 	private int pSeq;
+	
+	
+	
 //	
 	private int pNo;
 	

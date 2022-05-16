@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,7 +133,7 @@
 									<b>상품이름:<a href="productDetail?p_no=${vo.pNo }">${vo.pName}</a></b>
 								</p>
 								<p style="margin-top: 8px;">브랜드명:${vo.pBrand}</p>
-								<p style="margin-top: 8px;">가격:${vo.pPrice * vo.cCnt}</p>
+								<p style="margin-top: 8px;">가격:<fmt:formatNumber value="${vo.pPrice * vo.cCnt}" pattern="#,###"/></p>
 
 							</div>
 						</div>
@@ -169,7 +170,7 @@
 
 				<div style="display: flex; margin-top: 40px;">
 					<span style="width: 30%; padding-top: 10px;">결제금액 : </span> <span
-						style="width: 40%; text-align: center; font-size: 40px; font-weight: 700; color: rgb(52, 152, 219);">${tPrice }</span>
+						style="width: 40%; text-align: center; font-size: 40px; font-weight: 700; color: rgb(52, 152, 219);"><fmt:formatNumber value="${tPrice }" pattern="#,###"/></span>
 					<span
 						style="width: 20%; padding-top: 10px; text-align: right; font-size: medium;"><b>(원)</b></span><br>
 				</div>
