@@ -5,7 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,7 +211,7 @@ to {
 								</div>
 								<div class="pname">${vo.pName }</div>
 								<div class="pbrand">${vo.pBrand }</div>
-								<div class="pprice"><fmt:formatNumber value="${vo.pPrice }" pattern="#,###"/></div>
+								<div class="pprice">${vo.pPrice }</div>
 							</div>
 						</form>
 					</c:forEach>

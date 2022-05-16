@@ -2,6 +2,7 @@ package kh.semi.tomorrow.member.model.dao;
 
 import static kh.semi.tomorrow.common.JdbcTemp.close;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,11 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 
 import kh.semi.tomorrow.common.JdbcTemp;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
@@ -25,7 +31,16 @@ public class MemberDao {
 	private Statement stmt = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
+	private Connection getConnection() throws Exception{
+		Context cts = new InitialContext();
+		Context env = (Context)cts.lookup("java:comp/env"); 
+		DataSource ds = (DataSource)env.lookup("jdbc/orcl"); 
+		return ds.getConnection();
+	}
 	
+
+
+
 	
 	
 	//로그인
@@ -62,6 +77,9 @@ public class MemberDao {
 		}			
 		return vo;
 	}
+	
+
+
 	
 	// 회원가입 
 	public int insertMember(Connection conn, MemberVo member) {
@@ -105,6 +123,37 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	
+
+
+	//아이디 중복 여부 확인 메서드 
+		public boolean confirmId(String mId) {
+			
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs= null;
+			boolean result = false;
+			try{
+				conn = getConnection();
+				String sql = "select id from users where id = ?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, mId);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					result = true;
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				if(rs != null) try {rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt != null) try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn != null) try {conn.close();}catch(Exception e) {e.printStackTrace();}
+			}
+			return result;
+		}
+	
 
 	public int updateMember(Connection conn, MemberVo member) {
 		int result = 0;

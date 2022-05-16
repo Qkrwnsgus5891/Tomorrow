@@ -8,8 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,7 +166,7 @@
 }
 
 #information {
-	margin: 10px 28%;
+	margin: 10px 25%;
 	width: 70%;
 	font-weight: 700;
 }
@@ -277,9 +275,7 @@
 					<form id="frmInf">
 						<div class="pbrand">${vo.pBrand }</div>
 						<div class="pname">${vo.pName }</div>
-						
-
-						<div class="pprice"><fmt:formatNumber value="${vo.pPrice }" pattern="#,###"/><a>(원)</a>
+						<div class="pprice">${vo.pPrice }<a>(원)</a>
 						</div>
 
 						<div>
@@ -454,8 +450,7 @@
 			});
 			var totalPrice = basicPrice + optPrice;
 			console.log(totalPrice);
-			$("#price").html(totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-
+			$("#price").html(totalPrice);
 		}
 	</script>
 	<script>

@@ -32,7 +32,7 @@
 	    		<input type="password" class="pwd" name="pwd" required placeholder="비밀번호">
 	    		<br><br>
 	    		<button type="submit" class="btn">로그인</button>
-	    		<button class="btn2" onclick="location.href='join';">회원가입</button>
+	    		<button type="button" class="btn2" onclick="location.href='join';">회원가입</button>
     		</form>
     	</div> 	    
     </section>

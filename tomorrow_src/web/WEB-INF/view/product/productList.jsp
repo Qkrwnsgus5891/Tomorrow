@@ -5,7 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,6 +124,12 @@ nav button:hover{
 }
 </style>
 <script>
+	$(function() {
+		console.log("페이지 로딩");
+		$("body").show();
+		$("nav>button").click(furnitureSelect);
+	});
+
 	function clickproDetail(thisEle) {
 		console.log(thisEle);
 		console.log($(thisEle).parent());
@@ -134,14 +139,8 @@ nav button:hover{
 		frmEle.method = "get";
 		frmEle.submit();
 	};
-	
-	$(function() {
-		console.log("페이지 로딩");
-		$("body").show();
-		$("nav>button").click(categorySelect);
-	});
 
-	function categorySelect() {
+	function furnitureSelect() {
 		console.log(this);
 		var btnIdx = $(this).index();
 		console.log(btnIdx);
@@ -196,8 +195,7 @@ nav button:hover{
 				html += '				<div class="pbrand">' + vo.pBrand + '</div>';
 				html += '			';
 				html += '			';
-				html += '				<div class="pprice">' + vo.pPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
- + '</div>';
+				html += '				<div class="pprice">' + vo.pPrice + '</div>';
 				html += '			</div>';
 				html += '		 </form>';
 			}
@@ -265,7 +263,7 @@ nav button:hover{
 										</div>
 										<div class="pname">${vo.pName }</div>
 										<div class="pbrand">${vo.pBrand }</div>
-										<div class="pprice"><fmt:formatNumber value="${vo.pPrice }" pattern="#,###"/></div>
+										<div class="pprice">${vo.pPrice }</div>
 									</div>
 								</form>
 							</c:forEach>

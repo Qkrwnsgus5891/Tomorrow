@@ -37,7 +37,7 @@ public class MemberJoinServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("MemberJoinServlet - doPost");		
 		
-		String mId = request.getParameter("id");
+		String mId = request.getParameter("mId");
 		String pwd = request.getParameter("password");
 		String mName = request.getParameter("mNname");
 		String mNickname = request.getParameter("mNickname");
