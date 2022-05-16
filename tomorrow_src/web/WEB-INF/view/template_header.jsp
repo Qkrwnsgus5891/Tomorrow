@@ -41,7 +41,9 @@
 <c:if test="${not empty ssMV}">
           <a href="logout" class="navigation_bar_right_btn" id="logout_btn" style="left:50px; bottom:5px;">로그아웃</a>
 </c:if>
+<c:if test="${empty ssMV}">
           <a href="join" class="navigation_bar_right_btn" id="join_btn">회원가입</a>
+</c:if>          
 <c:if test="${not empty ssMV}">  
           <a href="memberinfo" style="color: black;" id="my_info">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">

@@ -17,9 +17,6 @@
 <jsp:useBean id="member" class="kh.semi.tomorrow.member.model.dao.MemberDao" />
 <jsp:setProperty property="*" name="member"/>
 
-<% MemberDao dao = new MemberDao();
-	dao.insertMember(conn, member);
-%>
 
 <body>
 <h1> 회원가입 완료 !! </h1>
