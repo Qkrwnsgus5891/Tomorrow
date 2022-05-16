@@ -40,7 +40,7 @@
 		location.replace("adProductManage");
 	}
 	
-	if(msg == '상품 수정에 실패하였습니다.') {
+	if(msg == '상품 수정에 실패하였습니다.' || '상품 수정에 성공하였습니다.') {
 		alert(msg);
 		location.replace("admain");
 	}
