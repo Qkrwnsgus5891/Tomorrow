@@ -2,6 +2,7 @@ package kh.semi.tomorrow.cart.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -78,7 +79,7 @@ public class CartInsertServlet extends HttpServlet {
 			
 			int result = new CartService().insertmyCart(mId, pNo, option1);
 			
-			ArrayList<CartVo> cartVoList = new CartService().myCart(mId);
+			List<CartVo> cartVoList = new CartService().myCart(mId);
 			request.setAttribute("cartVoList", cartVoList);
 			
 			request.getRequestDispatcher("WEB-INF/view/orderpage/cartList.jsp").forward(request, response);

@@ -49,7 +49,7 @@ public class CartDeleteServlet extends HttpServlet {
 		for(int i=0; i<numbers.length; i++) {
 			cNo[i] = Integer.parseInt(numbers[i]);
 		}
-		result = new CartService().cartDelete(cNo, mId);		
+//		result = new CartService().cartDelete(cNo, mId);		
 		
 		if(result < 1) {
 			System.out.println("상품을 삭제하는데 실패했습니다.");

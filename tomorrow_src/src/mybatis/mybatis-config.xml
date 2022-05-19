@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+  <properties resource="mybatis/db.properties"/>
+
+  <settings>
+  	<setting name="jdbcTypeForNull" value="NULL"/>
+  </settings>
+
+  <typeAliases>
+  	<typeAlias type="kh.semi.tomorrow.cart.model.vo.CartVo" alias="Cart"/>
+  	<typeAlias type="kh.semi.tomorrow.order.model.vo.OrderVo" alias="Order"/>
+  	<typeAlias type="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo" alias="StoryBoard"/>
+
+  </typeAliases>
+
+  <environments default="tomorrowPclass">
+    <environment id="tomorrowPclass">
+    	<transactionManager type="JDBC"></transactionManager>
+    	<dataSource type="POOLED">
+    		<property name="driver" value="${jdbc.driver}"/>
+    		<property name="url" value="${jdbc.url}"/>
+    		<property name="username" value="${jdbc.username}"/>
+    		<property name="password" value="${jdbc.password}"/>
+    	</dataSource>
+    </environment>
+  	<environment id="tomorrowLocal">
+    	<transactionManager type="JDBC"></transactionManager>
+    	<dataSource type="POOLED">
+    		<property name="driver" value="oracle.jdbc.OracleDriver"/>
+    		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+    		<property name="username" value="tomorrow"/>
+    		<property name="password" value="asdf"/>
+    	</dataSource>
+    </environment>
+  </environments>
+  
+  <mappers>
+    <mapper resource="mybatis/mappers/cart-mapper.xml"/>
+    <mapper resource="mybatis/mappers/member-mapper.xml"/>
+    <mapper resource="mybatis/mappers/order-mapper.xml"/>
+    <mapper resource="kh/semi/tomorrow/storyboard/model/storyboard-mapper.xml"/>
+  </mappers>
+</configuration>
+

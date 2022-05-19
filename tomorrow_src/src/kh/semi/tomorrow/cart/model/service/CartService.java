@@ -1,68 +1,68 @@
 package kh.semi.tomorrow.cart.model.service;
 
-import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import kh.semi.tomorrow.cart.model.dao.CartDao;
 import kh.semi.tomorrow.cart.model.vo.CartVo;
-import kh.semi.tomorrow.common.JdbcTemp;
-
-import static kh.semi.tomorrow.common.JdbcTemp.*;
 
 public class CartService {
 	private CartDao dao = new CartDao();
 
-	public ArrayList<CartVo> myCart(String mId) {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<CartVo> cartVo = dao.myCart(conn, mId);
-		JdbcTemp.close(conn);
+	public List<CartVo> myCart(String mId) {
+		List<CartVo> cartVo = dao.myCart(mId);
 		return cartVo;
 	}
 
 	// 상품추가
 	public int insertmyCart(String mId, int pNo, String option1) {
-		Connection conn = JdbcTemp.getConnection();
+		CartVo setVo = new CartVo();
+		setVo.setpNo(pNo);
+		setVo.setpSeq(option1);
+		setVo.setmId(mId);
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("pNo", pNo);
+		int cnt = dao.checkCntCart(map);
+		int eql = dao.checkEqualCart(setVo);
 		
-		int cnt = dao.checkCntCart(conn, mId, pNo);
-		int eql = dao.checkEqualCart(conn, mId, pNo, option1);
+		setVo.setcCnt(cnt);
 		
 		int result = 0;
-		if(cnt == 0)
-			result = dao.insertmyCart(conn, mId, pNo, option1);
-		else{
-			if(eql == 0){
-				result = dao.insertmyCart(conn, mId, pNo, option1);
-			}else
-				result = dao.updatemyCart(conn, mId, pNo, ++cnt, option1);
+		if (cnt == 0)
+			result = dao.insertmyCart(setVo);
+		else {
+			if (eql == 0) {
+				result = dao.insertmyCart(setVo);
+			} else
+				System.out.println("여기"+setVo);
+				result = dao.updatemyCart(setVo);
 		}
-			
-		
-		JdbcTemp.close(conn);
 		return result;
 	}
 
 	// 상품 삭제
-	public int cartDelete(int[] cNo, String mId) {
-		int result = 0;
-		Connection conn = JdbcTemp.getConnection();
-		JdbcTemp.setAutocommit(conn, false);
-		boolean bool = true;
-
-		for (int i = 0; i < cNo.length; i++) {
-			result = dao.cartDelete(conn, cNo[i], mId);
-			if (result == 0) {
-				bool = false;
-				break;
-			}
-		}
-		if (bool) {
-			JdbcTemp.commit(conn);
-		} else {
-			JdbcTemp.rollback(conn);
-		}
-
-		JdbcTemp.close(conn);
-		return result;
-	}
+//	public int cartDelete(int[] cNo, String mId) {
+//		int result = 0;
+////		JdbcTemp.setAutocommit(conn, false);
+//		boolean bool = true;
+//
+//		for (int i = 0; i < cNo.length; i++) {
+//			result = dao.cartDelete(conn, cNo[i], mId);
+//			if (result == 0) {
+//				bool = false;
+//				break;
+//			}
+//		}
+////		if (bool) {
+////			JdbcTemp.commit(conn);
+////		} else {
+////			JdbcTemp.rollback(conn);
+////		}
+//
+//		return result;
+//	}
 
 }
