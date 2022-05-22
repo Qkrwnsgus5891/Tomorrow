@@ -2,6 +2,7 @@ package kh.semi.tomorrow.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +33,9 @@ public class AdProductManagePageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("상품 관리 페이지로 이동합니다.");
-		int currentPage = 1;		
+		int currentPage = 1;
+		// spring
+		int boardLimit= 6; // 한 페이지에 보여질 게시판 최대 개수
 		String currentPageStr = request.getParameter("page");
 		
 		try {
@@ -76,7 +79,8 @@ public class AdProductManagePageServlet extends HttpServlet {
 			endNum = totalCnt;
 		}
 		System.out.println("rnum:"+ startNum +"~"+endNum+"\n");
-		ArrayList<ProductVo> productlist = new AdminService().seachAllProduct(startNum, endNum);
+//		ArrayList<ProductVo> productlist = new AdminService().seachAllProduct(startNum, endNum);
+		List<ProductVo> productlist = new AdminService().seachAllProduct(currentPage, boardLimit);
 		System.out.println("[AdProductManagePageServlet]\n" + productlist );
 		
 		request.setAttribute("productList", productlist);

@@ -2,6 +2,7 @@ package kh.semi.tomorrow.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +34,8 @@ public class AdStoryBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AdStoryBoardListServlet - doGet");
 		int currentPage = 1;		
+		// spring 
+		int boardLimit = 8;
 		String currentPageStr = request.getParameter("page");
 		
 		try {
@@ -42,7 +45,7 @@ public class AdStoryBoardListServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		final int pageSize = 10;  // 한페이지에 보여줄 행
+		final int pageSize = 6;  // 한페이지에 보여줄 행
 		final int pageBlock = 3;  // 페이징에 나타날 페이지수
 		int startPage=0;
 		int endPage=0;
@@ -74,7 +77,8 @@ public class AdStoryBoardListServlet extends HttpServlet {
 		}
 		System.out.println("rnum:"+ startNum +"~"+endNum);	
 		
-		ArrayList<StoryBoardVo> boardlist = new AdminService().boardList(startNum, endNum);
+//		ArrayList<StoryBoardVo> boardlist = new AdminService().boardList(startNum, endNum);
+		List<StoryBoardVo> boardlist = new AdminService().boardList(currentPage, boardLimit);
 		System.out.println("AdStoryBoardListServlet - doGet()\n[boardlist]\n" + boardlist + "\n");		
 		
 		request.setAttribute("boardlist", boardlist);

@@ -16,7 +16,7 @@
 			alias="StoryBoard" />
 		<typeAlias type="kh.semi.tomorrow.product.model.vo.ProductVo"
 			alias="Product" />
-
+		<typeAlias type="kh.semi.tomorrow.admin.model.vo.MemberOrderListVo" alias="AdminOrderList"/>
   	</typeAliases>
 
   <environments default="tomorrowPclass">
@@ -46,6 +46,7 @@
     <mapper resource="mybatis/mappers/order-mapper.xml"/>
     <mapper resource="mybatis/mappers/product-mapper.xml" />
     <mapper resource="kh/semi/tomorrow/storyboard/model/storyboard-mapper.xml"/>
+    <mapper resource="mybatis/mappers/admin-mapper.xml" />
   </mappers>
 </configuration>
 

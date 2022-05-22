@@ -2,6 +2,7 @@ package kh.semi.tomorrow.admin.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import kh.semi.tomorrow.admin.model.dao.AdminDao;
 import kh.semi.tomorrow.admin.model.vo.MemberOrderListVo;
@@ -31,10 +32,8 @@ public class AdminService {
 	}
 	
 	// 페이징 처리한 모든 상품 조회
-	public ArrayList<ProductVo> seachAllProduct(int startNum, int endNum ) {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<ProductVo> volist = dao.seachAllProduct(conn, startNum, endNum);
-		JdbcTemp.close(conn);
+	public List<ProductVo> seachAllProduct(int currentPage, int boardLimit ) {		
+		List<ProductVo> volist = dao.seachAllProduct(currentPage, boardLimit);		
 		return volist;
 	}
 	
@@ -177,21 +176,12 @@ public class AdminService {
 		JdbcTemp.close(conn);
 		return result;
 	}
-	// 회원들의 주문 목록 조회
-	public ArrayList<MemberOrderListVo> selectOrderList() {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<MemberOrderListVo> orderlist = dao.selectOrderList(conn);
-		JdbcTemp.close(conn);
+	// 회원들의 주문 목록 조회	
+	// Spring 페이징 처리 + 회원들의 주문 목록 조회
+	public List<MemberOrderListVo> selectOrderList(int currentPage, int boardLimit) {		
+		List<MemberOrderListVo> orderlist = dao.selectOrderList(currentPage, boardLimit);		
 		return orderlist;		
-	}
-	
-	public ArrayList<MemberOrderListVo> selectOrderList(int startNum, int endNum) {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<MemberOrderListVo> orderlist = dao.selectOrderList(conn, startNum, endNum);
-		JdbcTemp.close(conn);
-		return orderlist;		
-	}
-	
+	}	
 	
 	// 모든 회원 목록
 	public ArrayList<MemberVo> selectAllMember() {
@@ -210,11 +200,15 @@ public class AdminService {
 		return result;
 	}
 	
-	public ArrayList<MemberVo> selectAllMember(int startNum, int endNum) {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<MemberVo> volist = dao.selectAllMember(conn, startNum, endNum);
-		JdbcTemp.close(conn);
-		return volist;
+//	public ArrayList<MemberVo> selectAllMember(int startNum, int endNum) {
+//		Connection conn = JdbcTemp.getConnection();
+//		ArrayList<MemberVo> volist = dao.selectAllMember(conn, startNum, endNum);
+//		JdbcTemp.close(conn);
+//		return volist;
+//	}
+	public List<MemberVo> selectAllMember(int currentPage, int boardLimit) {		
+		List<MemberVo> volist = dao.selectAllMember(currentPage, boardLimit);		
+		return volist;	
 	}
 	
 	// 탍퇴한 회원들의 목록
@@ -266,19 +260,11 @@ public class AdminService {
 		result=dao.countMember(conn);
 		JdbcTemp.close(conn);
 		return result;
-	}
+	}	
 	
-	public ArrayList<StoryBoardVo> boardList() {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<StoryBoardVo> boardlist = dao.boardList(conn);
-		JdbcTemp.close(conn);
-		return boardlist;
-	}
 	
-	public ArrayList<StoryBoardVo> boardList(int startNum, int endNum) {
-		Connection conn = JdbcTemp.getConnection();
-		ArrayList<StoryBoardVo> boardlist = dao.boardList(conn, startNum, endNum);
-		JdbcTemp.close(conn);
+	public List<StoryBoardVo> boardList(int currnetPage, int boardLimit) {		
+		List<StoryBoardVo> boardlist = dao.boardList(currnetPage, boardLimit);		
 		return boardlist;
 	}
 	

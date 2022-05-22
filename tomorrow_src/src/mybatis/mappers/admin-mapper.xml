@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+
+	<resultMap type="kh.semi.tomorrow.admin.model.vo.MemberOrderListVo" id="orderlist">
+		<result column="product_img_name" property="productImgName" />
+		<result column="p_brand" property="pBrand" />
+		<result column="p_name" property="pName" />
+		<result column="o_no" property="oNo" />
+		<result column="O_detail_cnt" property="oDcnt" />
+		<result column="o_date" property="oDate" />
+		<result column="O_TOTAL_PRICE" property="oTotalPrice" />
+		<result column="O_NAME" property="oName" />
+	</resultMap>
+	
+	<resultMap type="kh.semi.tomorrow.product.model.vo.ProductVo" id="allProduct">
+		<result column="PRODUCT_IMG_NAME" property="productImgName" />
+		<result column="CATEGORY_ID" property="cateId" />
+		<result column="CATEGORY_NAME" property="cateName" />
+		<result column="P_NO" property="pNo" />
+		<result column="P_BRAND" property="pBrand" />
+		<result column="P_NAME" property="pName" />
+		<result column="P_CONTENT" property="pContent" />
+		<result column="P_PRICE" property="pPrice" />		
+	</resultMap>
+	
+	<resultMap type="kh.semi.tomorrow.member.model.vo.MemberVo" id="memberlist">
+		<result column="M_ID" property="mId" />
+		<result column="M_NAME" property="mName" />
+		<result column="M_NICKNAME" property="mNickname" />
+		<result column="M_BIRTH" property="mBrith" />
+		<result column="M_PHONE" property="mPhone" />
+		<result column="M_DATE" property="mDate" />
+		<result column="M_NY" property="mNy" />
+	</resultMap>
+
+	<resultMap	type="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo" id="boardlist">
+		<result column="b_no" property="bNo" />
+		<result column="b_title" property="bTitle" />
+		<result column="b_writer" property="bWriter" />
+		<result column="b_date" property="bDate" />
+		<result column="b_cnt" property="bCnt" />
+	</resultMap>
+	
+<!-- 
+		sql  
+-->
+
+	<!-- 주문 목록 조회 -->
+	<select id="selectOrderList" parameterType="kh.semi.tomorrow.admin.model.vo.MemberOrderListVo" resultMap="orderlist">
+		select i.product_img_name, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt,
+			o.o_date, o.O_TOTAL_PRICE, o.O_NAME
+			from orders o join order_detail od on o.O_NO= od.O_NO
+			join product p on p.p_no = od.P_NO
+			join product_img i on i.p_no = p.p_no
+			order by o.o_no desc
+	</select>
+	
+	<!-- 모든 상품 목록 조회 -->
+	<select id="seachAllProduct" parameterType="kh.semi.tomorrow.product.model.vo.ProductVo" resultMap="allProduct">
+		select i.PRODUCT_IMG_NAME, C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,
+				P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE
+				from PRODUCT P JOIN PRODUCT_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID
+				join product_img i on i.p_no = p.p_no
+				order by p_no desc
+	</select>
+	
+	<!-- 관리자를 제외한 회원 목록 조회 -->
+	<select id="selectAllMember" parameterType="kh.semi.tomorrow.member.model.vo.MemberVo" resultMap="memberlist">
+		select M_ID, M_NAME, M_NICKNAME, 
+				 M_BIRTH, M_PHONE, M_DATE, M_NY from member 
+				 where m_name != '관리자'
+	</select>
+	
+	<!-- 게시판 목록 조회 -->
+	<select id="boardList"	parameterType="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo" resultMap="boardlist">
+		select b_no, b_title, b_writer,	b_date, b_cnt from story
+	</select>
+</mapper>

@@ -2,6 +2,7 @@ package kh.semi.tomorrow.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +36,8 @@ public class AdMemberListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("AdMemberListServlet - doGet");		
 		int currentPage = 1;		
+		// spring
+		int boardLimit= 10; // 한 페이지에 보여질 게시판 최대 개수 
 		String currentPageStr = request.getParameter("page");
 		
 		try {
@@ -77,8 +80,8 @@ public class AdMemberListServlet extends HttpServlet {
 		}
 		System.out.println("rnum:"+ startNum +"~"+endNum+"\n");
 		
-		ArrayList<MemberVo> memberlist = new AdminService().selectAllMember(startNum, endNum);
-		
+//		ArrayList<MemberVo> memberlist = new AdminService().selectAllMember(startNum, endNum);
+		List<MemberVo> memberlist = new AdminService().selectAllMember(currentPage, boardLimit);
 		System.out.println("AdMemberListServlet - doGet()\n[memberlist]\n" + memberlist+"\n");
 		System.out.println("AdMemberListServlet - doGet()\n총 회원 수 : " + totalCnt + "명\n");
 		

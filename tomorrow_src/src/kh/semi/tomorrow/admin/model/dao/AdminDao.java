@@ -9,14 +9,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 
 import kh.semi.tomorrow.admin.model.vo.MemberOrderListVo;
 import kh.semi.tomorrow.common.JdbcTemp;
+import kh.semi.tomorrow.common.JdbcUtil;
 import kh.semi.tomorrow.member.model.vo.MemberVo;
 import kh.semi.tomorrow.order.model.vo.OrderVo;
 import kh.semi.tomorrow.product.model.vo.ProductDetailVo;
 import kh.semi.tomorrow.product.model.vo.ProductVo;
 import kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo;
+import static kh.semi.tomorrow.common.JdbcUtil.getSqlSession;
 
 public class AdminDao {
 	private Statement stmt = null;
@@ -130,57 +135,9 @@ public class AdminDao {
 		return productList;
 	}
 	
-	public ArrayList<ProductVo> seachAllProduct(Connection conn, int startNum, int endNum) {
-		ArrayList<ProductVo> productList = null;
-		String sql = "select * "
-				+ "    from( select rownum r, t1.* "
-				+ "        from (select i.PRODUCT_IMG_NAME, C.CATEGORY_ID, C.CATEGORY_NAME, P.P_NO,"
-				+ "   		P.P_BRAND, P.P_NAME, P.P_CONTENT, P.P_PRICE"
-				+ "		    from PRODUCT P JOIN PRODUCT_CATEGORY C ON P.CATEGORY_ID = C.CATEGORY_ID"
-				+ "    		join product_img i on i.p_no = p.p_no"
-				+ "    		order by p_no desc "
-				+ "        ) t1 "
-				+ "    )"
-				+ "    where r between ? and ?";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startNum);
-			pstmt.setInt(2, endNum);
-			rs = pstmt.executeQuery();
-			
-			
-			productList = new ArrayList<ProductVo>();				
-			while(rs.next()) {
-				ProductVo product = new ProductVo();
-				
-				product.setProductImgName(rs.getString("PRODUCT_IMG_NAME"));
-				product.setCateId(rs.getInt("CATEGORY_ID"));
-				product.setCateName(rs.getString("CATEGORY_NAME"));
-				product.setpNo(rs.getInt("P_NO"));
-				product.setpBrand(rs.getString("P_BRAND"));
-				product.setpName(rs.getString("P_NAME"));
-				product.setpContent(rs.getString("P_CONTENT"));
-				product.setpPrice(rs.getInt("P_PRICE"));
-				
-				productList.add(product);
-			}			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemp.close(rs);
-			JdbcTemp.close(pstmt);
-		}
-		
-		
-		if(productList == null) {
-			System.out.println("AdminDao-seachAllProduct()의 상품 목록 조회에 실패하였습니다.\n[productlist]\t" + productList + "\n");
-		} else {
-			System.out.println("AdminDao-seachAllProduct()에 의해 상품 목록이 조회되었습니다.\n[productlist]\t" + productList + "\n");		
-		}
-		
-		return productList;
+	public List<ProductVo> seachAllProduct(int currentPage, int boardLimit) {		
+		RowBounds rowBounds = new RowBounds((currentPage -1) * boardLimit, boardLimit);; 
+		return getSqlSession().selectList("adminMapper.seachAllProduct", null, rowBounds);
 	}
 	
 	public ArrayList<ProductVo> seachAllProduct(Connection conn, int startNum, int endNum, int pageCateId) {
@@ -596,100 +553,12 @@ public class AdminDao {
 		return result;
 	}
 	
-	// 2. 주문 내역 조회	
-	public ArrayList<MemberOrderListVo> selectOrderList(Connection conn) {
-		ArrayList<MemberOrderListVo> orderlist = null;		
-		String sql = "select i.product_img_name, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt"
-				+ "    	o.o_date, o.O_TOTAL_PRICE, o.O_NAME"
-				+ "     	from orders o join order_detail od on o.O_NO= od.O_NO"
-				+ "         join product p on p.p_no = od.P_NO"
-				+ "         join product_img i on i.p_no = p.p_no"
-				+ "         order by o.o_no desc";
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			orderlist = new ArrayList<MemberOrderListVo>();
-			
-			while(rs.next()) {
-				MemberOrderListVo vo = new MemberOrderListVo();
-				
-				vo.setProductImgName(rs.getString("product_img_name"));
-				vo.setpBrand(rs.getString("p_brand"));
-				vo.setpName(rs.getString("p_name"));
-				vo.setoNo(rs.getInt("o_no"));
-				vo.setoDcnt(rs.getInt("o_detail_cnt"));
-				vo.setoDate(rs.getTimestamp("o_date"));
-				vo.setoTotalPrice(rs.getInt("o_total_price"));
-				vo.setoName(rs.getString("o_name"));
-				
-				orderlist.add(vo);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemp.close(rs);
-			JdbcTemp.close(pstmt);
-		}
-		
-		if(orderlist == null) {
-			System.out.println("AdminDao-selectOrderList()의 회원 목록 조회에 실패하였습니다.\n");
-		} else {
-			System.out.println("AdaminDao-selectOrderList()에 의해 목록이 조회되었습니다.\n[orderlist]\n" + orderlist + "\n");		
-		}		
-		return orderlist;
-	}
-	
-	public ArrayList<MemberOrderListVo> selectOrderList(Connection conn, int startNum, int endNum) {
-		ArrayList<MemberOrderListVo> orderlist = null;
-		String sql = "select * "
-				+ "    from( select rownum r, t1.* "
-				+ "        from (select i.product_img_name, p.p_brand, p.p_name, o.o_no, od.O_detail_cnt,"
-				+ "                o.o_date, o.O_TOTAL_PRICE, o.O_NAME "
-				+ "                from orders o join order_detail od on o.O_NO= od.O_NO"
-				+ "                join product p on p.p_no = od.P_NO"
-				+ "                join product_img i on i.p_no = p.p_no"
-				+ "                order by o.o_no desc"
-				+ "        ) t1 "
-				+ "    )"
-				+ "    where r between ? and ?";	
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startNum);
-			pstmt.setInt(2, endNum);
-			rs = pstmt.executeQuery();
-			orderlist = new ArrayList<MemberOrderListVo>();
-			
-			while(rs.next()) {
-				MemberOrderListVo vo = new MemberOrderListVo();
-				
-				vo.setProductImgName(rs.getString("product_img_name"));
-				vo.setpBrand(rs.getString("p_brand"));
-				vo.setpName(rs.getString("p_name"));
-				vo.setoNo(rs.getInt("o_no"));
-				vo.setoDcnt(rs.getInt("o_detail_cnt"));
-				vo.setoDate(rs.getTimestamp("o_date"));
-				vo.setoTotalPrice(rs.getInt("o_total_price"));
-				vo.setoName(rs.getString("o_name"));
-				
-				orderlist.add(vo);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemp.close(rs);
-			JdbcTemp.close(pstmt);
-		}
-		
-		if(orderlist == null) {
-			System.out.println("AdminDao-selectOrderList()의 회원 목록 조회에 실패하였습니다.\n");
-		} else {
-			System.out.println("AdaminDao-selectOrderList()에 의해 목록이 조회되었습니다.\n[orderlist]\n" + orderlist + "\n");		
-		}		
-		return orderlist;
-	}
+	// 2. 주문 내역 조회		
+	// spring 회원 주문 목록 페이징 처리 
+	public List<MemberOrderListVo> selectOrderList(int currentPage, int boardLimit) {		
+		RowBounds rowBounds = new RowBounds((currentPage -1) * boardLimit, boardLimit);
+		return getSqlSession().selectList("adminMapper.selectOrderList", null, rowBounds);
+	}	
 	
 	public int countOrderList(Connection conn) {
 		int result = 0;		
@@ -754,6 +623,11 @@ public class AdminDao {
 			System.out.println("AdaminDao-selectAllMember()에 의해 목록이 조회되었습니다.\n[boardlist]\t" + memberlist + "\n");		
 		}
 		return memberlist;
+	}
+	
+	public List<MemberVo> selectAllMember(int currentPage, int boardLimit) {
+		RowBounds rowBounds = new RowBounds((currentPage -1) * boardLimit, boardLimit);
+		return getSqlSession().selectList("adminMapper.selectAllMember", null, rowBounds);
 	}
 	
 	public ArrayList<MemberVo> selectAllMember(Connection conn, int startNum, int endNum) {
@@ -905,82 +779,12 @@ public class AdminDao {
 		return result;
 	}
 	
-	// 4. 게시물 관리
-	public ArrayList<StoryBoardVo> boardList(Connection conn) {
-		ArrayList<StoryBoardVo> boardlist = null;
-		String sql = "select b_no, b_title, b_writer, b_date, b_cnt from story";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			boardlist = new ArrayList<StoryBoardVo>();
-			
-			while(rs.next()) {
-				StoryBoardVo vo = new StoryBoardVo();
-				vo.setbNo(rs.getInt("b_no"));
-				vo.setbTitle(rs.getString("b_title"));
-				vo.setbWriter(rs.getString("b_writer"));
-				vo.setbDate(rs.getTimestamp("b_date"));
-				vo.setbCnt(rs.getInt("b_cnt"));
-				
-				boardlist.add(vo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemp.close(rs);
-			JdbcTemp.close(pstmt);
-		}
-		
-		if(boardlist == null) {
-			System.out.println("AdaminDao-boardList()의 게시글 목록 조회에 실패하였습니다.\n[boardlist]\n" + boardlist + "\n");
-		} else {
-			System.out.println("AdaminDao-boardList()로 인해 목록이 조회되었습니다.\n[boardlist]\t" + boardlist + "\n");		
-		}		
-		return boardlist;
-	}
-	
-	public ArrayList<StoryBoardVo> boardList(Connection conn, int startNum, int endNum) {
-		ArrayList<StoryBoardVo> boardlist = null;
-		String sql = "select *"
-				+ "    from (select rownum r, t1.*"
-				+ "            from (select s1.b_no, s1.b_title, s1.b_writer, s1.b_date, s1.b_cnt"
-				+ "                    from story s1 order by b_date desc, b_no desc) t1"
-				+ "    		)"
-				+ "	where r between ? and ?";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startNum);
-			pstmt.setInt(2, endNum);			
-			rs = pstmt.executeQuery();
-			
-			boardlist = new ArrayList<StoryBoardVo>();
-			
-			while(rs.next()) {
-				StoryBoardVo vo = new StoryBoardVo();
-				vo.setbNo(rs.getInt("b_no"));
-				vo.setbTitle(rs.getString("b_title"));
-				vo.setbWriter(rs.getString("b_writer"));
-				vo.setbDate(rs.getTimestamp("b_date"));
-				vo.setbCnt(rs.getInt("b_cnt"));
-				
-				boardlist.add(vo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JdbcTemp.close(rs);
-			JdbcTemp.close(pstmt);
-		}
-		
-		if(boardlist == null) {
-			System.out.println("AdaminDao-boardList()의 게시글 목록 조회에 실패하였습니다.\n[boardlist]\n" + boardlist + "\n");
-		} else {
-			System.out.println("AdaminDao-boardList()로 인해 목록이 조회되었습니다.\n[boardlist]\t" + boardlist + "\n");		
-		}		
-		return boardlist;
-	}
+	// 4. 게시물 관리		
+	// spring 페이징 처리한 게시판 목록 조회
+	public List<StoryBoardVo> boardList(int currentPage, int boardLimit) {
+		RowBounds rowBounds = new RowBounds((currentPage -1) * boardLimit, boardLimit);
+		return getSqlSession().selectList("adminMapper.boardList", null, rowBounds);
+	}	
 	
 	public int countBoard(Connection conn) {
 		int result = 0;
@@ -1003,7 +807,7 @@ public class AdminDao {
 		if(result == 0) {
 			System.out.println("AdminDao-countBoard()의 게시글 개수 조회에 실패하였습니다.\n");
 		} else {
-			System.out.println("AdminDao-countBoard()의 게시글 개수 조회를 수행합니다. \n[bresult]\t" + result + "\n");
+			System.out.println("AdminDao-countBoard()의 게시글 개수 조회를 수행합니다. \n[result]\t" + result + "\n");
 		}
 		return result;
 	}
