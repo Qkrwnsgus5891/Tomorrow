@@ -2,6 +2,7 @@ package kh.semi.tomorrow.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,9 +61,7 @@ public class ProductListServlet extends HttpServlet {
 		final int pageBlock = 5; // 페이징에 나타날 페이지수
 		int startPage = 0;
 		int endPage = 0;
-		int startRnum = 0;
-		int endRnum = 0;
-
+		
 		int totalCnt = 0; // 총 글 수
 		totalCnt = countProduct(pageCateId);
 
@@ -80,15 +79,8 @@ public class ProductListServlet extends HttpServlet {
 		}
 		System.out.println("page:" + startPage + "~" + endPage);
 
-		startRnum = (currentPage - 1) * pageSize + 1;
-		endRnum = startRnum + pageSize - 1;
-		if (endRnum > totalCnt) {
-			endRnum = totalCnt;
-		}
-		System.out.println("rnum:" + startRnum + "~" + endRnum);
-		  
 		
-		ArrayList<ProductVo> result = service.selectAllProduct(startRnum, endRnum, pageCateId, pNo);
+		List<ProductVo> result = service.selectAllProduct(currentPage, pageSize, pageCateId, pNo);
 		System.out.println(result);
 
 		request.setAttribute("selectAllProduct", result);

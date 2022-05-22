@@ -44,14 +44,14 @@ public class ProductSelectServlet extends HttpServlet {
 			
 		ProductVo result = new ProductService().selectProduct(pNo);
 		System.out.println(result);
-		ArrayList<StoryBoardVo> result2 = new ProductService().listStoryBoard(pNo);
+//		ArrayList<StoryBoardVo> result2 = new ProductService().listStoryBoard(pNo);
 		
 		result.setpContent(result.getpContent().replaceAll("(\r\n|\n)", "<br>"));
 		System.out.println(result);
 		
 	
 		request.setAttribute("selectProduct", result);
-		request.setAttribute("listStoryBoard", result2);
+//		request.setAttribute("listStoryBoard", result2);
 		
 		
 		request.getRequestDispatcher("WEB-INF/view/product/productDetail.jsp").forward(request, response);

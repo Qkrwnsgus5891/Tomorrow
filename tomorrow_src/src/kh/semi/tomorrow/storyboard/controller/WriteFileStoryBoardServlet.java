@@ -2,6 +2,7 @@ package kh.semi.tomorrow.storyboard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,7 @@ public class WriteFileStoryBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet - storyenroll");
 		
-		ArrayList<ProductVo> volist = new ProductService().selectAllProduct();
+		List<ProductVo> volist = new ProductService().selectAllProduct();
 		System.out.println(volist);
 		request.setAttribute("listProduct", volist);
 		MemberVo ssvo = (MemberVo)request.getSession().getAttribute("ssMV");

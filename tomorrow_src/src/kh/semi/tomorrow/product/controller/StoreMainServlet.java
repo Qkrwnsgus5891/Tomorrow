@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,7 +48,7 @@ public class StoreMainServlet extends HttpServlet {
 
 
 
-		ArrayList<ProductVo> result =  service.selectAllProduct(pNo);
+		List<ProductVo> result =  service.selectAllProduct(pNo);
 		System.out.println("결과"+result+" pNo"+pNo);
 		
 		request.setAttribute("pageCateId", pageCateId);

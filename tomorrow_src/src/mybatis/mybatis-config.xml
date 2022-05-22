@@ -2,18 +2,22 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-  <properties resource="mybatis/db.properties"/>
+	<properties resource="mybatis/db.properties" />
 
-  <settings>
-  	<setting name="jdbcTypeForNull" value="NULL"/>
-  </settings>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
 
-  <typeAliases>
-  	<typeAlias type="kh.semi.tomorrow.cart.model.vo.CartVo" alias="Cart"/>
-  	<typeAlias type="kh.semi.tomorrow.order.model.vo.OrderVo" alias="Order"/>
-  	<typeAlias type="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo" alias="StoryBoard"/>
+	<typeAliases>
+		<typeAlias type="kh.semi.tomorrow.cart.model.vo.CartVo"
+			alias="Cart" />
+  		<typeAlias type="kh.semi.tomorrow.order.model.vo.OrderVo" alias="Order"/>
+  		<typeAlias type="kh.semi.tomorrow.storyboard.model.vo.StoryBoardVo"
+			alias="StoryBoard" />
+		<typeAlias type="kh.semi.tomorrow.product.model.vo.ProductVo"
+			alias="Product" />
 
-  </typeAliases>
+  	</typeAliases>
 
   <environments default="tomorrowPclass">
     <environment id="tomorrowPclass">
@@ -40,6 +44,7 @@
     <mapper resource="mybatis/mappers/cart-mapper.xml"/>
     <mapper resource="mybatis/mappers/member-mapper.xml"/>
     <mapper resource="mybatis/mappers/order-mapper.xml"/>
+    <mapper resource="mybatis/mappers/product-mapper.xml" />
     <mapper resource="kh/semi/tomorrow/storyboard/model/storyboard-mapper.xml"/>
   </mappers>
 </configuration>
